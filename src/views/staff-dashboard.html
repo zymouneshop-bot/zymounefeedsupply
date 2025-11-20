@@ -1,0 +1,3584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZYMOUNE - Staff Kiosk</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #d2b48c 0%, #bc9a6a 100%);
+            min-height: 100vh;
+            color: #8b7355;
+        }
+        
+        .header {
+            background: rgba(245, 245, 220, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+        
+        .logo h1 {
+            color: #8b7355;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .header-logo {
+            object-fit: cover;
+        }
+        
+        .staff-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .staff-avatar {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, #d2b48c 0%, #bc9a6a 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #8b7355;
+            font-weight: bold;
+        }
+        
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .left-panel {
+            background: rgba(245, 245, 220, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .right-panel {
+            background: rgba(245, 245, 220, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: #8b7355;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .qr-scanner-section {
+            margin-bottom: 2rem;
+        }
+        
+        .qr-input-group {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .qr-input {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid #d2b48c;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: #f5f5dc;
+            color: #8b7355;
+        }
+        
+        .qr-input:focus {
+            outline: none;
+            border-color: #8b7355;
+            box-shadow: 0 0 0 3px rgba(139, 115, 85, 0.1);
+        }
+        
+        .btn {
+            padding: 1rem 1.5rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #d2b48c 0%, #bc9a6a 100%);
+            color: #8b7355;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(210, 180, 140, 0.3);
+        }
+        
+        .btn-success {
+            background: linear-gradient(135deg, #d2b48c 0%, #bc9a6a 100%);
+            color: #8b7355;
+        }
+        
+        .btn-success:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(210, 180, 140, 0.3);
+        }
+        
+        .btn-danger {
+            background: linear-gradient(135deg, #d2b48c 0%, #bc9a6a 100%);
+            color: #8b7355;
+        }
+        
+        .btn-danger:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(210, 180, 140, 0.3);
+        }
+        
+        .btn-secondary {
+            background: #a09080;
+            color: #8b7355;
+        }
+        
+        .btn-secondary:hover {
+            background: #8b7355;
+            transform: translateY(-2px);
+        }
+        
+        .cart-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            margin-bottom: 1rem;
+            max-height: calc(4 * 105px);
+            display: flex;
+            flex-direction: column;
+            padding-right: 5px;
+        }
+        
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem;
+            border: 1px solid #d2b48c;
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+            background: #f5f5dc;
+            min-width: 0;
+            flex-shrink: 0;
+        }
+        
+        .cart-item-image {
+            width: 60px;
+            height: 60px;
+            background: #d2b48c;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+        
+        .cart-item-details {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+        
+        .cart-item-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+        
+        .cart-item-unit {
+            font-size: 0.8rem;
+            color: #a09080;
+            margin-bottom: 0.25rem;
+            text-transform: capitalize;
+        }
+        
+        .cart-item-price {
+            color: #8b7355;
+            font-weight: 600;
+        }
+        
+        .cart-item-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .quantity-btn {
+            width: 30px;
+            height: 30px;
+            border: 1px solid #d2b48c;
+            background: #f5f5dc;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .quantity-btn:hover {
+            background: #d2b48c;
+        }
+        
+        .quantity-input {
+            width: 50px;
+            text-align: center;
+            border: 1px solid #d2b48c;
+            border-radius: 5px;
+            padding: 0.25rem;
+            background: #f5f5dc;
+            color: #8b7355;
+        }
+        
+        .unit-selector {
+            margin: 1rem 0;
+        }
+        
+        .unit-selector label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #8b7355;
+        }
+        
+        .unit-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .unit-btn {
+            flex: 1;
+            padding: 1rem;
+            border: 2px solid #d2b48c;
+            background: #f5f5dc;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.25rem;
+        }
+        
+        .unit-btn:hover {
+            border-color: #8b7355;
+            background: #d2b48c;
+        }
+        
+        .unit-btn.selected {
+            border-color: #8b7355;
+            background: #d2b48c;
+            color: #8b7355;
+        }
+
+        /* Multi-unit selector styles */
+        .multi-unit-selector {
+            margin: 1rem 0;
+        }
+        
+        .multi-unit-selector label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #8b7355;
+        }
+        
+        .unit-quantity-groups {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .unit-quantity-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border: 2px solid #d2b48c;
+            background: #f5f5dc;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        
+        .unit-quantity-group:hover {
+            border-color: #8b7355;
+            background: #d2b48c;
+        }
+        
+        .unit-info {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .unit-icon {
+            font-size: 1.2rem;
+        }
+        
+        .unit-name {
+            font-weight: 600;
+            color: #8b7355;
+        }
+        
+        .unit-info small {
+            color: #666;
+            font-size: 0.8rem;
+        }
+        
+        .total-summary {
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #d2b48c;
+        }
+        
+        .summary-title {
+            font-weight: 600;
+            color: #8b7355;
+            margin-bottom: 0.5rem;
+        }
+        
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 0.25rem 0;
+            font-size: 0.9rem;
+        }
+        
+        .summary-total {
+            margin-top: 0.5rem;
+            padding-top: 0.5rem;
+            border-top: 1px solid #d2b48c;
+            font-size: 1.1rem;
+        }
+        
+        .unit-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            background: #f5f5dc;
+            border-color: #d2b48c;
+        }
+        
+        .unit-btn:disabled:hover {
+            border-color: #d2b48c;
+            background: #f5f5dc;
+        }
+        
+        .unit-btn small {
+            font-size: 0.8rem;
+            color: #a09080;
+        }
+        
+        .unit-btn.selected small {
+            color: #8b7355;
+            font-weight: 600;
+        }
+        
+        .cart-summary {
+            border-top: 2px solid #d2b48c;
+            padding-top: 0.75rem;
+            padding-bottom: 0.75rem;
+            margin-bottom: 0;
+            margin-top: auto;
+        }
+        
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+        
+        .summary-total {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #8b7355;
+        }
+        
+        
+        .product-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: #f5f5dc;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            animation: modalSlideIn 0.3s ease-out;
+            max-height: 90vh; /* Ensure modal is scrollable within viewport */
+            overflow-y: auto;
+        }
+        
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #d2b48c 0%, #bc9a6a 100%);
+            color: #8b7355;
+            padding: 1.5rem 2rem;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .close {
+            color: #8b7355;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+        
+        .close:hover {
+            opacity: 0.7;
+        }
+        
+        .modal-body {
+            padding: 2rem;
+            max-height: 70vh; /* Keep body scrollable by default */
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .product-details {
+            display: flex;
+            flex-direction: column; /* Stack image, description, then info */
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .product-image {
+            width: 200px;
+            height: 200px;
+            background: #d2b48c;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+        
+        .product-info {
+            flex: 1;
+        }
+        
+        .product-name {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-price {
+            font-size: 1.1rem;
+            color: #8b7355;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-description {
+            color: #a09080;
+            font-size: 0.9rem;
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .quantity-selector label {
+            font-weight: 600;
+        }
+        
+        .modal-actions {
+            display: flex;
+            gap: 1rem;
+            justify-content: flex-end;
+        }
+        
+        
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            color: white;
+            font-weight: 600;
+            z-index: 1001;
+            animation: slideInRight 0.3s ease-out;
+        }
+        
+        .notification.success {
+            background: linear-gradient(135deg, #d2b48c 0%, #bc9a6a 100%);
+        }
+        
+        .notification.error {
+            background: linear-gradient(135deg, #d2b48c 0%, #bc9a6a 100%);
+        }
+        
+        /* Hide any receipt content that might be visible */
+        #receipt, .receipt-content, .print-content {
+            display: none !important;
+            visibility: hidden !important;
+            position: absolute !important;
+            left: -9999px !important;
+            top: -9999px !important;
+        }
+
+        
+        .payment-section {
+            border-top: 1px solid #d2b48c;
+            padding-top: 1rem;
+            margin-top: 1rem;
+        }
+
+        .change-display {
+            background: #f5f5dc;
+            border: 1px solid #d2b48c;
+            border-radius: 6px;
+            padding: 0.75rem;
+            margin-top: 0.75rem;
+        }
+
+        .change-amount {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        .change-value {
+            color: #8b7355;
+            font-size: 1.3rem;
+        }
+
+        .form-group {
+            margin-bottom: 0.75rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.4rem;
+            font-weight: 500;
+            font-size: 0.9rem;
+            color: #8b7355;
+        }
+        
+        .form-group input {
+            width: 100%;
+            padding: 0.6rem;
+            border: 1px solid #d2b48c;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            box-sizing: border-box;
+            background: #f5f5dc;
+            color: #8b7355;
+        }
+        
+        .form-group input:focus {
+            outline: none;
+            border-color: #8b7355;
+            box-shadow: 0 0 0 2px rgba(139, 115, 85, 0.25);
+        }
+        
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        .empty-cart {
+            text-align: center;
+            color: #a09080;
+            padding: 2rem;
+        }
+        
+        .empty-cart-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            padding: 2rem;
+            color: #a09080;
+        }
+        
+        .spinner {
+            border: 3px solid #f3f3f3;
+            border-top: 3px solid #d2b48c;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 1rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .category-filters {
+            display: flex;
+            gap: 0.5rem;
+            margin: 1rem 0;
+            justify-content: center;
+        }
+        
+        .category-btn {
+            padding: 0.5rem 1rem;
+            border: 2px solid #d2b48c;
+            background: #f5f5dc;
+            color: #8b7355;
+            border-radius: 25px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .category-btn:hover {
+            background: #d2b48c;
+            color: #8b7355;
+            transform: translateY(-1px);
+        }
+        
+        .category-btn.active {
+            background: #d2b48c;
+            color: #8b7355;
+            box-shadow: 0 2px 8px rgba(210, 180, 140, 0.3);
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 0.75rem;
+            margin-top: 1rem;
+        }
+
+        /* Scrollbar styling for products grid */
+        .products-grid::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        .products-grid::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        .products-grid::-webkit-scrollbar-thumb {
+            background: #d2b48c;
+            border-radius: 10px;
+        }
+
+        .products-grid::-webkit-scrollbar-thumb:hover {
+            background: #8b7355;
+        }
+        
+        .product-card {
+            background: #f5f5dc;
+            border: 1px solid #d2b48c;
+            border-radius: 8px;
+            padding: 0.75rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            border-color: #8b7355;
+        }
+        
+        .product-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-name {
+            font-weight: 600;
+            font-size: 1rem;
+            color: #8b7355;
+            margin: 0;
+            line-height: 1.2;
+        }
+        
+        .product-qr {
+            background: #f5f5dc;
+            color: #8b7355;
+            padding: 0.25rem 0.5rem;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .product-price {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #8b7355;
+            margin: 0.25rem 0;
+        }
+        
+        .product-stock {
+            color: #a09080;
+            font-size: 0.8rem;
+            margin-bottom: 0.25rem;
+            line-height: 1.4;
+            font-weight: 500;
+        }
+        
+        .product-description {
+            color: #a09080;
+            font-size: 0.8rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.3;
+        }
+        
+        .product-actions {
+            display: flex;
+            gap: 0.25rem;
+        }
+        
+        .product-add-guide {
+            text-align: center;
+            color: #8b7355;
+            font-size: 0.9rem;
+            font-weight: 500;
+            margin-top: auto;
+            padding: 0.5rem;
+            background: rgba(139, 115, 85, 0.1);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .product-add-guide:hover {
+            background: rgba(139, 115, 85, 0.2);
+            color: #6b5b47;
+        }
+        
+        .btn-sm {
+            padding: 0.375rem 0.75rem;
+            font-size: 0.8rem;
+        }
+        
+        .stock-low {
+            color: #8b7355;
+            font-weight: 600;
+        }
+        
+        .stock-out {
+            color: #8b7355;
+            font-weight: 700;
+        }
+        
+        @media (max-width: 768px) {
+            .main-container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+            
+            .header {
+                padding: 1rem;
+            }
+            
+            .logo h1 {
+                font-size: 1.5rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        
+        .product-image {
+            width: 100%;
+            height: 100px;
+            overflow: hidden;
+            border-radius: 6px 6px 0 0;
+            background: #f5f5dc;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            background: #f8f9fa;
+        }
+
+        .product-image-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #f5f5dc 0%, #d2b48c 100%);
+            font-size: 3rem;
+            color: #8b7355;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="/uploads/zymoune-logo.png" alt="ZYMOUNE FEEDS SUPPLY Logo" class="header-logo" style="height: 50px; width: 50px; margin-right: 10px; border-radius: 50%; object-fit: cover;" onerror="console.log('Logo failed to load:', this.src); this.style.display='none';">
+            <h1>ZYMOUNE Kiosk</h1>
+        </div>
+        <div class="staff-info">
+            <div class="staff-avatar" id="staffAvatar">👤</div>
+            <div>
+                <div id="staffName">Staff Member</div>
+                <div style="font-size: 0.8rem; color: #666;">Point of Sale</div>
+            </div>
+            <button class="btn btn-secondary" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <div class="left-panel">
+            <div class="section-title">
+                
+            </div>
+            
+            <div class="qr-scanner-section">
+                <div class="qr-input-group">
+                    <input type="text" id="qrInput" class="qr-input" placeholder="ENTER PRODUCT ID" autofocus>
+                    <button class="btn btn-primary" onclick="scanProduct()">
+                        🔍 Scan
+                    </button>
+                </div>
+            </div>
+            
+            <div class="loading" id="loadingMessage">
+                <div class="spinner"></div>
+                Processing...
+            </div>
+            
+            <div class="section-title" style="margin-top: 2rem;">
+                📦 Available Products
+            </div>
+            
+            <!-- Printer Test Section - Hidden as requested -->
+            <div class="printer-test-section" style="display: none !important; visibility: hidden !important; margin-bottom: 1rem; padding: 1rem; background: #f8f9fa; border-radius: 8px; border: 1px solid #dee2e6;">
+                <div style="font-size: 14px; font-weight: bold; margin-bottom: 10px; color: #495057;">
+                    🖨️ Printer Test Tools
+                </div>
+                <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                    <button onclick="testPrint()" style="padding: 8px 12px; font-size: 12px; background: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                        🧪 Test Print
+                    </button>
+                    <button onclick="diagnosePrinter()" style="padding: 8px 12px; font-size: 12px; background: #17a2b8; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                        🔍 Diagnose
+                    </button>
+                </div>
+            </div>
+            
+            
+            <div class="category-filters">
+                <button class="category-btn active" data-category="all" onclick="filterProducts('all')">ALL</button>
+                <button class="category-btn" data-category="feeds" onclick="filterProducts('feeds')">FEEDS</button>
+                <button class="category-btn" data-category="supplements" onclick="filterProducts('supplements')">SUPPLEMENTS</button>
+            </div>
+            
+            <div class="products-grid" id="productsGrid">
+                <div class="loading" id="productsLoading">
+                    <div class="spinner"></div>
+                    Loading products...
+                </div>
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <div class="section-title">
+                🛒 Order Cart
+            </div>
+            
+            
+            <div class="cart-section">
+                <div class="cart-header">
+                    <h3>Cart Items</h3>
+                    <button class="btn btn-danger btn-sm" onclick="clearCart()" id="clearCartBtn" style="display: none;">
+                        🗑️ Clear
+                    </button>
+                </div>
+                
+                <div class="cart-items" id="cartItems">
+                    <div class="empty-cart">
+                        <div class="empty-cart-icon">🛒</div>
+                        <p>No items in cart</p>
+                        <p style="font-size: 0.8rem;">Scan products to add them</p>
+                    </div>
+                </div>
+                
+                <div class="cart-summary" id="cartSummary">
+                    <div class="summary-row">
+                        <span>Subtotal:</span>
+                        <span id="subtotal">₱0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Tax (12%):</span>
+                        <span id="tax">₱0.00</span>
+                    </div>
+                    <div class="summary-row summary-total">
+                        <span>Total:</span>
+                        <span id="total">₱0.00</span>
+                    </div>
+                </div>
+                
+                <div class="payment-section" id="paymentSection" style="display: none;">
+                    <div class="form-group">
+                        <label for="customerEmail">Customer Email (Optional):</label>
+                        <input type="email" id="customerEmail" placeholder="Enter email for e-receipt">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="customerName">Customer Name (Optional):</label>
+                        <input type="text" id="customerName" placeholder="Enter customer name">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="customerPayment">Amount Received:</label>
+                        <input type="number" id="customerPayment" step="0.01" min="0" placeholder="Enter amount received">
+                    </div>
+                    
+                    <div class="change-display" id="changeDisplay" style="display: none;">
+                        <div class="change-amount">
+                            <span>Change:</span>
+                            <span id="changeAmount" class="change-value">₱0.00</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="btn btn-success" id="processOrderBtn" onclick="processOrder()" style="width: 100%; margin-top: 0;">
+                    💳 Process Order
+                </button>
+            </div>
+        </div>
+    </div>
+
+
+    
+    <div id="productModal" class="product-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>📦 Add Product to Cart</h2>
+                <span class="close" onclick="closeProductModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <div class="product-details">
+                    <div class="product-image" id="modalProductImage">📦</div>
+                    <div class="product-info">
+                        <div class="product-name" id="modalProductName">Product Name</div>
+                        <div class="product-price" id="modalProductPrice">₱0.00</div>
+                    </div>
+                </div>
+                
+                <div class="multi-unit-selector">
+                    <label>Select Units and Quantities:</label>
+                    <div class="unit-quantity-groups">
+                        <div class="unit-quantity-group">
+                            <div class="unit-info">
+                                <span class="unit-icon">📦</span>
+                                <span class="unit-name">Sack</span>
+                                <small id="sackStock">(0 available)</small>
+                            </div>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn" onclick="decreaseQuantity('sack')">-</button>
+                                <input type="number" id="sackQuantity" class="quantity-input" value="0" min="0" max="0">
+                                <button class="quantity-btn" onclick="increaseQuantity('sack')">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="unit-quantity-group">
+                            <div class="unit-info">
+                                <span class="unit-icon">⚖️</span>
+                                <span class="unit-name">Kilo</span>
+                                <small id="kiloStock">(0 available)</small>
+                            </div>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn" onclick="decreaseQuantity('kilo')">-</button>
+                                <input type="number" id="kiloQuantity" class="quantity-input" value="0" min="0" max="0">
+                                <button class="quantity-btn" onclick="increaseQuantity('kilo')">+</button>
+                            </div>
+                        </div>
+                        
+                        <div class="unit-quantity-group">
+                            <div class="unit-info">
+                                <span class="unit-icon">⚖️</span>
+                                <span class="unit-name">Half Kilo</span>
+                                <small id="halfKiloStock">(0 available)</small>
+                            </div>
+                            <div class="quantity-controls">
+                                <button class="quantity-btn" onclick="decreaseQuantity('half-kilo')">-</button>
+                                <input type="number" id="halfKiloQuantity" class="quantity-input" value="0" min="0" max="0">
+                                <button class="quantity-btn" onclick="increaseQuantity('half-kilo')">+</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="total-summary" id="totalSummary" style="display: none;">
+                    <div class="summary-title">Order Summary:</div>
+                    <div id="summaryItems"></div>
+                    <div class="summary-total">
+                        <strong>Total: <span id="summaryTotal">₱0.00</span></strong>
+                    </div>
+                </div>
+                
+                <div class="modal-actions">
+                    <button class="btn btn-secondary" onclick="closeProductModal()">Cancel</button>
+                    <button class="btn btn-success" onclick="addToCart()">Add to Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        
+        let currentUser = null;
+        let cart = [];
+        let currentProduct = null;
+        let products = [];
+        let filteredProducts = [];
+        let clearCartTimer = null;
+        
+        
+        function triggerForecastUpdate() {
+            try {
+                
+                window.dispatchEvent(new CustomEvent('newSaleProcessed'));
+                
+                
+                localStorage.setItem('newSaleAdded', Date.now().toString());
+                
+                
+                if (window.parent !== window) {
+                    window.parent.postMessage('newSaleProcessed', '*');
+                }
+                
+                console.log('🔄 Forecast update triggered');
+            } catch (error) {
+                console.log('📊 Forecast trigger error (ignored):', error);
+            }
+        }
+
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            checkAuth();
+            loadProducts();
+            setupEventListeners();
+            initSM8070Scanner();
+        });
+
+        
+        function checkAuth() {
+            const token = localStorage.getItem('token');
+            const user = localStorage.getItem('user');
+            
+            if (!token || !user) {
+                window.location.href = '/login.html';
+                return;
+            }
+            
+            try {
+                currentUser = JSON.parse(user);
+                document.getElementById('staffName').textContent = `${currentUser.firstName} ${currentUser.lastName}`;
+                document.getElementById('staffAvatar').textContent = currentUser.firstName.charAt(0).toUpperCase();
+            } catch (error) {
+                console.error('Error parsing user data:', error);
+                window.location.href = '/login.html';
+            }
+        }
+
+        
+        async function loadProducts() {
+            try {
+                console.log('📦 Loading products...');
+                const token = localStorage.getItem('token');
+                console.log('🔑 Token exists:', !!token);
+                
+                const response = await fetch(`/api/products?_t=${Date.now()}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Cache-Control': 'no-cache',
+                        'Pragma': 'no-cache'
+                    }
+                });
+                
+                console.log('📦 Response status:', response.status);
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    
+                    products = (data.products || []).map(product => ({
+                        ...product,
+                        id: product._id || product.id,
+                        customId: product.customId
+                    }));
+                    console.log('📦 Loaded products:', products.length);
+                    console.log('📦 Products data:', products);
+                    
+                    // Debug supplement products
+                    const supplements = products.filter(p => p.category === 'supplements');
+                    console.log('💊 Supplement products found:', supplements.length);
+                    supplements.forEach(product => {
+                        console.log('💊 Supplement product:', {
+                            name: product.name,
+                            stockSacks: product.stockSacks,
+                            stockKilos: product.stockKilos,
+                            stockHalfKilos: product.stockHalfKilos,
+                            category: product.category
+                        });
+                    });
+                    
+                    filteredProducts = products;
+                    displayProducts();
+                } else {
+                    const error = await response.json();
+                    console.log('❌ Failed to load products:', error);
+                    showNotification('Failed to load products', 'error');
+                }
+            } catch (error) {
+                console.error('Error loading products:', error);
+                showNotification('Error loading products', 'error');
+            }
+        }
+
+        
+        function displayProducts() {
+            const productsGrid = document.getElementById('productsGrid');
+            const productsLoading = document.getElementById('productsLoading');
+            
+            if (!productsGrid) {
+                console.error('productsGrid element not found');
+                return;
+            }
+            
+            if (products.length === 0) {
+                productsGrid.innerHTML = `
+                    <div style="grid-column: 1 / -1; text-align: center; padding: 2rem; color: #666;">
+                        <div style="font-size: 3rem; margin-bottom: 1rem;">📦</div>
+                        <p>No products available</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            const productsToShow = filteredProducts || products;
+            console.log('displayProducts called - showing', productsToShow.length, 'products');
+            productsGrid.innerHTML = productsToShow.map(product => {
+                const totalStock = getTotalStock(product);
+                console.log(`Product ${product.name} stock:`, {
+                    stock: product.stock,
+                    stockSacks: product.stockSacks,
+                    stockKilos: product.stockKilos,
+                    totalStock: totalStock
+                });
+                return `
+                <div class="product-card" onclick="addProductToCart('${product.id}')">
+                    <div class="product-image">
+                        ${product.imageUrl ? 
+                            `<img src="${product.imageUrl}" alt="${product.name}" style="width: 100%; height: 100px; object-fit: contain; border-radius: 6px 6px 0 0; background: #f8f9fa;" onerror="console.log('Image failed to load:', this.src); this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                            <div class="product-image-placeholder" style="display: none;">${product.animal === 'chicken' ? '🐔' : product.animal === 'pig' ? '🐷' : '📦'}</div>` :
+                            `<div class="product-image-placeholder">${product.animal === 'chicken' ? '🐔' : product.animal === 'pig' ? '🐷' : '📦'}</div>`
+                        }
+                    </div>
+                    <div class="product-card-header">
+                        <h3 class="product-name">${product.name}</h3>
+                    </div>
+                    <div class="product-price">₱${product.price.toFixed(2)}</div>
+                    <div class="product-stock ${getTotalStock(product) <= 0 ? 'stock-out' : getTotalStock(product) <= 3 ? 'stock-low' : ''}">
+                        ${product.category === 'feeds' ? 
+                            `Stock:<br>
+                            SACK: ${product.stockSacks || 0}<br>
+                            KILO: ${product.stockKilos || 0}<br>
+                            HALF KILO: ${product.stockHalfKilos || 0}` :
+                            `Stock: ${getTotalStock(product)} ${product.unit || 'units'}`
+                        }
+                    </div>
+                    <div class="product-description">
+                        ${product.description || 'No description available'}
+                    </div>
+                    <div class="product-add-guide">
+                        ➕ Add to Cart
+                    </div>
+                </div>
+                `;
+            }).join('');
+            
+            if (productsLoading) {
+                productsLoading.style.display = 'none';
+            }
+            
+            // Apply scrollable container only when 8 or more items
+            if (productsToShow.length >= 8) {
+                // Container fits exactly 8 cards (2 rows of 4 columns)
+                // Each card is approximately 280px tall (200px width + padding + gap)
+                // With 2 rows: ~580px, plus margins and gaps
+                productsGrid.style.maxHeight = '600px';
+                productsGrid.style.overflowY = 'auto';
+                productsGrid.style.paddingRight = '0.5rem';
+            } else {
+                productsGrid.style.maxHeight = 'none';
+                productsGrid.style.overflowY = 'visible';
+                productsGrid.style.paddingRight = '0';
+            }
+        }
+
+        
+        function selectProduct(productId) {
+            const product = products.find(p => p.id === productId);
+            if (product) {
+                document.getElementById('qrInput').value = product.customId || product.qrCode || product.id;
+            }
+        }
+
+        
+        function addProductToCart(productId) {
+            console.log('=== ADD TO CART DEBUG ===');
+            console.log('Product ID:', productId);
+            
+            const product = products.find(p => p.id === productId);
+            console.log('Found product:', product);
+            
+            if (!product) {
+                showNotification('Product not found', 'error');
+                return;
+            }
+            
+            console.log('Product category:', product.category);
+            
+            
+            if (product.category === 'feeds') {
+                console.log('Opening modal for feed product');
+                showProductModal(product);
+                return;
+            }
+            
+            
+            const totalStock = getTotalStock(product);
+            console.log('Stock check for product:', product.name, 'Total stock:', totalStock);
+            if (totalStock <= 0) {
+                console.log('Product is out of stock, showing notification');
+                showNotification(`⚠️ ${product.name} is out of stock and cannot be added to cart`, 'error');
+                return;
+            }
+            
+            
+            const existingItem = cart.find(item => item.product.id === product.id);
+            
+            if (existingItem) {
+                // Use appropriate stock field based on product category
+                const availableStock = product.category === 'supplements' ? 
+                    (product.stockSacks || 0) : 
+                    (product.stock || 0);
+                
+                if (existingItem.quantity >= availableStock) {
+                    showNotification('Cannot add more items - insufficient stock', 'error');
+                    return;
+                }
+                existingItem.quantity += 1;
+                
+                // Ensure unit is set for supplements
+                if (!existingItem.unit) {
+                    existingItem.unit = product.category === 'supplements' ? 'units' : 'sack';
+                }
+            } else {
+                cart.push({
+                    product: product,
+                    quantity: 1,
+                    unit: product.category === 'supplements' ? 'units' : 'sack' // Default unit for supplements
+                });
+            }
+            
+            updateCartDisplay();
+            showNotification(`${product.name} added to cart`, 'success');
+            
+            
+            cancelAutoClear();
+        }
+
+        
+        function setupEventListeners() {
+            
+            document.getElementById('qrInput').addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    scanProduct();
+                }
+            });
+            
+            // Enhanced scanner support for SM8070 and other barcode scanners
+            setupScannerSupport();
+        }
+        
+        // Enhanced scanner support for SM8070 and other barcode scanners
+        function setupScannerSupport() {
+            const qrInput = document.getElementById('qrInput');
+            let scanBuffer = '';
+            let scanTimeout = null;
+            
+            console.log('🔧 Setting up SM8070 scanner support...');
+            console.log('🔧 Input element found:', !!qrInput);
+            
+            // Listen for scanner input in the input field
+            qrInput.addEventListener('input', function(e) {
+                const value = e.target.value;
+                console.log('🔧 Input event triggered, value:', value);
+                
+                // Clear any existing timeout
+                if (scanTimeout) {
+                    clearTimeout(scanTimeout);
+                }
+                
+                // If the input is growing rapidly (typical of scanner input)
+                if (value.length > scanBuffer.length + 1) {
+                    scanBuffer = value;
+                    console.log('🔧 Rapid input detected, buffer:', scanBuffer);
+                    
+                    // Set a timeout to process the scan after scanner finishes
+                    scanTimeout = setTimeout(() => {
+                        if (scanBuffer.trim()) {
+                            console.log('🔧 Scanner input detected:', scanBuffer);
+                            processScannerInput(scanBuffer);
+                            scanBuffer = '';
+                        }
+                    }, 100); // Short delay to ensure scanner has finished
+                } else {
+                    scanBuffer = value;
+                }
+            });
+            
+            // Listen for Enter key (scanners often send Enter after data)
+            qrInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    console.log('🔧 Enter key pressed, value:', qrInput.value);
+                    const value = qrInput.value.trim();
+                    if (value) {
+                        console.log('🔧 Enter-triggered scanner input:', value);
+                        processScannerInput(value);
+                    }
+                }
+            });
+        }
+        
+        // Process scanner input (works for both manual entry and scanner input)
+        function processScannerInput(input) {
+            const qrCode = input.trim();
+            console.log('🔧 Processing scanner input:', qrCode);
+            console.log('🔧 Input length:', qrCode.length);
+            
+            // Check if scanner is paused
+            const scannerStatus = document.getElementById('scannerStatus');
+            if (scannerStatus && scannerStatus.textContent.includes('Paused')) {
+                console.log('🔧 Scanner is paused - ignoring input');
+                return;
+            }
+            
+            if (!qrCode) {
+                console.log('🔧 Empty input, showing error');
+                showNotification('Please scan or enter a product code', 'error');
+                return;
+            }
+            
+            console.log('🔧 Auto-triggering scan for scanner input');
+            // Auto-trigger scan for scanner input
+            scanProduct();
+        }
+
+        
+        async function scanProduct() {
+            const productId = document.getElementById('qrInput').value.trim();
+            console.log('🔧 SM8070 scanner input:', productId);
+            
+            if (!productId) {
+                showNotification('Please scan a product QR code or enter product ID', 'error');
+                updateScannerStatus('error');
+                return;
+            }
+            
+            updateScannerStatus('scanning');
+            showLoading(true);
+            
+            try {
+                // Look for product by ID (SM8070 scanner inputs product ID directly)
+                const product = products.find(p => p.id == productId);
+                
+                console.log('🔧 Found product:', product);
+                
+                 if (product) {
+                     currentProduct = product;
+                     showProductModal(product);
+                     document.getElementById('qrInput').value = '';
+                     console.log('✅ Product modal shown');
+                     
+                     // Auto-refocus input field for next scan
+                     setTimeout(() => {
+                         document.getElementById('qrInput').focus();
+                         updateScannerStatus('ready');
+                         console.log('🔧 Input field re-focused after successful scan');
+                     }, 100);
+                 } else {
+                     console.log('❌ Product not found for ID:', productId);
+                     showNotification('Product not found. Please check the QR code.', 'error');
+                     updateScannerStatus('error');
+                     
+                     // Auto-refocus input field even after error
+                     setTimeout(() => {
+                         document.getElementById('qrInput').focus();
+                         updateScannerStatus('ready');
+                         console.log('🔧 Input field re-focused after error');
+                     }, 100);
+                 }
+            } catch (error) {
+                console.error('Error scanning product:', error);
+                showNotification('Error scanning product', 'error');
+                updateScannerStatus('error');
+                
+                // Auto-refocus input field after error
+                setTimeout(() => {
+                    document.getElementById('qrInput').focus();
+                    updateScannerStatus('ready');
+                }, 100);
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        
+        function showProductModal(product) {
+            console.log('📦 Showing product modal for:', product.name);
+            console.log('📦 Modal element exists:', !!document.getElementById('productModal'));
+            console.log('📦 Current product set to:', product);
+            console.log('📦 Product ID:', product.id);
+            console.log('📦 Product stockSacks:', product.stockSacks);
+            console.log('📦 Product category:', product.category);
+            
+            
+            currentProduct = product;
+            console.log('📦 currentProduct after assignment:', currentProduct);
+            console.log('📦 currentProduct.name:', currentProduct?.name);
+            
+            document.getElementById('modalProductName').textContent = product.name;
+            
+            // Set initial price display based on category
+            (function setInitialPriceDisplay(p) {
+                const priceEl = document.getElementById('modalProductPrice');
+                if (!priceEl) return;
+                if (p.category === 'feeds') {
+                    const sackPrice = Number(p.pricePerSack) || 0;
+                    const kiloPrice = Number(p.pricePerKilo) || 0;
+                    const halfKiloPrice = kiloPrice > 0 ? kiloPrice / 2 : 0;
+                    priceEl.textContent = `₱${sackPrice.toFixed(2)} per sack • ₱${kiloPrice.toFixed(2)} per kilo • ₱${halfKiloPrice.toFixed(2)} per half kilo`;
+                } else {
+                    const unitLabel = p.unit || 'unit';
+                    const price = Number(p.price) || 0;
+                    priceEl.textContent = `₱${price.toFixed(2)} per ${unitLabel}`;
+                }
+            })(product);
+            
+            
+            const modalImage = document.getElementById('modalProductImage');
+            if (product.imageUrl) {
+                console.log('Modal image URL:', product.imageUrl);
+                modalImage.innerHTML = `<img src="${product.imageUrl}" alt="${product.name}" style="width: 100%; height: 200px; object-fit: contain; border-radius: 8px; background: #f8f9fa;" onerror="console.log('Modal image failed to load:', this.src); this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                <div style="display: none; width: 100%; height: 200px; align-items: center; justify-content: center; background: #f0f0f0; border-radius: 8px; font-size: 4rem;">${product.animal === 'chicken' ? '🐔' : product.animal === 'pig' ? '🐷' : '📦'}</div>`;
+            } else {
+                modalImage.innerHTML = `<div style="width: 100%; height: 200px; display: flex; align-items: center; justify-content: center; background: #f0f0f0; border-radius: 8px; font-size: 4rem;">${product.animal === 'chicken' ? '🐔' : product.animal === 'pig' ? '🐷' : '📦'}</div>`;
+            }
+            
+            // Reset all quantities to 0
+            document.getElementById('sackQuantity').value = 0;
+            document.getElementById('kiloQuantity').value = 0;
+            document.getElementById('halfKiloQuantity').value = 0;
+            
+            
+            const sackStock = product.stockSacks || 0;
+            const kiloStock = product.stockKilos || 0;
+            const halfKiloStock = product.stockHalfKilos || 0;
+            
+            // Calculate remaining stock after cart items
+            const remainingStock = calculateRemainingStock(product);
+            
+            // Update stock display with appropriate units
+            const isSupplement = product.category === 'supplements';
+            const sackUnit = isSupplement ? 'units' : 'sacks';
+            
+            document.getElementById('sackStock').textContent = `(${remainingStock.sacks} ${sackUnit} available)`;
+            document.getElementById('kiloStock').textContent = `(${remainingStock.kilos} kilos available)`;
+            document.getElementById('halfKiloStock').textContent = `(${remainingStock.halfKilos} half kilos available)`;
+            
+            // Calculate total available inventory in sacks for cross-unit validation
+            const totalInventoryInSacks = getTotalInventoryInSacks(product);
+            const totalCartInSacks = getTotalCartInSacks(product.id);
+            const availableInSacks = totalInventoryInSacks - totalCartInSacks;
+            
+            console.log('🔍 Stock validation for multi-unit modal:', {
+                productName: product.name,
+                remainingStock,
+                totalInventoryInSacks,
+                totalCartInSacks,
+                availableInSacks
+            });
+            
+            // Set max values for quantity inputs based on available inventory
+            const sackQuantityInput = document.getElementById('sackQuantity');
+            const kiloQuantityInput = document.getElementById('kiloQuantity');
+            const halfKiloQuantityInput = document.getElementById('halfKiloQuantity');
+            
+            // Check if this is a supplement product
+            const isSupplementProduct = product.category === 'supplements';
+            
+            if (isSupplementProduct) {
+                // For supplements, only show sacks (units) - hide kilos and half-kilos
+                const sackMax = Math.max(remainingStock.sacks, Math.floor(availableInSacks));
+                sackQuantityInput.max = sackMax;
+                sackQuantityInput.disabled = sackMax < 1;
+                
+                // Hide and disable kilo and half-kilo inputs for supplements
+                kiloQuantityInput.max = 0;
+                kiloQuantityInput.disabled = true;
+                kiloQuantityInput.value = 0;
+                
+                halfKiloQuantityInput.max = 0;
+                halfKiloQuantityInput.disabled = true;
+                halfKiloQuantityInput.value = 0;
+                
+                // Hide kilo and half-kilo quantity groups for supplements
+                const kiloGroup = document.querySelector('.unit-quantity-group:nth-child(2)');
+                const halfKiloGroup = document.querySelector('.unit-quantity-group:nth-child(3)');
+                if (kiloGroup) kiloGroup.style.display = 'none';
+                if (halfKiloGroup) halfKiloGroup.style.display = 'none';
+                
+                console.log('📦 Supplement product - hiding kilo/half-kilo options');
+            } else {
+                // For feeds, show all options
+                const sackMax = Math.max(remainingStock.sacks, Math.floor(availableInSacks));
+                sackQuantityInput.max = sackMax;
+                sackQuantityInput.disabled = sackMax < 1;
+                
+                // Kilo max: direct stock or convert from total inventory (1 sack = netWeightPerSack kilos)
+                const kiloMax = Math.max(remainingStock.kilos, Math.floor(availableInSacks * (product.netWeightPerSack || 25)));
+                kiloQuantityInput.max = kiloMax;
+                kiloQuantityInput.disabled = kiloMax < 1;
+                
+                // Half-kilo max: direct stock or convert from total inventory (1 sack = 2 * netWeightPerSack half-kilos)
+                const halfKiloMax = Math.max(remainingStock.halfKilos, Math.floor(availableInSacks * 2 * (product.netWeightPerSack || 25)));
+                halfKiloQuantityInput.max = halfKiloMax;
+                halfKiloQuantityInput.disabled = halfKiloMax < 1;
+                
+                // Show kilo and half-kilo quantity groups for feeds
+                const kiloGroup = document.querySelector('.unit-quantity-group:nth-child(2)');
+                const halfKiloGroup = document.querySelector('.unit-quantity-group:nth-child(3)');
+                if (kiloGroup) kiloGroup.style.display = 'flex';
+                if (halfKiloGroup) halfKiloGroup.style.display = 'flex';
+                
+                console.log('📦 Feed product - showing all unit options');
+            }
+            
+            // Add event listeners for quantity changes to update summary
+            sackQuantityInput.addEventListener('input', function() {
+                validateQuantityInput('sack');
+                updateOrderSummary();
+            });
+            kiloQuantityInput.addEventListener('input', function() {
+                validateQuantityInput('kilo');
+                updateOrderSummary();
+            });
+            halfKiloQuantityInput.addEventListener('input', function() {
+                validateQuantityInput('half-kilo');
+                updateOrderSummary();
+            });
+            
+            // Hide summary initially
+            document.getElementById('totalSummary').style.display = 'none';
+            
+            const modal = document.getElementById('productModal');
+            console.log('📦 Modal element found:', !!modal);
+            if (modal) {
+                console.log('📦 Setting modal display to block');
+                modal.style.display = 'block';
+                console.log('📦 Modal display after setting:', modal.style.display);
+                
+                // Modal opens - remove focus from search bar
+                document.getElementById('qrInput').blur();
+                console.log('🔧 Modal opened - search bar blurred');
+            } else {
+                console.error('❌ Modal element not found!');
+            }
+        }
+
+        
+        function selectUnit(unit) {
+            const sackBtn = document.getElementById('sackBtn');
+            const kiloBtn = document.getElementById('kiloBtn');
+            const halfKiloBtn = document.getElementById('halfKiloBtn');
+            const quantityInput = document.getElementById('modalQuantity');
+            
+            
+            sackBtn.classList.remove('selected');
+            kiloBtn.classList.remove('selected');
+            halfKiloBtn.classList.remove('selected');
+            
+            
+            if (unit === 'sack') {
+                sackBtn.classList.add('selected');
+                
+                const price = currentProduct.pricePerSack || currentProduct.price || 0;
+                document.getElementById('modalProductPrice').textContent = `₱${price.toFixed(2)} per sack`;
+                
+                const sackStock = currentProduct.stockSacks || 0;
+                quantityInput.max = sackStock;
+                if (parseInt(quantityInput.value) > sackStock) {
+                    quantityInput.value = sackStock;
+                }
+            } else if (unit === 'kilo') {
+                kiloBtn.classList.add('selected');
+                
+                const price = currentProduct.pricePerKilo || currentProduct.price || 0;
+                document.getElementById('modalProductPrice').textContent = `₱${price.toFixed(2)} per kilo`;
+                
+                const kiloStock = currentProduct.stockKilos || 0;
+                quantityInput.max = kiloStock;
+                if (parseInt(quantityInput.value) > kiloStock) {
+                    quantityInput.value = kiloStock;
+                }
+            } else if (unit === 'half-kilo') {
+                halfKiloBtn.classList.add('selected');
+                
+                const price = (currentProduct.pricePerKilo || currentProduct.price || 0) / 2;
+                document.getElementById('modalProductPrice').textContent = `₱${price.toFixed(2)} per half kilo`;
+                
+                const halfKiloStock = currentProduct.stockHalfKilos || 0;
+                quantityInput.max = halfKiloStock;
+                if (parseInt(quantityInput.value) > halfKiloStock) {
+                    quantityInput.value = halfKiloStock;
+                }
+            }
+            
+            
+            currentProduct.selectedUnit = unit;
+            console.log('📦 Unit selected:', unit);
+            console.log('📦 currentProduct.selectedUnit:', currentProduct.selectedUnit);
+        }
+
+        
+        // Simplified function for SM8070 scanner workflow
+        function showProductPurchaseModal(productId) {
+            console.log('🔧 SM8070 scanner triggered for product ID:', productId);
+            
+            if (!products || products.length === 0) {
+                console.error('❌ Products not loaded yet');
+                showNotification('Products not loaded yet. Please wait and try again.', 'error');
+                return;
+            }
+            
+            const product = products.find(p => p.id == productId);
+            
+            if (!product) {
+                console.error('❌ Product not found for ID:', productId);
+                showNotification('Product not found', 'error');
+                return;
+            }
+            
+            console.log('✅ Found product:', product.name);
+            
+            const totalStock = getTotalStock(product);
+            if (totalStock <= 0) {
+                showNotification(`⚠️ ${product.name} is out of stock and cannot be added to cart`, 'error');
+                return;
+            }
+            
+            currentProduct = product;
+            showProductModal(product);
+            showNotification('Product scanned! Purchase modal opened...', 'success');
+        }
+
+        
+        window.triggerPurchaseModal = function(productId) {
+            showProductPurchaseModal(productId);
+        };
+
+        // Test function to simulate scanner input
+        function testScannerInput() {
+            console.log('🔧 Testing scanner input simulation...');
+            if (products && products.length > 0) {
+                const testProduct = products[0];
+                console.log('🔧 Simulating scanner input for product:', testProduct.name, 'ID:', testProduct.id);
+                
+                // Simulate scanner input by setting the value and triggering events
+                const input = document.getElementById('qrInput');
+                input.value = testProduct.id;
+                
+                // Trigger input event
+                const event = new Event('input', { bubbles: true });
+                input.dispatchEvent(event);
+                
+                console.log('🔧 Scanner input simulation completed');
+            } else {
+                console.error('🔧 No products available for testing');
+                showNotification('No products available for testing. Please load products first.', 'error');
+            }
+        }
+        
+        // Update scanner status indicator
+        function updateScannerStatus(status) {
+            const statusElement = document.getElementById('scannerStatus');
+            if (statusElement) {
+                if (status === 'ready') {
+                    statusElement.innerHTML = '✅ Scanner Ready - Search bar focused';
+                    statusElement.style.color = '#28a745';
+                } else if (status === 'scanning') {
+                    statusElement.innerHTML = '🔍 Scanning...';
+                    statusElement.style.color = '#ffc107';
+                } else if (status === 'error') {
+                    statusElement.innerHTML = '❌ Scanner Error - Try scanning again';
+                    statusElement.style.color = '#dc3545';
+                } else if (status === 'paused') {
+                    statusElement.innerHTML = '⏸️ Scanner Paused - Payment in progress';
+                    statusElement.style.color = '#6c757d';
+                } else if (status === 'cycling') {
+                    statusElement.innerHTML = '🔄 Scanner Cycling - Pause/Resume active';
+                    statusElement.style.color = '#17a2b8';
+                }
+            }
+        }
+        
+        // Pause scanner detection (without blurring current focus)
+        function pauseScannerDetection() {
+            // Don't show pause status during cycling
+            console.log('🔧 Scanner detection paused');
+        }
+        
+        // Resume scanner detection (without changing current focus)
+        function resumeScannerDetection() {
+            // Don't show resume status during cycling
+            console.log('🔧 Scanner detection resumed');
+        }
+        
+        // Continuous pause/resume cycle for payment section
+        let pauseResumeInterval = null;
+        let isPaused = false;
+        
+        function startContinuousPauseResume() {
+            // Clear any existing interval
+            if (pauseResumeInterval) {
+                clearInterval(pauseResumeInterval);
+            }
+            
+            // Keep normal status during cycling (don't show cycling status)
+            // updateScannerStatus('cycling');
+            
+            // Start the cycle
+            pauseResumeInterval = setInterval(() => {
+                if (isPaused) {
+                    // Resume scanner
+                    resumeScannerDetection();
+                    isPaused = false;
+                    // console.log('🔧 Cycle: Scanner resumed'); // Reduced logging for fast cycle
+                } else {
+                    // Pause scanner
+                    pauseScannerDetection();
+                    isPaused = true;
+                    // console.log('🔧 Cycle: Scanner paused'); // Reduced logging for fast cycle
+                }
+            }, 100); // Switch every 100 milliseconds (very fast)
+        }
+        
+        function stopContinuousPauseResume() {
+            if (pauseResumeInterval) {
+                clearInterval(pauseResumeInterval);
+                pauseResumeInterval = null;
+                isPaused = false;
+                console.log('🔧 Continuous pause/resume stopped');
+            }
+        }
+        
+
+        
+        // Simple SM8070 scanner initialization - focused search bar approach
+        function initSM8070Scanner() {
+            console.log('🔧 Initializing SM8070 scanner support...');
+            console.log('🔧 Search bar will be always focused for scanner');
+            
+            // Keep search bar focused for scanner
+            const qrInput = document.getElementById('qrInput');
+            if (qrInput) {
+                qrInput.focus();
+                console.log('🔧 Search bar focused for scanner');
+            }
+            
+            // Keep search bar focused periodically (only when not paused)
+            setInterval(() => {
+                const activeElement = document.activeElement;
+                const paymentSection = document.getElementById('paymentSection');
+                const productModal = document.getElementById('productModal');
+                const scannerStatus = document.getElementById('scannerStatus');
+                
+                // Don't refocus if scanner is paused
+                if (scannerStatus && scannerStatus.textContent.includes('Paused')) {
+                    console.log('🔧 Skipping refocus - scanner is paused');
+                    return;
+                }
+                
+                // Don't refocus if:
+                // 1. User is typing in payment amount
+                // 2. Product modal is open
+                // 3. Payment section is open
+                if (activeElement && activeElement.id === 'customerPayment') {
+                    console.log('🔧 Skipping refocus - user typing payment amount');
+                    return;
+                }
+                
+                if (productModal && productModal.style.display === 'block') {
+                    console.log('🔧 Skipping refocus - product modal is open');
+                    return;
+                }
+                
+                if (paymentSection && paymentSection.style.display !== 'none') {
+                    console.log('🔧 Skipping refocus - payment section is open');
+                    return;
+                }
+                
+                // Refocus search bar
+                if (qrInput && document.activeElement !== qrInput) {
+                    qrInput.focus();
+                    console.log('🔧 Search bar re-focused for scanner');
+                }
+            }, 1000);
+            
+            // Update scanner status to show focused scanning is ready
+            updateScannerStatus('ready');
+        }
+
+
+
+        
+        function closeProductModal() {
+            document.getElementById('productModal').style.display = 'none';
+            currentProduct = null;
+            
+            
+            document.getElementById('modalQuantity').value = 1;
+            
+            
+            document.querySelectorAll('.unit-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            // Refocus search bar when modal closes
+            setTimeout(() => {
+                document.getElementById('qrInput').focus();
+                updateScannerStatus('ready');
+                console.log('🔧 Modal closed - search bar re-focused');
+            }, 100);
+        }
+        
+
+        
+        function increaseQuantity(unit) {
+            // Convert unit parameter to match element ID
+            const unitId = unit === 'half-kilo' ? 'halfKilo' : unit;
+            const input = document.getElementById(unitId + 'Quantity');
+            const currentValue = parseInt(input.value);
+            const maxValue = parseInt(input.max);
+            
+            // Check if we can add more without exceeding total inventory
+            if (currentValue < maxValue) {
+                // Temporarily increase to check total inventory
+                const tempValue = currentValue + 1;
+                const tempSackQty = unit === 'sack' ? tempValue : parseInt(document.getElementById('sackQuantity').value) || 0;
+                const tempKiloQty = unit === 'kilo' ? tempValue : parseInt(document.getElementById('kiloQuantity').value) || 0;
+                const tempHalfKiloQty = unit === 'half-kilo' ? tempValue : parseInt(document.getElementById('halfKiloQuantity').value) || 0;
+                
+                // Check total inventory
+                if (currentProduct) {
+                    const totalInventoryInSacks = getTotalInventoryInSacks(currentProduct);
+                    const totalCartInSacks = getTotalCartInSacks(currentProduct.id);
+                    const availableInSacks = totalInventoryInSacks - totalCartInSacks;
+                    
+                    const requestedSacks = tempSackQty + 
+                        (tempKiloQty / (currentProduct.netWeightPerSack || 25)) + 
+                        (tempHalfKiloQty / (2 * (currentProduct.netWeightPerSack || 25)));
+                    
+                    if (requestedSacks > availableInSacks) {
+                        showNotification(`Cannot add more. Total inventory: ${availableInSacks.toFixed(2)} sacks equivalent.`, 'error');
+                        return;
+                    }
+                }
+                
+                input.value = tempValue;
+                updateOrderSummary();
+            }
+        }
+
+        function decreaseQuantity(unit) {
+            // Convert unit parameter to match element ID
+            const unitId = unit === 'half-kilo' ? 'halfKilo' : unit;
+            const input = document.getElementById(unitId + 'Quantity');
+            if (parseInt(input.value) > 0) {
+                input.value = parseInt(input.value) - 1;
+                updateOrderSummary();
+            }
+        }
+
+        function validateQuantityInput(unit) {
+            if (!currentProduct) return;
+            
+            // Convert unit parameter to match element ID
+            const unitId = unit === 'half-kilo' ? 'halfKilo' : unit;
+            const input = document.getElementById(unitId + 'Quantity');
+            const value = parseInt(input.value) || 0;
+            
+            // Get current quantities for all units
+            const sackQty = unit === 'sack' ? value : parseInt(document.getElementById('sackQuantity').value) || 0;
+            const kiloQty = unit === 'kilo' ? value : parseInt(document.getElementById('kiloQuantity').value) || 0;
+            const halfKiloQty = unit === 'half-kilo' ? value : parseInt(document.getElementById('halfKiloQuantity').value) || 0;
+            
+            // Check total inventory
+            const totalInventoryInSacks = getTotalInventoryInSacks(currentProduct);
+            const totalCartInSacks = getTotalCartInSacks(currentProduct.id);
+            const availableInSacks = totalInventoryInSacks - totalCartInSacks;
+            
+            const requestedSacks = sackQty + 
+                (kiloQty / (currentProduct.netWeightPerSack || 25)) + 
+                (halfKiloQty / (2 * (currentProduct.netWeightPerSack || 25)));
+            
+            // If exceeds inventory, reset to 0 and show error
+            if (requestedSacks > availableInSacks) {
+                input.value = 0;
+                showNotification(`Cannot add more. Total inventory: ${availableInSacks.toFixed(2)} sacks equivalent.`, 'error');
+            }
+        }
+
+        function updateOrderSummary() {
+            if (!currentProduct) return;
+            
+            const sackQty = parseInt(document.getElementById('sackQuantity').value) || 0;
+            const kiloQty = parseInt(document.getElementById('kiloQuantity').value) || 0;
+            const halfKiloQty = parseInt(document.getElementById('halfKiloQuantity').value) || 0;
+            
+            // Validate total inventory limits
+            const totalInventoryInSacks = getTotalInventoryInSacks(currentProduct);
+            const totalCartInSacks = getTotalCartInSacks(currentProduct.id);
+            const availableInSacks = totalInventoryInSacks - totalCartInSacks;
+            
+            // Convert all quantities to sacks for validation
+            let requestedSacks;
+            if (currentProduct.category === 'supplements') {
+                // For supplements, only sacks (units) are used
+                requestedSacks = sackQty;
+            } else {
+                // For feeds, convert all units to sacks
+                requestedSacks = sackQty + 
+                    (kiloQty / (currentProduct.netWeightPerSack || 25)) + 
+                    (halfKiloQty / (2 * (currentProduct.netWeightPerSack || 25)));
+            }
+            
+            console.log('🔍 Real-time stock validation:', {
+                productName: currentProduct.name,
+                category: currentProduct.category,
+                sackQty,
+                kiloQty,
+                halfKiloQty,
+                requestedSacks,
+                availableInSacks,
+                wouldExceed: requestedSacks > availableInSacks
+            });
+            
+            // If total would exceed inventory, prevent adding more and reset quantities
+            if (requestedSacks > availableInSacks) {
+                console.log('⚠️ Total inventory would be exceeded, preventing addition');
+                
+                // Find which input was just changed and reset it to 0
+                const activeElement = document.activeElement;
+                if (activeElement && activeElement.classList.contains('quantity-input')) {
+                    activeElement.value = 0;
+                    showNotification(`Cannot add more. Total inventory: ${availableInSacks.toFixed(2)} sacks equivalent.`, 'error');
+                    return;
+                }
+                
+                // If not triggered by direct input, reset all to safe values
+                const safeSackQty = Math.min(sackQty, Math.floor(availableInSacks));
+                const safeKiloQty = Math.min(kiloQty, Math.floor(availableInSacks * (currentProduct.netWeightPerSack || 25)));
+                const safeHalfKiloQty = Math.min(halfKiloQty, Math.floor(availableInSacks * 2 * (currentProduct.netWeightPerSack || 25)));
+                
+                // Only reset if the current values would exceed inventory
+                if (sackQty > safeSackQty) {
+                    document.getElementById('sackQuantity').value = safeSackQty;
+                }
+                if (kiloQty > safeKiloQty) {
+                    document.getElementById('kiloQuantity').value = safeKiloQty;
+                }
+                if (halfKiloQty > safeHalfKiloQty) {
+                    document.getElementById('halfKiloQuantity').value = safeHalfKiloQty;
+                }
+                
+                showNotification(`Cannot add more. Total inventory: ${availableInSacks.toFixed(2)} sacks equivalent.`, 'error');
+                return;
+            }
+            
+            const summaryDiv = document.getElementById('totalSummary');
+            const summaryItems = document.getElementById('summaryItems');
+            const summaryTotal = document.getElementById('summaryTotal');
+            
+            if (sackQty === 0 && kiloQty === 0 && halfKiloQty === 0) {
+                summaryDiv.style.display = 'none';
+                return;
+            }
+            
+            let totalPrice = 0;
+            let itemsHtml = '';
+            
+            if (sackQty > 0) {
+                const price = currentProduct.pricePerSack || currentProduct.price || 0;
+                const itemTotal = price * sackQty;
+                totalPrice += itemTotal;
+                itemsHtml += `<div class="summary-item">${sackQty} Sack(s) × ₱${price.toFixed(2)} = ₱${itemTotal.toFixed(2)}</div>`;
+            }
+            
+            if (kiloQty > 0) {
+                const price = currentProduct.pricePerKilo || currentProduct.price || 0;
+                const itemTotal = price * kiloQty;
+                totalPrice += itemTotal;
+                itemsHtml += `<div class="summary-item">${kiloQty} Kilo(s) × ₱${price.toFixed(2)} = ₱${itemTotal.toFixed(2)}</div>`;
+            }
+            
+            if (halfKiloQty > 0) {
+                const price = (currentProduct.pricePerKilo || currentProduct.price || 0) / 2;
+                const itemTotal = price * halfKiloQty;
+                totalPrice += itemTotal;
+                itemsHtml += `<div class="summary-item">${halfKiloQty} Half Kilo(s) × ₱${price.toFixed(2)} = ₱${itemTotal.toFixed(2)}</div>`;
+            }
+            
+            summaryItems.innerHTML = itemsHtml;
+            summaryTotal.textContent = `₱${totalPrice.toFixed(2)}`;
+            summaryDiv.style.display = 'block';
+        }
+
+        
+        function addToCart() {
+            if (!currentProduct) {
+                console.error('❌ currentProduct is null in addToCart');
+                showNotification('Product not found. Please try again.', 'error');
+                return;
+            }
+            
+            // Get quantities for each unit
+            const sackQty = parseInt(document.getElementById('sackQuantity').value) || 0;
+            const kiloQty = parseInt(document.getElementById('kiloQuantity').value) || 0;
+            const halfKiloQty = parseInt(document.getElementById('halfKiloQuantity').value) || 0;
+            
+            // Check if at least one unit is selected
+            if (sackQty === 0 && kiloQty === 0 && halfKiloQty === 0) {
+                showNotification('Please select at least one unit and quantity', 'error');
+                return;
+            }
+            
+            // Final stock validation before adding to cart
+            const totalInventoryInSacks = getTotalInventoryInSacks(currentProduct);
+            const totalCartInSacks = getTotalCartInSacks(currentProduct.id);
+            const availableInSacks = totalInventoryInSacks - totalCartInSacks;
+            
+            // Convert all quantities to sacks for validation
+            let requestedSacks;
+            if (currentProduct.category === 'supplements') {
+                // For supplements, only sacks (units) are used
+                requestedSacks = sackQty;
+            } else {
+                // For feeds, convert all units to sacks
+                requestedSacks = sackQty + 
+                    (kiloQty / (currentProduct.netWeightPerSack || 25)) + 
+                    (halfKiloQty / (2 * (currentProduct.netWeightPerSack || 25)));
+            }
+            
+            if (requestedSacks > availableInSacks) {
+                showNotification(`Cannot add that much. Total inventory: ${availableInSacks.toFixed(2)} sacks equivalent.`, 'error');
+                return;
+            }
+            
+            const productName = currentProduct.name;
+            const productId = currentProduct.id;
+            
+            // Add each selected unit to cart
+            let addedItems = [];
+            
+            if (sackQty > 0) {
+                const price = currentProduct.pricePerSack || currentProduct.price || 0;
+                const existingItem = cart.find(item => 
+                    item.product.id === productId && item.unit === 'sack'
+                );
+                
+                if (existingItem) {
+                    existingItem.quantity += sackQty;
+                } else {
+                    cart.push({
+                        product: currentProduct,
+                        quantity: sackQty,
+                        unit: 'sack',
+                        price: price
+                    });
+                }
+                addedItems.push(`${sackQty} sack(s)`);
+            }
+            
+            // Only add kilos and half-kilos for feed products, not supplements
+            if (currentProduct.category !== 'supplements') {
+                if (kiloQty > 0) {
+                    const price = currentProduct.pricePerKilo || currentProduct.price || 0;
+                    const existingItem = cart.find(item => 
+                        item.product.id === productId && item.unit === 'kilo'
+                    );
+                    
+                    if (existingItem) {
+                        existingItem.quantity += kiloQty;
+                    } else {
+                        cart.push({
+                            product: currentProduct,
+                            quantity: kiloQty,
+                            unit: 'kilo',
+                            price: price
+                        });
+                    }
+                    addedItems.push(`${kiloQty} kilo(s)`);
+                }
+                
+                if (halfKiloQty > 0) {
+                    const price = (currentProduct.pricePerKilo || currentProduct.price || 0) / 2;
+                    const existingItem = cart.find(item => 
+                        item.product.id === productId && item.unit === 'half-kilo'
+                    );
+                    
+                    if (existingItem) {
+                        existingItem.quantity += halfKiloQty;
+                    } else {
+                        cart.push({
+                            product: currentProduct,
+                            quantity: halfKiloQty,
+                            unit: 'half-kilo',
+                            price: price
+                        });
+                    }
+                    addedItems.push(`${halfKiloQty} half kilo(s)`);
+                }
+            }
+            
+            updateCartDisplay();
+            closeProductModal();
+            showNotification(`${productName}: ${addedItems.join(', ')} added to cart`, 'success');
+            
+            // Refresh unit availability for all products
+            refreshAllProductUnits();
+            
+            // Refocus search bar after adding to cart
+            setTimeout(() => {
+                document.getElementById('qrInput').focus();
+                updateScannerStatus('ready');
+                console.log('🔧 Item added to cart - search bar re-focused');
+            }, 200);
+            
+            cancelAutoClear();
+        }
+
+        
+        function updateCartDisplay() {
+            const cartItems = document.getElementById('cartItems');
+            const cartSummary = document.getElementById('cartSummary');
+            const clearCartBtn = document.getElementById('clearCartBtn');
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = `
+                    <div class="empty-cart">
+                        <div class="empty-cart-icon">🛒</div>
+                        <p>No items in cart</p>
+                        <p style="font-size: 0.8rem;">Scan products to add them</p>
+                    </div>
+                `;
+                
+                document.getElementById('subtotal').textContent = '₱0.00';
+                document.getElementById('tax').textContent = '₱0.00';
+                document.getElementById('total').textContent = '₱0.00';
+                clearCartBtn.style.display = 'none';
+                
+                // Refresh unit availability for all products when cart is empty
+                refreshAllProductUnits();
+                
+                const paymentSection = document.getElementById('paymentSection');
+                if (paymentSection) {
+                    paymentSection.style.display = 'none';
+                }
+                
+                
+                const customerPayment = document.getElementById('customerPayment');
+                const changeDisplay = document.getElementById('changeDisplay');
+                if (customerPayment) {
+                    customerPayment.value = '';
+                }
+                if (changeDisplay) {
+                    changeDisplay.style.display = 'none';
+                }
+                
+                
+                const processBtn = document.getElementById('processOrderBtn');
+                if (processBtn) {
+                    processBtn.textContent = '💳 Process Order';
+                    processBtn.onclick = processOrder;
+                }
+                
+                return;
+            }
+            
+            
+            cartItems.innerHTML = cart.map((item, index) => `
+                <div class="cart-item">
+                    <div class="cart-item-image">📦</div>
+                    <div class="cart-item-details">
+                        <div class="cart-item-name">${item.product.name}</div>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn" onclick="updateCartQuantity(${index}, ${item.quantity - 1})">-</button>
+                            <input type="number" class="quantity-input" data-cart-index="${index}" value="${item.quantity}" min="1" oninput="updateCartQuantityInput(${index}, this.value)">
+                            <button class="quantity-btn" onclick="console.log('🔍 + button clicked:', {index: ${index}, currentQuantity: ${item.quantity}, willCallWith: ${item.quantity + 1}}); updateCartQuantity(${index}, ${item.quantity + 1})">+</button>
+                        </div>
+                        <div class="cart-item-unit">${item.unit || 'each'}</div>
+                        <div class="cart-item-price">₱${(item.price || item.product.price || 0).toFixed(2)} per ${item.unit || 'each'}</div>
+                    </div>
+                    <div class="cart-item-controls">
+                        <button class="btn btn-danger btn-sm" onclick="removeFromCart(${index})" style="padding: 0.5rem;">
+                            🗑️
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+            
+            
+            // VAT-inclusive pricing: extract VAT from product prices
+            const subtotalWithVat = cart.reduce((sum, item) => sum + ((item.price || item.product.price || 0) * item.quantity), 0);
+            const subtotal = subtotalWithVat / 1.12; // Remove VAT to get VAT-exclusive amount
+            const tax = subtotal * 0.12; // Calculate VAT on VAT-exclusive amount
+            const total = subtotalWithVat; // Total is the original price (VAT-inclusive)
+            
+            document.getElementById('subtotal').textContent = `₱${subtotal.toFixed(2)}`;
+            document.getElementById('tax').textContent = `₱${tax.toFixed(2)}`;
+            document.getElementById('total').textContent = `₱${total.toFixed(2)}`;
+            
+            clearCartBtn.style.display = 'block';
+        }
+
+        
+        
+        
+        function filterProducts(category) {
+            
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[data-category="${category}"]`).classList.add('active');
+            
+            console.log('=== FILTERING DEBUG ===');
+            console.log('Selected category:', category);
+            console.log('All products:', products);
+            
+            
+            if (category === 'all') {
+                filteredProducts = [...products]; 
+                console.log('Showing ALL products:', filteredProducts.length);
+            } else {
+                filteredProducts = products.filter(product => {
+                    console.log(`Product: "${product.name}", Category: "${product.category}", Filter: "${category}", Match: ${product.category === category}`);
+                    return product.category === category;
+                });
+                console.log(`Filtered products for "${category}":`, filteredProducts.length, filteredProducts);
+            }
+            
+            
+            displayProducts();
+        }
+        
+        
+        function getAvailableStock(product, unit) {
+            let availableStock = 0;
+            
+            if (unit === 'sack') {
+                // For supplements, use the maximum of stockSacks and stock
+                // For feeds, use stockSacks as primary
+                if (product.category === 'supplements') {
+                    availableStock = Math.max(product.stockSacks || 0, product.stock || 0);
+                } else {
+                    availableStock = product.stockSacks || 0;
+                }
+            } else if (unit === 'kilo') {
+                availableStock = product.stockKilos || 0;
+            } else {
+                // For supplements, use the maximum of stockSacks and stock
+                // For others, use stock
+                if (product.category === 'supplements') {
+                    availableStock = Math.max(product.stockSacks || 0, product.stock || 0);
+                } else {
+                    availableStock = product.stock || 0;
+                }
+            }
+            
+            // Use the primary stock field directly for simpler calculation
+            const totalInventoryInSacks = getTotalInventoryInSacks(product);
+            const totalCartInSacks = getTotalCartInSacks(product.id);
+            const availableInSacks = totalInventoryInSacks - totalCartInSacks;
+            
+            if (availableInSacks > 0) {
+                // For sacks, use available stock directly
+                if (unit === 'sack') {
+                    const maxAvailable = Math.floor(availableInSacks);
+                    if (maxAvailable > availableStock) {
+                        console.log(`🔄 Updating available stock for ${product.name} (${unit}): ${availableStock} -> ${maxAvailable} (from ${availableInSacks.toFixed(2)} sacks total)`);
+                        return maxAvailable;
+                    }
+                } else {
+                    // For other units, convert from available sacks
+                    const maxAvailableInUnit = Math.floor(availableInSacks / convertToSacks(1, unit, product));
+                    if (maxAvailableInUnit > availableStock) {
+                        console.log(`🔄 Updating available stock for ${product.name} (${unit}): ${availableStock} -> ${maxAvailableInUnit} (from ${availableInSacks.toFixed(2)} sacks total)`);
+                        return maxAvailableInUnit;
+                    }
+                }
+            }
+            
+            return availableStock;
+        }
+        
+        
+        function getTotalStock(product) {
+            const sackStock = product.stockSacks || 0;
+            const kiloStock = product.stockKilos || 0;
+            const halfKiloStock = product.stockHalfKilos || 0;
+            const legacyStock = product.stock || 0;
+            
+            // Calculate total stock across all units
+            // Convert everything to a common unit for comparison (using sacks as base)
+            const totalStock = sackStock + (kiloStock / 25) + (halfKiloStock / 50);
+            
+            // If we have any of the new stock fields, use the calculated total
+            if (sackStock > 0 || kiloStock > 0 || halfKiloStock > 0) {
+                return Math.round(totalStock * 100) / 100; // Round to 2 decimal places
+            } else {
+                return legacyStock;
+            }
+        }
+        
+        // Get total inventory in sacks (uses the primary sack stock as the source of truth)
+        function getTotalInventoryInSacks(product) {
+            // Use only the primary stock field to avoid double-counting
+            let sackStock = 0;
+            
+            if (product.category === 'supplements') {
+                // For supplements, use the higher of stockSacks or stock
+                sackStock = Math.max(product.stockSacks || 0, product.stock || 0);
+            } else {
+                // For feeds, use stockSacks as the primary inventory measure
+                sackStock = product.stockSacks || 0;
+            }
+            
+            console.log('📦 getTotalInventoryInSacks:', {
+                productName: product.name,
+                category: product.category,
+                stockSacks: product.stockSacks,
+                stock: product.stock,
+                sackStock,
+                note: 'Using primary stock field only to avoid double-counting'
+            });
+            
+            return sackStock;
+        }
+        
+        // Get total cart quantity in sacks for a specific product
+        function getTotalCartInSacks(productId) {
+            let totalSacks = 0;
+            const product = products.find(p => p.id === productId);
+            if (!product) return 0;
+            
+            const isSupplement = product.category === 'supplements';
+            
+            cart.forEach(item => {
+                if (item.product.id === productId) {
+                    if (isSupplement) {
+                        // For supplements, treat all units as sacks (units)
+                        if (item.unit === 'sack') {
+                            totalSacks += item.quantity;
+                        }
+                        // Supplements don't have kilos or half-kilos in cart
+                    } else {
+                        // For feeds, use net weight conversions
+                        const netWeight = product.netWeightPerSack || 25;
+                        if (item.unit === 'sack') {
+                            totalSacks += item.quantity;
+                        } else if (item.unit === 'kilo') {
+                            totalSacks += item.quantity / netWeight;
+                        } else if (item.unit === 'half-kilo') {
+                            totalSacks += item.quantity / (netWeight * 2);
+                        }
+                    }
+                }
+            });
+            
+            console.log('🛒 getTotalCartInSacks:', {
+                productId,
+                productName: product.name,
+                isSupplement,
+                cartItems: cart.filter(item => item.product.id === productId),
+                totalSacks
+            });
+            
+            return totalSacks;
+        }
+        
+        // Convert quantity to sacks based on unit
+        function convertToSacks(quantity, unit, product) {
+            const netWeight = product.netWeightPerSack || 25;
+            let result = 0;
+            
+            if (unit === 'sack') {
+                result = quantity;
+            } else if (unit === 'kilo') {
+                result = quantity / netWeight;
+            } else if (unit === 'half-kilo') {
+                result = quantity / (netWeight * 2);
+            } else if (unit === 'units') {
+                // For supplements, treat units as sacks (1 unit = 1 sack equivalent)
+                result = quantity;
+            } else {
+                // Handle undefined or unknown units - default to treating as sacks
+                console.log('🔄 convertToSacks: Unknown unit, treating as sack', { unit, quantity });
+                result = quantity;
+            }
+            
+            console.log('🔄 convertToSacks:', {
+                quantity,
+                unit,
+                netWeight,
+                result
+            });
+            
+            return result;
+        }
+        
+        // Calculate remaining stock after cart items
+        function calculateRemainingStock(product) {
+            // Use the same logic for both feeds and supplements
+            // Supplements will be treated as "sacks" internally
+            const totalInventoryInSacks = getTotalInventoryInSacks(product);
+            const totalCartInSacks = getTotalCartInSacks(product.id);
+            const remainingSacks = Math.max(0, totalInventoryInSacks - totalCartInSacks);
+            
+            const isSupplement = product.category === 'supplements';
+            
+            if (isSupplement) {
+                // For supplements, only show sacks (units), no kilos/half-kilos
+                console.log('📊 calculateRemainingStock (Supplement as Sacks):', {
+                    productName: product.name,
+                    totalInventoryInSacks,
+                    totalCartInSacks,
+                    remainingSacks
+                });
+                
+                return {
+                    sacks: Math.round(remainingSacks * 100) / 100,
+                    kilos: 0, // Supplements don't have kilos
+                    halfKilos: 0 // Supplements don't have half-kilos
+                };
+            } else {
+                // For feeds, calculate all units
+                const netWeight = product.netWeightPerSack || 25;
+                const remainingKilos = remainingSacks * netWeight;
+                const remainingHalfKilos = remainingSacks * netWeight * 2;
+                
+                console.log('📊 calculateRemainingStock (Feed):', {
+                    productName: product.name,
+                    totalInventoryInSacks,
+                    totalCartInSacks,
+                    remainingSacks,
+                    remainingKilos,
+                    remainingHalfKilos
+                });
+                
+                return {
+                    sacks: Math.round(remainingSacks * 100) / 100,
+                    kilos: Math.round(remainingKilos * 100) / 100,
+                    halfKilos: Math.round(remainingHalfKilos * 100) / 100
+                };
+            }
+        }
+        
+        // Refresh unit availability for all products
+        function refreshAllProductUnits() {
+            console.log('🔄 Refreshing unit availability for all products...');
+            // This function will be called when cart changes to update product availability
+            // The actual refresh happens when showProductModal is called for each product
+        }
+
+        
+        function updateCartQuantity(index, newQuantity) {
+            console.log(`🔍 updateCartQuantity called:`, { index, newQuantity, cartLength: cart.length });
+            
+            if (index >= 0 && index < cart.length) {
+                if (newQuantity <= 0) {
+                    removeFromCart(index);
+                } else {
+                    const item = cart[index];
+                    
+                    // Use the same simple stock validation as the modal
+                    let availableStock = 0;
+                    
+                    if (item.unit === 'sack') {
+                        // For supplements, use the maximum of stockSacks and stock
+                        // For feeds, use stockSacks as primary
+                        if (item.product.category === 'supplements') {
+                            availableStock = Math.max(item.product.stockSacks || 0, item.product.stock || 0);
+                        } else {
+                            availableStock = item.product.stockSacks || 0;
+                        }
+                    } else if (item.unit === 'kilo') {
+                        availableStock = item.product.stockKilos || 0;
+                    } else if (item.unit === 'half-kilo') {
+                        availableStock = item.product.stockHalfKilos || 0;
+                    } else if (item.unit === 'units') {
+                        // For supplements with units
+                        availableStock = Math.max(item.product.stockSacks || 0, item.product.stock || 0);
+                    }
+                    
+                    console.log(`🔍 Cart quantity validation (simple):`, {
+                        productName: item.product.name,
+                        unit: item.unit,
+                        currentQuantity: item.quantity,
+                        newQuantity,
+                        availableStock,
+                        willAllow: parseInt(newQuantity) <= availableStock
+                    });
+                    
+                    if (parseInt(newQuantity) > availableStock) {
+                        console.log(`❌ BLOCKED: Quantity ${newQuantity} exceeds available stock ${availableStock}`);
+                        showNotification(`Cannot set quantity to ${newQuantity}. Only ${availableStock.toFixed(2)} available in stock`, 'error');
+                        return;
+                    }
+                    
+                    console.log(`✅ ALLOWING: Setting quantity to ${newQuantity}`);
+                    cart[index].quantity = parseInt(newQuantity);
+                    console.log(`🔍 Cart array updated:`, { 
+                        index, 
+                        newQuantity, 
+                        cartItemQuantity: cart[index].quantity,
+                        fullCart: cart.map(item => ({ name: item.product.name, quantity: item.quantity }))
+                    });
+                    
+                    // Regenerate the entire cart to update button onclick values
+                    updateCartDisplay();
+                    
+                    // Refresh unit availability for all products
+                    refreshAllProductUnits();
+                }
+            }
+        }
+
+        
+        function removeFromCart(index) {
+            if (index >= 0 && index < cart.length) {
+                cart.splice(index, 1);
+                updateCartDisplay();
+                showNotification('Item removed from cart', 'success');
+                
+                // Refresh unit availability for all products
+                refreshAllProductUnits();
+            }
+        }
+
+        
+        function clearCart() {
+            if (confirm('Are you sure you want to clear the cart?')) {
+                cart = [];
+                updateCartDisplay();
+                showNotification('Cart cleared', 'success');
+            }
+        }
+        
+        
+        function autoClearCart() {
+            
+            if (clearCartTimer) {
+                clearTimeout(clearCartTimer);
+            }
+            
+            
+            clearCartTimer = setTimeout(() => {
+                cart = [];
+                updateCartDisplay();
+                showNotification('Cart cleared automatically for next order', 'info');
+            }, 5000);
+        }
+        
+        
+        function cancelAutoClear() {
+            if (clearCartTimer) {
+                clearTimeout(clearCartTimer);
+                clearCartTimer = null;
+            }
+        }
+
+        
+        function processOrder() {
+            if (cart.length === 0) {
+                showNotification('Cart is empty', 'error');
+                return;
+            }
+            
+            const paymentSection = document.getElementById('paymentSection');
+            const customerPayment = document.getElementById('customerPayment');
+            const changeDisplay = document.getElementById('changeDisplay');
+            const processBtn = document.getElementById('processOrderBtn');
+            
+            if (paymentSection.style.display === 'none') {
+                
+                paymentSection.style.display = 'block';
+                processBtn.textContent = '💳 Confirm Payment';
+                processBtn.onclick = confirmPayment;
+                
+                // Start continuous pause/resume cycle when payment section opens
+                startContinuousPauseResume();
+                console.log('🔧 Continuous pause/resume started - payment section opened');
+                
+                customerPayment.value = '';
+                changeDisplay.style.display = 'none';
+                
+                // Focus payment field immediately when payment section opens
+                customerPayment.focus();
+                console.log('🔧 Payment field focused');
+                
+                
+                customerPayment.oninput = function() {
+                    // Use VAT-inclusive total (same as cart total)
+                    const subtotalWithVat = cart.reduce((sum, item) => sum + ((item.price || item.product.price || 0) * item.quantity), 0);
+                    const total = subtotalWithVat; // Total is VAT-inclusive
+                    const paymentAmount = parseFloat(this.value) || 0;
+                    const change = paymentAmount - total;
+                    
+                    // Add small tolerance for floating-point precision issues
+                    const tolerance = 0.01;
+                    if (paymentAmount >= (total - tolerance) && paymentAmount > 0) {
+                        
+                        changeDisplay.style.display = 'block';
+                        document.getElementById('changeAmount').textContent = `₱${change.toFixed(2)}`;
+                    } else {
+                        
+                        changeDisplay.style.display = 'none';
+                    }
+                };
+            } else {
+                
+                confirmPayment();
+            }
+        }
+
+        
+        async function confirmPayment() {
+            const customerPayment = document.getElementById('customerPayment');
+            const paymentAmount = parseFloat(customerPayment.value) || 0;
+            // Use VAT-inclusive total (same as cart total)
+            const subtotalWithVat = cart.reduce((sum, item) => sum + ((item.price || item.product.price || 0) * item.quantity), 0);
+            const total = subtotalWithVat; // Total is VAT-inclusive
+            const change = paymentAmount - total;
+            
+            // Add small tolerance for floating-point precision issues
+            const tolerance = 0.01;
+            if (paymentAmount < (total - tolerance)) {
+                showNotification('Payment amount is less than total amount', 'error');
+                return;
+            }
+            
+            
+            showNotification(`Payment received: ₱${paymentAmount.toFixed(2)}. Change: ₱${change.toFixed(2)}`, 'success');
+            
+            
+            await processActualOrder(paymentAmount, change);
+        }
+
+        
+        function updateLocalStock() {
+            console.log('Updating local stock for cart items...');
+            
+            cart.forEach(cartItem => {
+                const product = products.find(p => p.id === cartItem.product.id);
+                if (product) {
+                    console.log(`Updating stock for ${product.name}:`, {
+                        before: {
+                            stock: product.stock,
+                            stockSacks: product.stockSacks,
+                            stockKilos: product.stockKilos,
+                            stockHalfKilos: product.stockHalfKilos
+                        },
+                        quantity: cartItem.quantity,
+                        unit: cartItem.unit
+                    });
+                    
+                    
+                    if (cartItem.unit === 'sack') {
+                        product.stockSacks = Math.max(0, Math.round(((product.stockSacks || 0) - cartItem.quantity) * 100) / 100);
+                    } else if (cartItem.unit === 'kilo') {
+                        // For kilo purchases, reduce kilo stock
+                        product.stockKilos = Math.max(0, Math.round(((product.stockKilos || 0) - cartItem.quantity) * 100) / 100);
+                    } else if (cartItem.unit === 'half-kilo') {
+                        // For half-kilo purchases, reduce half-kilo stock
+                        product.stockHalfKilos = Math.max(0, Math.round(((product.stockHalfKilos || 0) - cartItem.quantity) * 100) / 100);
+                    } else {
+                        // For supplements, reduce both stockSacks and stock
+                        // For others, reduce stock
+                        if (product.category === 'supplements') {
+                            product.stockSacks = Math.max(0, Math.round(((product.stockSacks || 0) - cartItem.quantity) * 100) / 100);
+                            product.stock = Math.max(0, Math.round(((product.stock || 0) - cartItem.quantity) * 100) / 100);
+                        } else {
+                            product.stock = Math.max(0, Math.round(((product.stock || 0) - cartItem.quantity) * 100) / 100);
+                        }
+                    }
+                    
+                    console.log(`Updated stock for ${product.name}:`, {
+                        after: {
+                            stock: product.stock,
+                            stockSacks: product.stockSacks,
+                            stockKilos: product.stockKilos,
+                            stockHalfKilos: product.stockHalfKilos
+                        }
+                    });
+                }
+            });
+            
+            
+            console.log('Calling displayProducts to update UI...');
+            displayProducts();
+            console.log('Product display updated');
+        }
+
+        
+        async function processActualOrder(paymentAmount, change) {
+            showLoading(true);
+            
+            try {
+                const customerEmail = document.getElementById('customerEmail').value.trim();
+                const customerName = document.getElementById('customerName').value.trim();
+                
+                const orderData = {
+                    customerName: customerName || 'Customer',
+                    customerPhone: '',
+                    customerEmail: customerEmail || null,
+                    items: cart.map(item => ({
+                        productId: item.product.id,
+                        productName: item.product.name,
+                        quantity: item.quantity,
+                        unit: item.unit || 'each',
+                        price: item.price || item.product.price || 0
+                    })),
+                    // VAT-inclusive pricing: extract VAT from product prices
+                    subtotalWithVat: cart.reduce((sum, item) => sum + ((item.price || item.product.price || 0) * item.quantity), 0),
+                    subtotal: cart.reduce((sum, item) => sum + ((item.price || item.product.price || 0) * item.quantity), 0) / 1.12,
+                    tax: (cart.reduce((sum, item) => sum + ((item.price || item.product.price || 0) * item.quantity), 0) / 1.12) * 0.12,
+                    total: cart.reduce((sum, item) => sum + ((item.price || item.product.price || 0) * item.quantity), 0),
+                    paymentAmount: paymentAmount,
+                    change: change,
+                    staffId: currentUser.id,
+                    staffName: `${currentUser.firstName} ${currentUser.lastName}`
+                };
+                
+                const response = await fetch('/api/orders', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify(orderData)
+                });
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    showNotification('Order processed successfully!', 'success');
+                    
+                    // Send email receipt if email provided
+                    if (customerEmail) {
+                        const emailReceiptData = {
+                            orderId: result.order._id,
+                            items: orderData.items,
+                            subtotal: orderData.subtotal,
+                            tax: orderData.tax,
+                            total: orderData.total,
+                            paymentAmount: paymentAmount,
+                            change: change,
+                            staffName: orderData.staffName,
+                            customerEmail: customerEmail,
+                            timestamp: new Date()
+                        };
+                        
+                        console.log('📧 Email receipt data prepared:', emailReceiptData);
+                        await sendEmailReceipt(emailReceiptData);
+                    }
+                    
+                    cart = [];
+                    updateCartDisplay();
+                    
+                    
+                    resetPaymentSection();
+                    
+                    // Stop continuous pause/resume and resume scanner detection
+                    stopContinuousPauseResume();
+                    resumeScannerDetection();
+                    console.log('🔧 Continuous cycle stopped - scanner resumed after payment');
+                    
+                    await loadProducts();
+                    
+                    // Print receipt
+                    try {
+                        console.log('🖨️ Printing receipt for order:', result.order._id);
+                        await printReceipt({
+                            orderId: result.order._id,
+                            timestamp: new Date(),
+                            staffName: orderData.staffName,
+                            items: orderData.items,
+                            subtotal: orderData.subtotal,
+                            tax: orderData.tax,
+                            total: orderData.total,
+                            paymentAmount: paymentAmount,
+                            change: change
+                        });
+                    } catch (printError) {
+                        console.error('❌ Receipt printing failed:', printError);
+                        showNotification('Order processed but receipt printing failed. Please print manually.', 'warning');
+                    }
+                    
+                    triggerForecastUpdate();
+                } else {
+                    const error = await response.json();
+                    showNotification(error.error || 'Failed to process order', 'error');
+                }
+            } catch (error) {
+                console.error('Error processing order:', error);
+                showNotification('Error processing order', 'error');
+            } finally {
+                showLoading(false);
+            }
+        }
+
+        
+        function showLoading(show) {
+            document.getElementById('loadingMessage').style.display = show ? 'block' : 'none';
+        }
+
+        
+        function showNotification(message, type = 'success') {
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            setTimeout(() => {
+                notification.remove();
+            }, 3000);
+        }
+
+        
+        function logout() {
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
+            window.location.href = '/';
+        }
+
+        
+        function resetPaymentSection() {
+            const paymentSection = document.getElementById('paymentSection');
+            const customerPayment = document.getElementById('customerPayment');
+            const changeDisplay = document.getElementById('changeDisplay');
+            const processBtn = document.getElementById('processOrderBtn');
+            
+            // Stop continuous pause/resume cycle
+            stopContinuousPauseResume();
+            
+            paymentSection.style.display = 'none';
+            
+            
+            customerPayment.value = '';
+            document.getElementById('customerEmail').value = '';
+            document.getElementById('customerName').value = '';
+            changeDisplay.style.display = 'none';
+            
+            
+            processBtn.textContent = '💳 Process Order';
+            processBtn.onclick = processOrder;
+        }
+        
+        // Browser print capabilities detection
+        function detectPrintCapabilities() {
+            const userAgent = navigator.userAgent.toLowerCase();
+            const capabilities = {
+                canBypassDialog: false,
+                browser: 'unknown',
+                instructions: ''
+            };
+            
+            if (userAgent.includes('chrome') && !userAgent.includes('edge')) {
+                capabilities.canBypassDialog = true;
+                capabilities.browser = 'chrome';
+                capabilities.instructions = 'Chrome should print directly without dialog';
+            } else if (userAgent.includes('firefox')) {
+                capabilities.canBypassDialog = false;
+                capabilities.browser = 'firefox';
+                capabilities.instructions = 'Firefox may show print dialog - click Print to continue';
+            } else if (userAgent.includes('safari') && !userAgent.includes('chrome')) {
+                capabilities.canBypassDialog = false;
+                capabilities.browser = 'safari';
+                capabilities.instructions = 'Safari will show print dialog - click Print to continue';
+            } else if (userAgent.includes('edge')) {
+                capabilities.canBypassDialog = true;
+                capabilities.browser = 'edge';
+                capabilities.instructions = 'Edge should print directly without dialog';
+            }
+            
+            return capabilities;
+        }
+        
+        // Print Receipt Function - Direct Print (No Preview)
+        async function printReceipt(orderData) {
+            try {
+                console.log('🖨️ Starting direct receipt printing for order:', orderData);
+                
+                // Create receipt content for 57mm thermal printer
+                const receiptContent = `
+                    <div id="receipt" style="
+                        width: 57mm;
+                        font-family: 'Courier New', monospace;
+                        font-size: 16px;
+                        line-height: 1.2;
+                        padding: 3mm;
+                        background: white;
+                        color: black;
+                        margin: 0;
+                        box-sizing: border-box;
+                        font-weight: normal;
+                        -webkit-print-color-adjust: exact;
+                        print-color-adjust: exact;
+                        text-rendering: optimizeLegibility;
+                        -webkit-font-smoothing: antialiased;
+                        -moz-osx-font-smoothing: grayscale;
+                    ">
+                        <div style="text-align: center; font-weight: bold; font-size: 24px; margin-bottom: 10px; color: black;">
+                            ZYMOUNE FEEDS SUPPLY
+                        </div>
+                        <div style="text-align: center; font-size: 11px; margin-bottom: 10px; color: black;">
+                            Premium Chicken & Pig Feeds & Supplements
+                        </div>
+                        <div style="border-top: 1px dashed #000; padding-top: 5px; margin-bottom: 10px;"></div>
+                        
+                        <div style="margin-bottom: 8px; color: black; font-size: 11px;">
+                            <strong>Receipt #:</strong> ${orderData.orderId.toString().slice(-8)}
+                        </div>
+                        <div style="margin-bottom: 8px; color: black; font-size: 11px;">
+                            <strong>Date:</strong> ${orderData.timestamp.toLocaleDateString()}
+                        </div>
+                        <div style="margin-bottom: 8px; color: black; font-size: 11px;">
+                            <strong>Time:</strong> ${orderData.timestamp.toLocaleTimeString()}
+                        </div>
+                        <div style="margin-bottom: 8px; color: black; font-size: 11px;">
+                            <strong>Staff:</strong> ${orderData.staffName}
+                        </div>
+                        
+                        <div style="border-top: 1px dashed #000; padding-top: 5px; margin: 10px 0;"></div>
+                        
+                        ${orderData.items.map(item => `
+                            <div style="margin-bottom: 6px; color: black; font-size: 11px;">
+                                <div style="font-weight: bold;">${item.productName}</div>
+                                <div style="font-size: 10px;">${item.quantity} ${item.unit} × ₱${item.price.toFixed(2)}</div>
+                                <div style="text-align: right; font-weight: bold;">₱${(item.quantity * item.price).toFixed(2)}</div>
+                            </div>
+                        `).join('')}
+                        
+                        <div style="border-top: 1px dashed #000; padding-top: 5px; margin: 10px 0;"></div>
+                        
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 4px; color: black; font-size: 11px;">
+                            <span>Subtotal:</span>
+                            <span>₱${orderData.subtotal.toFixed(2)}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 4px; color: black; font-size: 11px;">
+                            <span>VAT (12%):</span>
+                            <span>₱${orderData.tax.toFixed(2)}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 4px; color: black; font-size: 11px;">
+                            <span>Total (VAT-inclusive):</span>
+                            <span><strong>₱${orderData.total.toFixed(2)}</strong></span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 4px; color: black; font-size: 11px;">
+                            <span>Payment:</span>
+                            <span>₱${orderData.paymentAmount.toFixed(2)}</span>
+                        </div>
+                        <div style="display: flex; justify-content: space-between; margin-bottom: 10px; color: black; font-size: 11px;">
+                            <span>Change:</span>
+                            <span><strong>₱${orderData.change.toFixed(2)}</strong></span>
+                        </div>
+                        
+                        <div style="border-top: 1px dashed #000; padding-top: 5px; margin: 10px 0;"></div>
+                        
+                        <div style="text-align: center; font-size: 11px; margin-top: 15px; color: black;">
+                            Thank you for your business!
+                        </div>
+                        <div style="text-align: center; font-size: 11px; color: black;">
+                            Please keep this receipt
+                        </div>
+                        <div style="text-align: center; margin-top: 10px; font-size: 24px; color: black;">
+                            -------------------------
+                        </div>
+                        <div style="text-align: center; font-size: 24px; color: black; margin-top: 5px;">
+                            [CUT]
+                        </div>
+                    </div>
+                `;
+                
+                // Direct print method - bypass preview dialog
+                console.log('🖨️ Attempting direct print without preview...');
+                
+                // Create hidden iframe for direct printing
+                const iframe = document.createElement('iframe');
+                iframe.style.position = 'absolute';
+                iframe.style.left = '-9999px';
+                iframe.style.top = '-9999px';
+                iframe.style.width = '57mm';
+                iframe.style.height = 'auto';
+                iframe.style.border = 'none';
+                iframe.style.visibility = 'hidden';
+                document.body.appendChild(iframe);
+                
+                // Write receipt content to iframe
+                const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+                iframeDoc.open();
+                iframeDoc.write(`
+                    <!DOCTYPE html>
+                    <html>
+                        <head>
+                            <title>Receipt</title>
+                            <meta charset="UTF-8">
+                            <style>
+                                * { margin: 0; padding: 0; box-sizing: border-box; }
+                                body { 
+                                    width: 57mm;
+                                    font-family: 'Courier New', monospace;
+                                    background: white;
+                                    margin: 0;
+                                    padding: 0;
+                                }
+                                #receipt { 
+                                    width: 57mm;
+                                    padding: 2mm;
+                                    background: white;
+                                }
+                                @media print {
+                                    * {
+                                        -webkit-print-color-adjust: exact !important;
+                                        print-color-adjust: exact !important;
+                                        text-rendering: optimizeLegibility !important;
+                                        -webkit-font-smoothing: antialiased !important;
+                                    }
+                                    body { 
+                                        width: 57mm !important; 
+                                        margin: 0 !important; 
+                                        padding: 0 !important;
+                                        background: white !important;
+                                        font-family: 'Courier New', monospace !important;
+                                        font-size: 16px !important;
+                                        line-height: 1.2 !important;
+                                    }
+                                    #receipt { 
+                                        width: 57mm !important;
+                                        padding: 3mm !important;
+                                        background: white !important;
+                                        font-family: 'Courier New', monospace !important;
+                                        font-size: 16px !important;
+                                        line-height: 1.2 !important;
+                                    }
+                                    @page {
+                                        size: 57mm auto;
+                                        margin: 0;
+                                    }
+                                }
+                                
+                                /* Force immediate print without dialog */
+                                @media print {
+                                    body { 
+                                        print-color-adjust: exact !important;
+                                        -webkit-print-color-adjust: exact !important;
+                                        text-rendering: optimizeLegibility !important;
+                                        -webkit-font-smoothing: antialiased !important;
+                                    }
+                                }
+                            </style>
+                        </head>
+                        <body>
+                            ${receiptContent}
+                        </body>
+                    </html>
+                `);
+                iframeDoc.close();
+                
+                // Wait for iframe to load, then print immediately
+                setTimeout(() => {
+                    try {
+                        // Multiple attempts to bypass print dialog
+                        const iframeWindow = iframe.contentWindow;
+                        iframeWindow.focus();
+                        
+                        // Method 1: Direct print with event
+                        const printEvent = new Event('beforeprint');
+                        iframeWindow.dispatchEvent(printEvent);
+                        iframeWindow.print();
+                        
+                        // Method 2: Try to trigger print immediately
+                        setTimeout(() => {
+                            try {
+                                iframeWindow.print();
+                            } catch (e) {
+                                console.log('Secondary print attempt failed:', e);
+                            }
+                        }, 50);
+                        
+                        console.log('✅ Receipt sent to printer (direct print)');
+                        
+                        // Check browser capabilities and show appropriate message
+                        const capabilities = detectPrintCapabilities();
+                        
+                        if (capabilities.canBypassDialog) {
+                        showNotification('Receipt sent to printer!', 'success');
+                        } else {
+                            showNotification(`Receipt sent to printer! (${capabilities.instructions})`, 'success');
+                        }
+                        
+                        // Clean up iframe after a short delay
+                        setTimeout(() => {
+                            if (document.body.contains(iframe)) {
+                                document.body.removeChild(iframe);
+                            }
+                        }, 1000);
+                        
+                    } catch (error) {
+                        console.error('❌ Direct print failed:', error);
+                        
+                        // Enhanced fallback with multiple methods
+                        console.log('🔄 Attempting enhanced fallback print methods...');
+                        
+                        try {
+                            // Method 1: New window with immediate print
+                            const printWindow = window.open('', '_blank', 'width=1,height=1,left=-1000,top=-1000');
+                            if (printWindow) {
+                                const printHtml = `<!DOCTYPE html>
+<html>
+<head>
+    <title>Receipt</title>
+    <style>
+        body { 
+            font-family: 'Courier New', monospace; 
+            font-size: 11px; 
+            line-height: 1.1; 
+            margin: 0; 
+            padding: 3mm; 
+            width: 57mm;
+        }
+        @media print {
+            body { margin: 0; padding: 3mm; }
+        }
+    </style>
+    <script>
+        window.onload = function() {
+            setTimeout(function() {
+                window.print();
+                setTimeout(function() {
+                    window.close();
+                }, 100);
+            }, 100);
+        };
+</head>
+<body>
+    ${receiptContent}
+</body>
+</html>`;
+                                
+                                printWindow.document.write(printHtml);
+                                printWindow.document.close();
+                                showNotification('Receipt sent to printer!', 'success');
+                            }
+                        } catch (fallbackError) {
+                            console.error('❌ Enhanced fallback failed:', fallbackError);
+                            
+                            // Method 2: Try to use the main window
+                            try {
+                                const printDiv = document.createElement('div');
+                                printDiv.innerHTML = receiptContent;
+                                printDiv.style.position = 'absolute';
+                                printDiv.style.left = '-9999px';
+                                printDiv.style.top = '-9999px';
+                                printDiv.style.visibility = 'hidden';
+                                printDiv.style.opacity = '0';
+                                document.body.appendChild(printDiv);
+                                
+                                window.print();
+                                
+                                setTimeout(() => {
+                                    if (document.body.contains(printDiv)) {
+                                        document.body.removeChild(printDiv);
+                                    }
+                                }, 1000);
+                                
+                                showNotification('Receipt sent to printer!', 'success');
+                            } catch (mainWindowError) {
+                                console.error('❌ All print methods failed:', mainWindowError);
+                        showNotification('Print failed. Please try again.', 'error');
+                            }
+                        }
+                        
+                        // Clean up iframe
+                        if (document.body.contains(iframe)) {
+                            document.body.removeChild(iframe);
+                        }
+                    }
+                }, 300);
+                
+            } catch (error) {
+                console.error('Error printing receipt:', error);
+                showNotification('Receipt printing failed', 'error');
+            }
+        }
+    </script>
+    
+    <script>
+        // Enhanced Test Print Function (for debugging)
+        function testPrint() {
+            console.log('🧪 Testing print functionality...');
+            
+            const testData = {
+                orderId: '12345678',
+                timestamp: new Date(),
+                staffName: 'Test Staff',
+                items: [
+                    {
+                        productName: 'Test Chicken Feed',
+                        quantity: 2,
+                        unit: 'sack',
+                        price: 150.00
+                    },
+                    {
+                        productName: 'Test Pig Supplement',
+                        quantity: 1,
+                        unit: 'kg',
+                        price: 50.00
+                    }
+                ],
+                subtotal: 350.00,
+                tax: 42.00,
+                total: 392.00,
+                paymentAmount: 400.00,
+                change: 8.00
+            };
+            
+            console.log('📄 Test data created:', testData);
+            printReceipt(testData);
+        }
+        
+        // Printer Diagnostics Function
+        function diagnosePrinter() {
+            console.log('🔍 Running printer diagnostics...');
+            
+            // Check browser support
+            const browserInfo = {
+                userAgent: navigator.userAgent,
+                platform: navigator.platform,
+                language: navigator.language,
+                cookieEnabled: navigator.cookieEnabled,
+                onLine: navigator.onLine
+            };
+            
+            console.log('🌐 Browser Info:', browserInfo);
+            
+            // Test popup blocking
+            try {
+                const testWindow = window.open('', '_blank', 'width=100,height=100');
+                if (testWindow) {
+                    console.log('✅ Popup blocking: OK');
+                    testWindow.close();
+                } else {
+                    console.log('❌ Popup blocking: BLOCKED');
+                }
+            } catch (e) {
+                console.log('❌ Popup blocking: ERROR -', e.message);
+            }
+            
+            // Test print function availability
+            if (typeof window.print === 'function') {
+                console.log('✅ Print function: Available');
+            } else {
+                console.log('❌ Print function: Not available');
+            }
+            
+            // Test window.open
+            try {
+                const testWindow = window.open('about:blank', '_blank');
+                if (testWindow) {
+                    console.log('✅ Window.open: Working');
+                    testWindow.close();
+                } else {
+                    console.log('❌ Window.open: Failed');
+                }
+            } catch (e) {
+                console.log('❌ Window.open: Error -', e.message);
+            }
+            
+            showNotification('Printer diagnostics completed. Check console for results.', 'info');
+        }
+        
+        
+        // Send Email Receipt Function
+        async function sendEmailReceipt(orderData) {
+            try {
+                console.log('📧 Sending email receipt for order:', orderData);
+                console.log('📧 Customer email:', orderData.customerEmail);
+                console.log('📧 Order ID:', orderData.orderId);
+                
+                const requestData = {
+                    orderId: orderData.orderId,
+                    customerEmail: orderData.customerEmail,
+                    orderData: orderData
+                };
+                
+                console.log('📧 Request data being sent:', requestData);
+                
+                const response = await fetch('/api/orders/send-receipt', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify(requestData)
+                });
+                
+                console.log('📧 Response status:', response.status);
+                console.log('📧 Response ok:', response.ok);
+                
+                if (response.ok) {
+                    const result = await response.json();
+                    showNotification('E-receipt sent successfully!', 'success');
+                    console.log('✅ Email receipt sent successfully:', result);
+                } else {
+                    const error = await response.json();
+                    console.error('❌ Email receipt failed - Response:', error);
+                    console.error('❌ Error details:', {
+                        status: response.status,
+                        statusText: response.statusText,
+                        error: error
+                    });
+                    showNotification(`Failed to send e-receipt: ${error.error || error.message || 'Unknown error'}`, 'error');
+                }
+                
+            } catch (error) {
+                console.error('Error sending email receipt:', error);
+                showNotification('E-receipt sending failed', 'error');
+            }
+        }
+
+        
+        // Update only the quantity input value for a specific cart item
+        function updateCartQuantityDisplay(index, newQuantity) {
+            const cartItems = document.getElementById('cartItems');
+            const quantityInput = cartItems.querySelector(`input[data-cart-index="${index}"]`);
+            if (quantityInput) {
+                quantityInput.value = newQuantity;
+            }
+        }
+        
+        // Update only the cart totals without regenerating the entire cart
+        function updateCartTotals() {
+            const subtotal = cart.reduce((sum, item) => sum + ((item.price || item.product.price || 0) * item.quantity), 0);
+            const tax = subtotal * 0.12;
+            const total = subtotal + tax;
+            
+            document.getElementById('subtotal').textContent = `₱${subtotal.toFixed(2)}`;
+            document.getElementById('tax').textContent = `₱${tax.toFixed(2)}`;
+            document.getElementById('total').textContent = `₱${total.toFixed(2)}`;
+        }
+        
+        // Handle real-time input changes for cart quantity (like payment section)
+        function updateCartQuantityInput(index, newValue) {
+            const newQuantity = parseInt(newValue) || 1;
+            
+            if (index >= 0 && index < cart.length) {
+                const item = cart[index];
+                
+                // Use the same simple stock validation as the modal
+                let availableStock = 0;
+                
+                if (item.unit === 'sack') {
+                    // For supplements, use the maximum of stockSacks and stock
+                    // For feeds, use stockSacks as primary
+                    if (item.product.category === 'supplements') {
+                        availableStock = Math.max(item.product.stockSacks || 0, item.product.stock || 0);
+                    } else {
+                        availableStock = item.product.stockSacks || 0;
+                    }
+                } else if (item.unit === 'kilo') {
+                    availableStock = item.product.stockKilos || 0;
+                } else if (item.unit === 'half-kilo') {
+                    availableStock = item.product.stockHalfKilos || 0;
+                } else if (item.unit === 'units') {
+                    // For supplements with units
+                    availableStock = Math.max(item.product.stockSacks || 0, item.product.stock || 0);
+                }
+                
+                console.log(`🔍 Cart quantity input validation (simple):`, {
+                    productName: item.product.name,
+                    unit: item.unit,
+                    newQuantity,
+                    availableStock
+                });
+                
+                // Basic validation - don't allow values above stock or below 1
+                if (newQuantity > availableStock) {
+                    // Don't update the cart, just show a brief notification
+                    showNotification(`Max available: ${availableStock}`, 'warning');
+                    return;
+                }
+                
+                if (newQuantity < 1) {
+                    return; // Don't update if below 1
+                }
+                
+                // Update the cart quantity
+                cart[index].quantity = newQuantity;
+                
+                // Regenerate the entire cart to update button onclick values
+                updateCartDisplay();
+                
+                // Refresh unit availability for all products
+                refreshAllProductUnits();
+            }
+        }
+        
+        window.onclick = function(event) {
+            const productModal = document.getElementById('productModal');
+            
+            if (event.target === productModal) {
+                closeProductModal();
+            }
+        }
+    </script>
+</body>
+</html>

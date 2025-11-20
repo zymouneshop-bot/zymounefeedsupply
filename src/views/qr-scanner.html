@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>QR Scanner - ZYMOUNE</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .scanner-container {
+            background: white;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            text-align: center;
+        }
+        
+        .logo {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        
+        .scanner-status {
+            margin: 2rem 0;
+            padding: 1rem;
+            border-radius: 10px;
+            font-weight: 500;
+        }
+        
+        .status-scanning {
+            background: #e3f2fd;
+            color: #1976d2;
+            border: 2px solid #1976d2;
+        }
+        
+        .status-success {
+            background: #e8f5e8;
+            color: #155724;
+            border: 2px solid #28a745;
+        }
+        
+        .status-error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 2px solid #dc3545;
+        }
+        
+        .product-info {
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #f8f9fa;
+            border-radius: 10px;
+            text-align: left;
+        }
+        
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-details {
+            color: #666;
+            margin-bottom: 0.5rem;
+        }
+        
+        .product-price {
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #28a745;
+        }
+        
+        .actions {
+            margin-top: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 1rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+        }
+        
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            color: #667eea;
+            margin-top: 1rem;
+        }
+        
+        .spinner {
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #667eea;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 0.5rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .instructions {
+            margin: 1rem 0;
+            padding: 1rem;
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 8px;
+            color: #856404;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="scanner-container">
+        <div class="logo">🐔🐷 ZYMOUNE</div>
+        
+        <div id="scannerStatus" class="scanner-status status-scanning">
+            📱 QR Code Scanner Ready
+        </div>
+        
+        <div id="productInfo" class="product-info" style="display: none;">
+            <div class="product-name" id="productName"></div>
+            <div class="product-details" id="productDetails"></div>
+            <div class="product-price" id="productPrice"></div>
+        </div>
+        
+        <div class="instructions">
+            <strong>Instructions:</strong><br>
+            1. Make sure the admin dashboard is open on your computer<br>
+            2. Scan the QR code with your phone camera<br>
+            3. The purchase modal will appear in the admin dashboard<br>
+            4. Complete the purchase in the admin system
+        </div>
+        
+        <div class="actions">
+            <button class="btn btn-primary" id="triggerModalBtn" style="display: none;">
+                🛒 Open Purchase Modal in Admin
+            </button>
+            <button class="btn btn-secondary" id="closeBtn">
+                Close Scanner
+            </button>
+        </div>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            Processing...
+        </div>
+    </div>
+
+    <script>
+        
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id');
+        const productName = urlParams.get('name');
+        const productPrice = urlParams.get('price');
+        const productCategory = urlParams.get('category');
+        const productAnimal = urlParams.get('animal');
+        
+        let productData = null;
+        
+        
+        function initScanner() {
+            console.log('QR Scanner initializing...');
+            console.log('URL params:', {productId, productName, productPrice, productCategory, productAnimal});
+            
+            if (productId) {
+                
+                productData = {
+                    id: productId,
+                    name: productName || 'Product',
+                    price: parseFloat(productPrice) || 0,
+                    category: productCategory || 'feeds',
+                    animal: productAnimal || 'chicken'
+                };
+                
+                console.log('Product data:', productData);
+                showProductInfo();
+                showTriggerButton();
+            } else {
+                console.error('No product ID found in URL');
+                showError('No product information found in QR code');
+            }
+        }
+        
+        
+        function showProductInfo() {
+            if (productData) {
+                document.getElementById('productName').textContent = productData.name;
+                document.getElementById('productDetails').textContent = 
+                    `${productData.animal === 'chicken' ? '🐔 Chicken' : '🐷 Pig'} - ${productData.category}`;
+                document.getElementById('productPrice').textContent = `₱${productData.price.toFixed(2)}`;
+                document.getElementById('productInfo').style.display = 'block';
+            }
+        }
+        
+        
+        function showTriggerButton() {
+            document.getElementById('triggerModalBtn').style.display = 'block';
+            document.getElementById('scannerStatus').textContent = '✅ Product Found - Ready to Purchase';
+            document.getElementById('scannerStatus').className = 'scanner-status status-success';
+        }
+        
+        
+        function showError(message) {
+            document.getElementById('scannerStatus').textContent = `❌ ${message}`;
+            document.getElementById('scannerStatus').className = 'scanner-status status-error';
+        }
+        
+        
+        function triggerAdminModal() {
+            console.log('🔍 Triggering staff modal...');
+            console.log('📦 Product data:', productData);
+            
+            if (!productData) {
+                console.error('❌ No product data available');
+                showError('No product data available');
+                return;
+            }
+            
+            console.log('🔍 Product ID to trigger:', productData.id);
+            showLoading();
+            
+            
+            
+            
+            try {
+                console.log('Trying local storage method for staff dashboard...');
+                localStorage.setItem('staffQrTriggerProduct', JSON.stringify(productData));
+                localStorage.setItem('staffQrTriggerTime', Date.now().toString());
+                console.log('Local storage method completed for staff');
+            } catch (e) {
+                console.log('Local storage not available:', e);
+            }
+            
+            
+            try {
+                console.log('Trying broadcast channel method for staff dashboard...');
+                const channel = new BroadcastChannel('feeds-store-staff-qr');
+                channel.postMessage({
+                    type: 'TRIGGER_STAFF_PURCHASE_MODAL',
+                    productId: productData.id,
+                    timestamp: Date.now()
+                });
+                channel.close();
+                console.log('Broadcast channel method completed for staff');
+            } catch (e) {
+                console.log('Broadcast channel not available:', e);
+            }
+            
+            
+            try {
+                console.log('Trying window messaging method for staff dashboard...');
+                if (window.opener) {
+                    window.opener.postMessage({
+                        type: 'TRIGGER_STAFF_PURCHASE_MODAL',
+                        productId: productData.id,
+                        timestamp: Date.now()
+                    }, '*');
+                    console.log('Window messaging method completed for staff');
+                } else {
+                    console.log('No window opener available');
+                }
+            } catch (e) {
+                console.log('Window messaging not available:', e);
+            }
+            
+            
+            const baseUrl = window.location.origin; 
+            console.log('Trying server method with baseUrl:', baseUrl);
+            fetch(`${baseUrl}/api/qr/trigger-modal`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    productId: productData.id,
+                    timestamp: Date.now()
+                })
+            }).then(response => {
+                console.log('Server trigger response:', response.status);
+                return response.json();
+            }).then(data => {
+                console.log('Server trigger success:', data);
+            }).catch(e => {
+                console.log('Server communication failed:', e);
+            });
+            
+            
+            setTimeout(() => {
+                hideLoading();
+                document.getElementById('scannerStatus').textContent = '✅ Modal Triggered in Staff Dashboard';
+                document.getElementById('scannerStatus').className = 'scanner-status status-success';
+                
+                console.log('✅ All communication methods attempted for product:', productData.id);
+                
+                setTimeout(() => {
+                    window.close();
+                }, 3000);
+            }, 1000);
+        }
+        
+        
+        function showLoading() {
+            document.getElementById('loading').style.display = 'block';
+        }
+        
+        
+        function hideLoading() {
+            document.getElementById('loading').style.display = 'none';
+        }
+        
+        
+        document.getElementById('triggerModalBtn').addEventListener('click', triggerAdminModal);
+        document.getElementById('closeBtn').addEventListener('click', () => {
+            window.close();
+        });
+        
+        
+        document.addEventListener('DOMContentLoaded', initScanner);
+        
+        
+        if (urlParams.get('auto') === 'true') {
+            setTimeout(triggerAdminModal, 1000);
+        }
+    </script>
+</body>
+</html>

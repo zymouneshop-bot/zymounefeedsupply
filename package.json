@@ -1,0 +1,49 @@
+{
+  "name": "feeds-store",
+  "version": "1.0.0",
+  "description": "Feed and supplement sales system for chicken and pig feeds",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js",
+    "ngrok": "npx ngrok http 4000",
+    "start:public": "node src/app.js",
+    "test": "jest",
+    "build": "echo 'Build process here'",
+    "install-deps": "npm install"
+  },
+  "keywords": [
+    "feeds",
+    "chicken",
+    "pig",
+    "supplements",
+    "ecommerce",
+    "agriculture"
+  ],
+  "author": "Your Name",
+  "license": "MIT",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "express-validator": "^7.0.1",
+    "gridfs-stream": "^1.1.1",
+    "helmet": "^7.1.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.0.3",
+    "multer": "^1.4.5-lts.1",
+    "multer-gridfs-storage": "^5.0.2",
+    "ngrok": "^5.0.0-beta.2",
+    "nodemailer": "^6.10.1",
+    "qrcode": "^1.5.4"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0",
+    "nodemon": "^3.0.2",
+    "supertest": "^6.3.3"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  }
+}

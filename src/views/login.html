@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ZYMOUNE - Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5dc;
+            min-height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        
+        .main-container {
+            display: flex;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        .logo-section {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1;
+        }
+        
+        .logo-background {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+        
+        .logo-text-right {
+            position: absolute;
+            top: 50%;
+            right: 2rem;
+            transform: translateY(-50%);
+            z-index: 1;
+            text-align: right;
+        }
+        
+        .logo-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2rem;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .logo-oval {
+            width: 800px;
+            height: 640px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0.3;
+        }
+        
+        .logo-oval img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        
+        .logo-text {
+            text-align: center;
+            color: #8b7355;
+        }
+        
+        .logo-text h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo-text p {
+            font-size: 1.2rem;
+            opacity: 0.8;
+        }
+        
+        .system-info {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(139, 115, 85, 0.1);
+            border-radius: 10px;
+            border-left: 4px solid #8b7355;
+        }
+        
+        .system-info p {
+            margin: 0.5rem 0;
+            font-size: 0.95rem;
+            color: #8b7355;
+            opacity: 0.9;
+        }
+        
+        .system-info p:first-child {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #6b5b47;
+            margin-bottom: 1rem;
+        }
+        
+        .login-section {
+            position: absolute;
+            top: 50%;
+            left: 2rem;
+            transform: translateY(-50%);
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+        
+        .login-container {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 3rem;
+            border-radius: 15px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .logo {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        
+        .logo h1 {
+            color: #333;
+            font-size: 2.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 700;
+        }
+        
+        .logo p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .user-type-selector {
+            display: flex;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 0.25rem;
+            margin-bottom: 2rem;
+            position: relative;
+        }
+        
+        .user-type-btn {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            background: transparent;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            color: #666;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .user-type-btn.active {
+            color: #667eea;
+            background: white;
+            box-shadow: 0 2px 8px rgba(102, 126, 234, 0.15);
+        }
+        
+        .form-container {
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .form {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            opacity: 1;
+            transform: translateX(0);
+        }
+        
+        .form.hidden {
+            opacity: 0;
+            transform: translateX(100%);
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+        }
+        
+        .form-group {
+            margin-bottom: 2rem;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 0.75rem;
+            color: #333;
+            font-weight: 500;
+            font-size: 1.1rem;
+        }
+        
+        input {
+            width: 100%;
+            padding: 1.25rem;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            background: #fafbfc;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        .password-container {
+            position: relative;
+        }
+        
+        .password-toggle {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #666;
+            padding: 0;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: color 0.3s ease;
+        }
+        
+        .password-toggle:hover {
+            color: #333;
+        }
+        
+        .password-container input {
+            padding-right: 45px;
+        }
+        
+        .btn {
+            width: 100%;
+            padding: 1.25rem;
+            background: linear-gradient(135deg, #8b7355 0%, #6b5b47 100%);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(139, 115, 85, 0.3);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .btn:hover::before {
+            left: 100%;
+        }
+        
+        .divider {
+            text-align: center;
+            margin: 1.5rem 0;
+            color: #666;
+            position: relative;
+            font-size: 0.9rem;
+        }
+        
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e1e5e9;
+            z-index: 1;
+        }
+        
+        .divider span {
+            background: white;
+            padding: 0 1rem;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 0.875rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .success {
+            background: #d4edda;
+            color: #155724;
+            padding: 0.875rem;
+            border-radius: 8px;
+            margin-bottom: 1rem;
+            display: none;
+            border-left: 4px solid #28a745;
+        }
+        
+        .register-form {
+            display: none;
+        }
+        
+        .toggle-form {
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .toggle-form a {
+            color: #667eea;
+            text-decoration: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+        
+        .toggle-form a:hover {
+            color: #5a6fd8;
+            text-decoration: underline;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            color: #667eea;
+            margin-top: 1rem;
+        }
+        
+        .spinner {
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid #667eea;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+            margin-right: 0.5rem;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .form-title {
+            text-align: center;
+            margin-bottom: 2rem;
+            color: #333;
+            font-size: 1.8rem;
+            font-weight: 600;
+        }
+        
+        .admin-form .form-title {
+            color: #dc3545;
+        }
+        
+        .customer-form .form-title {
+            color: #28a745;
+        }
+        
+        
+        .admin-login-container {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            z-index: 1000;
+        }
+        
+        .admin-login-btn {
+            background: url('/uploads/zymoune-logo.png') center/cover no-repeat;
+            background-size: 100% 100%;
+            color: transparent;
+            border: 2px solid #fff;
+            padding: 0;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            font-size: 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .admin-login-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+            border-color: #ffd700;
+        }
+        
+        .admin-login-btn:active {
+            transform: translateY(0);
+        }
+        
+        
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 0;
+            border-radius: 15px;
+            width: 90%;
+            max-width: 450px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            animation: modalSlideIn 0.3s ease-out;
+        }
+        
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .modal-header {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            color: white;
+            padding: 1.5rem 2rem;
+            border-radius: 15px 15px 0 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+        
+        .close {
+            color: white;
+            font-size: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+        
+        .close:hover {
+            opacity: 0.7;
+        }
+        
+        .modal-body {
+            padding: 2rem;
+        }
+        
+        .admin-btn {
+            background: linear-gradient(135deg, #dc3545 0%, #c82333 100%);
+            color: white;
+            border: none;
+            padding: 0.875rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+        }
+        
+        .admin-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(220, 53, 69, 0.3);
+        }
+        
+        .admin-btn:active {
+            transform: translateY(0);
+        }
+        
+        .modal-error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 0.875rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            border-left: 4px solid #dc3545;
+        }
+        
+        .modal-loading {
+            text-align: center;
+            color: #dc3545;
+            margin-top: 1rem;
+        }
+        
+        .modal-loading .spinner {
+            border-top-color: #dc3545;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logo-oval {
+                width: 600px;
+                height: 480px;
+                opacity: 0.3;
+            }
+            
+            .login-section {
+                left: 1rem;
+                padding: 1rem;
+            }
+            
+            .logo-text-right {
+                right: 1rem;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.8rem;
+            }
+            
+            .logo-text p {
+                font-size: 1rem;
+            }
+            
+            .system-info {
+                margin-top: 1rem;
+                padding: 1rem;
+            }
+            
+            .system-info p {
+                font-size: 0.85rem;
+            }
+            
+            .system-info p:first-child {
+                font-size: 0.9rem;
+            }
+            
+            .login-section {
+                padding: 1rem;
+                min-height: 60vh;
+            }
+            
+            .login-container {
+                max-width: 100%;
+                padding: 1.5rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .logo-oval {
+                width: 500px;
+                height: 400px;
+                opacity: 0.3;
+            }
+            
+            .login-section {
+                left: 0.5rem;
+                padding: 0.5rem;
+            }
+            
+            .logo-text-right {
+                right: 0.5rem;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.5rem;
+            }
+            
+            .logo-text p {
+                font-size: 0.9rem;
+            }
+            
+            .system-info {
+                margin-top: 0.5rem;
+                padding: 0.75rem;
+            }
+            
+            .system-info p {
+                font-size: 0.8rem;
+            }
+            
+            .system-info p:first-child {
+                font-size: 0.85rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <!-- Logo Background (Center) -->
+        <div class="logo-background">
+            <div class="logo-oval">
+                <img src="/uploads/zymoune-logo.png" alt="ZYMOUNE Logo">
+            </div>
+        </div>
+        
+        <!-- Text on Right Side -->
+        <div class="logo-text-right">
+            <div class="logo-text">
+                <h1>ZYMOUNE FEEDS SUPPLY</h1>
+                <p>Premium Chicken & Pig Feeds & Supplements</p>
+                <div class="system-info">
+                    <p><strong>🏪 Digital Feed Store Management System</strong></p>
+                    <p>• Complete inventory tracking</p>
+                    <p>• QR code product scanning</p>
+                    <p>• Automated receipt printing</p>
+                    <p>• Staff & admin access control</p>
+                    <p>• Real-time sales analytics</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="login-section">
+            <div class="login-container">
+                <div class="admin-login-container">
+                    <button class="admin-login-btn" id="adminLoginBtn" title="Admin Login">
+                    </button>
+                </div>
+        
+        <div class="error" id="errorMessage"></div>
+        <div class="success" id="successMessage"></div>
+        
+        <div class="form-container">
+            
+            <form id="staffLoginForm" class="form staff-form">
+                <div class="form-title">Staff Login</div>
+                <div class="form-group">
+                    <label for="staffEmail">Email</label>
+                    <input type="email" id="staffEmail" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="staffPassword">Password</label>
+                    <div class="password-container">
+                        <input type="password" id="staffPassword" name="password" required>
+                        <button type="button" class="password-toggle" onclick="togglePassword('staffPassword')">
+                            👁️
+                        </button>
+                    </div>
+                </div>
+                <button type="submit" class="btn">Login as Staff</button>
+            </form>
+        </div>
+        
+                <div class="loading" id="loadingMessage">
+                    <div class="spinner"></div>
+                    Processing...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    
+    <div id="adminModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>👨‍💼 Admin Login</h2>
+                <span class="close" id="closeModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="adminLoginForm" class="admin-form">
+                    <div class="form-group">
+                        <label for="adminPassword">Admin Password</label>
+                        <div class="password-container">
+                            <input type="password" id="adminPassword" name="password" placeholder="Enter admin password" required>
+                            <button type="button" class="password-toggle" onclick="togglePassword('adminPassword')">
+                                👁️
+                            </button>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn admin-btn">Login as Admin</button>
+                </form>
+                <div class="modal-error" id="modalErrorMessage" style="display: none;"></div>
+                <div class="modal-loading" id="modalLoadingMessage" style="display: none;">
+                    <div class="spinner"></div>
+                    Processing...
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function togglePassword(inputId) {
+            const input = document.getElementById(inputId);
+            const button = input.nextElementSibling;
+            
+            if (input.type === 'password') {
+                input.type = 'text';
+                button.textContent = '🙈';
+            } else {
+                input.type = 'password';
+                button.textContent = '👁️';
+            }
+        }
+    </script>
+    <script src="/js/login.js"></script>
+</body>
+</html>
