@@ -6972,9 +6972,9 @@
                 // Add timestamp to prevent caching
                 params.append('_t', Date.now());
                 
-                console.log('📊 Making request to direct database API:', `${API_BASE}/sales/direct?${params}`);
+                console.log('📊 Making request to direct database API:', `${API_BASE}/orders?${params}`);
                 
-                const response = await fetch(`${API_BASE}/sales/direct?${params}`, {
+                const response = await fetch(`${API_BASE}/orders?${params}`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -7038,7 +7038,7 @@
                 const controller = new AbortController();
                 const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 second timeout
                 
-                return fetch(`${API_BASE}/sales/direct?${params}`, {
+                return fetch(`${API_BASE}/orders?${params}`, {
                     method: 'GET',
                     signal: controller.signal,
                     headers: {
@@ -11904,7 +11904,7 @@
                 
                 // Add timestamp to prevent caching
                 params.append('_t', Date.now());
-                const apiUrl = `${API_BASE}/sales/direct?${params}`;
+                const apiUrl = `${API_BASE}/orders?${params}`;
                 console.log('📊 Making API call to:', apiUrl);
                 console.log('📊 Date range:', { startDate: startDate.toISOString(), endDate: endDate.toISOString() });
                 
