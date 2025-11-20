@@ -937,7 +937,7 @@
 <body>
     <div class="header">
         <div class="logo">
-            <img src="/uploads/zymoune-logo.png" alt="ZYMOUNE FEEDS SUPPLY Logo" class="header-logo" style="height: 50px; width: 50px; margin-right: 10px; border-radius: 50%; object-fit: cover;" onerror="console.log('Logo failed to load:', this.src); this.style.display='none';">
+            <img src="./uploads/zymoune-logo.png" alt="ZYMOUNE FEEDS SUPPLY Logo" class="header-logo" style="height: 50px; width: 50px; margin-right: 10px; border-radius: 50%; object-fit: cover;" onerror="console.log('Logo failed to load:', this.src); this.style.display='none';">
             <h1>ZYMOUNE Kiosk</h1>
         </div>
         <div class="staff-info">
@@ -1198,7 +1198,7 @@
             const user = localStorage.getItem('user');
             
             if (!token || !user) {
-                window.location.href = '/login.html';
+                window.location.href = './login.html';
                 return;
             }
             
@@ -1208,7 +1208,7 @@
                 document.getElementById('staffAvatar').textContent = currentUser.firstName.charAt(0).toUpperCase();
             } catch (error) {
                 console.error('Error parsing user data:', error);
-                window.location.href = '/login.html';
+                window.location.href = './login.html';
             }
         }
 
@@ -3002,7 +3002,7 @@
         function logout() {
             localStorage.removeItem('token');
             localStorage.removeItem('user');
-            window.location.href = '/';
+            window.location.href = './';
         }
 
         

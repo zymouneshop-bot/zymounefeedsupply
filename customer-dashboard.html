@@ -279,7 +279,7 @@
             const userData = localStorage.getItem('user');
             
             if (!token || !userData) {
-                window.location.href = '/login';
+                window.location.href = './login.html';
                 return;
             }
             
@@ -292,7 +292,7 @@
         function logout() {
             localStorage.removeItem('token');
             localStorage.removeItem('user');
-            window.location.href = '/login';
+            window.location.href = './login.html';
         }
         
         
