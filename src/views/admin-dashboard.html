@@ -5017,7 +5017,11 @@
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     
     <script>
-        const API_BASE = '/api';
+        // Detect environment and set API URL
+        const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost:4000' 
+            : 'https://feeds-store-api.onrender.com';
+        const API_BASE = API_URL + '/api';
         let user = null;
         let salesChart = null;
         let currentChartPeriod = 7;
@@ -6321,7 +6325,7 @@
         // Load products from database
         async function loadProductsFromDB() {
             try {
-                const response = await fetch(`/api/products?_t=${Date.now()}`, {
+                const response = await fetch(`${API_BASE}/products?_t=${Date.now()}`, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`,
                         'Cache-Control': 'no-cache'
@@ -6812,7 +6816,7 @@
                 }
                 
                 // Update the product in the database
-                const response = await fetch(`/api/products/${productId}`, {
+                const response = await fetch(`${API_BASE}/products/${productId}`, {
                     method: 'PUT',
                     headers: {
                         'Content-Type': 'application/json',
@@ -6968,9 +6972,9 @@
                 // Add timestamp to prevent caching
                 params.append('_t', Date.now());
                 
-                console.log('📊 Making request to direct database API:', `/api/sales/direct?${params}`);
+                console.log('📊 Making request to direct database API:', `${API_BASE}/sales/direct?${params}`);
                 
-                const response = await fetch(`/api/sales/direct?${params}`, {
+                const response = await fetch(`${API_BASE}/sales/direct?${params}`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -7034,7 +7038,7 @@
                 const controller = new AbortController();
                 const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 second timeout
                 
-                return fetch(`/api/sales/direct?${params}`, {
+                return fetch(`${API_BASE}/sales/direct?${params}`, {
                     method: 'GET',
                     signal: controller.signal,
                     headers: {
@@ -8041,7 +8045,7 @@
             console.log('Deleting product:', id);
             if (confirm('Are you sure you want to delete this product?')) {
                 try {
-                    const response = await fetch(`/api/products/${id}`, {
+                    const response = await fetch(`${API_BASE}/products/${id}`, {
                         method: 'DELETE',
                         headers: {
                             'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -8208,7 +8212,7 @@
                     const productId = editingProductId;
                     console.log('Editing existing product with ID:', productId);
                     
-                    response = await fetch(`/api/products/${productId}`, {
+                    response = await fetch(`${API_BASE}/products/${productId}`, {
                         method: 'PUT',
                         headers: {
                             'Content-Type': 'application/json',
@@ -8220,7 +8224,7 @@
                     // Add new product
                     console.log('Creating new product');
                     
-                    response = await fetch('/api/products', {
+                    response = await fetch(`${API_BASE}/products`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',
@@ -8738,7 +8742,7 @@
                 }
                 
                 // Generate QR code via API - use the original _id
-                const response = await fetch(`/api/sales/qr/${product._id || productId}`, {
+                const response = await fetch(`${API_BASE}/sales/qr/${product._id || productId}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Content-Type': 'application/json'
@@ -9235,7 +9239,7 @@
                             staffName: `${user.firstName} ${user.lastName}`
                         };
                         
-                        const response = await fetch('/api/orders', {
+                        const response = await fetch(`${API_BASE}/orders`, {
                             method: 'POST',
                             headers: {
                                 'Content-Type': 'application/json',
@@ -9323,7 +9327,7 @@
             // Test 4: Server trigger
             console.log('Test 4: Server trigger');
             setTimeout(() => {
-                fetch('/api/qr/trigger-modal', {
+                fetch(`${API_BASE}/qr/trigger-modal`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -9394,7 +9398,7 @@
         // Check for QR triggers from server
         async function checkForQRTriggers() {
             try {
-                const response = await fetch('/api/qr/check-triggers');
+                const response = await fetch(`${API_BASE}/qr/check-triggers`);
                 if (response.ok) {
                     const data = await response.json();
                     if (data.trigger && data.trigger.productId) {
@@ -9714,7 +9718,7 @@
         // Resend invitation
         async function resendInvitation(staffId) {
             try {
-                const response = await fetch(`/api/staff/${staffId}/resend`, {
+                const response = await fetch(`${API_BASE}/staff/${staffId}/resend`, {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -9754,7 +9758,7 @@
             
             try {
                 console.log('Pausing staff with ID:', staffId);
-                const response = await fetch(`/api/staff/${staffId}/pause`, {
+                const response = await fetch(`${API_BASE}/staff/${staffId}/pause`, {
                     method: 'PUT',
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -9792,7 +9796,7 @@
             
             try {
                 console.log('Activating staff with ID:', staffId);
-                const response = await fetch(`/api/staff/${staffId}/activate`, {
+                const response = await fetch(`${API_BASE}/staff/${staffId}/activate`, {
                     method: 'PUT',
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -9837,7 +9841,7 @@
             
             try {
                 console.log('Clearing all staff members...');
-                const response = await fetch('/api/staff/clear-all', {
+                const response = await fetch(`${API_BASE}/staff/clear-all`, {
                     method: 'DELETE',
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
@@ -9920,7 +9924,7 @@
                 }
                 
                 // Load products data
-                const productsResponse = await fetch('/api/products', {
+                const productsResponse = await fetch(`${API_BASE}/products`, {
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`
                     }
@@ -11900,7 +11904,7 @@
                 
                 // Add timestamp to prevent caching
                 params.append('_t', Date.now());
-                const apiUrl = `/api/sales/direct?${params}`;
+                const apiUrl = `${API_BASE}/sales/direct?${params}`;
                 console.log('📊 Making API call to:', apiUrl);
                 console.log('📊 Date range:', { startDate: startDate.toISOString(), endDate: endDate.toISOString() });
                 

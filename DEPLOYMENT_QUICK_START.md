@@ -15,7 +15,8 @@ git add .
 git commit -m "Initial commit - Ready for deployment"
 ```
 
-## Step 2: Create GitHub Repository
+## Step 2: Create GitHub Repositorymongodb+srv://trinavaldezmalit4_db_user:feedsupply@cluster0.zlha3qw.mongodb.net/feeds_store?retryWrites=true&w=majority&appName=Cluster0
+
 
 1. Go to https://github.com/new
 2. Create a repository named `feeds-store`

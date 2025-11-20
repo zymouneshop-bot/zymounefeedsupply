@@ -1151,6 +1151,11 @@
 
 
     <script>
+        // Detect environment and set API URL
+        const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+            ? 'http://localhost:4000' 
+            : 'https://feeds-store-api.onrender.com';
+        const API_BASE = API_URL + '/api';
         
         let currentUser = null;
         let cart = [];
@@ -1214,7 +1219,7 @@
                 const token = localStorage.getItem('token');
                 console.log('🔑 Token exists:', !!token);
                 
-                const response = await fetch(`/api/products?_t=${Date.now()}`, {
+                const response = await fetch(`${API_BASE}/products?_t=${Date.now()}`, {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                         'Cache-Control': 'no-cache',
@@ -2898,7 +2903,7 @@
                     staffName: `${currentUser.firstName} ${currentUser.lastName}`
                 };
                 
-                const response = await fetch('/api/orders', {
+                const response = await fetch(`${API_BASE}/orders`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -3462,7 +3467,7 @@
                 
                 console.log('📧 Request data being sent:', requestData);
                 
-                const response = await fetch('/api/orders/send-receipt', {
+                const response = await fetch(`${API_BASE}/orders/send-receipt`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
