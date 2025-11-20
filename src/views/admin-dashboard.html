@@ -9977,16 +9977,13 @@
                 const params = new URLSearchParams();
                 params.append('startDate', oneYearAgo.toISOString());
                 params.append('endDate', new Date().toISOString());
-                
-                // Add timestamp to prevent caching
                 params.append('_t', Date.now());
                 
                 console.log('📊 Loading forecasting data from:', oneYearAgo.toISOString(), 'to:', new Date().toISOString());
                 
-                const salesResponse = await fetch(`${API_BASE}/orders?${params}`, {
+                const salesResponse = await fetch(`${API_BASE}/orders/date-range?${params}`, {
                     method: 'GET',
                     headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
                         'Cache-Control': 'no-cache',
                         'Pragma': 'no-cache',
                         'Expires': '0'
@@ -9995,7 +9992,7 @@
                 
                 if (salesResponse.ok) {
                     const salesData = await salesResponse.json();
-                    forecastData.salesHistory = salesData.sales || [];
+                    forecastData.salesHistory = salesData.orders || [];
                     console.log('📊 Sales data loaded:', forecastData.salesHistory.length, 'records');
                 }
                 
@@ -10887,8 +10884,8 @@
             
             // Sort all sales first to find the globally newest one
             const sortedAllSales = [...forecastingSalesData]
-                .sort((a, b) => new Date(b.saleDate) - new Date(a.saleDate));
-            const globallyNewestSaleDate = sortedAllSales[0]?.saleDate;
+                .sort((a, b) => new Date(b.orderDate || b.saleDate) - new Date(a.orderDate || a.saleDate));
+            const globallyNewestSaleDate = sortedAllSales[0]?.orderDate || sortedAllSales[0]?.saleDate;
             
             // Get current page data
             const startIndex = (currentForecastingPage - 1) * forecastingItemsPerPage;
@@ -10897,7 +10894,9 @@
             
             tbody.innerHTML = currentPageSales.map((sale, index) => {
                 try {
-                    const saleDate = new Date(sale.saleDate);
+                    // Handle both orderDate and saleDate
+                    const dateStr = sale.orderDate || sale.saleDate;
+                    const saleDate = new Date(dateStr);
                 const timeString = saleDate.toLocaleString('en-US', {
                     month: 'short',
                     day: 'numeric',
@@ -10905,24 +10904,36 @@
                     minute: '2-digit'
                 });
                 
-                    const itemsSummary = sale.productName || 'Product';
-                    const quantity = sale.quantity || 0;
-                    const unit = sale.unit || '';
+                    // Get customer info - try different field names
+                    const customerName = sale.customerName || sale.customerInfo?.name || (sale.customerId?.name) || 'Customer';
                     
-                    const customerName = sale.customerName || sale.customerInfo?.name || 'Customer';
+                    // Handle items display - orders have items array
+                    let itemsSummary = 'Order';
+                    let quantity = 0;
+                    if (sale.items && sale.items.length > 0) {
+                        itemsSummary = sale.items.map(i => i.name || i.productName).join(', ');
+                        quantity = sale.items.reduce((sum, i) => sum + (i.quantity || 1), 0);
+                    } else if (sale.productName) {
+                        itemsSummary = sale.productName;
+                        quantity = sale.quantity || 0;
+                    }
+                    
                 const status = sale.status || 'completed';
                 
                 // Highlight ONLY the globally newest sale if it's on page 1
-                const isGloballyNewest = sale.saleDate === globallyNewestSaleDate && currentForecastingPage === 1;
+                const isGloballyNewest = dateStr === globallyNewestSaleDate && currentForecastingPage === 1;
                 const highlightClass = isGloballyNewest ? 'newest-sale' : '';
                 const highlightStyle = isGloballyNewest ? 'background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%); border-left: 4px solid #4CAF50; box-shadow: 0 2px 8px rgba(76, 175, 80, 0.1);' : '';
+                
+                // Handle both total and totalAmount
+                const totalAmount = sale.total || sale.totalAmount || 0;
                 
                 return `
                     <tr class="${highlightClass}" style="${highlightStyle}">
                         <td>${timeString}${isGloballyNewest ? ' 🆕' : ''}</td>
                         <td>${customerName}</td>
-                            <td>${quantity} ${unit} - ${itemsSummary}</td>
-                            <td>₱${(sale.totalAmount || 0).toLocaleString()}</td>
+                            <td>${quantity} items - ${itemsSummary}</td>
+                            <td>₱${totalAmount.toLocaleString()}</td>
                         <td class="status-${status}">${status.charAt(0).toUpperCase() + status.slice(1)}</td>
                     </tr>
                 `;
@@ -10944,7 +10955,8 @@
             }
             
             const totalOrders = recentSales.length;
-            const totalRevenueAmount = recentSales.reduce((sum, sale) => sum + (sale.totalAmount || 0), 0);
+            // Handle both old format (totalAmount) and new format (total)
+            const totalRevenueAmount = recentSales.reduce((sum, sale) => sum + (sale.total || sale.totalAmount || 0), 0);
             
             totalCount.textContent = totalOrders;
             totalRevenue.textContent = totalRevenueAmount.toFixed(2);
