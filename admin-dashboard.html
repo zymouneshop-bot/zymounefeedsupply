@@ -10652,9 +10652,15 @@
             
             console.log('📊 Sales data length:', salesData.length);
             console.log('📊 Products length:', products.length);
+            console.log('📊 Raw sales data sample:', salesData.slice(0, 3));
             
             if (salesData.length === 0) {
-                console.log('📊 No sales data to display');
+                console.log('⚠️ No sales data to display - showing placeholders');
+                // Set default values for UI
+                document.getElementById('nextMonthForecast').textContent = `₱0.00`;
+                document.getElementById('quarterlyTarget').textContent = `₱0.00`;
+                document.getElementById('growthRate').textContent = `0%`;
+                document.getElementById('topProduct').textContent = `-`;
                 return;
             }
             
@@ -10666,7 +10672,8 @@
             console.log('📊 Forecast calculations:', {
                 totalRevenue,
                 monthsDifference,
-                monthlyRevenue
+                monthlyRevenue,
+                salesCount: salesData.length
             });
             
             // Calculate actual growth rate based on sales data
@@ -10688,28 +10695,66 @@
             const nextMonthForecast = monthlyRevenue * growthMultiplier;
             
             // Ensure values are not NaN
-            const safeNextMonthForecast = isNaN(nextMonthForecast) ? 0 : nextMonthForecast;
+            const safeNextMonthForecast = isNaN(nextMonthForecast) || nextMonthForecast < 0 ? monthlyRevenue : nextMonthForecast;
             const safeGrowthRate = isNaN(actualGrowthRate) ? 0 : actualGrowthRate;
             const safeQuarterlyTarget = isNaN(monthlyRevenue * 3) ? 0 : monthlyRevenue * 3;
             const safeQuarterlyProgress = isNaN((totalRevenue / (monthlyRevenue * 3)) * 100) ? 0 : Math.min(100, (totalRevenue / (monthlyRevenue * 3)) * 100);
             
-            document.getElementById('nextMonthForecast').textContent = `₱${safeNextMonthForecast.toLocaleString()}`;
-            document.getElementById('nextMonthChange').textContent = `${safeGrowthRate >= 0 ? '+' : ''}${safeGrowthRate.toFixed(1)}%`;
+            console.log('📊 Safe values for display:', {
+                safeNextMonthForecast: safeNextMonthForecast.toFixed(2),
+                safeGrowthRate: safeGrowthRate.toFixed(1),
+                safeQuarterlyTarget: safeQuarterlyTarget.toFixed(2),
+                safeQuarterlyProgress: safeQuarterlyProgress.toFixed(1)
+            });
             
-            // Quarterly target
-            document.getElementById('quarterlyTarget').textContent = `₱${safeQuarterlyTarget.toLocaleString()}`;
-            document.getElementById('quarterlyProgress').style.width = `${safeQuarterlyProgress}%`;
-            document.getElementById('quarterlyPercentage').textContent = `${safeQuarterlyProgress.toFixed(1)}%`;
+            // Update DOM elements with formatted values
+            const nextMonthElement = document.getElementById('nextMonthForecast');
+            const quarterlyElement = document.getElementById('quarterlyTarget');
+            const growthElement = document.getElementById('growthRate');
+            const topProductElement = document.getElementById('topProduct');
             
-            // Display growth rate
-            document.getElementById('growthRate').textContent = `${safeGrowthRate.toFixed(1)}%`;
-            document.getElementById('growthTrend').textContent = safeGrowthRate >= 0 ? '📈' : '📉';
+            if (nextMonthElement) {
+                nextMonthElement.textContent = `₱${safeNextMonthForecast.toFixed(2)}`;
+            }
+            if (quarterlyElement) {
+                quarterlyElement.textContent = `₱${safeQuarterlyTarget.toFixed(2)}`;
+            }
+            if (growthElement) {
+                growthElement.textContent = `${safeGrowthRate.toFixed(1)}%`;
+            }
+            
+            // Update progress bar
+            const progressBar = document.getElementById('quarterlyProgress');
+            if (progressBar) {
+                progressBar.style.width = `${safeQuarterlyProgress}%`;
+            }
+            const progressPercent = document.getElementById('quarterlyPercentage');
+            if (progressPercent) {
+                progressPercent.textContent = `${safeQuarterlyProgress.toFixed(1)}%`;
+            }
+            
+            // Update change percentages
+            const nextMonthChange = document.getElementById('nextMonthChange');
+            if (nextMonthChange) {
+                nextMonthChange.textContent = `${safeGrowthRate >= 0 ? '+' : ''}${safeGrowthRate.toFixed(1)}%`;
+            }
+            
+            // Update growth trend emoji
+            const growthTrend = document.getElementById('growthTrend');
+            if (growthTrend) {
+                growthTrend.textContent = safeGrowthRate >= 0 ? '📈' : '📉';
+            }
             
             // Top product
             const topProduct = getTopProduct();
             if (topProduct) {
-                document.getElementById('topProduct').textContent = topProduct.name;
-                document.getElementById('topProductSales').textContent = `₱${topProduct.revenue.toLocaleString()}`;
+                if (topProductElement) {
+                    topProductElement.textContent = topProduct.name;
+                }
+                const topProductSales = document.getElementById('topProductSales');
+                if (topProductSales) {
+                    topProductSales.textContent = `₱${topProduct.revenue.toFixed(2)}`;
+                }
             }
             
             // Update daily sales data
