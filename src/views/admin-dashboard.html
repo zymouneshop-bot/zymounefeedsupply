@@ -10728,22 +10728,17 @@
         // Update daily sales display - use same logic as analytics
         async function updateDailySalesDisplay() {
             try {
-                // Get today's sales data using the same API call as analytics
+                // Get today's sales data
                 const { startDate, endDate } = getDateRangeForPeriod('today');
                 
                 const params = new URLSearchParams();
                 params.append('startDate', startDate.toISOString());
                 params.append('endDate', endDate.toISOString());
-                
-                // Add timestamp to prevent caching
                 params.append('_t', Date.now());
                 
-                console.log('📊 Loading daily sales for forecasting from:', startDate, 'to:', endDate);
-                console.log('📊 Current time:', new Date().toISOString());
-                console.log('📊 Start date:', startDate.toISOString());
-                console.log('📊 End date:', endDate.toISOString());
+                console.log('📊 Loading daily sales from:', startDate, 'to:', endDate);
                 
-                const response = await fetch(`${API_BASE}/orders?${params}`, {
+                const response = await fetch(`${API_BASE}/orders/summary/sales?${params}`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -10754,33 +10749,15 @@
                 });
                 
                 if (response.ok) {
-                    const analyticsData = await response.json();
-                    console.log('📊 Daily sales data for forecasting:', analyticsData);
+                    const data = await response.json();
+                    console.log('📊 Daily sales data:', data);
                     
-                    // Use backend values but correct only the sales count if it seems duplicated
-                    let correctedRevenue = analyticsData.totalRevenue;
-                    let correctedSales = analyticsData.totalSales;
+                    const summary = data.summary || {};
+                    const revenue = summary.totalRevenue || 0;
+                    const orders = summary.totalOrders || 0;
                     
-                    // Direct database API provides accurate counts - no correction needed
-                    
-                    // DEBUG: Log the actual values being used
-                    console.log('🔧 Dashboard: Raw analytics data:', {
-                        revenue: analyticsData.totalRevenue,
-                        cost: analyticsData.totalCost,
-                        profit: analyticsData.totalProfit,
-                        sales: analyticsData.totalSales
-                    });
-                    
-                    // Direct database API provides accurate values - no correction needed
-                    
-                    console.log('🔧 Dashboard: Using values:', {
-                        revenue: correctedRevenue,
-                        sales: correctedSales
-                    });
-                    
-                    // Update today's sales using corrected analytics data
-                    document.getElementById('todaySales').textContent = `₱${correctedRevenue.toFixed(2)}`;
-                    document.getElementById('todayOrders').textContent = `${correctedSales} items`;
+                    document.getElementById('todaySales').textContent = `₱${revenue.toFixed(2)}`;
+                    document.getElementById('todayOrders').textContent = `${orders} orders`;
                     
                     // Get yesterday's data
                     const { startDate: yesterdayStart, endDate: yesterdayEnd } = getDateRangeForPeriod('yesterday');
@@ -10788,11 +10765,9 @@
                     const yesterdayParams = new URLSearchParams();
                     yesterdayParams.append('startDate', yesterdayStart.toISOString());
                     yesterdayParams.append('endDate', yesterdayEnd.toISOString());
-                    
-                    // Add timestamp to prevent caching
                     yesterdayParams.append('_t', Date.now());
                     
-                    const yesterdayResponse = await fetch(`${API_BASE}/orders?${yesterdayParams}`, {
+                    const yesterdayResponse = await fetch(`${API_BASE}/orders/summary/sales?${yesterdayParams}`, {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -10804,11 +10779,12 @@
                     
                     if (yesterdayResponse.ok) {
                         const yesterdayData = await yesterdayResponse.json();
-                        document.getElementById('yesterdaySales').textContent = `₱${yesterdayData.totalRevenue.toFixed(2)}`;
-                        document.getElementById('yesterdayOrders').textContent = `${yesterdayData.totalSales} items`;
+                        const yesterdaySummary = yesterdayData.summary || {};
+                        document.getElementById('yesterdaySales').textContent = `₱${(yesterdaySummary.totalRevenue || 0).toFixed(2)}`;
+                        document.getElementById('yesterdayOrders').textContent = `${yesterdaySummary.totalOrders || 0} orders`;
                     } else {
                         document.getElementById('yesterdaySales').textContent = '₱0.00';
-                        document.getElementById('yesterdayOrders').textContent = '0 items';
+                        document.getElementById('yesterdayOrders').textContent = '0 orders';
                     }
                     
                     // Get this week's data
@@ -10817,11 +10793,9 @@
                     const weekParams = new URLSearchParams();
                     weekParams.append('startDate', weekStart.toISOString());
                     weekParams.append('endDate', weekEnd.toISOString());
-                    
-                    // Add timestamp to prevent caching
                     weekParams.append('_t', Date.now());
                     
-                    const weekResponse = await fetch(`${API_BASE}/orders?${weekParams}`, {
+                    const weekResponse = await fetch(`${API_BASE}/orders/summary/sales?${weekParams}`, {
                         method: 'GET',
                         headers: {
                             'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -10833,21 +10807,9 @@
                     
                     if (weekResponse.ok) {
                         const weekData = await weekResponse.json();
-                        // Use backend values but correct only the sales count if it seems duplicated
-                        let correctedWeekRevenue = weekData.totalRevenue;
-                        let correctedWeekSales = weekData.totalSales;
-                        
-                        // Direct database API provides accurate counts - no correction needed
-                        
-                        // Direct database API provides accurate values - no correction needed
-                        
-                        console.log('🔧 Week: Using values:', {
-                            revenue: correctedWeekRevenue,
-                            sales: correctedWeekSales
-                        });
-                        
-                        document.getElementById('weekSales').textContent = `₱${correctedWeekRevenue.toFixed(2)}`;
-                        document.getElementById('weekOrders').textContent = `${correctedWeekSales} items`;
+                        const weekSummary = weekData.summary || {};
+                        document.getElementById('weekSales').textContent = `₱${(weekSummary.totalRevenue || 0).toFixed(2)}`;
+                        document.getElementById('weekOrders').textContent = `${weekSummary.totalOrders || 0} orders`;
                         
                         // Calculate daily average for the week using corrected values
                         const dailyAverage = correctedWeekRevenue / 7;

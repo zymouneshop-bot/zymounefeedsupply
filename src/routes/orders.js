@@ -14,6 +14,7 @@ const router = express.Router();
 
 // Public endpoints (no auth required)
 router.get('/date-range', getOrdersByDateRange);
+router.get('/summary/sales', getSalesSummary);
 
 // Protected endpoints
 router.use(authenticateToken);
@@ -26,9 +27,6 @@ router.get('/', getAllOrders);
 
 
 router.get('/:id', getOrderById);
-
-
-router.get('/summary/sales', getSalesSummary);
 
 router.post('/send-receipt', sendReceipt);
 
