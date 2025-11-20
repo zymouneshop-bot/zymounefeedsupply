@@ -7038,7 +7038,7 @@
                 const controller = new AbortController();
                 const timeoutId = setTimeout(() => controller.abort(), 8000); // 8 second timeout
                 
-                return fetch(`${API_BASE}/orders?${params}`, {
+                return fetch(`${API_BASE}/orders/date-range?${params}`, {
                     method: 'GET',
                     signal: controller.signal,
                     headers: {
@@ -7146,9 +7146,86 @@
             loadAnalytics(period);
         }
         
+        // Process raw orders data into analytics format
+        function processOrdersToAnalytics(ordersData) {
+            console.log('📊 Processing', ordersData.length, 'orders into analytics...');
+            
+            if (!ordersData || ordersData.length === 0) {
+                return {
+                    totalSales: 0,
+                    totalRevenue: 0,
+                    totalCost: 0,
+                    totalProfit: 0,
+                    salesByAnimal: { chicken: { count: 0 }, pig: { count: 0 } },
+                    salesByCategory: { feeds: { count: 0 }, supplements: { count: 0 } },
+                    topProducts: [],
+                    sales: []
+                };
+            }
+            
+            const salesByAnimal = { chicken: { count: 0 }, pig: { count: 0 } };
+            const salesByCategory = { feeds: { count: 0 }, supplements: { count: 0 } };
+            const productMap = {};
+            let totalRevenue = 0;
+            
+            ordersData.forEach(order => {
+                if (!order.items) return;
+                
+                order.items.forEach(item => {
+                    // Count by animal type
+                    const animalType = item.animalType?.toLowerCase() || 'chicken';
+                    if (salesByAnimal[animalType]) {
+                        salesByAnimal[animalType].count += item.quantity || 1;
+                    }
+                    
+                    // Count by category
+                    const category = item.category?.toLowerCase() || 'feeds';
+                    if (salesByCategory[category]) {
+                        salesByCategory[category].count += item.quantity || 1;
+                    }
+                    
+                    // Track top products
+                    const productName = item.name || item.productName || 'Unknown';
+                    if (!productMap[productName]) {
+                        productMap[productName] = { name: productName, quantity: 0, revenue: 0 };
+                    }
+                    productMap[productName].quantity += item.quantity || 1;
+                    productMap[productName].revenue += (item.price || 0) * (item.quantity || 1);
+                });
+                
+                totalRevenue += order.total || 0;
+            });
+            
+            // Convert product map to sorted array
+            const topProducts = Object.values(productMap)
+                .sort((a, b) => b.quantity - a.quantity)
+                .slice(0, 10);
+            
+            return {
+                totalSales: ordersData.length,
+                totalRevenue: totalRevenue,
+                totalCost: 0,
+                totalProfit: totalRevenue,
+                salesByAnimal,
+                salesByCategory,
+                topProducts,
+                sales: ordersData.slice(0, 10)
+            };
+        }
+        
         // Update analytics display
-        function updateAnalyticsDisplay(analytics, period = 'day') {
-            console.log('📊 Updating analytics display with data:', analytics);
+        function updateAnalyticsDisplay(analyticsOrOrders, period = 'day') {
+            console.log('📊 Updating analytics display with data:', analyticsOrOrders);
+            
+            // If we received raw orders data, process it first
+            let analytics;
+            if (Array.isArray(analyticsOrOrders)) {
+                analytics = processOrdersToAnalytics(analyticsOrOrders);
+            } else if (analyticsOrOrders.orders) {
+                analytics = processOrdersToAnalytics(analyticsOrOrders.orders);
+            } else {
+                analytics = analyticsOrOrders;
+            }
             
             document.getElementById('totalSales').textContent = analytics.totalSales;
             document.getElementById('totalRevenue').textContent = `₱${analytics.totalRevenue.toFixed(2)}`;
@@ -11138,7 +11215,7 @@
                 // Add timestamp to prevent caching
                 params.append('_t', Date.now());
                 
-                const response = await fetch(`${API_BASE}/orders?${params}`, {
+                const response = await fetch(`${API_BASE}/orders/date-range?${params}`, {
                     method: 'GET',
                     headers: { 
                         'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -11151,7 +11228,7 @@
                 if (response.ok) {
                     const data = await response.json();
                     console.log('📊 Sales chart data loaded:', data);
-                    createSalesChart(data.sales || []);
+                    createSalesChart(data.orders || []);
                 } else {
                     console.error('Failed to load sales chart data');
                     createSalesChart([]);
@@ -11277,8 +11354,8 @@
             // Group sales by date - handle different data structures
             const salesByDate = {};
             salesData.forEach(sale => {
-                // Handle direct database API structure (has createdAt and total)
-                const saleDate = new Date(sale.createdAt || sale.saleDate);
+                // Handle order database structure (has orderDate and total)
+                const saleDate = new Date(sale.orderDate || sale.createdAt || sale.saleDate);
                 const dateKey = saleDate.toDateString();
                 
                 if (!salesByDate[dateKey]) {
