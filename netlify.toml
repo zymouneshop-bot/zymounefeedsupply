@@ -1,6 +1,6 @@
 [build]
   command = "echo 'Deploying frontend'"
-  publish = "public"
+  publish = "src/views"
 
 [[redirects]]
   from = "/*"
