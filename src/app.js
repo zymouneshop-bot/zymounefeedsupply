@@ -189,13 +189,15 @@ app.use('/uploads', (req, res, next) => {
 app.get('/zymoune-logo.png', (req, res) => {
   // Explicitly set CORS headers
   res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type');
   res.header('Cache-Control', 'public, max-age=31536000');
-  res.header('Content-Type', 'image/png');
   
   const logoPath = path.join(__dirname, 'public', 'zymoune-logo.png');
   
   if (fs.existsSync(logoPath)) {
     console.log('✅ Logo file found');
+    res.type('image/png');
     res.sendFile(logoPath);
   } else {
     console.log('❌ Logo file not found at:', logoPath);
