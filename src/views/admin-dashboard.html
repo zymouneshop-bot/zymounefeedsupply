@@ -6337,7 +6337,11 @@
                     // Map _id to id for compatibility with existing code
                     products = (result.products || []).map(product => ({
                         ...product,
-                        id: product._id || product.id
+                        id: product._id || product.id,
+                        // Fix image URLs to use full backend URL
+                        imageUrl: product.imageUrl && !product.imageUrl.startsWith('http') && !product.imageUrl.startsWith('data:')
+                            ? `${API_URL}${product.imageUrl}`
+                            : product.imageUrl
                     }));
                     console.log('📦 Loaded products from database:', products.length);
                     
