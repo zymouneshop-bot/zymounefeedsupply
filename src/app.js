@@ -1129,74 +1129,76 @@ app.listen(PORT, async () => {
   console.log(`🏠 Home page: http://localhost:${PORT}`);
   console.log(`🔍 Health check: http://localhost:${PORT}/health`);
   
-  
-  console.log('\n🌐 Starting NGROK tunnel...');
-  
-  
-  setTimeout(() => {
-    console.log('🔧 Launching ngrok...');
+  // Only start ngrok in development (not in production on Render)
+  if (process.env.NODE_ENV !== 'production') {
+    console.log('\n🌐 Starting NGROK tunnel...');
     
     
-    const ngrokProcess = exec(`npx ngrok http ${PORT} --log=stdout`, (error, stdout, stderr) => {
-      if (error) {
-        console.error('❌ Failed to start ngrok:', error.message);
-        return;
-      }
-    });
-    
-    
-    setTimeout(async () => {
-      try {
-        const https = require('https');
-        const options = {
-          hostname: 'localhost',
-          port: 4040,
-          path: '/api/tunnels',
-          method: 'GET'
-        };
-        
-        const req = https.request(options, (res) => {
-          let data = '';
-          res.on('data', (chunk) => {
-            data += chunk;
-          });
-          res.on('end', () => {
-            try {
-              const tunnels = JSON.parse(data);
-              if (tunnels.tunnels && tunnels.tunnels.length > 0 && !ngrokUrlPrinted) {
-                const tunnel = tunnels.tunnels.find(t => t.proto === 'https');
-                if (tunnel && tunnel.public_url) {
-                  const ngrokUrl = tunnel.public_url;
-                  globalNgrokUrl = ngrokUrl; // Store globally
-                  ngrokUrlPrinted = true; 
-                  console.log('\n' + '='.repeat(60));
-                  console.log('🌐 NGROK TUNNEL ACTIVE - PUBLIC ACCESS AVAILABLE');
-                  console.log('='.repeat(60));
-                  console.log(`🔗 Public URL: ${ngrokUrl}`);
-                  console.log(`📱 Public API: ${ngrokUrl}/api`);
-                  console.log(`🏠 Public Home: ${ngrokUrl}/`);
-                  console.log(`🔍 Public Health: ${ngrokUrl}/api/health`);
-                  console.log(`👤 Customer Login: ${ngrokUrl}/login`);
-                  console.log(`👨‍💼 Admin Login: ${ngrokUrl}/login`);
-                  console.log('='.repeat(60));
-                  console.log('💡 Share this URL to access your app from anywhere!');
-                  console.log('⚠️  Keep this terminal open to maintain the tunnel.');
-                  console.log('='.repeat(60) + '\n');
-                }
-              }
-            } catch (parseError) {
-              
-            }
-          });
-        });
-        
-        req.on('error', () => {
+    setTimeout(() => {
+      console.log('🔧 Launching ngrok...');
+      
+      
+      const ngrokProcess = exec(`npx ngrok http ${PORT} --log=stdout`, (error, stdout, stderr) => {
+        if (error) {
+          console.error('❌ Failed to start ngrok:', error.message);
+          return;
+        }
+      });
+      
+      
+      setTimeout(async () => {
+        try {
+          const https = require('https');
+          const options = {
+            hostname: 'localhost',
+            port: 4040,
+            path: '/api/tunnels',
+            method: 'GET'
+          };
           
-        });
-        
-        req.end();
-      } catch (error) {
-        
+          const req = https.request(options, (res) => {
+            let data = '';
+            res.on('data', (chunk) => {
+              data += chunk;
+            });
+            res.on('end', () => {
+              try {
+                const tunnels = JSON.parse(data);
+                if (tunnels.tunnels && tunnels.tunnels.length > 0 && !ngrokUrlPrinted) {
+                  const tunnel = tunnels.tunnels.find(t => t.proto === 'https');
+                  if (tunnel && tunnel.public_url) {
+                    const ngrokUrl = tunnel.public_url;
+                    globalNgrokUrl = ngrokUrl; // Store globally
+                    ngrokUrlPrinted = true; 
+                    console.log('\n' + '='.repeat(60));
+                    console.log('🌐 NGROK TUNNEL ACTIVE - PUBLIC ACCESS AVAILABLE');
+                    console.log('='.repeat(60));
+                    console.log(`🔗 Public URL: ${ngrokUrl}`);
+                    console.log(`📱 Public API: ${ngrokUrl}/api`);
+                    console.log(`🏠 Public Home: ${ngrokUrl}/`);
+                    console.log(`🔍 Public Health: ${ngrokUrl}/api/health`);
+                    console.log(`👤 Customer Login: ${ngrokUrl}/login`);
+                    console.log(`👨‍💼 Admin Login: ${ngrokUrl}/login`);
+                    console.log('='.repeat(60));
+                    console.log('💡 Share this URL to access your app from anywhere!');
+                    console.log('⚠️  Keep this terminal open to maintain the tunnel.');
+                    console.log('='.repeat(60) + '\n');
+                  }
+                }
+              } catch (parseError) {
+                
+              }
+            });
+          });
+          
+          req.on('error', () => {
+            
+          });
+          
+          req.end();
+        } catch (error) {
+          
+        }
       }
     }, 5000); 
     
@@ -1231,7 +1233,10 @@ app.listen(PORT, async () => {
       console.log('NGROK ERROR:', data.toString());
     });
     
-  }, 2000); 
+  }, 2000);
+  } else {
+    console.log('✅ Production mode detected - ngrok disabled');
+  }
 });
 
 module.exports = app;
