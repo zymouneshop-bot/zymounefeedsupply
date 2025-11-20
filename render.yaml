@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: feeds-store-api
+    env: node
+    buildCommand: npm install --legacy-peer-deps
+    startCommand: npm start
+    envVars:
+      - key: MONGODB_URI
+        value: mongodb+srv://trinavaldezmalit4_db_user:feedsupply@cluster0.zlha3qw.mongodb.net/feeds_store?retryWrites=true&w=majority&appName=Cluster0
+      - key: JWT_SECRET
+        value: feeds-store-super-secret-key-2024
+      - key: JWT_EXPIRES_IN
+        value: 24h
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: "4000"
+      - key: EMAIL_HOST
+        value: smtp.gmail.com
+      - key: EMAIL_PORT
+        value: "587"
+      - key: EMAIL_USER
+        value: zymouneshop@gmail.com
+      - key: EMAIL_PASS
+        value: xals rrbt xvmh ldwf

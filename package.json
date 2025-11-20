@@ -10,7 +10,7 @@
     "start:public": "node src/app.js",
     "test": "jest",
     "build": "echo 'Build process here'",
-    "install-deps": "npm install"
+    "install-deps": "npm install --legacy-peer-deps"
   },
   "keywords": [
     "feeds",
