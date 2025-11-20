@@ -147,6 +147,8 @@ app.use(helmet({
 // Configure CORS to allow production and local requests
 app.use(cors({
   origin: function (origin, callback) {
+    // Allow all origins for development/testing
+    // In production, this should be restricted to specific domains
     const allowedOrigins = [
       'http://localhost:3000',
       'http://localhost:4000',
@@ -165,7 +167,8 @@ app.use(cors({
   },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization', 'cache-control', 'pragma', 'expires']
+  allowedHeaders: ['Content-Type', 'Authorization', 'cache-control', 'pragma', 'expires'],
+  optionsSuccessStatus: 200
 }));
 
 app.use(express.json({ limit: '50mb' }));
