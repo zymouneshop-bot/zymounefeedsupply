@@ -16,5 +16,5 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./src/views
-          cname: github.com
+          publish_dir: ./
+          exclude_assets: '.git,node_modules,.github,src,config,data,docs,logs,scripts,tests,uploads,DATABASE.md,README.md,package.json,package-lock.json,.gitignore'
