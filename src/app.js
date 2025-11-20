@@ -3,6 +3,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const path = require('path');
 const mongoose = require('mongoose');
+// Trigger backend restart for logo update
 const multer = require('multer');
 const { exec } = require('child_process');
 const { initGridFS, getGFSStorage } = require('./config/gridfs');
