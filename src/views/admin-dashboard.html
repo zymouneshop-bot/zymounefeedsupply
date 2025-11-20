@@ -12000,21 +12000,20 @@
                 // Calculate date range based on period
                 const { startDate, endDate } = getDateRangeForPeriod(period);
                 
-                // Fetch sales analytics data
+                // Fetch sales analytics data using date-range endpoint (same as forecasting)
                 const params = new URLSearchParams();
                 params.append('startDate', startDate.toISOString());
                 params.append('endDate', endDate.toISOString());
                 
                 // Add timestamp to prevent caching
                 params.append('_t', Date.now());
-                const apiUrl = `${API_BASE}/orders?${params}`;
+                const apiUrl = `${API_BASE}/orders/date-range?${params}`;
                 console.log('📊 Making API call to:', apiUrl);
                 console.log('📊 Date range:', { startDate: startDate.toISOString(), endDate: endDate.toISOString() });
                 
                 const response = await fetch(apiUrl, {
                     method: 'GET',
                     headers: { 
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
                         'Cache-Control': 'no-cache',
                         'Pragma': 'no-cache',
                         'Expires': '0'
@@ -12026,8 +12025,13 @@
                 
                 if (response.ok) {
                     const data = await response.json();
-                    console.log('📊 Sales detail data loaded:', data);
-                    updateSalesDetailModal(data, period);
+                    console.log('📊 Raw API response:', data);
+                    
+                    // Process the orders data into analytics format
+                    const analytics = processOrdersToAnalytics(data.orders || []);
+                    console.log('📊 Processed analytics data:', analytics);
+                    
+                    updateSalesDetailModal(analytics, period);
                 } else {
                     console.error('Failed to load sales detail data, status:', response.status);
                     const errorText = await response.text();
