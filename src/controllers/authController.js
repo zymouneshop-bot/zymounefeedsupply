@@ -111,25 +111,31 @@ const loginStaff = async (req, res) => {
   try {
     const { email, password } = req.body;
 
-    
-    const user = await User.findOne({ 
+    // First try to find in User collection
+    let user = await User.findOne({ 
       email, 
       role: { $in: ['manager', 'cashier', 'staff', 'customer'] } 
     });
+
+    // If not found in User, try Staff collection
     if (!user) {
-      return res.status(401).json({ 
-        error: 'Invalid email or password' 
-      });
+      const Staff = require('../models/Staff');
+      user = await Staff.findOne({ email });
+      if (!user) {
+        return res.status(401).json({ 
+          error: 'Invalid email or password' 
+        });
+      }
     }
 
-    
-    if (!user.isActive) {
+    // Check if account is active
+    if (!user.isActive && user.isActive !== undefined) {
       return res.status(401).json({ 
         error: 'Account is deactivated. Please contact your administrator.' 
       });
     }
 
-    
+    // Verify password
     const isPasswordValid = await user.comparePassword(password);
     if (!isPasswordValid) {
       return res.status(401).json({ 
@@ -137,13 +143,14 @@ const loginStaff = async (req, res) => {
       });
     }
 
-    
+    // Update last login
     user.lastLogin = new Date();
     await user.save();
 
-    
+    // Check staff status
     if (['manager', 'cashier', 'staff'].includes(user.role)) {
       try {
+        const Staff = require('../models/Staff');
         const staffMember = await Staff.findOne({ email: user.email });
         if (staffMember) {
           // Check if staff account is paused
@@ -161,12 +168,12 @@ const loginStaff = async (req, res) => {
           }
         }
       } catch (staffError) {
-        
+        // Not critical if staff lookup fails
         console.error('Error updating staff status:', staffError);
       }
     }
 
-    
+    // Generate token
     const token = generateToken(user._id);
 
     res.json({
