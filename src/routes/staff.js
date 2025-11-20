@@ -3,9 +3,8 @@ const router = express.Router();
 const staffController = require('../controllers/staffController');
 const { authenticateToken, requireAdmin } = require('../middleware/auth');
 
-
-router.get('/', authenticateToken, requireAdmin, staffController.getAllStaff);
-
+// Public endpoint to view staff list
+router.get('/', staffController.getAllStaff);
 
 router.post('/', authenticateToken, requireAdmin, staffController.addStaff);
 
