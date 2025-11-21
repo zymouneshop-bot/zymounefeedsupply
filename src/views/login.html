@@ -21,43 +21,50 @@
         }
         
         .main-container {
-            display: flex;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
             min-height: 100vh;
             align-items: center;
-            justify-content: center;
+            justify-items: center;
             position: relative;
-            flex-wrap: wrap;
+            gap: 2rem;
+            padding: 2rem;
         }
         
         .logo-section {
             position: relative;
-            width: 40%;
-            height: 100vh;
+            width: 100%;
+            height: auto;
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 1;
-            flex-shrink: 0;
+            padding: 2rem;
+            order: 2;
         }
         
         .logo-background {
             position: relative;
             width: 100%;
-            height: auto;
+            height: 100%;
             transform: none;
             z-index: 1;
             display: flex;
             justify-content: center;
             align-items: center;
+            order: 2;
         }
         
         .logo-text-right {
-            position: absolute;
-            bottom: 2rem;
-            right: 2rem;
+            position: relative;
+            bottom: auto;
+            right: auto;
             transform: none;
             z-index: 1;
-            text-align: right;
+            text-align: center;
+            width: 100%;
+            padding: 2rem;
+            order: 3;
         }
         
         .logo-container {
@@ -71,8 +78,9 @@
         }
         
         .logo-oval {
-            width: 800px;
-            height: 640px;
+            width: 31.25rem;
+            height: 31.25rem;
+            aspect-ratio: 1 / 1;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -126,23 +134,24 @@
         
         .login-section {
             position: relative;
-            width: 60%;
-            height: 100vh;
+            width: 100%;
+            height: auto;
             z-index: 2;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 2rem;
             flex-shrink: 0;
+            order: 1;
         }
         
         .login-container {
             background: rgba(255, 255, 255, 0.95);
             padding: 3rem;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            border-radius: 0.9375rem;
+            box-shadow: 0 1.25rem 2.5rem rgba(0, 0, 0, 0.1);
             width: 100%;
-            max-width: 500px;
+            max-width: 25rem;
             backdrop-filter: blur(10px);
         }
         
@@ -568,73 +577,60 @@
         }
         
         /* Responsive Design */
-        @media (max-width: 1200px) {
-            .logo-section {
-                width: 50%;
+        /* Tablet Large & Below: 1199px and down */
+        @media (max-width: 74.9375em) {
+            .main-container {
+                grid-template-columns: 1fr 1fr;
+                gap: 1.5rem;
             }
             
-            .login-section {
-                width: 50%;
+            .logo-section {
+                display: none;
+            }
+            
+            .logo-text-right {
+                grid-column: 1 / -1;
             }
         }
         
-        @media (max-width: 768px) {
+        /* Tablet: 768px to 1023px */
+        @media (max-width: 63.9375em) {
             .main-container {
-                flex-direction: column;
+                grid-template-columns: 1fr;
                 padding: 1rem;
-            }
-            
-            .logo-section {
-                width: 100%;
-                height: auto;
-                padding: 1rem 0;
-            }
-            
-            .logo-background {
-                position: relative;
-                width: 100%;
-                height: auto;
-                display: flex;
-                justify-content: center;
-                margin-bottom: 1rem;
-            }
-            
-            .logo-oval {
-                width: 250px;
-                height: 200px;
-                opacity: 0.6;
             }
             
             .login-section {
-                width: 100%;
-                height: auto;
                 padding: 1rem;
-                position: relative;
-                left: auto;
-                right: auto;
-                top: auto;
+                order: 2;
+            }
+            
+            .logo-background {
+                order: 1;
+            }
+            
+            .logo-text-right {
+                order: 3;
             }
             
             .login-container {
-                max-width: 100%;
-                padding: 1.5rem;
+                max-width: 25rem;
+                padding: 2rem;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.75rem;
+            }
+            
+            .logo-text p {
+                font-size: 0.95rem;
             }
             
             .logo-text-right {
                 position: relative;
                 right: auto;
                 bottom: auto;
-                transform: none;
-                text-align: center;
                 margin-top: 1rem;
-            }
-            
-            .logo-text h1 {
-                font-size: 1.8rem;
-            }
-            
-            .logo-text p {
-                font-size: 1rem;
             }
             
             .system-info {
@@ -643,63 +639,33 @@
             }
             
             .system-info p {
-                font-size: 0.85rem;
-            }
-            
-            .system-info p:first-child {
-                font-size: 0.9rem;
+                font-size: 0.8rem;
             }
         }
         
-        @media (max-width: 480px) {
+        /* Large Mobile: 480px to 767px */
+        @media (max-width: 47.9375em) {
             .main-container {
-                flex-direction: column;
-                padding: 0.5rem;
-            }
-            
-            .logo-section {
-                width: 100%;
-                height: auto;
-                padding: 0.5rem 0;
-            }
-            
-            .logo-background {
-                position: relative;
-                width: 100%;
-                height: auto;
-                display: flex;
-                justify-content: center;
-                margin-bottom: 0.5rem;
-            }
-            
-            .logo-oval {
-                width: 150px;
-                height: 120px;
-                opacity: 0.5;
+                grid-template-columns: 1fr;
+                padding: 0.75rem;
             }
             
             .login-section {
-                width: 100%;
-                height: auto;
-                padding: 0.5rem;
-                position: relative;
-                left: auto;
-                right: auto;
-                top: auto;
+                padding: 0.75rem;
+                order: 2;
+            }
+            
+            .logo-background {
+                order: 1;
+            }
+            
+            .logo-text-right {
+                order: 3;
             }
             
             .login-container {
                 max-width: 100%;
-                padding: 1rem;
-            }
-            
-            .logo-text-right {
-                position: relative;
-                right: auto;
-                bottom: auto;
-                transform: none;
-                text-align: center;
-                margin-top: 0.5rem;
+                padding: 1.5rem;
             }
             
             .logo-text h1 {
@@ -710,36 +676,72 @@
                 font-size: 0.9rem;
             }
             
+            .logo-text-right {
+                position: relative;
+                right: auto;
+                bottom: auto;
+                margin-top: 0.75rem;
+            }
+            
             .system-info {
-                margin-top: 0.5rem;
+                margin-top: 0.75rem;
                 padding: 0.75rem;
             }
             
             .system-info p {
                 font-size: 0.75rem;
-            }                height: auto;
-                margin-bottom: 1.5rem;
             }
-            
-            .logo-oval {
-                width: 250px;
-                height: 200px;
-                opacity: 0.3;
+        }
+        
+        /* Small Mobile: Below 480px */
+        @media (max-width: 29.9375em) {
+            .main-container {
+                grid-template-columns: 1fr;
+                padding: 0.5rem;
             }
             
             .login-section {
-                position: relative;
-                left: auto;
-                right: auto;
-                top: auto;
-                width: 100%;
                 padding: 0.5rem;
-                min-height: auto;
-                z-index: 10;
+                order: 2;
+            }
+            
+            .logo-background {
+                order: 1;
+            }
+            
+            .logo-text-right {
+                order: 3;
+            }
+            
+            .login-container {
+                max-width: 100%;
+                padding: 1rem;
+            }
+            
+            .logo-text h1 {
+                font-size: 1.25rem;
+            }
+            
+            .logo-text p {
+                font-size: 0.8rem;
             }
             
             .logo-text-right {
                 position: relative;
+                right: auto;
+                bottom: auto;
+                margin-top: 0.5rem;
+            }
+            
+            .system-info {
+                margin-top: 0.5rem;
+                padding: 0.5rem;
+            }
+            
+            .system-info p {
+                font-size: 0.7rem;
+            }
+        }
                 right: auto;
                 top: auto;
                 transform: none;
