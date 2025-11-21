@@ -5020,9 +5020,6 @@
                 <div class="section-header">
                     <h1 class="section-title">Staff Management</h1>
                     <div class="header-actions">
-                        <button class="btn btn-secondary" id="refreshStaffBtn">
-                            <span>🔄</span> Refresh
-                        </button>
                         <button class="btn btn-danger" id="clearAllStaffBtn">
                             <span>🗑️</span> Clear All Staff
                         </button>
@@ -12298,11 +12295,6 @@
             const clearAllStaffBtn = document.getElementById('clearAllStaffBtn');
             if (clearAllStaffBtn) {
                 clearAllStaffBtn.addEventListener('click', clearAllStaff);
-            }
-            
-            const refreshStaffBtn = document.getElementById('refreshStaffBtn');
-            if (refreshStaffBtn) {
-                refreshStaffBtn.addEventListener('click', loadStaff);
             }
             
             const closeStaffModalBtn = document.getElementById('closeStaffModal');
