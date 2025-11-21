@@ -15,11 +15,7 @@ services:
         value: production
       - key: PORT
         value: "4000"
-      - key: EMAIL_HOST
-        value: smtp.gmail.com
-      - key: EMAIL_PORT
-        value: "587"
-      - key: EMAIL_USER
+      - key: SENDGRID_API_KEY
+        fromGroup: email-config
+      - key: EMAIL_FROM
         value: zymouneshop@gmail.com
-      - key: EMAIL_PASS
-        value: xals rrbt xvmh ldwf
