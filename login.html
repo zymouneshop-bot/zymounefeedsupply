@@ -26,33 +26,36 @@
             align-items: center;
             justify-content: center;
             position: relative;
+            flex-wrap: wrap;
         }
         
         .logo-section {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: relative;
+            width: 40%;
+            height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
             z-index: 1;
+            flex-shrink: 0;
         }
         
         .logo-background {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
+            position: relative;
+            width: 100%;
+            height: auto;
+            transform: none;
             z-index: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
         
         .logo-text-right {
             position: absolute;
-            top: 50%;
+            bottom: 2rem;
             right: 2rem;
-            transform: translateY(-50%);
+            transform: none;
             z-index: 1;
             text-align: right;
         }
@@ -122,15 +125,15 @@
         }
         
         .login-section {
-            position: absolute;
-            top: 50%;
-            left: 2rem;
-            transform: translateY(-50%);
+            position: relative;
+            width: 60%;
+            height: 100vh;
             z-index: 2;
             display: flex;
             align-items: center;
             justify-content: center;
             padding: 2rem;
+            flex-shrink: 0;
         }
         
         .login-container {
@@ -565,40 +568,58 @@
         }
         
         /* Responsive Design */
+        @media (max-width: 1200px) {
+            .logo-section {
+                width: 50%;
+            }
+            
+            .login-section {
+                width: 50%;
+            }
+        }
+        
         @media (max-width: 768px) {
             .main-container {
                 flex-direction: column;
                 padding: 1rem;
             }
             
-            .logo-background {
-                position: relative;
+            .logo-section {
                 width: 100%;
                 height: auto;
-                margin-bottom: 2rem;
+                padding: 1rem 0;
+                flex-shrink: 1;
+            }
+            
+            .logo-background {
+                display: flex;
+                justify-content: center;
+                margin-bottom: 1rem;
             }
             
             .logo-oval {
-                width: 300px;
-                height: 240px;
-                opacity: 0.5;
+                width: 250px;
+                height: 200px;
+                opacity: 0.6;
             }
             
             .login-section {
-                position: relative;
-                left: auto;
-                right: auto;
-                top: auto;
                 width: 100%;
+                height: auto;
                 padding: 1rem;
-                z-index: 10;
+                flex-shrink: 1;
+            }
+            
+            .login-container {
+                max-width: 100%;
+                padding: 1.5rem;
             }
             
             .logo-text-right {
                 position: relative;
                 right: auto;
-                top: auto;
-                transform: none;
+                bottom: auto;
+                text-align: center;
                 margin-top: 1rem;
             }
             
@@ -618,15 +639,6 @@
             .system-info p {
                 font-size: 0.85rem;
             }
-            
-            .system-info p:first-child {
-                font-size: 0.9rem;
-            }
-            
-            .login-container {
-                max-width: 100%;
-                padding: 1.5rem;
-            }
         }
         
         @media (max-width: 480px) {
@@ -635,37 +647,54 @@
                 padding: 0.5rem;
             }
             
-            .logo-background {
-                position: relative;
+            .logo-section {
                 width: 100%;
                 height: auto;
-                margin-bottom: 1.5rem;
+                padding: 0.5rem 0;
             }
             
             .logo-oval {
-                width: 250px;
-                height: 200px;
-                opacity: 0.3;
+                width: 150px;
+                height: 120px;
+                opacity: 0.5;
             }
             
             .login-section {
-                position: relative;
-                left: auto;
-                right: auto;
-                top: auto;
                 width: 100%;
+                height: auto;
                 padding: 0.5rem;
-                min-height: auto;
-                z-index: 10;
+            }
+            
+            .login-container {
+                max-width: 100%;
+                padding: 1rem;
             }
             
             .logo-text-right {
                 position: relative;
                 right: auto;
-                top: auto;
-                transform: none;
-                margin-top: 1rem;
+                bottom: auto;
+                text-align: center;
+                margin-top: 0.5rem;
             }
+            
+            .logo-text h1 {
+                font-size: 1.5rem;
+            }
+            
+            .logo-text p {
+                font-size: 0.9rem;
+            }
+            
+            .system-info {
+                margin-top: 0.5rem;
+                padding: 0.75rem;
+            }
+            
+            .system-info p {
+                font-size: 0.75rem;
+            }
+        }
             
             .logo-text h1 {
                 font-size: 1.5rem;
