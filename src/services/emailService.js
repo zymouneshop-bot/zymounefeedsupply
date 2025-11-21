@@ -9,17 +9,17 @@ class EmailService {
     if (this.isConfigured) {
       
       this.transporter = nodemailer.createTransport({
-        service: 'gmail',
+        host: 'smtp.gmail.com',
+        port: 587,
+        secure: false, // Use STARTTLS instead of SSL
         auth: {
           user: process.env.EMAIL_USER,
           pass: process.env.EMAIL_PASS
         },
-        connectionTimeout: 10000, // 10 seconds
-        socketTimeout: 10000,
-        pool: {
-          maxConnections: 1,
-          maxMessages: 5
-        }
+        connectionTimeout: 15000, // 15 seconds
+        socketTimeout: 15000,
+        logger: true,
+        debug: true
       });
     } else {
       console.log('📧 Email not configured - using test mode');
@@ -194,12 +194,8 @@ class EmailService {
 
     try {
       if (this.isConfigured) {
-        const info = await Promise.race([
-          this.transporter.sendMail(mailOptions),
-          new Promise((_, reject) => 
-            setTimeout(() => reject(new Error('Email sending timeout - took too long')), 15000)
-          )
-        ]);
+        console.log('📧 Attempting to send email via Gmail SMTP...');
+        const info = await this.transporter.sendMail(mailOptions);
         console.log(`✅ Email sent to ${to}, Message ID: ${info.messageId}`);
         return { success: true };
       } else {
@@ -216,20 +212,22 @@ class EmailService {
         return { success: true, testMode: true };
       }
     } catch (error) {
-      console.error('Error sending email:', error.message);
-      if (error.message.includes('timeout')) {
-        return { 
-          success: false, 
-          error: 'Email service timeout - connection took too long. Please check Gmail credentials and try again.' 
-        };
+      console.error('❌ Email error:', error.code || error.message);
+      
+      let errorMessage = error.message;
+      
+      if (error.code === 'EAUTH' || error.message.includes('Invalid login')) {
+        errorMessage = 'Gmail authentication failed - check EMAIL_USER and EMAIL_PASS (use app password, not regular password)';
+      } else if (error.code === 'ETIMEDOUT' || error.code === 'ESOCKETTIMEDOUT' || error.message.includes('timeout')) {
+        errorMessage = 'Email connection timeout - Render servers may be blocking Gmail SMTP. Try SendGrid instead.';
+      } else if (error.message.includes('EREQUIRE')) {
+        errorMessage = 'Gmail requires app password for SMTP access';
       }
-      if (error.message.includes('EAUTH')) {
-        return { 
-          success: false, 
-          error: 'Gmail authentication failed - check EMAIL_USER and EMAIL_PASS configuration' 
-        };
-      }
-      return { success: false, error: error.message };
+      
+      return { 
+        success: false, 
+        error: errorMessage
+      };
     }
   }
 }
