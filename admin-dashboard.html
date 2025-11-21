@@ -12352,7 +12352,7 @@
                     if (email && email.includes('@')) {
                         emailCheckTimeout = setTimeout(async () => {
                             try {
-                                const response = await fetch('/api/staff/check-email', {
+                                const response = await fetch(`${API_BASE}/staff/check-email`, {
                                     method: 'POST',
                                     headers: {
                                         'Content-Type': 'application/json',
