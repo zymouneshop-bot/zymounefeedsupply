@@ -12110,6 +12110,7 @@
                     // Add a visible marker row to confirm this function is running (LIVE)
                     document.getElementById('recentSalesTableBody').innerHTML = '';
                     tbody.innerHTML = orders.map(order => {
+                        console.log('🧑‍💼 Rendering order row:', order);
                         // Receipt number logic
                         let receiptNo = '-';
                         if (order.id && typeof order.id === 'string' && order.id.length >= 24) {
