@@ -12095,8 +12095,9 @@
                     const response = await fetch(`${API_BASE}/orders/summary/sales?${params}`);
                     if (response.ok) {
                         const data = await response.json();
-                        if (Array.isArray(data.recentOrders)) {
-                            allRecentOrders = data.recentOrders;
+                        // Use 'orders' instead of 'recentOrders' to get items array
+                        if (Array.isArray(data.orders)) {
+                            allRecentOrders = data.orders;
                             updateRecentSalesTableLive(allRecentOrders);
                         }
                     }
