@@ -12125,7 +12125,7 @@
                             hour: '2-digit',
                             minute: '2-digit'
                         });
-                        // Staff name logic
+                        // Staff name logic: try staffName, staff_name, staff, staffId
                         let staffName = '-';
                         if (typeof order.staffName === 'string' && order.staffName.trim()) {
                             staffName = order.staffName;
