@@ -13,7 +13,7 @@ const createOrder = async (req, res) => {
     
     const {
       customerName,
-      customerPhone,
+      customerPhone,  
       customerEmail,
       items,
       subtotal,
@@ -356,7 +356,7 @@ const getSalesSummary = async (req, res) => {
     const recentOrders = await Order.find(matchQuery)
       .sort({ orderDate: -1 })
       .limit(10)
-      .select('receiptNumber staffName orderDate total subtotal tax');
+      .select('receiptNumber staffName orderDate total subtotal tax items productName name quantity');
 
     res.json({
       success: true,
