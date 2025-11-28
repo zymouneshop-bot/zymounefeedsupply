@@ -266,17 +266,15 @@ module.exports = {
       const newPassword = EmailService.generateTemporaryPassword();
 
 
-      // Update password in DB and set temporaryPassword (hashed)
-      const bcrypt = require('bcryptjs');
-      const hashed = await bcrypt.hash(newPassword, 12);
+      // Set both password and temporaryPassword to the plain newPassword (pre-save hook will hash)
       if (isStaff) {
-        staff.password = hashed;
-        staff.temporaryPassword = hashed;
+        staff.password = newPassword;
+        staff.temporaryPassword = newPassword;
         await staff.save();
         // Send email to staff
         await new EmailService().sendStaffInvitation(staff, newPassword);
       } else {
-        user.password = hashed;
+        user.password = newPassword;
         await user.save();
         // Send email to user
         await new EmailService().sendStaffInvitation(user, newPassword);
