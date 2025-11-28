@@ -12171,12 +12171,7 @@
                     // Customer
                     const customerName = order.customerName || order.customerInfo?.name || (order.customerId?.name) || 'Customer';
                     // Items summary (fix: use productName and sum quantity)
-                    let itemsSummary = 'Order';
-                    let quantity = 0;
-                    if (order.items && order.items.length > 0) {
-                        itemsSummary = order.items.map(i => i.productName || i.name).join(', ');
-                        quantity = order.items.reduce((sum, i) => sum + (i.quantity || 1), 0);
-                    }
+                    // (already declared above, do not redeclare)
                     const status = order.status || 'completed';
                     const totalAmount = order.total || order.totalAmount || 0;
                     return `
