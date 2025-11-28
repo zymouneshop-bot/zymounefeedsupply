@@ -12079,6 +12079,7 @@
             initAdminScanner();
 
             // Fetch and display recent sales with staffName (LIVE TAB ONLY)
+            let allRecentOrders = [];
             loadRecentSalesLive();
             // Helper functions for recent sales table (LIVE TAB ONLY)
             async function loadRecentSalesLive() {
@@ -12095,12 +12096,44 @@
                     if (response.ok) {
                         const data = await response.json();
                         if (Array.isArray(data.recentOrders)) {
-                            updateRecentSalesTableLive(data.recentOrders);
+                            allRecentOrders = data.recentOrders;
+                            updateRecentSalesTableLive(allRecentOrders);
                         }
                     }
                 } catch (err) {
                     console.error('Error loading recent sales:', err);
                 }
+            }
+
+            // Receipt number search event listener for live recent sales
+            const receiptSearchInput = document.getElementById('receiptSearchInput');
+            if (receiptSearchInput) {
+                receiptSearchInput.addEventListener('input', function() {
+                    const searchValue = receiptSearchInput.value.trim();
+                    if (!searchValue) {
+                        updateRecentSalesTableLive(allRecentOrders);
+                        return;
+                    }
+                    const filtered = allRecentOrders.filter(order => {
+                        let receiptNo = '-';
+                        if (order.id && typeof order.id === 'string' && order.id.length >= 24) {
+                            receiptNo = order.id.substring(16, 24);
+                        } else if (order.id) {
+                            receiptNo = order.id.toString();
+                        }
+                        return receiptNo.includes(searchValue);
+                    });
+                    updateRecentSalesTableLive(filtered);
+                });
+            }
+
+            // Clear search button for live recent sales
+            const clearReceiptSearchBtn = document.getElementById('clearReceiptSearchBtn');
+            if (clearReceiptSearchBtn && receiptSearchInput) {
+                clearReceiptSearchBtn.addEventListener('click', function() {
+                    receiptSearchInput.value = '';
+                    updateRecentSalesTableLive(allRecentOrders);
+                });
             }
 
             function updateRecentSalesTableLive(orders) {
