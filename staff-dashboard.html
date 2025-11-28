@@ -1147,7 +1147,69 @@
                 <div id="staffName">Staff Member</div>
                 <div style="font-size: 0.8rem; color: #666;">Point of Sale</div>
             </div>
+            <button class="btn btn-secondary" onclick="openChangePasswordModal()">Change Password</button>
             <button class="btn btn-secondary" onclick="logout()">Logout</button>
+            <!-- Change Password Modal -->
+            <div id="changePasswordModal" class="modal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.3); align-items:center; justify-content:center;">
+                <div class="modal-content" style="background:#fff; padding:2rem; border-radius:10px; max-width:400px; margin:auto; position:relative;">
+                    <div class="modal-header" style="display:flex; justify-content:space-between; align-items:center;">
+                        <h2 style="margin:0;">Change Password</h2>
+                        <span class="close" onclick="closeChangePasswordModal()" style="cursor:pointer; font-size:2rem;">&times;</span>
+                    </div>
+                    <form id="changePasswordForm" onsubmit="submitChangePassword(event)">
+                        <div style="margin-bottom:1rem;">
+                            <label for="oldPassword">Current Password</label>
+                            <input type="password" id="oldPassword" name="oldPassword" required style="width:100%; padding:0.5rem; margin-top:0.25rem;">
+                        </div>
+                        <div style="margin-bottom:1rem;">
+                            <label for="newPassword">New Password</label>
+                            <input type="password" id="newPassword" name="newPassword" required minlength="6" style="width:100%; padding:0.5rem; margin-top:0.25rem;">
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width:100%;">Update Password</button>
+                    </form>
+                    <div id="changePasswordMessage" style="margin-top:1rem; color:#b94a48;"></div>
+                </div>
+            </div>
+            <script>
+            function openChangePasswordModal() {
+                document.getElementById('changePasswordModal').style.display = 'flex';
+                document.getElementById('changePasswordMessage').textContent = '';
+                document.getElementById('oldPassword').value = '';
+                document.getElementById('newPassword').value = '';
+            }
+            function closeChangePasswordModal() {
+                document.getElementById('changePasswordModal').style.display = 'none';
+            }
+            async function submitChangePassword(event) {
+                event.preventDefault();
+                const oldPassword = document.getElementById('oldPassword').value;
+                const newPassword = document.getElementById('newPassword').value;
+                const messageDiv = document.getElementById('changePasswordMessage');
+                messageDiv.textContent = '';
+                try {
+                    const response = await fetch(`${API_BASE}/staff/change-password`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        },
+                        body: JSON.stringify({ oldPassword, newPassword })
+                    });
+                    const data = await response.json();
+                    if (data.success) {
+                        messageDiv.style.color = '#28a745';
+                        messageDiv.textContent = 'Password changed successfully!';
+                        setTimeout(closeChangePasswordModal, 1500);
+                    } else {
+                        messageDiv.style.color = '#b94a48';
+                        messageDiv.textContent = data.error || 'Failed to change password.';
+                    }
+                } catch (err) {
+                    messageDiv.style.color = '#b94a48';
+                    messageDiv.textContent = 'An error occurred. Please try again.';
+                }
+            }
+            </script>
         </div>
     </div>
 
