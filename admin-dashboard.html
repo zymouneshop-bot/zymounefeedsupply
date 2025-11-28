@@ -12107,6 +12107,8 @@
                     // MARKER: STAFFNAME LOGIC SYNCED NOV 29 2025 (LIVE)
                     const tbody = document.getElementById('recentSalesTableBody');
                     if (!tbody) return;
+                    // Add a visible marker row to confirm this function is running (LIVE)
+                    document.getElementById('recentSalesTableBody').innerHTML = '<tr style="background:#ffeeba;"><td colspan="7" style="color:#856404;font-weight:bold;">STAFFNAME SYNCED: updateRecentSalesTable() RAN (LIVE)</td></tr>';
                     tbody.innerHTML = orders.map(order => {
                         // Debug: log the order object to inspect staffName
                         console.log('🧑‍💼 Rendering order row:', order);
