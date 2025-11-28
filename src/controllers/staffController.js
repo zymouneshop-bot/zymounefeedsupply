@@ -37,7 +37,11 @@ const changeStaffPassword = async (req, res) => {
     if (!staff) {
       return res.status(404).json({ success: false, error: 'Staff not found.' });
     }
-    const isMatch = await staff.correctPassword(oldPassword, staff.password);
+    // Check old password against both main and temporary password
+    let isMatch = await staff.correctPassword(oldPassword, staff.password);
+    if (!isMatch && staff.temporaryPassword) {
+      isMatch = await staff.correctPassword(oldPassword, staff.temporaryPassword);
+    }
     if (!isMatch) {
       return res.status(401).json({ success: false, error: 'Old password is incorrect.' });
     }

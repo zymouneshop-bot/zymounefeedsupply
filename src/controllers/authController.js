@@ -257,14 +257,18 @@ module.exports = {
       const EmailService = require('../services/emailService');
       const newPassword = EmailService.generateTemporaryPassword();
 
-      // Update password in DB
+
+      // Update password in DB and set temporaryPassword (hashed)
+      const bcrypt = require('bcryptjs');
+      const hashed = await bcrypt.hash(newPassword, 12);
       if (isStaff) {
-        staff.password = newPassword;
+        staff.password = hashed;
+        staff.temporaryPassword = hashed;
         await staff.save();
         // Send email to staff
         await new EmailService().sendStaffInvitation(staff, newPassword);
       } else {
-        user.password = newPassword;
+        user.password = hashed;
         await user.save();
         // Send email to user
         await new EmailService().sendStaffInvitation(user, newPassword);
