@@ -1,12 +1,12 @@
 // Change password for staff (self-service)
 const changeStaffPassword = async (req, res) => {
   try {
-    const staffId = req.user.id;
     const { oldPassword, newPassword } = req.body;
     if (!oldPassword || !newPassword) {
       return res.status(400).json({ success: false, error: 'Old and new password are required.' });
     }
-    const staff = await Staff.findById(staffId);
+    // Find staff by email from req.user
+    const staff = await Staff.findOne({ email: req.user.email });
     if (!staff) {
       return res.status(404).json({ success: false, error: 'Staff not found.' });
     }
