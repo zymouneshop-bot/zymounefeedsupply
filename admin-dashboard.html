@@ -10242,72 +10242,72 @@
 
 
 
-    <!-- Admin Change Password Modal -->
-    <div id="adminChangePasswordModal" class="modal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.3); align-items:center; justify-content:center;">
-        <div class="modal-content" style="background:#fff; padding:2rem; border-radius:10px; max-width:400px; margin:auto; position:relative;">
-            <div class="modal-header" style="display:flex; justify-content:space-between; align-items:center;">
-                <h2 style="margin:0;">Change Staff Password</h2>
-                <span class="close" onclick="closeAdminChangePasswordModal()" style="cursor:pointer; font-size:2rem;">&times;</span>
-            </div>
-            <div style="margin-bottom:1rem; font-weight:600;">Staff: <span id="adminChangePasswordStaffName"></span></div>
-            <form id="adminChangePasswordForm" onsubmit="submitAdminChangePassword(event)">
-                <div style="margin-bottom:1rem;">
-                    <label for="adminNewPassword">New Password</label>
-                    <input type="password" id="adminNewPassword" name="adminNewPassword" required minlength="6" style="width:100%; padding:0.5rem; margin-top:0.25rem;" />
+        </body>
+        <!-- Admin Change Password Modal -->
+        <div id="adminChangePasswordModal" class="modal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.3); align-items:center; justify-content:center;">
+            <div class="modal-content" style="background:#fff; padding:2rem; border-radius:10px; max-width:400px; margin:auto; position:relative;">
+                <div class="modal-header" style="display:flex; justify-content:space-between; align-items:center;">
+                    <h2 style="margin:0;">Change Staff Password</h2>
+                    <span class="close" onclick="closeAdminChangePasswordModal()" style="cursor:pointer; font-size:2rem;">&times;</span>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width:100%;">Update Password</button>
-            </form>
-            <div id="adminChangePasswordMessage" style="margin-top:1rem; color:#b94a48;"></div>
+                <div style="margin-bottom:1rem; font-weight:600;">Staff: <span id="adminChangePasswordStaffName"></span></div>
+                <form id="adminChangePasswordForm" onsubmit="submitAdminChangePassword(event)">
+                    <div style="margin-bottom:1rem;">
+                        <label for="adminNewPassword">New Password</label>
+                        <input type="password" id="adminNewPassword" name="adminNewPassword" required minlength="6" style="width:100%; padding:0.5rem; margin-top:0.25rem;" />
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="width:100%;">Update Password</button>
+                </form>
+                <div id="adminChangePasswordMessage" style="margin-top:1rem; color:#b94a48;"></div>
+            </div>
         </div>
-    </div>
-
-    <script>
-    // Admin Change Password Modal logic (global, not inside displayStaff)
-    let adminChangePassStaffId = null;
-    function openAdminChangePasswordModal(staffId, staffName) {
-        adminChangePassStaffId = staffId;
-        document.getElementById('adminChangePasswordModal').style.display = 'flex';
-        document.getElementById('adminChangePasswordMessage').textContent = '';
-        document.getElementById('adminNewPassword').value = '';
-        document.getElementById('adminChangePasswordStaffName').textContent = staffName;
-    }
-    function closeAdminChangePasswordModal() {
-        document.getElementById('adminChangePasswordModal').style.display = 'none';
-        adminChangePassStaffId = null;
-    }
-    async function submitAdminChangePassword(event) {
-        event.preventDefault();
-        const newPassword = document.getElementById('adminNewPassword').value;
-        const messageDiv = document.getElementById('adminChangePasswordMessage');
-        messageDiv.textContent = '';
-        if (!adminChangePassStaffId) {
-            messageDiv.textContent = 'No staff selected.';
-            return;
+        <script>
+        // Admin Change Password Modal logic (global, not inside displayStaff)
+        let adminChangePassStaffId = null;
+        function openAdminChangePasswordModal(staffId, staffName) {
+            adminChangePassStaffId = staffId;
+            document.getElementById('adminChangePasswordModal').style.display = 'flex';
+            document.getElementById('adminChangePasswordMessage').textContent = '';
+            document.getElementById('adminNewPassword').value = '';
+            document.getElementById('adminChangePasswordStaffName').textContent = staffName;
         }
-        try {
-            const response = await fetch(`${API_BASE}/staff/${adminChangePassStaffId}/set-password`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify({ newPassword })
-            });
-            const data = await response.json();
-            if (data.success) {
-                messageDiv.style.color = '#28a745';
-                messageDiv.textContent = 'Password updated successfully!';
-                setTimeout(closeAdminChangePasswordModal, 1500);
-            } else {
-                messageDiv.style.color = '#b94a48';
-                messageDiv.textContent = data.error || 'Failed to update password.';
+        function closeAdminChangePasswordModal() {
+            document.getElementById('adminChangePasswordModal').style.display = 'none';
+            adminChangePassStaffId = null;
+        }
+        async function submitAdminChangePassword(event) {
+            event.preventDefault();
+            const newPassword = document.getElementById('adminNewPassword').value;
+            const messageDiv = document.getElementById('adminChangePasswordMessage');
+            messageDiv.textContent = '';
+            if (!adminChangePassStaffId) {
+                messageDiv.textContent = 'No staff selected.';
+                return;
             }
-        } catch (err) {
-            messageDiv.style.color = '#b94a48';
-            messageDiv.textContent = 'An error occurred. Please try again.';
+            try {
+                const response = await fetch(`${API_BASE}/staff/${adminChangePassStaffId}/set-password`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({ newPassword })
+                });
+                const data = await response.json();
+                if (data.success) {
+                    messageDiv.style.color = '#28a745';
+                    messageDiv.textContent = 'Password updated successfully!';
+                    setTimeout(closeAdminChangePasswordModal, 1500);
+                } else {
+                    messageDiv.style.color = '#b94a48';
+                    messageDiv.textContent = data.error || 'Failed to update password.';
+                }
+            } catch (err) {
+                messageDiv.style.color = '#b94a48';
+                messageDiv.textContent = 'An error occurred. Please try again.';
+            }
         }
-    }
-    </script>
+        </script>
         }
         
         // Update staff statistics
@@ -13998,5 +13998,71 @@
             </div>
         </div>
     </div>
+
+<!-- Admin Change Password Modal -->
+<div id="adminChangePasswordModal" class="modal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.3); align-items:center; justify-content:center;">
+    <div class="modal-content" style="background:#fff; padding:2rem; border-radius:10px; max-width:400px; margin:auto; position:relative;">
+        <div class="modal-header" style="display:flex; justify-content:space-between; align-items:center;">
+            <h2 style="margin:0;">Change Staff Password</h2>
+            <span class="close" onclick="closeAdminChangePasswordModal()" style="cursor:pointer; font-size:2rem;">&times;</span>
+        </div>
+        <div style="margin-bottom:1rem; font-weight:600;">Staff: <span id="adminChangePasswordStaffName"></span></div>
+        <form id="adminChangePasswordForm" onsubmit="submitAdminChangePassword(event)">
+            <div style="margin-bottom:1rem;">
+                <label for="adminNewPassword">New Password</label>
+                <input type="password" id="adminNewPassword" name="adminNewPassword" required minlength="6" style="width:100%; padding:0.5rem; margin-top:0.25rem;" />
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:100%;">Update Password</button>
+        </form>
+        <div id="adminChangePasswordMessage" style="margin-top:1rem; color:#b94a48;"></div>
+    </div>
+</div>
+<script>
+// Admin Change Password Modal logic (global, not inside displayStaff)
+let adminChangePassStaffId = null;
+function openAdminChangePasswordModal(staffId, staffName) {
+    adminChangePassStaffId = staffId;
+    document.getElementById('adminChangePasswordModal').style.display = 'flex';
+    document.getElementById('adminChangePasswordMessage').textContent = '';
+    document.getElementById('adminNewPassword').value = '';
+    document.getElementById('adminChangePasswordStaffName').textContent = staffName;
+}
+function closeAdminChangePasswordModal() {
+    document.getElementById('adminChangePasswordModal').style.display = 'none';
+    adminChangePassStaffId = null;
+}
+async function submitAdminChangePassword(event) {
+    event.preventDefault();
+    const newPassword = document.getElementById('adminNewPassword').value;
+    const messageDiv = document.getElementById('adminChangePasswordMessage');
+    messageDiv.textContent = '';
+    if (!adminChangePassStaffId) {
+        messageDiv.textContent = 'No staff selected.';
+        return;
+    }
+    try {
+        const response = await fetch(`${API_BASE}/staff/${adminChangePassStaffId}/set-password`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('token')}`
+            },
+            body: JSON.stringify({ newPassword })
+        });
+        const data = await response.json();
+        if (data.success) {
+            messageDiv.style.color = '#28a745';
+            messageDiv.textContent = 'Password updated successfully!';
+            setTimeout(closeAdminChangePasswordModal, 1500);
+        } else {
+            messageDiv.style.color = '#b94a48';
+            messageDiv.textContent = data.error || 'Failed to update password.';
+        }
+    } catch (err) {
+        messageDiv.style.color = '#b94a48';
+        messageDiv.textContent = 'An error occurred. Please try again.';
+    }
+}
+</script>
 </body>
 </html>
