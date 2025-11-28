@@ -11372,8 +11372,8 @@
             // Update daily sales data
             await updateDailySalesDisplay();
             
-            // Update recent sales table
-            updateRecentSalesTable();
+            // Update recent sales table (forecast/history only, NOT live tab)
+            // updateRecentSalesTable();
             
             // Update forecast table
             updateForecastTable();
@@ -12078,81 +12078,79 @@
             // Initialize admin QR scanner
             initAdminScanner();
 
-            // Fetch and display recent sales with staffName
+            // Fetch and display recent sales with staffName (LIVE TAB ONLY)
             loadRecentSalesLive();
-                // Helper functions for recent sales table
-                async function loadRecentSalesLive() {
-                    try {
-                        const params = new URLSearchParams();
-                        const today = new Date();
-                        const startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-                        const endDate = new Date(startDate);
-                        endDate.setDate(endDate.getDate() + 1);
-                        params.append('startDate', startDate.toISOString());
-                        params.append('endDate', endDate.toISOString());
-                        params.append('_t', Date.now());
-                        const response = await fetch(`${API_BASE}/orders/summary/sales?${params}`);
-                        if (response.ok) {
-                            const data = await response.json();
-                            if (Array.isArray(data.recentOrders)) {
-                                updateRecentSalesTableLive(data.recentOrders);
-                            }
+            // Helper functions for recent sales table (LIVE TAB ONLY)
+            async function loadRecentSalesLive() {
+                try {
+                    const params = new URLSearchParams();
+                    const today = new Date();
+                    const startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
+                    const endDate = new Date(startDate);
+                    endDate.setDate(endDate.getDate() + 1);
+                    params.append('startDate', startDate.toISOString());
+                    params.append('endDate', endDate.toISOString());
+                    params.append('_t', Date.now());
+                    const response = await fetch(`${API_BASE}/orders/summary/sales?${params}`);
+                    if (response.ok) {
+                        const data = await response.json();
+                        if (Array.isArray(data.recentOrders)) {
+                            updateRecentSalesTableLive(data.recentOrders);
                         }
-                    } catch (err) {
-                        console.error('Error loading recent sales:', err);
                     }
+                } catch (err) {
+                    console.error('Error loading recent sales:', err);
                 }
+            }
 
-                function updateRecentSalesTableLive(orders) {
-                    // MARKER: STAFFNAME LOGIC SYNCED NOV 29 2025 (LIVE)
-                    const tbody = document.getElementById('recentSalesTableBody');
-                    if (!tbody) return;
-                    // Add a visible marker row to confirm this function is running (LIVE)
-                    document.getElementById('recentSalesTableBody').innerHTML = '';
-                    tbody.innerHTML = orders.map(order => {
-                        console.log('🧑‍💼 Rendering order row:', order);
-                        // Receipt number logic
-                        let receiptNo = '-';
-                        if (order.id && typeof order.id === 'string' && order.id.length >= 24) {
-                            receiptNo = order.id.substring(16, 24);
-                        } else if (order.id) {
-                            receiptNo = order.id.toString();
-                        }
-                        // Date/time
-                        const dateStr = order.orderDate || order.createdAt || order.saleDate;
-                        const saleDate = new Date(dateStr);
-                        const timeString = saleDate.toLocaleString('en-US', {
-                            month: 'short',
-                            day: 'numeric',
-                            hour: '2-digit',
-                            minute: '2-digit'
-                        });
-                        // Staff name logic: always use order.staffName if present
-                        const staffName = (typeof order.staffName === 'string' && order.staffName.trim()) ? order.staffName : '-';
-                        // Customer
-                        const customerName = order.customerName || order.customerInfo?.name || (order.customerId?.name) || 'Customer';
-                        // Items summary
-                        let itemsSummary = 'Order';
-                        let quantity = 0;
-                        if (order.items && order.items.length > 0) {
-                            itemsSummary = order.items.map(i => i.name || i.productName).join(', ');
-                            quantity = order.items.reduce((sum, i) => sum + (i.quantity || 1), 0);
-                        }
-                        const status = order.status || 'completed';
-                        const totalAmount = order.total || order.totalAmount || 0;
-                        return `
-                            <tr>
-                                <td>${receiptNo}</td>
-                                <td>${timeString}</td>
-                                <td>${staffName}</td>
-                                <td>${customerName}</td>
-                                <td>${quantity} items - ${itemsSummary}</td>
-                                <td>₱${totalAmount.toLocaleString()}</td>
-                                <td class="status-${status}">${status.charAt(0).toUpperCase() + status.slice(1)}</td>
-                            </tr>
-                        `;
-                    }).join('');
-                }
+            function updateRecentSalesTableLive(orders) {
+                // LIVE TAB ONLY: This function should be the ONLY updater for the live recent sales table
+                const tbody = document.getElementById('recentSalesTableBody');
+                if (!tbody) return;
+                tbody.innerHTML = orders.map(order => {
+                    console.log('🧑‍💼 Rendering order row:', order);
+                    // Receipt number logic
+                    let receiptNo = '-';
+                    if (order.id && typeof order.id === 'string' && order.id.length >= 24) {
+                        receiptNo = order.id.substring(16, 24);
+                    } else if (order.id) {
+                        receiptNo = order.id.toString();
+                    }
+                    // Date/time
+                    const dateStr = order.orderDate || order.createdAt || order.saleDate;
+                    const saleDate = new Date(dateStr);
+                    const timeString = saleDate.toLocaleString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    // Staff name logic: always use order.staffName if present
+                    const staffName = (typeof order.staffName === 'string' && order.staffName.trim()) ? order.staffName : '-';
+                    // Customer
+                    const customerName = order.customerName || order.customerInfo?.name || (order.customerId?.name) || 'Customer';
+                    // Items summary
+                    let itemsSummary = 'Order';
+                    let quantity = 0;
+                    if (order.items && order.items.length > 0) {
+                        itemsSummary = order.items.map(i => i.name || i.productName).join(', ');
+                        quantity = order.items.reduce((sum, i) => sum + (i.quantity || 1), 0);
+                    }
+                    const status = order.status || 'completed';
+                    const totalAmount = order.total || order.totalAmount || 0;
+                    return `
+                        <tr>
+                            <td>${receiptNo}</td>
+                            <td>${timeString}</td>
+                            <td>${staffName}</td>
+                            <td>${customerName}</td>
+                            <td>${quantity} items - ${itemsSummary}</td>
+                            <td>₱${totalAmount.toLocaleString()}</td>
+                            <td class="status-${status}">${status.charAt(0).toUpperCase() + status.slice(1)}</td>
+                        </tr>
+                    `;
+                }).join('');
+            }
                 try {
                     switchSection('dashboard');
                     console.log('✅ switchSection test successful');
