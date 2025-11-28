@@ -1,3 +1,28 @@
+// Change password for staff (self-service)
+const changeStaffPassword = async (req, res) => {
+  try {
+    const staffId = req.user.id;
+    const { oldPassword, newPassword } = req.body;
+    if (!oldPassword || !newPassword) {
+      return res.status(400).json({ success: false, error: 'Old and new password are required.' });
+    }
+    const staff = await Staff.findById(staffId);
+    if (!staff) {
+      return res.status(404).json({ success: false, error: 'Staff not found.' });
+    }
+    const isMatch = await staff.correctPassword(oldPassword, staff.password);
+    if (!isMatch) {
+      return res.status(401).json({ success: false, error: 'Old password is incorrect.' });
+    }
+    staff.password = newPassword;
+    staff.temporaryPassword = null;
+    await staff.save();
+    res.json({ success: true, message: 'Password changed successfully.' });
+  } catch (error) {
+    console.error('Error changing staff password:', error);
+    res.status(500).json({ success: false, error: 'Failed to change password', details: error.message });
+  }
+};
 const EmailService = require('../services/emailService');
 const Staff = require('../models/Staff');
 const User = require('../models/User');
@@ -528,5 +553,6 @@ module.exports = {
   clearAllStaff,
   checkEmailAvailability,
   pauseStaff,
-  activateStaff
+  activateStaff,
+  changeStaffPassword
 };

@@ -1,3 +1,6 @@
+const { changeStaffPassword } = require('../controllers/staffController');
+// Change password (staff self-service)
+router.post('/change-password', authenticateToken, changeStaffPassword);
 const express = require('express');
 const router = express.Router();
 const staffController = require('../controllers/staffController');
