@@ -12092,7 +12092,13 @@
                     params.append('startDate', startDate.toISOString());
                     params.append('endDate', endDate.toISOString());
                     params.append('_t', Date.now());
-                    const url = `${API_BASE}/api/orders/summary?${params}`;
+                    // Ensure we do not double /api in the path
+                    let url = '';
+                    if (API_BASE.endsWith('/api')) {
+                        url = `${API_BASE}/orders/summary?${params}`;
+                    } else {
+                        url = `${API_BASE}/api/orders/summary?${params}`;
+                    }
                     console.log('[DEBUG] Fetching recent sales:', url);
                     const response = await fetch(url);
                     console.log('[DEBUG] Response status:', response.status);
