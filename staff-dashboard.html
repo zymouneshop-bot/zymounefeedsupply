@@ -1176,9 +1176,15 @@
                 document.getElementById('changePasswordMessage').textContent = '';
                 document.getElementById('oldPassword').value = '';
                 document.getElementById('newPassword').value = '';
+                // Remove focus from qrInput if present
+                const qrInput = document.getElementById('qrInput');
+                if (qrInput) qrInput.blur();
             }
             function closeChangePasswordModal() {
                 document.getElementById('changePasswordModal').style.display = 'none';
+                // Restore focus to qrInput if present
+                const qrInput = document.getElementById('qrInput');
+                if (qrInput) setTimeout(() => qrInput.focus(), 100);
             }
             async function submitChangePassword(event) {
                 event.preventDefault();
