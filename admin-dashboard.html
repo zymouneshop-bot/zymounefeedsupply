@@ -48,71 +48,7 @@
             }
             function closeAdminChangePasswordModal() {
                 document.getElementById('adminChangePasswordModal').style.display = 'none';
-                adminChangePassStaffId = null;
-            }
-            async function submitAdminChangePassword(event) {
-                event.preventDefault();
-                const newPassword = document.getElementById('adminNewPassword').value;
-                const messageDiv = document.getElementById('adminChangePasswordMessage');
-                messageDiv.style.color = '#b94a48';
-                messageDiv.innerHTML = '<span class="loading-spinner" style="display:inline-block;width:1.5em;height:1.5em;border:3px solid #ccc;border-top:3px solid #8b7355;border-radius:50%;animation:spin 1s linear infinite;vertical-align:middle;margin-right:0.5em;"></span>Updating password...';
-                if (!adminChangePassStaffId) {
-                    messageDiv.textContent = 'No staff selected.';
-                    return;
-                }
-                try {
-                    const response = await fetch(`${API_BASE}/staff/${adminChangePassStaffId}/set-password`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'Authorization': `Bearer ${localStorage.getItem('token')}`
-                        },
-                        body: JSON.stringify({ newPassword })
-                    });
-                    const data = await response.json();
-                    if (data.success) {
-                        messageDiv.style.color = '#28a745';
-                        messageDiv.textContent = 'Password updated successfully!';
-                        setTimeout(closeAdminChangePasswordModal, 1500);
-                    } else {
-                        messageDiv.style.color = '#b94a48';
-                        messageDiv.textContent = data.error || 'Failed to update password.';
-                    }
-                } catch (err) {
-                    messageDiv.style.color = '#b94a48';
-                    messageDiv.textContent = 'An error occurred. Please try again.';
-                }
-            }
-            // Spinner animation
-            const style = document.createElement('style');
-            style.innerHTML = `@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`;
-            document.head.appendChild(style);
-            </script>
-        
-        .stat-card {
-            background: #f5f5dc;
-            padding: 1.5rem;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            text-align: center;
-        }
-        
-        .stat-card h3 {
-            color: #8b7355;
-            font-size: 2rem;
-            margin-bottom: 0.5rem;
-        }
-        
-        .stat-card p {
-            color: #a09080;
-        }
-        
-        .stat-card.clickable {
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        
-        .stat-card.clickable:hover {
+
             transform: translateY(-2px);
             box-shadow: 0 4px 20px rgba(0,0,0,0.15);
         }
@@ -13940,9 +13876,10 @@
         </div>
         <div style="margin-bottom:1rem; font-weight:600;">Staff: <span id="adminChangePasswordStaffName"></span></div>
         <form id="adminChangePasswordForm" onsubmit="submitAdminChangePassword(event)">
+            <input type="text" name="username" id="adminChangePasswordUsername" autocomplete="username" style="display:none;" tabindex="-1" aria-hidden="true" />
             <div style="margin-bottom:1rem;">
                 <label for="adminNewPassword">New Password</label>
-                <input type="password" id="adminNewPassword" name="adminNewPassword" required minlength="6" style="width:100%; padding:0.5rem; margin-top:0.25rem;" />
+                <input type="password" id="adminNewPassword" name="adminNewPassword" required minlength="6" autocomplete="new-password" style="width:100%; padding:0.5rem; margin-top:0.25rem;" />
             </div>
             <button type="submit" class="btn btn-primary" style="width:100%;">Update Password</button>
         </form>
