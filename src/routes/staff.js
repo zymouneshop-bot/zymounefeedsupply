@@ -1,12 +1,11 @@
-const { adminSetStaffPassword } = require('../controllers/staffController');
-// Admin: Set new password for any staff by ID
-router.post('/:id/set-password', authenticateToken, requireAdmin, adminSetStaffPassword);
-
 const express = require('express');
 const router = express.Router();
 const staffController = require('../controllers/staffController');
 const { authenticateToken, requireAdmin } = require('../middleware/auth');
-const { changeStaffPassword } = require('../controllers/staffController');
+const { changeStaffPassword, adminSetStaffPassword } = require('../controllers/staffController');
+
+// Admin: Set new password for any staff by ID
+router.post('/:id/set-password', authenticateToken, requireAdmin, adminSetStaffPassword);
 // Change password (staff self-service)
 router.post('/change-password', authenticateToken, changeStaffPassword);
 
