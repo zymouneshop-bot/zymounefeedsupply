@@ -12169,8 +12169,11 @@
                     let itemsSummary = 'Order';
                     let quantity = 0;
                     if (order.items && order.items.length > 0) {
-                        itemsSummary = order.items.map(i => i.productName || i.name).join(', ');
+                        itemsSummary = order.items.map(i => i.productName || i.name || '').join(', ');
                         quantity = order.items.reduce((sum, i) => sum + (i.quantity || 1), 0);
+                    } else if (order.productName || order.name) {
+                        itemsSummary = order.productName || order.name;
+                        quantity = order.quantity || 1;
                     }
                     // Debug log for rendering
                     console.log('🧑‍💼 Rendering order row:', { ...order, debugQuantity: quantity });
