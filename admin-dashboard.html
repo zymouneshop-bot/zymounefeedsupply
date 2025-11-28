@@ -12079,9 +12079,9 @@
             initAdminScanner();
 
             // Fetch and display recent sales with staffName
-            loadRecentSales();
+            loadRecentSalesLive();
                 // Helper functions for recent sales table
-                async function loadRecentSales() {
+                async function loadRecentSalesLive() {
                     try {
                         const params = new URLSearchParams();
                         const today = new Date();
@@ -12095,7 +12095,7 @@
                         if (response.ok) {
                             const data = await response.json();
                             if (Array.isArray(data.recentOrders)) {
-                                updateRecentSalesTable(data.recentOrders);
+                                updateRecentSalesTableLive(data.recentOrders);
                             }
                         }
                     } catch (err) {
@@ -12103,7 +12103,7 @@
                     }
                 }
 
-                function updateRecentSalesTable(orders) {
+                function updateRecentSalesTableLive(orders) {
                     // MARKER: STAFFNAME LOGIC SYNCED NOV 29 2025 (LIVE)
                     const tbody = document.getElementById('recentSalesTableBody');
                     if (!tbody) return;
