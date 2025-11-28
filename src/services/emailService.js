@@ -78,7 +78,7 @@ class EmailService {
                     
                     <h3>🚀 Getting Started:</h3>
                     <ol>
-                        <li>Go to the admin dashboard: <a href="${process.env.BASE_URL || 'http://localhost:4000'}">Admin Dashboard</a></li>
+                        <li>Go to the admin dashboard: <a href="https://zymounefeedsupply.store/">Admin Dashboard</a></li>
                         <li>Use your email and the temporary password above</li>
                         <li>Change your password on first login</li>
                         <li>Start managing the store!</li>
@@ -87,7 +87,7 @@ class EmailService {
                     <p><strong>Important:</strong> Please change your password immediately after your first login for security reasons.</p>
                     
                     <div style="text-align: center;">
-                        <a href="${process.env.BASE_URL || 'http://localhost:4000'}" style="background-color: #007bff; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; display: inline-block;">Access Admin Dashboard</a>
+                        <a href="https://zymounefeedsupply.store/" style="background-color: #007bff; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; display: inline-block;">Access Admin Dashboard</a>
                     </div>
                 </div>
                 <div class="footer">
