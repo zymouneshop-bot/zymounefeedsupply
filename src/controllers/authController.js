@@ -135,8 +135,16 @@ const loginStaff = async (req, res) => {
       });
     }
 
-    // Verify password
-    const isPasswordValid = await user.comparePassword(password);
+    // Verify password (for Staff model, check both password and temporaryPassword)
+    let isPasswordValid = false;
+    if (user.comparePassword) {
+      isPasswordValid = await user.comparePassword(password);
+    }
+    // If user is a Staff and has a temporaryPassword, check that too
+    if (!isPasswordValid && user.temporaryPassword) {
+      const bcrypt = require('bcryptjs');
+      isPasswordValid = await bcrypt.compare(password, user.temporaryPassword);
+    }
     if (!isPasswordValid) {
       return res.status(401).json({ 
         error: 'Invalid email or password' 
