@@ -12142,7 +12142,14 @@
                 const tbody = document.getElementById('recentSalesTableBody');
                 if (!tbody) return;
                 tbody.innerHTML = orders.map(order => {
-                    console.log('🧑‍💼 Rendering order row:', order);
+                    // Items summary (fix: use productName and sum quantity)
+                    let itemsSummary = 'Order';
+                    let quantity = 0;
+                    if (order.items && order.items.length > 0) {
+                        itemsSummary = order.items.map(i => i.productName || i.name).join(', ');
+                        quantity = order.items.reduce((sum, i) => sum + (i.quantity || 1), 0);
+                    }
+                    console.log('🧑‍💼 Rendering order row:', { ...order, debugQuantity: quantity });
                     // Receipt number logic
                     let receiptNo = '-';
                     if (order.id && typeof order.id === 'string' && order.id.length >= 24) {
