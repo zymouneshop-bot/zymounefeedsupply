@@ -11540,6 +11540,8 @@
             }
             tbody.innerHTML = filteredOrders.map((order, index) => {
                 try {
+                    // Debug: log the order object to inspect staffName
+                    console.log('🧑‍💼 Rendering order row:', order);
                     // Display only the 17th to 24th characters of the id as the receipt number
                     let receiptNo = '-';
                     if (order.id && typeof order.id === 'string' && order.id.length >= 24) {
@@ -11556,10 +11558,12 @@
                         hour: '2-digit',
                         minute: '2-digit'
                     });
-                    // Staff name logic: try staffName, staff, staffId
+                    // Staff name logic: try staffName, staff_name, staff, staffId
                     let staffName = '-';
                     if (typeof order.staffName === 'string' && order.staffName.trim()) {
                         staffName = order.staffName;
+                    } else if (typeof order.staff_name === 'string' && order.staff_name.trim()) {
+                        staffName = order.staff_name;
                     } else if (order.staff && typeof order.staff === 'object') {
                         if (order.staff.firstName && order.staff.lastName) {
                             staffName = order.staff.firstName + ' ' + order.staff.lastName;
