@@ -267,7 +267,7 @@ module.exports = {
 
       let staffUpdated = false, userUpdated = false;
       let passwordToSend = newPassword;
-      let debugInfo = {};
+      let debugInfo = { staff: null, user: null };
       if (staff) {
         staff.password = newPassword;
         await staff.save();
@@ -277,7 +277,7 @@ module.exports = {
         // For debug: compare entered password to hash
         const bcrypt = require('bcryptjs');
         const compareResult = await bcrypt.compare(newPassword, updatedStaff.password);
-        debugInfo = {
+        debugInfo.staff = {
           email: updatedStaff.email,
           plainPassword: newPassword,
           hashedPassword: updatedStaff.password,
@@ -292,6 +292,16 @@ module.exports = {
         user.password = newPassword;
         await user.save();
         userUpdated = true;
+        // For debug: compare entered password to hash
+        const bcrypt = require('bcryptjs');
+        const updatedUser = await User.findOne({ email: user.email });
+        const compareResult = await bcrypt.compare(newPassword, updatedUser.password);
+        debugInfo.user = {
+          email: updatedUser.email,
+          plainPassword: newPassword,
+          hashedPassword: updatedUser.password,
+          compareResult
+        };
       }
       // Send email to the staff/user (prefer staff fields if available)
       const emailTarget = staff || user;
