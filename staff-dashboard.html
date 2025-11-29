@@ -1180,8 +1180,7 @@
                     document.head.appendChild(style);
                 }
             });
-
-            function openChangePasswordModal() {
+            window.openChangePasswordModal = function() {
                 document.getElementById('changePasswordModal').style.display = 'flex';
                 document.getElementById('changePasswordMessage').textContent = '';
                 document.getElementById('oldPassword').value = '';
@@ -1189,8 +1188,8 @@
                 // Remove focus from qrInput if present
                 const qrInput = document.getElementById('qrInput');
                 if (qrInput) qrInput.blur();
-            }
-            function closeChangePasswordModal() {
+            };
+            window.closeChangePasswordModal = function() {
                 document.getElementById('changePasswordModal').style.display = 'none';
                 // Restore focus to qrInput if present
                 const qrInput = document.getElementById('qrInput');
@@ -1200,8 +1199,8 @@
                         qrInput.focus();
                     }
                 }, 100);
-            }
-            async function submitChangePassword(event) {
+            };
+            window.submitChangePassword = async function(event) {
                 event.preventDefault();
                 const oldPassword = document.getElementById('oldPassword').value;
                 const newPassword = document.getElementById('newPassword').value;
@@ -1230,7 +1229,7 @@
                     messageDiv.style.color = '#b94a48';
                     messageDiv.textContent = 'An error occurred. Please try again.';
                 }
-            }
+            };
             // Spinner animation
             const style = document.createElement('style');
             style.innerHTML = `@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`;
