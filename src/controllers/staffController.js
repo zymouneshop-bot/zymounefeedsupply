@@ -39,9 +39,19 @@ const changeStaffPassword = async (req, res) => {
     }
     // Check old password against both main and temporary password
     let isMatch = await staff.correctPassword(oldPassword, staff.password);
+    let matchedField = 'password';
     if (!isMatch && staff.temporaryPassword) {
       isMatch = await staff.correctPassword(oldPassword, staff.temporaryPassword);
+      if (isMatch) matchedField = 'temporaryPassword';
     }
+    // Debug: log which field matched and the hashes
+    console.log('[DEBUG] Change password attempt:', {
+      email: staff.email,
+      matchedField,
+      password: staff.password,
+      temporaryPassword: staff.temporaryPassword,
+      oldPasswordAttempt: oldPassword
+    });
     if (!isMatch) {
       return res.status(401).json({ success: false, error: 'Old password is incorrect.' });
     }
