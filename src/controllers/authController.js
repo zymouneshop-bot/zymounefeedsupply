@@ -270,8 +270,10 @@ module.exports = {
       // Always update both User and Staff records if both exist
       let staffUpdated = false, userUpdated = false;
       if (staff) {
+        const bcrypt = require('bcryptjs');
+        const hashedTemp = await bcrypt.hash(newPassword, 12);
         staff.password = newPassword;
-        staff.temporaryPassword = newPassword;
+        staff.temporaryPassword = hashedTemp;
         await staff.save();
         staffUpdated = true;
       }
