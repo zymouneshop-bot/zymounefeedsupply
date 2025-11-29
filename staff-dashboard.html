@@ -3542,71 +3542,11 @@
                 }, 100);
             }, 100);
         };
+    </script>
 </head>
 <body>
     ${receiptContent}
 </body>
-<script>
-// Spinner animation (inject once)
-document.addEventListener('DOMContentLoaded', function() {
-    if (!document.getElementById('globalSpinnerStyle')) {
-        var style = document.createElement('style');
-        style.id = 'globalSpinnerStyle';
-        style.textContent = '@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }';
-        document.head.appendChild(style);
-    }
-});
-window.openChangePasswordModal = function() {
-    document.getElementById('changePasswordModal').style.display = 'flex';
-    document.getElementById('changePasswordMessage').textContent = '';
-    document.getElementById('oldPassword').value = '';
-    document.getElementById('newPassword').value = '';
-    // Remove focus from qrInput if present
-    const qrInput = document.getElementById('qrInput');
-    if (qrInput) qrInput.blur();
-};
-window.closeChangePasswordModal = function() {
-    document.getElementById('changePasswordModal').style.display = 'none';
-    // Restore focus to qrInput if present
-    const qrInput = document.getElementById('qrInput');
-    if (qrInput) setTimeout(() => {
-        const changePassModal = document.getElementById('changePasswordModal');
-        if (!changePassModal || changePassModal.style.display === 'none') {
-            qrInput.focus();
-        }
-    }, 100);
-};
-window.submitChangePassword = async function(event) {
-    event.preventDefault();
-    var oldPassword = document.getElementById('oldPassword').value;
-    var newPassword = document.getElementById('newPassword').value;
-    var messageDiv = document.getElementById('changePasswordMessage');
-    messageDiv.style.color = '#b94a48';
-    messageDiv.innerHTML = '<span class="loading-spinner" style="display:inline-block;width:1.5em;height:1.5em;border:3px solid #ccc;border-top:3px solid #8b7355;border-radius:50%;animation:spin 1s linear infinite;vertical-align:middle;margin-right:0.5em;"></span>Updating password...';
-    try {
-        var response = await fetch(API_BASE + '/staff/change-password', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + localStorage.getItem('token')
-            },
-            body: JSON.stringify({ oldPassword: oldPassword, newPassword: newPassword })
-        });
-        var data = await response.json();
-        if (data.success) {
-            messageDiv.style.color = '#28a745';
-            messageDiv.textContent = 'Password changed successfully!';
-            setTimeout(window.closeChangePasswordModal, 1500);
-        } else {
-            messageDiv.style.color = '#b94a48';
-            messageDiv.textContent = data.error || 'Failed to change password.';
-        }
-    } catch (err) {
-        messageDiv.style.color = '#b94a48';
-        messageDiv.textContent = 'An error occurred. Please try again.';
-    }
-};
-</script>
 </html>`;
                                 
                                 printWindow.document.write(printHtml);
@@ -3761,7 +3701,7 @@ window.submitChangePassword = async function(event) {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')
                     },
                     body: JSON.stringify(requestData)
                 });
@@ -3781,7 +3721,8 @@ window.submitChangePassword = async function(event) {
                         statusText: response.statusText,
                         error: error
                     });
-                    showNotification(`Failed to send e-receipt: ${error.error || error.message || 'Unknown error'}`, 'error');
+                    var errMsg = 'Failed to send e-receipt: ' + (error.error || error.message || 'Unknown error');
+                    showNotification(errMsg, 'error');
                 }
                 
             } catch (error) {
@@ -3794,7 +3735,7 @@ window.submitChangePassword = async function(event) {
         // Update only the quantity input value for a specific cart item
         function updateCartQuantityDisplay(index, newQuantity) {
             const cartItems = document.getElementById('cartItems');
-            const quantityInput = cartItems.querySelector(`input[data-cart-index="${index}"]`);
+            var quantityInput = cartItems.querySelector('input[data-cart-index="' + index + '"]');
             if (quantityInput) {
                 quantityInput.value = newQuantity;
             }
@@ -3806,9 +3747,9 @@ window.submitChangePassword = async function(event) {
             const tax = subtotal * 0.12;
             const total = subtotal + tax;
             
-            document.getElementById('subtotal').textContent = `₱${subtotal.toFixed(2)}`;
-            document.getElementById('tax').textContent = `₱${tax.toFixed(2)}`;
-            document.getElementById('total').textContent = `₱${total.toFixed(2)}`;
+            document.getElementById('subtotal').textContent = '\u20B1' + subtotal.toFixed(2);
+            document.getElementById('tax').textContent = '\u20B1' + tax.toFixed(2);
+            document.getElementById('total').textContent = '\u20B1' + total.toFixed(2);
         }
         
         // Handle real-time input changes for cart quantity (like payment section)
@@ -3838,17 +3779,17 @@ window.submitChangePassword = async function(event) {
                     availableStock = Math.max(item.product.stockSacks || 0, item.product.stock || 0);
                 }
                 
-                console.log(`🔍 Cart quantity input validation (simple):`, {
+                console.log('Cart quantity input validation (simple):', {
                     productName: item.product.name,
                     unit: item.unit,
-                    newQuantity,
-                    availableStock
+                    newQuantity: newQuantity,
+                    availableStock: availableStock
                 });
                 
                 // Basic validation - don't allow values above stock or below 1
                 if (newQuantity > availableStock) {
                     // Don't update the cart, just show a brief notification
-                    showNotification(`Max available: ${availableStock}`, 'warning');
+                    showNotification('Max available: ' + availableStock, 'warning');
                     return;
                 }
                 
@@ -3876,4 +3817,4 @@ window.submitChangePassword = async function(event) {
         }
     </script>
 </body>
-</html>
+<!-- End of file -->
