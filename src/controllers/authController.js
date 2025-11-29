@@ -256,12 +256,11 @@ module.exports = {
       let user = await User.findOne({ email: normalizedEmail });
       let staff = null;
       let isStaff = false;
-      if (!user) {
-        staff = await Staff.findOne({ email: normalizedEmail });
-        console.log('[DEBUG] Staff lookup:', { email: normalizedEmail, staffFound: !!staff });
-        if (!staff) return res.status(404).json({ error: 'Email not found.', debugInfo: { staffFound: false, normalizedEmail } });
-        isStaff = true;
-      }
+      staff = await Staff.findOne({ email: normalizedEmail });
+      user = await User.findOne({ email: normalizedEmail });
+      console.log('[DEBUG] Staff lookup:', { email: normalizedEmail, staffFound: !!staff, userFound: !!user });
+      if (!staff && !user) return res.status(404).json({ error: 'Email not found.', debugInfo: { staffFound: false, userFound: false, normalizedEmail } });
+      isStaff = !!staff;
 
       // Generate new password
       const EmailService = require('../services/emailService');
@@ -270,14 +269,13 @@ module.exports = {
       let staffUpdated = false, userUpdated = false;
       let passwordToSend = newPassword;
       let debugInfo = { staff: null, user: null };
+      const bcrypt = require('bcryptjs');
       if (staff) {
         staff.password = newPassword;
         await staff.save();
         staffUpdated = true;
         // After save, fetch the staff again to ensure the password is set
         const updatedStaff = await Staff.findOne({ email: staff.email });
-        // For debug: compare entered password to hash
-        const bcrypt = require('bcryptjs');
         const compareResult = await bcrypt.compare(newPassword, updatedStaff.password);
         debugInfo.staff = {
           email: updatedStaff.email,
@@ -294,8 +292,6 @@ module.exports = {
         user.password = newPassword;
         await user.save();
         userUpdated = true;
-        // For debug: compare entered password to hash
-        const bcrypt = require('bcryptjs');
         const updatedUser = await User.findOne({ email: user.email });
         const compareResult = await bcrypt.compare(newPassword, updatedUser.password);
         debugInfo.user = {
