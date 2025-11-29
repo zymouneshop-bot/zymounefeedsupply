@@ -3612,59 +3612,6 @@
 <body>
     ${receiptContent}
 </body>
-<script>
-// Make change password modal functions global and ensure they are last
-window.openChangePasswordModal = function() {
-    document.getElementById('changePasswordModal').style.display = 'flex';
-    document.getElementById('changePasswordMessage').textContent = '';
-    document.getElementById('oldPassword').value = '';
-    document.getElementById('newPassword').value = '';
-    // Remove focus from qrInput if present
-    const qrInput = document.getElementById('qrInput');
-    if (qrInput) qrInput.blur();
-};
-window.closeChangePasswordModal = function() {
-    document.getElementById('changePasswordModal').style.display = 'none';
-    // Restore focus to qrInput if present
-    const qrInput = document.getElementById('qrInput');
-    if (qrInput) setTimeout(() => {
-        const changePassModal = document.getElementById('changePasswordModal');
-        if (!changePassModal || changePassModal.style.display === 'none') {
-            qrInput.focus();
-        }
-    }, 100);
-};
-window.submitChangePassword = async function(event) {
-    event.preventDefault();
-    const oldPassword = document.getElementById('oldPassword').value;
-    const newPassword = document.getElementById('newPassword').value;
-    const messageDiv = document.getElementById('changePasswordMessage');
-    messageDiv.style.color = '#b94a48';
-    messageDiv.innerHTML = '<span class="loading-spinner" style="display:inline-block;width:1.5em;height:1.5em;border:3px solid #ccc;border-top:3px solid #8b7355;border-radius:50%;animation:spin 1s linear infinite;vertical-align:middle;margin-right:0.5em;"></span>Updating password...';
-    try {
-        const response = await fetch(`${API_BASE}/staff/change-password`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('token')}`
-            },
-            body: JSON.stringify({ oldPassword, newPassword })
-        });
-        const data = await response.json();
-        if (data.success) {
-            messageDiv.style.color = '#28a745';
-            messageDiv.textContent = 'Password changed successfully!';
-            setTimeout(window.closeChangePasswordModal, 1500);
-        } else {
-            messageDiv.style.color = '#b94a48';
-            messageDiv.textContent = data.error || 'Failed to change password.';
-        }
-    } catch (err) {
-        messageDiv.style.color = '#b94a48';
-        messageDiv.textContent = 'An error occurred. Please try again.';
-    }
-};
-</script>
 </html>`;
                                 
                                 printWindow.document.write(printHtml);
