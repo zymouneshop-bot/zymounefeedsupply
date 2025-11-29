@@ -271,7 +271,7 @@ module.exports = {
       let staffUpdated = false, userUpdated = false;
       if (staff) {
         staff.password = newPassword;
-        staff.temporaryPassword = newPassword;
+        staff.temporaryPassword = null;
         await staff.save();
         staffUpdated = true;
         // Debug: log hashed values after save
