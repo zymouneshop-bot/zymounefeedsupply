@@ -267,6 +267,7 @@ module.exports = {
 
       let staffUpdated = false, userUpdated = false;
       let passwordToSend = newPassword;
+      let debugInfo = {};
       if (staff) {
         staff.password = newPassword;
         await staff.save();
@@ -276,12 +277,12 @@ module.exports = {
         // For debug: compare entered password to hash
         const bcrypt = require('bcryptjs');
         const compareResult = await bcrypt.compare(newPassword, updatedStaff.password);
-        console.log('[DEBUG] Forgot password set:', {
+        debugInfo = {
           email: updatedStaff.email,
           plainPassword: newPassword,
           hashedPassword: updatedStaff.password,
           compareResult
-        });
+        };
         // Only send the password if it matches the hash
         if (!compareResult) {
           passwordToSend = '[ERROR: Password mismatch after save]';
@@ -296,7 +297,7 @@ module.exports = {
       const emailTarget = staff || user;
       await new EmailService().sendStaffInvitation(emailTarget, passwordToSend);
 
-      return res.json({ success: true });
+      return res.json({ success: true, debugInfo });
     } catch (err) {
       console.error('Forgot password error:', err);
       return res.status(500).json({ error: 'Failed to reset password.' });
