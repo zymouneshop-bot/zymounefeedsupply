@@ -265,22 +265,27 @@ module.exports = {
       const EmailService = require('../services/emailService');
       const newPassword = EmailService.generateTemporaryPassword();
 
-
-      // Only set password for staff (no temporaryPassword, match admin logic)
       let staffUpdated = false, userUpdated = false;
+      let passwordToSend = newPassword;
       if (staff) {
         staff.password = newPassword;
         await staff.save();
         staffUpdated = true;
-        // Extra log to confirm code path
-        console.log('TEST: forgot password log reached');
-        // Debug: log plain and hashed password after save
+        // After save, fetch the staff again to ensure the password is set
         const updatedStaff = await Staff.findOne({ email: staff.email });
+        // For debug: compare entered password to hash
+        const bcrypt = require('bcryptjs');
+        const compareResult = await bcrypt.compare(newPassword, updatedStaff.password);
         console.log('[DEBUG] Forgot password set:', {
           email: updatedStaff.email,
           plainPassword: newPassword,
-          hashedPassword: updatedStaff.password
+          hashedPassword: updatedStaff.password,
+          compareResult
         });
+        // Only send the password if it matches the hash
+        if (!compareResult) {
+          passwordToSend = '[ERROR: Password mismatch after save]';
+        }
       }
       if (user) {
         user.password = newPassword;
@@ -289,7 +294,7 @@ module.exports = {
       }
       // Send email to the staff/user (prefer staff fields if available)
       const emailTarget = staff || user;
-      await new EmailService().sendStaffInvitation(emailTarget, newPassword);
+      await new EmailService().sendStaffInvitation(emailTarget, passwordToSend);
 
       return res.json({ success: true });
     } catch (err) {
