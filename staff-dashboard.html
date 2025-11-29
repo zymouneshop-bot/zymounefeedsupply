@@ -2168,7 +2168,7 @@
                     return;
                 }
                 
-                // Don't refocus if:
+                // // Don't refocus if:
                 // 1. User is typing in payment amount
                 // 2. Product modal is open
                 // 3. Payment section is open
@@ -3514,41 +3514,13 @@
                         
                         try {
                             // Method 1: New window with immediate print
-                            const printWindow = window.open('', '_blank', 'width=1,height=1,left=-1000,top=-1000');
+                            var printWindow = window.open('', '_blank', 'width=1,height=1,left=-1000,top=-1000');
                             if (printWindow) {
-                                const printHtml = `<!DOCTYPE html>
-<html>
-<head>
-    <title>Receipt</title>
-    <style>
-        body { 
-            font-family: 'Courier New', monospace; 
-            font-size: 11px; 
-            line-height: 1.1; 
-            margin: 0; 
-            padding: 3mm; 
-            width: 57mm;
-        }
-        @media print {
-            body { margin: 0; padding: 3mm; }
-        }
-    </style>
-    <script>
-        window.onload = function() {
-            setTimeout(function() {
-                window.print();
-                setTimeout(function() {
-                    window.close();
-                }, 100);
-            }, 100);
-        };
-    </script>
-</head>
-<body>
-    ${receiptContent}
-</body>
-</html>`;
-                                
+                                var printHtml = '<!DOCTYPE html>' +
+                                    '<html><head><title>Receipt</title>' +
+                                    '<style>body { font-family: \'Courier New\', monospace; font-size: 11px; line-height: 1.1; margin: 0; padding: 3mm; width: 57mm; } @media print { body { margin: 0; padding: 3mm; } }</style>' +
+                                    '<script>window.onload = function() { setTimeout(function() { window.print(); setTimeout(function() { window.close(); }, 100); }, 100); };</' + 'script>' +
+                                    '</head><body>' + receiptContent + '</body></html>';
                                 printWindow.document.write(printHtml);
                                 printWindow.document.close();
                                 showNotification('Receipt sent to printer!', 'success');
