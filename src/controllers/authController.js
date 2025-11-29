@@ -272,11 +272,12 @@ module.exports = {
         staff.password = newPassword;
         await staff.save();
         staffUpdated = true;
-        // Debug: log hashed value after save
+        // Debug: log plain and hashed password after save
         const updatedStaff = await Staff.findOne({ email: staff.email });
-        console.log('[DEBUG] After forgot password:', {
+        console.log('[DEBUG] Forgot password set:', {
           email: updatedStaff.email,
-          password: updatedStaff.password
+          plainPassword: newPassword,
+          hashedPassword: updatedStaff.password
         });
       }
       if (user) {
