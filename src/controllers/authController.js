@@ -266,20 +266,17 @@ module.exports = {
       const newPassword = EmailService.generateTemporaryPassword();
 
 
-      // Set both password and temporaryPassword to the plain newPassword (pre-save hook will hash)
-      // Always update both User and Staff records if both exist
+      // Only set password for staff (no temporaryPassword, match admin logic)
       let staffUpdated = false, userUpdated = false;
       if (staff) {
         staff.password = newPassword;
-        staff.temporaryPassword = null;
         await staff.save();
         staffUpdated = true;
-        // Debug: log hashed values after save
+        // Debug: log hashed value after save
         const updatedStaff = await Staff.findOne({ email: staff.email });
         console.log('[DEBUG] After forgot password:', {
           email: updatedStaff.email,
-          password: updatedStaff.password,
-          temporaryPassword: updatedStaff.temporaryPassword
+          password: updatedStaff.password
         });
       }
       if (user) {
