@@ -272,6 +272,8 @@ module.exports = {
         staff.password = newPassword;
         await staff.save();
         staffUpdated = true;
+        // Extra log to confirm code path
+        console.log('TEST: forgot password log reached');
         // Debug: log plain and hashed password after save
         const updatedStaff = await Staff.findOne({ email: staff.email });
         console.log('[DEBUG] Forgot password set:', {
