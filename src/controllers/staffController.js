@@ -13,6 +13,13 @@ const adminSetStaffPassword = async (req, res) => {
     staff.password = newPassword;
     staff.temporaryPassword = null;
     await staff.save();
+    // Debug: log plain and hashed password after save
+    const updatedStaff = await Staff.findById(id);
+    console.log('[DEBUG] Admin set password:', {
+      email: updatedStaff.email,
+      plainPassword: newPassword,
+      hashedPassword: updatedStaff.password
+    });
     // Also update User collection if a user with this email exists
     const user = await User.findOne({ email: staff.email });
     if (user) {
