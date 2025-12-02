@@ -11394,16 +11394,15 @@
                     document.getElementById('todaySales').textContent = `₱${revenue.toFixed(2)}`;
                     document.getElementById('todayOrders').textContent = `${orders} orders`;
 
-                    // Use recentOrders for the Recent Sales table
+                    // Use ALL recentOrders for the Recent Sales table (no filter)
                     if (Array.isArray(data.recentOrders)) {
-                        // forecastData.salesHistory = data.recentOrders.map(order => ({
-                        //     ...order,
-                        //     // Fallbacks for compatibility with table rendering
-                        //     id: order._id || order.id,
-                        //     receiptNumber: order.orderNumber || order.receiptNumber,
-                        //     totalAmount: order.total,
-                        // }));
-                        // updateRecentSalesTable();
+                        forecastData.salesHistory = data.recentOrders.map(order => ({
+                            ...order,
+                            id: order._id || order.id,
+                            receiptNumber: order.orderNumber || order.receiptNumber,
+                            totalAmount: order.total,
+                        }));
+                        updateRecentSalesTable();
                     }
 
                     // Get yesterday's data
