@@ -11369,16 +11369,14 @@
         // Update daily sales display - use same logic as analytics
         async function updateDailySalesDisplay() {
             try {
-                // Get today's sales data
-                const { startDate, endDate } = getDateRangeForPeriod('today');
-                
+                // Get all sales data for Recent Sales table (from 2000-01-01 to now)
+                const allTimeStart = new Date('2000-01-01T00:00:00.000Z');
+                const allTimeEnd = new Date();
                 const params = new URLSearchParams();
-                params.append('startDate', startDate.toISOString());
-                params.append('endDate', endDate.toISOString());
+                params.append('startDate', allTimeStart.toISOString());
+                params.append('endDate', allTimeEnd.toISOString());
                 params.append('_t', Date.now());
-                
-                console.log('📊 Loading daily sales from:', startDate, 'to:', endDate);
-                
+                console.log('📊 Loading ALL sales from:', allTimeStart, 'to:', allTimeEnd);
                 const response = await fetch(`${API_BASE}/orders/summary/sales?${params}`, {
                     method: 'GET',
                     headers: {
