@@ -321,6 +321,9 @@ const getOrdersByDateRange = async (req, res) => {
 
 
 const getSalesSummary = async (req, res) => {
+    console.log('[DEBUG] getSalesSummary matchQuery:', matchQuery);
+    const allOrdersCount = await Order.countDocuments(matchQuery);
+    console.log('[DEBUG] getSalesSummary total orders found:', allOrdersCount);
   try {
     const { startDate, endDate } = req.query;
     
