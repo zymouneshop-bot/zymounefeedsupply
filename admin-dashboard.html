@@ -11400,6 +11400,93 @@
                         updateRecentSalesTable();
                     }
                 }
+
+                // Fetch and update summary stats for today, yesterday, week, and daily average
+                // Today's stats
+                const { startDate, endDate } = getDateRangeForPeriod('today');
+                const params = new URLSearchParams();
+                params.append('startDate', startDate.toISOString());
+                params.append('endDate', endDate.toISOString());
+                params.append('_t', Date.now());
+                const response = await fetch(`${API_BASE}/orders/summary/sales?${params}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Cache-Control': 'no-cache',
+                        'Pragma': 'no-cache',
+                        'Expires': '0'
+                    }
+                });
+                if (response.ok) {
+                    const data = await response.json();
+                    const summary = data.summary || {};
+                    const revenue = summary.totalRevenue || 0;
+                    const orders = summary.totalOrders || 0;
+                    document.getElementById('todaySales').textContent = `₱${revenue.toFixed(2)}`;
+                    document.getElementById('todayOrders').textContent = `${orders} items`;
+                } else {
+                    document.getElementById('todaySales').textContent = '₱0.00';
+                    document.getElementById('todayOrders').textContent = '0 items';
+                }
+
+                // Yesterday's stats
+                const { startDate: yesterdayStart, endDate: yesterdayEnd } = getDateRangeForPeriod('yesterday');
+                const yesterdayParams = new URLSearchParams();
+                yesterdayParams.append('startDate', yesterdayStart.toISOString());
+                yesterdayParams.append('endDate', yesterdayEnd.toISOString());
+                yesterdayParams.append('_t', Date.now());
+                const yesterdayResponse = await fetch(`${API_BASE}/orders/summary/sales?${yesterdayParams}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Cache-Control': 'no-cache',
+                        'Pragma': 'no-cache',
+                        'Expires': '0'
+                    }
+                });
+                if (yesterdayResponse.ok) {
+                    const yesterdayData = await yesterdayResponse.json();
+                    const yesterdaySummary = yesterdayData.summary || {};
+                    document.getElementById('yesterdaySales').textContent = `₱${(yesterdaySummary.totalRevenue || 0).toFixed(2)}`;
+                    document.getElementById('yesterdayOrders').textContent = `${yesterdaySummary.totalOrders || 0} items`;
+                } else {
+                    document.getElementById('yesterdaySales').textContent = '₱0.00';
+                    document.getElementById('yesterdayOrders').textContent = '0 items';
+                }
+
+                // This week's stats
+                const { startDate: weekStart, endDate: weekEnd } = getDateRangeForPeriod('week');
+                const weekParams = new URLSearchParams();
+                weekParams.append('startDate', weekStart.toISOString());
+                weekParams.append('endDate', weekEnd.toISOString());
+                weekParams.append('_t', Date.now());
+                const weekResponse = await fetch(`${API_BASE}/orders/summary/sales?${weekParams}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Cache-Control': 'no-cache',
+                        'Pragma': 'no-cache',
+                        'Expires': '0'
+                    }
+                });
+                if (weekResponse.ok) {
+                    const weekData = await weekResponse.json();
+                    const weekSummary = weekData.summary || {};
+                    const weekRevenue = weekSummary.totalRevenue || 0;
+                    const weekOrders = weekSummary.totalOrders || 0;
+                    document.getElementById('weekSales').textContent = `₱${weekRevenue.toFixed(2)}`;
+                    document.getElementById('weekOrders').textContent = `${weekOrders} items`;
+                    // Calculate daily average for the week
+                    const dailyAverage = weekRevenue / 7;
+                    const avgOrders = weekOrders / 7;
+                    document.getElementById('dailyAverage').textContent = `₱${dailyAverage.toFixed(2)}`;
+                    document.getElementById('avgOrders').textContent = `${avgOrders.toFixed(1)} items/day`;
+                } else {
+                    document.getElementById('weekSales').textContent = '₱0.00';
+                    document.getElementById('weekOrders').textContent = '0 items';
+                    document.getElementById('dailyAverage').textContent = '₱0.00';
+                    document.getElementById('avgOrders').textContent = '0 items/day';
+                }
             } catch (error) {
                 console.error('Error updating daily sales display:', error);
             }
