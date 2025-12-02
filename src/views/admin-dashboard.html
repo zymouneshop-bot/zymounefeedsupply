@@ -11394,15 +11394,31 @@
                     document.getElementById('todaySales').textContent = `₱${revenue.toFixed(2)}`;
                     document.getElementById('todayOrders').textContent = `${orders} orders`;
 
-                    // Use ALL recentOrders for the Recent Sales table (no filter)
-                    if (Array.isArray(data.recentOrders)) {
-                        forecastData.salesHistory = data.recentOrders.map(order => ({
-                            ...order,
-                            id: order._id || order.id,
-                            receiptNumber: order.orderNumber || order.receiptNumber,
-                            totalAmount: order.total,
-                        }));
-                        updateRecentSalesTable();
+                    // Fetch ALL sales directly for the Recent Sales table (no filter)
+                    try {
+                        const allOrdersResponse = await fetch(`${API_BASE}/orders`, {
+                            method: 'GET',
+                            headers: {
+                                'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                                'Cache-Control': 'no-cache',
+                                'Pragma': 'no-cache',
+                                'Expires': '0'
+                            }
+                        });
+                        if (allOrdersResponse.ok) {
+                            const allOrdersData = await allOrdersResponse.json();
+                            if (Array.isArray(allOrdersData.orders)) {
+                                forecastData.salesHistory = allOrdersData.orders.map(order => ({
+                                    ...order,
+                                    id: order._id || order.id,
+                                    receiptNumber: order.orderNumber || order.receiptNumber,
+                                    totalAmount: order.total,
+                                }));
+                                updateRecentSalesTable();
+                            }
+                        }
+                    } catch (err) {
+                        console.error('Error fetching all sales for Recent Sales table:', err);
                     }
 
                     // Get yesterday's data
