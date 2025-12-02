@@ -12124,7 +12124,9 @@
                     const filtered = allRecentOrders.filter(order => {
                         let receiptNo = '-';
                         if (order.id && typeof order.id === 'string' && order.id.length >= 24) {
-                            receiptNo = order.id.substring(16, 24);
+                            receiptNo = order.id.substring(16, 24); // old logic
+                        } else if (order.id && typeof order.id === 'string' && order.id.length >= 23) {
+                            receiptNo = order.id.substring(16, 23); // fallback for 23-char ids
                         } else if (order.id) {
                             receiptNo = order.id.toString();
                         }
@@ -12163,7 +12165,9 @@
                     // Receipt number logic
                     let receiptNo = '-';
                     if (order.id && typeof order.id === 'string' && order.id.length >= 24) {
-                        receiptNo = order.id.substring(16, 24);
+                        receiptNo = order.id.substring(16, 24); // old logic
+                    } else if (order.id && typeof order.id === 'string' && order.id.length >= 23) {
+                        receiptNo = order.id.substring(16, 23); // fallback for 23-char ids
                     } else if (order.id) {
                         receiptNo = order.id.toString();
                     }
