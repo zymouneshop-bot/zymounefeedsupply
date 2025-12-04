@@ -6269,6 +6269,15 @@
             
             // Show modal
             modal.style.display = 'block';
+            // Attach event listener to close button after modal is rendered
+            setTimeout(() => {
+                const closeLowStockBtn = document.getElementById('closeLowStockModal');
+                if (closeLowStockBtn) {
+                    closeLowStockBtn.style.pointerEvents = 'auto'; // Ensure clickable
+                    closeLowStockBtn.removeEventListener('click', closeLowStockModal); // Remove previous to avoid duplicates
+                    closeLowStockBtn.addEventListener('click', closeLowStockModal);
+                }
+            }, 50);
             document.body.style.overflow = 'hidden';
         }
 
