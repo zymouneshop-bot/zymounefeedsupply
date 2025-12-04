@@ -12343,7 +12343,10 @@
             // Edit Modal Event Listeners
             const closeEditModalBtn = document.getElementById('closeEditModal');
             if (closeEditModalBtn) {
-                closeEditModalBtn.addEventListener('click', closeEditModal);
+                closeEditModalBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.getElementById('productEditModal').style.display = 'none';
+                });
             }
             
             const cancelEditProductBtn = document.getElementById('cancelEditProduct');
@@ -12356,7 +12359,10 @@
             const removeStockBtn = document.getElementById('removeStockBtn');
             
             if (addStockBtn) {
-                addStockBtn.addEventListener('click', addStock);
+                addStockBtn.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    addStock();
+                });
             }
             if (removeStockBtn) {
                 removeStockBtn.addEventListener('click', removeStock);
