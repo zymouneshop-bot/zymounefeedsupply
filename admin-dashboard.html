@@ -7804,7 +7804,7 @@
                 if (!order.items) return;
                 order.items.forEach(item => {
                     const itemRevenue = (item.price || 0) * (item.quantity || 1);
-                    const itemCost = (item.cost !== undefined ? item.cost : 900) * (item.quantity || 1);
+                    const itemCost = (item.cost !== undefined ? item.cost : 0) * (item.quantity || 1);
                     // Profit per item: (selling price - cost price) * quantity
                     totalProfit += (itemRevenue - itemCost);
                     // Count and revenue by animal type
