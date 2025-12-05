@@ -687,17 +687,24 @@ app.get('/product/:id', (req, res) => {
                 showLoading();
                 
                 try {
-                    const saleData = {
-                        productId: productData.id,
-                        quantity: quantity,
-                        unit: selectedUnit,
-                        pricePerUnit: unitPrice,
-                        customerInfo: {
-                            name: customerName,
-                            phone: customerPhone,
-                            email: customerEmail
-                        }
-                    };
+                  let cost = 0;
+                  if (productData.category === 'feeds') {
+                    cost = selectedUnit === 'sack' ? productData.costPerSack : productData.cost;
+                  } else {
+                    cost = productData.cost;
+                  }
+                  const saleData = {
+                    productId: productData.id,
+                    quantity: quantity,
+                    unit: selectedUnit,
+                    pricePerUnit: unitPrice,
+                    cost: cost,
+                    customerInfo: {
+                      name: customerName,
+                      phone: customerPhone,
+                      email: customerEmail
+                    }
+                  };
                     
                     const response = await fetch('/api/sales/record', {
                         method: 'POST',
