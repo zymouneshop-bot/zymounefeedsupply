@@ -355,23 +355,16 @@ const getDirectSalesData = async (req, res) => {
             } else {
               itemPrice = product.price || 0;
             }
-            
-            // Calculate cost
-            let itemCost = 0;
-            if (item.unit === 'sack' && product.costPerSack) {
-              itemCost = product.costPerSack;
-            } else if (item.unit === 'kilo' && product.costPerSack) {
-              itemCost = product.costPerSack / 25; // 1 sack = 25 kilos
-            } else if (product.cost) {
-              itemCost = product.cost;
-            }
-            
+
+            // Use cost recorded at time of sale
+            let itemCost = item.costPerUnit || 0;
+            let itemCostTotal = item.totalCost || (item.quantity * itemCost);
+
             const itemRevenue = item.quantity * itemPrice;
-            const itemCostTotal = item.quantity * itemCost;
-            
+
             orderRevenue += itemRevenue;
             orderCost += itemCostTotal;
-            
+
             console.log(`🔧 Item: revenue=${itemRevenue}, cost=${itemCostTotal}`);
           }
         } catch (error) {
