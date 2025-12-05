@@ -133,148 +133,34 @@ const generateProductQR = async (req, res) => {
 const getProductForQR = async (req, res) => {
   try {
     const { productId } = req.params;
+    const Product = require('../models/Product');
     
+    // Query the real database instead of using hardcoded sample products
+    const product = await Product.findById(productId);
     
-    const sampleProducts = [
-      {
-        id: 1,
-        name: 'Chicken Starter Feed',
-        description: 'Premium starter feed for chicks (0-6 weeks)',
-        animal: 'chicken',
-        category: 'feeds',
-        type: 'starter',
-        price: 25.99,
-        stock: 50,
-        unit: 'bag',
-        imageUrl: ''
-      },
-      {
-        id: 2,
-        name: 'Chicken Grower Feed',
-        description: 'High-protein feed for growing chickens (6-18 weeks)',
-        animal: 'chicken',
-        category: 'feeds',
-        type: 'grower',
-        price: 23.99,
-        stock: 35,
-        unit: 'bag',
-        imageUrl: ''
-      },
-      {
-        id: 3,
-        name: 'Chicken Layer Feed',
-        description: 'Calcium-rich feed for laying hens (18+ weeks)',
-        animal: 'chicken',
-        category: 'feeds',
-        type: 'layer',
-        price: 27.99,
-        stock: 40,
-        unit: 'bag',
-        imageUrl: ''
-      },
-      {
-        id: 4,
-        name: 'Chicken Vitamin Supplement',
-        description: 'Essential vitamins for chicken health and egg production',
-        animal: 'chicken',
-        category: 'supplements',
-        type: 'vitamins',
-        price: 15.99,
-        stock: 25,
-        unit: 'kg',
-        imageUrl: ''
-      },
-      {
-        id: 5,
-        name: 'Chicken Mineral Supplement',
-        description: 'Essential minerals for bone strength and eggshell quality',
-        animal: 'chicken',
-        category: 'supplements',
-        type: 'minerals',
-        price: 12.99,
-        stock: 30,
-        unit: 'kg',
-        imageUrl: ''
-      },
-      {
-        id: 6,
-        name: 'Piglet Starter Feed',
-        description: 'Premium starter feed for piglets (3-8 weeks)',
-        animal: 'pig',
-        category: 'feeds',
-        type: 'starter',
-        price: 32.99,
-        stock: 38,
-        unit: 'bag',
-        imageUrl: ''
-      },
-      {
-        id: 7,
-        name: 'Pig Finisher Feed',
-        description: 'Final stage feed for market-ready pigs',
-        animal: 'pig',
-        category: 'feeds',
-        type: 'finisher',
-        price: 28.99,
-        stock: 8,
-        unit: 'bag',
-        imageUrl: ''
-      },
-      {
-        id: 8,
-        name: 'Pig Grower Feed',
-        description: 'High-energy feed for growing pigs (8-20 weeks)',
-        animal: 'pig',
-        category: 'feeds',
-        type: 'grower',
-        price: 30.99,
-        stock: 15,
-        unit: 'bag',
-        imageUrl: ''
-      },
-      {
-        id: 9,
-        name: 'Pig Vitamin Supplement',
-        description: 'Specialized vitamins for pig health and growth',
-        animal: 'pig',
-        category: 'supplements',
-        type: 'vitamins',
-        price: 18.99,
-        stock: 20,
-        unit: 'kg',
-        imageUrl: ''
-      },
-      {
-        id: 10,
-        name: 'Pig Mineral Supplement',
-        description: 'Essential minerals for pig bone and muscle development',
-        animal: 'pig',
-        category: 'supplements',
-        type: 'minerals',
-        price: 16.99,
-        stock: 18,
-        unit: 'kg',
-        imageUrl: ''
-      }
-    ];
-    
-    const product = sampleProducts.find(p => p.id == productId);
     if (!product) {
       return res.status(404).json({
         error: 'Product not found'
       });
     }
 
+    // Return real product with all pricing and cost fields
     res.json({
       product: {
-        id: product.id,
+        id: product._id,
         name: product.name,
         description: product.description,
         category: product.category,
         animal: product.animal,
+        type: product.type,
         price: product.price,
+        pricePerSack: product.pricePerSack,
+        pricePerKilo: product.pricePerKilo,
+        cost: product.cost,
+        costPerSack: product.costPerSack,
         stock: product.stock,
-        unit: product.unit
+        unit: product.unit,
+        image: product.image
       }
     });
   } catch (error) {
@@ -532,3 +418,4 @@ module.exports = {
   getDirectSalesData,
   resetAllSales
 };
+
