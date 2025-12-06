@@ -7,49 +7,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://unpkg.com/xlsx@latest/dist/xlsx.full.min.js"></script>
     <style>
-                .header {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    background: #fff8e1;
-                    padding: 1.2rem 2.5rem 1.2rem 2.5rem;
-                    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-                    border-bottom: 1px solid #f0e6c0;
-                }
-                .logo {
-                    font-size: 1.6rem;
-                    font-weight: 700;
-                    color: #8b7355;
-                    letter-spacing: 1px;
-                    display: flex;
-                    align-items: center;
-                    gap: 0.5rem;
-                    user-select: none;
-                }
-                .user-info {
-                    display: flex;
-                    align-items: center;
-                    gap: 1.2rem;
-                }
-                .user-info #userName {
-                    font-size: 1.1rem;
-                    color: #5d4037;
-                    font-weight: 500;
-                }
-                .logout-btn {
-                    background: #d32f2f;
-                    color: #fff;
-                    border: none;
-                    padding: 0.5rem 1.2rem;
-                    border-radius: 5px;
-                    font-size: 1rem;
-                    font-weight: 600;
-                    cursor: pointer;
-                    transition: background 0.2s;
-                }
-                .logout-btn:hover {
-                    background: #b71c1c;
-                }
         * {
             margin: 0;
             padding: 0;
@@ -59,6 +16,131 @@
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f5f5dc;
+            color: black;
+        }
+        
+        * {
+            color: black !important;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #d2b48c 0%, #bc9a6a 100%);
+            color: #8b7355;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .logout-btn {
+            background: rgba(139, 115, 85, 0.2);
+            color: #8b7355;
+            border: 1px solid rgba(139, 115, 85, 0.3);
+            padding: 0.5rem 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        
+        .logout-btn:hover {
+            background: rgba(139, 115, 85, 0.3);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .welcome-section {
+            background: #f5f5dc;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+        }
+        
+        .welcome-section h1 {
+            color: #8b7355;
+            margin-bottom: 0.5rem;
+        }
+        
+        .welcome-section p {
+            color: #a09080;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: #f5f5dc;
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        
+        .stat-card h3 {
+            color: #8b7355;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-card p {
+            color: #a09080;
+        }
+        
+        .stat-card.clickable {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .stat-card.clickable:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+        }
+        
+        .stat-instruction {
+            font-size: 0.8rem;
+            color: #d63031;
+            font-weight: bold;
+            margin-top: 0.5rem;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        /* Low Stock Modal Styles */
+        .low-stock-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            background: #f9f9f9;
+        }
+        
+        .low-stock-item:hover {
+            background: #f0f0f0;
+        }
 
         .stock-breakdown {
             display: flex;
@@ -395,26 +477,24 @@
             font-size: 1.5rem;
             font-weight: bold;
             margin: 0;
-            color: #111 !important;
+            color: #ecf0f1;
         }
         
         .nav-menu {
             list-style: none;
             padding: 0;
             margin: 0;
-            color: #111 !important;
         }
         
         .nav-item {
             margin: 0;
-            color: #111 !important;
         }
         
         .nav-btn {
             width: 100%;
             background: none;
             border: none;
-            color: #111 !important;
+            color: #a09080;
             padding: 1rem 2rem;
             text-align: left;
             cursor: pointer;
@@ -428,13 +508,13 @@
         
         .nav-btn:hover {
             background: #bc9a6a;
-            color: #111 !important;
+            color: #8b7355;
             border-left-color: #8b7355;
         }
         
         .nav-btn.active {
             background: #bc9a6a;
-            color: #111 !important;
+            color: #8b7355;
             border-left-color: #8b7355;
         }
         
@@ -464,16 +544,15 @@
         }
         
         .section-title {
-            font-size: 1.1rem;
-            font-weight: 500;
-            padding: 10px 18px;
-            border: none;
-            background: none;
-            cursor: pointer;
-            border-radius: 6px;
-            transition: background 0.2s, color 0.2s;
-            margin-bottom: 6px;
-            color: #111 !important;
+            font-size: 2rem;
+            color: #8b7355;
+            margin: 0 0 1.5rem 0;
+            font-weight: 600;
+        }
+        
+        .placeholder-content {
+            text-align: center;
+            padding: 3rem;
             color: #a09080;
         }
         
@@ -4325,85 +4404,13 @@
     </style>
 </head>
 <body>
-<!-- TEST 2025-11-28: Deployment marker (project root) -->
+<!-- TEST 2025-11-28: Deployment marker -->
     <div class="header">
         <div class="logo">🐔🐷 ZYMOUNE - Admin</div>
         <div class="user-info">
             <span id="userName">Welcome, Admin!</span>
             <button class="logout-btn" id="logoutBtn">Logout</button>
         </div>
-    </div>
-
-    <!-- Admin Change Password Modal -->
-    <div id="adminChangePasswordModal" class="modal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.3); align-items:center; justify-content:center;">
-        <div class="modal-content" style="background:#fff; padding:2rem; border-radius:10px; max-width:400px; margin:auto; position:relative;">
-            <div class="modal-header" style="display:flex; justify-content:space-between; align-items:center;">
-                <h2 style="margin:0;">Change Staff Password</h2>
-                <span class="close" onclick="closeAdminChangePasswordModal()" style="cursor:pointer; font-size:2rem;">&times;</span>
-            </div>
-            <div style="margin-bottom:1rem; font-weight:600;">Staff: <span id="adminChangePasswordStaffName"></span></div>
-            <form id="adminChangePasswordForm" onsubmit="submitAdminChangePassword(event)">
-                <input type="text" name="username" id="adminChangePasswordUsername" autocomplete="username" style="display:none;" tabindex="-1" aria-hidden="true" />
-                <div style="margin-bottom:1rem;">
-                    <label for="adminNewPassword">New Password</label>
-                    <input type="password" id="adminNewPassword" name="adminNewPassword" required minlength="6" autocomplete="new-password" style="width:100%; padding:0.5rem; margin-top:0.25rem;" />
-                </div>
-                <button type="submit" class="btn btn-primary" style="width:100%;">Update Password</button>
-            </form>
-            <div id="adminChangePasswordMessage" style="margin-top:1rem; color:#b94a48;"></div>
-        </div>
-    </div>
-    <script>
-    let adminChangePassStaffId = null;
-    function openAdminChangePasswordModal(staffId, staffName) {
-        adminChangePassStaffId = staffId;
-        document.getElementById('adminChangePasswordModal').style.display = 'flex';
-        document.getElementById('adminChangePasswordMessage').textContent = '';
-        document.getElementById('adminNewPassword').value = '';
-        document.getElementById('adminChangePasswordStaffName').textContent = staffName;
-    }
-    function closeAdminChangePasswordModal() {
-        document.getElementById('adminChangePasswordModal').style.display = 'none';
-        adminChangePassStaffId = null;
-    }
-    async function submitAdminChangePassword(event) {
-        event.preventDefault();
-        const newPassword = document.getElementById('adminNewPassword').value;
-        const messageDiv = document.getElementById('adminChangePasswordMessage');
-        messageDiv.style.color = '#b94a48';
-        messageDiv.innerHTML = '<span class="loading-spinner" style="display:inline-block;width:1.5em;height:1.5em;border:3px solid #ccc;border-top:3px solid #8b7355;border-radius:50%;animation:spin 1s linear infinite;vertical-align:middle;margin-right:0.5em;"></span>Updating password...';
-        if (!adminChangePassStaffId) {
-            messageDiv.textContent = 'No staff selected.';
-            return;
-        }
-        try {
-            const response = await fetch(`${API_BASE}/staff/${adminChangePassStaffId}/set-password`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
-                },
-                body: JSON.stringify({ newPassword })
-            });
-            const data = await response.json();
-            if (data.success) {
-                messageDiv.style.color = '#28a745';
-                messageDiv.textContent = 'Password updated successfully!';
-                setTimeout(closeAdminChangePasswordModal, 1500);
-            } else {
-                messageDiv.style.color = '#b94a48';
-                messageDiv.textContent = data.error || 'Failed to update password.';
-            }
-        } catch (err) {
-            messageDiv.style.color = '#b94a48';
-            messageDiv.textContent = 'An error occurred. Please try again.';
-        }
-    }
-    // Spinner animation
-    const style = document.createElement('style');
-    style.innerHTML = `@keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }`;
-    document.head.appendChild(style);
-    </script>
     </div>
     
     <div class="dashboard-layout">
@@ -4864,7 +4871,7 @@
                     <h3>🛒 Recent Sales</h3>
                     <div style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
                         <input type="text" id="receiptSearchInput" placeholder="Search by Receipt Number..." style="padding: 6px 12px; border: 1px solid #ccc; border-radius: 4px; width: 220px;">
-                        <button id="clearReceiptSearchBtn" style="display: none; padding: 6px 12px; border: 1px solid #ccc; border-radius: 4px; background: #f5f5f5; cursor: pointer;">Clear</button>
+                        <button id="clearReceiptSearchBtn" style="padding: 6px 12px; border: 1px solid #ccc; border-radius: 4px; background: #f5f5f5; cursor: pointer;">Clear</button>
                     </div>
                     <div class="table-container">
                         <table class="recent-sales-table">
@@ -4872,7 +4879,7 @@
                                 <tr>
                                     <th>Receipt #</th>
                                     <th>Time</th>
-                                    <th>Staff Name</th>
+                                    <th>Staff</th>
                                     <th>Customer</th>
                                     <th>Items</th>
                                     <th>Total</th>
@@ -6146,7 +6153,7 @@
                 }
                 
                 // Calculate summary metrics
-                const totalRevenue = salesData.reduce((sum, sale) => sum + (sale.totalAmount || 0), 0);
+                const totalRevenue = salesData.reduce((sum, sale) => sum + (order.total || 0), 0);
                 const totalSales = salesData.length;
                 const averageOrderValue = totalRevenue / totalSales;
                 const currentDate = new Date();
@@ -6269,24 +6276,6 @@
             
             // Show modal
             modal.style.display = 'block';
-            // Attach event listener to close button after modal is rendered
-            setTimeout(() => {
-                const closeLowStockBtn = document.getElementById('closeLowStockModal');
-                if (closeLowStockBtn) {
-                    closeLowStockBtn.style.pointerEvents = 'auto'; // Ensure clickable
-                    closeLowStockBtn.removeEventListener('click', closeLowStockModal); // Remove previous to avoid duplicates
-                    closeLowStockBtn.addEventListener('click', closeLowStockModal);
-                }
-            }, 50);
-            // Attach event listener to close button after modal is rendered
-            setTimeout(() => {
-                const closeLowStockBtn = document.getElementById('closeLowStockModal');
-                if (closeLowStockBtn) {
-                    closeLowStockBtn.style.pointerEvents = 'auto'; // Ensure clickable
-                    closeLowStockBtn.removeEventListener('click', closeLowStockModal); // Remove previous to avoid duplicates
-                    closeLowStockBtn.addEventListener('click', closeLowStockModal);
-                }
-            }, 50);
             document.body.style.overflow = 'hidden';
         }
 
@@ -7310,22 +7299,8 @@
             // Reset the form
             document.getElementById('stockManagementForm').reset();
             
-            // Show modal
+            // Show the modal
             modal.style.display = 'block';
-            // Attach event listener to stockManagementForm after modal is rendered
-            setTimeout(() => {
-                const stockManagementForm = document.getElementById('stockManagementForm');
-                if (stockManagementForm) {
-                    stockManagementForm.removeEventListener('submit', handleStockManagementSubmit); // Remove previous to avoid duplicates
-                    stockManagementForm.addEventListener('submit', handleStockManagementSubmit);
-                }
-                const closeStockManagementBtn = document.getElementById('closeStockManagementModal');
-                if (closeStockManagementBtn) {
-                    closeStockManagementBtn.style.pointerEvents = 'auto'; // Ensure clickable
-                    closeStockManagementBtn.removeEventListener('click', closeStockManagementModal); // Remove previous to avoid duplicates
-                    closeStockManagementBtn.addEventListener('click', closeStockManagementModal);
-                }
-            }, 50);
         }
 
         // Close stock management modal
@@ -7797,50 +7772,27 @@
             const salesByCategory = { feeds: { count: 0, revenue: 0 }, supplements: { count: 0, revenue: 0 } };
             const productMap = {};
             let totalRevenue = 0;
-            let totalCost = 0;
             
-            let totalProfit = 0;
             ordersData.forEach(order => {
                 if (!order.items) return;
+                
                 order.items.forEach(item => {
-                    let itemRevenue = 0;
-                    let itemCost = 0;
-                    // Use correct fields for feeds and supplements
-                    if (item.category === 'feeds') {
-                        if (item.unit === 'sack') {
-                            itemRevenue = (item.pricePerSack || 0) * (item.quantity || 1);
-                            itemCost = (item.costPerSack || 0) * (item.quantity || 1);
-                        } else if (item.unit === 'kilo') {
-                            itemRevenue = (item.pricePerKilo || 0) * (item.quantity || 1);
-                            // Convert cost per sack to cost per kilo
-                            itemCost = ((item.costPerSack || 0) / 25) * (item.quantity || 1);
-                        } else {
-                            // fallback to price/cost if unit is missing
-                            itemRevenue = (item.price || 0) * (item.quantity || 1);
-                            itemCost = (item.cost || 0) * (item.quantity || 1);
-                        }
-                    } else if (item.category === 'supplements') {
-                        itemRevenue = (item.price || 0) * (item.quantity || 1);
-                        itemCost = (item.cost || 0) * (item.quantity || 1);
-                    } else {
-                        // fallback for unknown category
-                        itemRevenue = (item.price || 0) * (item.quantity || 1);
-                        itemCost = (item.cost || 0) * (item.quantity || 1);
-                    }
-                    // Profit per item: (selling price - cost price) * quantity
-                    totalProfit += (itemRevenue - itemCost);
+                    const itemRevenue = (item.price || 0) * (item.quantity || 1);
+                    
                     // Count and revenue by animal type
                     const animalType = item.animalType?.toLowerCase() || 'chicken';
                     if (salesByAnimal[animalType]) {
                         salesByAnimal[animalType].count += item.quantity || 1;
                         salesByAnimal[animalType].revenue += itemRevenue;
                     }
+                    
                     // Count and revenue by category
                     const category = item.category?.toLowerCase() || 'feeds';
                     if (salesByCategory[category]) {
                         salesByCategory[category].count += item.quantity || 1;
                         salesByCategory[category].revenue += itemRevenue;
                     }
+                    
                     // Track top products
                     const productName = item.name || item.productName || 'Unknown';
                     if (!productMap[productName]) {
@@ -7849,7 +7801,8 @@
                     productMap[productName].quantity += item.quantity || 1;
                     productMap[productName].revenue += itemRevenue;
                 });
-                totalRevenue += order.total || order.totalAmount || 0;
+                
+                totalRevenue += order.total || order.total || 0;
             });
             
             console.log('📊 Breakdown calculations:', {
@@ -7863,16 +7816,11 @@
                 .sort((a, b) => b.quantity - a.quantity)
                 .slice(0, 10);
             
-            // Profit = sum of (selling price - cost price) for all items
-            const subtotal = ordersData.reduce((sum, order) => sum + (order.subtotal || 0), 0);
-            const profitMargin = subtotal > 0 ? (totalProfit / subtotal) * 100 : 0;
             return {
                 totalSales: ordersData.length,
                 totalRevenue: totalRevenue,
-                subtotal: subtotal,
-                vat: totalRevenue - subtotal,
-                totalProfit: totalProfit,
-                profitMargin: profitMargin,
+                totalCost: 0,
+                totalProfit: totalRevenue,
                 salesByAnimal,
                 salesByCategory,
                 topProducts,
@@ -8016,7 +7964,7 @@
                             <td>${sale.customerName || sale.customerInfo?.name || 'N/A'}</td>
                             <td>${sale.quantity || 0}</td>
                             <td>${sale.unit || 'N/A'}</td>
-                            <td>₱${(sale.totalAmount || 0).toFixed(2)}</td>
+                            <td>₱${(order.total || 0).toFixed(2)}</td>
                     <td>${new Date(sale.saleDate).toLocaleDateString()}</td>
                 </tr>
                     `;
@@ -8072,7 +8020,7 @@
             const totalRevenue = document.getElementById('totalSalesRevenue');
             
             const totalTransactions = recentSalesData.length;
-            const totalRevenueAmount = recentSalesData.reduce((sum, sale) => sum + (sale.totalAmount || 0), 0);
+            const totalRevenueAmount = recentSalesData.reduce((sum, sale) => sum + (order.total || 0), 0);
             
             totalCount.textContent = totalTransactions;
             totalRevenue.textContent = totalRevenueAmount.toFixed(2);
@@ -10286,7 +10234,6 @@
                             }
                             <button class="btn btn-secondary btn-sm" onclick="editStaff('${member._id}')">Edit</button>
                             <button class="btn btn-danger btn-sm" onclick="deleteStaff('${member._id}')">Delete</button>
-                            <button class="btn btn-primary btn-sm" onclick="openAdminChangePasswordModal('${member._id}', '${member.firstName} ${member.lastName}')">Change Password</button>
                         </div>
                     </td>
                 </tr>
@@ -10663,8 +10610,8 @@
                 
                 if (salesResponse.ok) {
                     const salesData = await salesResponse.json();
-                    forecastData.salesHistory = salesData.orders || [];
-                    console.log('📊 Sales data loaded:', forecastData.salesHistory.length, 'records');
+                    // forecastData.salesHistory = salesData.orders || [];
+                    // console.log('📊 Sales data loaded:', forecastData.salesHistory.length, 'records');
                 }
                 
                 // Load products data
@@ -10683,6 +10630,10 @@
                 // Generate forecasts
                 generateForecasts();
                 await updateForecastDisplay();
+                // Force update of recent sales table after data loads
+                if (typeof updateRecentSalesTable === 'function') {
+                    updateRecentSalesTable();
+                }
                 
                 // Set up real-time monitoring
                 setupRealTimeForecasting();
@@ -10832,16 +10783,12 @@
                     const salesData = await salesResponse.json();
                     const newSalesCount = (salesData.sales || []).length;
                     const oldSalesCount = forecastData.salesHistory.length;
-                    
-                    forecastData.salesHistory = salesData.sales || [];
-                    
+                    // forecastData.salesHistory = salesData.sales || [];
                     if (newSalesCount > oldSalesCount) {
                         console.log(`📊 New sales detected: ${newSalesCount - oldSalesCount} new orders`);
-                        
                         // Regenerate forecasts with new data
                         generateForecasts();
                         await updateForecastDisplay();
-                        
                         // Show notification
                         showForecastUpdateNotification();
                     }
@@ -10887,77 +10834,40 @@
                 console.log('📊 No sales data available for forecasting');
                 return;
             }
-            
-            // Validate sales data structure
-            if (!Array.isArray(salesData)) {
-                console.error('📊 Invalid sales data structure:', salesData);
-                return;
-            }
-            
-            // Check if sales data has the expected structure
-            const sampleSale = salesData[0];
-            if (!sampleSale || (!sampleSale.productId && !sampleSale.productName)) {
-                console.log('📊 Sales data structure:', sampleSale);
-                // Convert direct database format to expected format
-                const convertedSalesData = [];
-                
-                // Process each order and create individual sales records for each item
+            // Only use order-level objects for salesHistory (do not flatten to sale items)
+            // Calculate monthly sales by iterating over order items
+            const monthlySales = {};
+            salesData.forEach(order => {
+                const date = new Date(order.createdAt || sale.orderDate || sale.saleDate);
+                const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+                if (!monthlySales[monthKey]) monthlySales[monthKey] = 0;
+                monthlySales[monthKey] += (order.total || order.total || 0);
+            });
+            // Generate forecasts for each product
+            products.forEach(product => {
+                // Gather all items for this product from all orders
+                const productSales = [];
                 salesData.forEach(order => {
                     if (order.items && Array.isArray(order.items)) {
                         order.items.forEach(item => {
-                            convertedSalesData.push({
-                                id: `${order.id}-${item.productId || Math.random()}`,
-                                productId: item.productId,
-                                productName: item.productName || 'Unknown Product',
-                                quantity: item.quantity || 1,
-                                unit: item.unit || 'sack',
-                                totalAmount: item.totalPrice || item.price || 0,
-                                saleDate: new Date(order.createdAt),
-                                customerName: order.customerName || 'Customer'
-                            });
-                        });
-                    } else {
-                        // Fallback for orders without items array
-                        convertedSalesData.push({
-                            id: order.id,
-                            productId: null,
-                            productName: 'Unknown Product',
-                            quantity: 1,
-                            unit: 'sack',
-                            totalAmount: order.total || 0,
-                            saleDate: new Date(order.createdAt),
-                            customerName: order.customerName || 'Customer'
+                            const productIdMatch = item.productId === product._id || 
+                                item.productId === product._id?.toString() ||
+                                item.productId?.toString() === product._id?.toString();
+                            const productNameMatch = item.productName === product.name;
+                            if (productIdMatch || productNameMatch) {
+                                productSales.push({
+                                    ...item,
+                                    saleDate: order.createdAt || sale.orderDate || sale.saleDate,
+                                    totalAmount: item.totalPrice || item.price || 0
+                                });
+                            }
                         });
                     }
                 });
-                
-                console.log('📊 Converted sales data:', convertedSalesData);
-                forecastData.salesHistory = convertedSalesData;
-            }
-            
-            // Calculate monthly sales
-            const monthlySales = calculateMonthlySales(forecastData.salesHistory);
-            
-            // Generate forecasts for each product
-            products.forEach(product => {
-                // Filter sales data for this specific product
-                const productSales = forecastData.salesHistory.filter(sale => {
-                    // Handle both string and ObjectId comparisons
-                    const productIdMatch = sale.productId === product._id || 
-                                         sale.productId === product._id?.toString() ||
-                                         sale.productId?.toString() === product._id?.toString();
-                    const productNameMatch = sale.productName === product.name;
-                    return productIdMatch || productNameMatch;
-                });
-                
-                console.log(`📊 Product ${product.name}: Found ${productSales.length} sales`);
-                
                 if (productSales.length > 0) {
                     const forecast = calculateProductForecast(productSales, product);
                     forecastData.forecasts[product._id] = forecast;
-                    console.log(`📊 Forecast for ${product.name}:`, forecast);
                 } else {
-                    // Create a default forecast for products with no sales
                     forecastData.forecasts[product._id] = {
                         currentSales: 0,
                         currentRevenue: 0,
@@ -10970,7 +10880,6 @@
                     };
                 }
             });
-            
             console.log('📊 Forecasts generated for', Object.keys(forecastData.forecasts).length, 'products');
         }
         
@@ -10985,7 +10894,7 @@
                 if (!monthlySales[monthKey]) {
                     monthlySales[monthKey] = 0;
                 }
-                monthlySales[monthKey] += (sale.totalAmount || 0);
+                monthlySales[monthKey] += (order.total || 0);
             });
             
             return monthlySales;
@@ -11007,7 +10916,7 @@
                 }
                 
                 monthlyData[monthKey].quantity += (sale.quantity || 0);
-                monthlyData[monthKey].revenue += (sale.totalAmount || 0);
+                monthlyData[monthKey].revenue += (order.total || 0);
             });
             
             console.log(`📊 Monthly data for ${product.name}:`, monthlyData);
@@ -11155,7 +11064,7 @@
                 if (!monthlyRevenue[monthKey]) {
                     monthlyRevenue[monthKey] = 0;
                 }
-                monthlyRevenue[monthKey] += (sale.totalAmount || 0);
+                monthlyRevenue[monthKey] += (order.total || 0);
             });
             
             console.log('📊 Monthly revenue data:', monthlyRevenue);
@@ -11202,7 +11111,7 @@
                 if (!dailyRevenue[dayKey]) {
                     dailyRevenue[dayKey] = 0;
                 }
-                dailyRevenue[dayKey] += (sale.totalAmount || 0);
+                dailyRevenue[dayKey] += (order.total || 0);
             });
             
             const days = Object.keys(dailyRevenue).sort();
@@ -11246,8 +11155,8 @@
             console.log('📊 Recent sales count:', recentSales.length);
             console.log('📊 Previous sales count:', previousSales.length);
             
-            const recentRevenue = recentSales.reduce((sum, sale) => sum + (sale.totalAmount || 0), 0);
-            const previousRevenue = previousSales.reduce((sum, sale) => sum + (sale.totalAmount || 0), 0);
+            const recentRevenue = recentSales.reduce((sum, sale) => sum + (order.total || 0), 0);
+            const previousRevenue = previousSales.reduce((sum, sale) => sum + (order.total || 0), 0);
             
             console.log('📊 Recent revenue:', recentRevenue);
             console.log('📊 Previous revenue:', previousRevenue);
@@ -11286,7 +11195,7 @@
             
             // Calculate based on sales frequency and value
             const recentSales = salesData.slice(-Math.min(10, Math.floor(salesCount * 0.1)));
-            const recentRevenue = recentSales.reduce((sum, sale) => sum + (sale.totalAmount || 0), 0);
+            const recentRevenue = recentSales.reduce((sum, sale) => sum + (order.total || 0), 0);
             const recentAvg = recentRevenue / recentSales.length;
             
             console.log('📊 Recent average sale:', recentAvg);
@@ -11330,7 +11239,7 @@
             }
             
             // Calculate overall metrics
-            const totalRevenue = salesData.reduce((sum, sale) => sum + (sale.totalAmount || 0), 0);
+            const totalRevenue = salesData.reduce((sum, sale) => sum + (order.total || 0), 0);
             const monthsDifference = getMonthsDifference(salesData);
             const monthlyRevenue = monthsDifference > 0 ? totalRevenue / monthsDifference : totalRevenue;
             
@@ -11425,8 +11334,24 @@
             // Update daily sales data
             await updateDailySalesDisplay();
             
-            // Update recent sales table (forecast/history only, NOT live tab)
-            // updateRecentSalesTable();
+            // Update recent sales table
+            updateRecentSalesTable();
+            // Attach search bar event listeners (only once)
+            setTimeout(() => {
+                const searchInput = document.getElementById('receiptSearchInput');
+                const clearBtn = document.getElementById('clearReceiptSearchBtn');
+                if (searchInput && !searchInput.dataset.listenerAttached) {
+                    searchInput.addEventListener('input', () => updateRecentSalesTable());
+                    searchInput.dataset.listenerAttached = 'true';
+                }
+                if (clearBtn && !clearBtn.dataset.listenerAttached) {
+                    clearBtn.addEventListener('click', () => {
+                        searchInput.value = '';
+                        updateRecentSalesTable();
+                    });
+                    clearBtn.dataset.listenerAttached = 'true';
+                }
+            }, 0);
             
             // Update forecast table
             updateForecastTable();
@@ -11440,7 +11365,7 @@
         // Update daily sales display - use same logic as analytics
         async function updateDailySalesDisplay() {
             try {
-                // Fetch ALL sales for Recent Sales table (no date filter)
+                // Fetch ALL sales directly for the Recent Sales table (no filter)
                 const allOrdersResponse = await fetch(`${API_BASE}/orders`, {
                     method: 'GET',
                     headers: {
@@ -11453,129 +11378,109 @@
                 if (allOrdersResponse.ok) {
                     const allOrdersData = await allOrdersResponse.json();
                     if (Array.isArray(allOrdersData.orders)) {
-                        forecastData.salesHistory = allOrdersData.orders.map(order => ({
+                        forecastData.salesHistory = allOrdersData.orders.map(sale => ({
                             ...order,
                             id: order._id || order.id,
-                            receiptNumber: order.orderNumber || order.receiptNumber,
+                            receiptNumber: sale.receiptNumber || sale.receiptNumber,
                             totalAmount: order.total,
                         }));
                         updateRecentSalesTable();
                     }
-                }
 
-                // Fetch and update summary stats for today, yesterday, week, and daily average
-                // Today's stats
-                const { startDate, endDate } = getDateRangeForPeriod('today');
-                const params = new URLSearchParams();
-                params.append('startDate', startDate.toISOString());
-                params.append('endDate', endDate.toISOString());
-                params.append('_t', Date.now());
-                const response = await fetch(`${API_BASE}/orders/summary/sales?${params}`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                        'Cache-Control': 'no-cache',
-                        'Pragma': 'no-cache',
-                        'Expires': '0'
+                    // Get yesterday's data
+                    const { startDate: yesterdayStart, endDate: yesterdayEnd } = getDateRangeForPeriod('yesterday');
+                    const yesterdayParams = new URLSearchParams();
+                    yesterdayParams.append('startDate', yesterdayStart.toISOString());
+                    yesterdayParams.append('endDate', yesterdayEnd.toISOString());
+                    yesterdayParams.append('_t', Date.now());
+                    const yesterdayResponse = await fetch(`${API_BASE}/orders/summary/sales?${yesterdayParams}`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                            'Cache-Control': 'no-cache',
+                            'Pragma': 'no-cache',
+                            'Expires': '0'
+                        }
+                    });
+                    if (yesterdayResponse.ok) {
+                        const yesterdayData = await yesterdayResponse.json();
+                        const yesterdaySummary = yesterdayData.summary || {};
+                        document.getElementById('yesterdaySales').textContent = `₱${(yesterdaySummary.totalRevenue || 0).toFixed(2)}`;
+                        document.getElementById('yesterdayOrders').textContent = `${yesterdaySummary.totalOrders || 0} orders`;
+                    } else {
+                        document.getElementById('yesterdaySales').textContent = '₱0.00';
+                        document.getElementById('yesterdayOrders').textContent = '0 orders';
                     }
-                });
-                if (response.ok) {
-                    const data = await response.json();
-                    const summary = data.summary || {};
-                    const revenue = summary.totalRevenue || 0;
-                    const orders = summary.totalOrders || 0;
-                    document.getElementById('todaySales').textContent = `₱${revenue.toFixed(2)}`;
-                    document.getElementById('todayOrders').textContent = `${orders} items`;
+
+                    // Get this week's data
+                    const { startDate: weekStart, endDate: weekEnd } = getDateRangeForPeriod('week');
+                    const weekParams = new URLSearchParams();
+                    weekParams.append('startDate', weekStart.toISOString());
+                    weekParams.append('endDate', weekEnd.toISOString());
+                    weekParams.append('_t', Date.now());
+                    const weekResponse = await fetch(`${API_BASE}/orders/summary/sales?${weekParams}`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                            'Cache-Control': 'no-cache',
+                            'Pragma': 'no-cache',
+                            'Expires': '0'
+                        }
+                    });
+                    if (weekResponse.ok) {
+                        const weekData = await weekResponse.json();
+                        const weekSummary = weekData.summary || {};
+                        const weekRevenue = weekSummary.totalRevenue || 0;
+                        const weekOrders = weekSummary.totalOrders || 0;
+                        document.getElementById('weekSales').textContent = `₱${weekRevenue.toFixed(2)}`;
+                        document.getElementById('weekOrders').textContent = `${weekOrders} orders`;
+                        // Calculate daily average for the week
+                        const dailyAverage = weekRevenue / 7;
+                        const avgOrders = weekOrders / 7;
+                        document.getElementById('dailyAverage').textContent = `₱${dailyAverage.toFixed(2)}`;
+                        document.getElementById('avgOrders').textContent = `${avgOrders.toFixed(1)} orders/day`;
+                    } else {
+                        document.getElementById('weekSales').textContent = '₱0.00';
+                        document.getElementById('weekOrders').textContent = '0 orders';
+                        document.getElementById('dailyAverage').textContent = '₱0.00';
+                        document.getElementById('avgOrders').textContent = '0 orders/day';
+                    }
                 } else {
+                    // Fallback to zero values if API call fails
                     document.getElementById('todaySales').textContent = '₱0.00';
-                    document.getElementById('todayOrders').textContent = '0 items';
-                }
-
-                // Yesterday's stats
-                const { startDate: yesterdayStart, endDate: yesterdayEnd } = getDateRangeForPeriod('yesterday');
-                const yesterdayParams = new URLSearchParams();
-                yesterdayParams.append('startDate', yesterdayStart.toISOString());
-                yesterdayParams.append('endDate', yesterdayEnd.toISOString());
-                yesterdayParams.append('_t', Date.now());
-                const yesterdayResponse = await fetch(`${API_BASE}/orders/summary/sales?${yesterdayParams}`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                        'Cache-Control': 'no-cache',
-                        'Pragma': 'no-cache',
-                        'Expires': '0'
-                    }
-                });
-                if (yesterdayResponse.ok) {
-                    const yesterdayData = await yesterdayResponse.json();
-                    const yesterdaySummary = yesterdayData.summary || {};
-                    document.getElementById('yesterdaySales').textContent = `₱${(yesterdaySummary.totalRevenue || 0).toFixed(2)}`;
-                    document.getElementById('yesterdayOrders').textContent = `${yesterdaySummary.totalOrders || 0} items`;
-                } else {
+                    document.getElementById('todayOrders').textContent = '0 orders';
                     document.getElementById('yesterdaySales').textContent = '₱0.00';
-                    document.getElementById('yesterdayOrders').textContent = '0 items';
-                }
-
-                // This week's stats
-                const { startDate: weekStart, endDate: weekEnd } = getDateRangeForPeriod('week');
-                const weekParams = new URLSearchParams();
-                weekParams.append('startDate', weekStart.toISOString());
-                weekParams.append('endDate', weekEnd.toISOString());
-                weekParams.append('_t', Date.now());
-                const weekResponse = await fetch(`${API_BASE}/orders/summary/sales?${weekParams}`, {
-                    method: 'GET',
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                        'Cache-Control': 'no-cache',
-                        'Pragma': 'no-cache',
-                        'Expires': '0'
-                    }
-                });
-                if (weekResponse.ok) {
-                    const weekData = await weekResponse.json();
-                    const weekSummary = weekData.summary || {};
-                    const weekRevenue = weekSummary.totalRevenue || 0;
-                    const weekOrders = weekSummary.totalOrders || 0;
-                    document.getElementById('weekSales').textContent = `₱${weekRevenue.toFixed(2)}`;
-                    document.getElementById('weekOrders').textContent = `${weekOrders} items`;
-                    // Calculate daily average for the week
-                    const dailyAverage = weekRevenue / 7;
-                    const avgOrders = weekOrders / 7;
-                    document.getElementById('dailyAverage').textContent = `₱${dailyAverage.toFixed(2)}`;
-                    document.getElementById('avgOrders').textContent = `${avgOrders.toFixed(1)} items/day`;
-                } else {
+                    document.getElementById('yesterdayOrders').textContent = '0 orders';
                     document.getElementById('weekSales').textContent = '₱0.00';
-                    document.getElementById('weekOrders').textContent = '0 items';
+                    document.getElementById('weekOrders').textContent = '0 orders';
                     document.getElementById('dailyAverage').textContent = '₱0.00';
-                    document.getElementById('avgOrders').textContent = '0 items/day';
+                    document.getElementById('avgOrders').textContent = '0 orders/day';
                 }
             } catch (error) {
                 console.error('Error updating daily sales display:', error);
+                // Set all daily stats to zero on error
+                document.getElementById('todaySales').textContent = '₱0.00';
+                document.getElementById('todayOrders').textContent = '0 orders';
+                document.getElementById('yesterdaySales').textContent = '₱0.00';
+                document.getElementById('yesterdayOrders').textContent = '0 orders';
+                document.getElementById('weekSales').textContent = '₱0.00';
+                document.getElementById('weekOrders').textContent = '0 orders';
+                document.getElementById('dailyAverage').textContent = '₱0.00';
+                document.getElementById('avgOrders').textContent = '0 orders/day';
             }
         }
         
         // Update recent sales table with pagination
         function updateRecentSalesTable() {
+            // Use order-level objects for recent sales
             const salesData = forecastData.salesHistory;
             const tbody = document.getElementById('recentSalesTableBody');
             console.log('📊 Updating recent sales table with', salesData.length, 'orders');
+            // Store all sales data
             forecastingSalesData = salesData || [];
             // Sort all orders by date (orderDate, createdAt, or saleDate)
-            let sortedAllOrders = [...forecastingSalesData]
+            const sortedAllOrders = [...forecastingSalesData]
                 .sort((a, b) => new Date(b.orderDate || b.createdAt || b.saleDate) - new Date(a.orderDate || a.createdAt || a.saleDate));
-            // Search by receipt number (id) BEFORE pagination
-            const receiptSearchValue = (document.getElementById('receiptSearchInput')?.value || '').trim();
-            if (receiptSearchValue) {
-                sortedAllOrders = sortedAllOrders.filter(order => {
-                    let receiptNo = '-';
-                    if (order.id && typeof order.id === 'string' && order.id.length >= 24) {
-                        receiptNo = order.id.substring(16, 24);
-                    } else if (order.id) {
-                        receiptNo = order.id.toString();
-                    }
-                    return receiptNo.includes(receiptSearchValue);
-                });
-            }
             const globallyNewestSaleDate = sortedAllOrders[0]?.orderDate || sortedAllOrders[0]?.createdAt || sortedAllOrders[0]?.saleDate;
             // Pagination
             totalForecastingPages = Math.max(1, Math.ceil(sortedAllOrders.length / forecastingItemsPerPage));
@@ -11585,7 +11490,15 @@
             const startIndex = (currentForecastingPage - 1) * forecastingItemsPerPage;
             const endIndex = startIndex + forecastingItemsPerPage;
             let currentPageOrders = sortedAllOrders.slice(startIndex, endIndex);
+            // Search by receipt number (id)
+            const receiptSearchValue = (document.getElementById('receiptSearchInput')?.value || '').trim();
             let filteredOrders = currentPageOrders;
+            if (receiptSearchValue) {
+                filteredOrders = currentPageOrders.filter(order => {
+                    const receiptNo = order.id ? order.id.toString() : '-';
+                    return receiptNo.includes(receiptSearchValue);
+                });
+            }
             // Update pagination display
             updateForecastingPagination();
             // Update total sales summary with ALL orders
@@ -11597,11 +11510,13 @@
             }
             if (forecastingSalesData.length === 0) {
                 console.log('📊 No sales data for recent sales table');
-                tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: #a09080;">No recent sales data</td></tr>';
+                tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #a09080;">No recent sales data</td></tr>';
                 return;
             }
             tbody.innerHTML = filteredOrders.map((order, index) => {
                 try {
+                    // Debug: log the order object to inspect staffName
+                    console.log('🧑‍💼 Rendering order row:', order);
                     // Display only the 17th to 24th characters of the id as the receipt number
                     let receiptNo = '-';
                     if (order.id && typeof order.id === 'string' && order.id.length >= 24) {
@@ -11610,7 +11525,7 @@
                         receiptNo = order.id.toString();
                     }
                     // Handle both orderDate, createdAt, and saleDate
-                    const dateStr = order.orderDate || order.createdAt || order.saleDate;
+                    const dateStr = order.orderDate || sale.createdAt || sale.saleDate;
                     const saleDate = new Date(dateStr);
                     const timeString = saleDate.toLocaleString('en-US', {
                         month: 'short',
@@ -11618,10 +11533,12 @@
                         hour: '2-digit',
                         minute: '2-digit'
                     });
-                    // Staff name logic: try staffName, staff, staffId
+                    // Staff name logic: try staffName, staff_name, staff, staffId
                     let staffName = '-';
                     if (typeof order.staffName === 'string' && order.staffName.trim()) {
                         staffName = order.staffName;
+                    } else if (typeof order.staff_name === 'string' && order.staff_name.trim()) {
+                        staffName = order.staff_name;
                     } else if (order.staff && typeof order.staff === 'object') {
                         if (order.staff.firstName && order.staff.lastName) {
                             staffName = order.staff.firstName + ' ' + order.staff.lastName;
@@ -11632,7 +11549,7 @@
                         staffName = order.staffId;
                     }
                     // Get customer info
-                    const customerName = order.customerName || order.customerInfo?.name || (order.customerId?.name) || 'Customer';
+                    const customerName = order.customerName || sale.customerInfo?.name || (order.customerId?.name) || 'Customer';
                     // Items summary
                     let itemsSummary = 'Order';
                     let quantity = 0;
@@ -11646,7 +11563,7 @@
                     const highlightClass = isGloballyNewest ? 'newest-sale' : '';
                     const highlightStyle = isGloballyNewest ? 'background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%); border-left: 4px solid #4CAF50; box-shadow: 0 2px 8px rgba(76, 175, 80, 0.1);' : '';
                     // Handle both total and totalAmount
-                    const totalAmount = order.total || order.totalAmount || 0;
+                    const totalAmount = order.total || order.total || 0;
                     return `
                         <tr class="${highlightClass}" style="${highlightStyle}">
                             <td>${receiptNo}</td>
@@ -11677,7 +11594,7 @@
             
             const totalOrders = recentSales.length;
             // Handle both old format (totalAmount) and new format (total)
-            const totalRevenueAmount = recentSales.reduce((sum, sale) => sum + (sale.total || sale.totalAmount || 0), 0);
+            const totalRevenueAmount = recentSales.reduce((sum, sale) => sum + (sale.total || order.total || 0), 0);
             
             totalCount.textContent = totalOrders;
             totalRevenue.textContent = totalRevenueAmount.toFixed(2);
@@ -11765,7 +11682,7 @@
                 // Sales data structure: each sale is a single product transaction
                 const productId = sale.productId || sale.productName;
                 const productName = sale.productName || 'Unknown Product';
-                const revenue = sale.totalAmount || 0;
+                const revenue = order.total || 0;
                 
                 if (!productRevenues[productId]) {
                     productRevenues[productId] = { name: productName, revenue: 0 };
@@ -12058,7 +11975,7 @@
                     salesByDate[dateKey] = 0;
                 }
                 // Handle different total amount field names
-                const totalAmount = sale.total || sale.totalAmount || 0;
+                const totalAmount = sale.total || order.total || 0;
                 salesByDate[dateKey] += totalAmount;
             });
             
@@ -12127,128 +12044,27 @@
             
             // Initialize admin QR scanner
             initAdminScanner();
-
-            // Fetch and display recent sales with staffName (LIVE TAB ONLY)
-            let allRecentOrders = [];
-            loadRecentSalesLive();
-            // Helper functions for recent sales table (LIVE TAB ONLY)
-            async function loadRecentSalesLive() {
-                try {
-                    const params = new URLSearchParams();
-                    const today = new Date();
-                    const startDate = new Date(today.getFullYear(), today.getMonth(), today.getDate());
-                    const endDate = new Date(startDate);
-                    endDate.setDate(endDate.getDate() + 1);
-                    params.append('startDate', startDate.toISOString());
-                    params.append('endDate', endDate.toISOString());
-                    params.append('_t', Date.now());
-                    // Ensure we do not double /api in the path
-                    let url = '';
-                    if (API_BASE.endsWith('/api')) {
-                        url = `${API_BASE}/orders/summary/sales?${params}`;
-                    } else {
-                        url = `${API_BASE}/api/orders/summary/sales?${params}`;
+            
+            // Test if buttons are clickable
+            setTimeout(() => {
+                console.log('🔍 Testing button functionality...');
+                const testButtons = document.querySelectorAll('button, .btn, .nav-btn');
+                console.log('Found buttons:', testButtons.length);
+                testButtons.forEach((btn, index) => {
+                    if (index < 5) { // Test first 5 buttons
+                        console.log(`Button ${index}:`, btn.id || btn.className, 'clickable:', !btn.disabled);
                     }
-                    console.log('[DEBUG] Fetching recent sales:', url);
-                    const response = await fetch(url, {
-                        headers: {
-                            'Authorization': `Bearer ${localStorage.getItem('token')}`
-                        }
-                    });
-                    console.log('[DEBUG] Response status:', response.status);
-                    if (response.ok) {
-                        const data = await response.json();
-                        console.log('[DEBUG] API /api/orders/summary data:', data);
-                        // Use 'orders' or fallback to 'recentOrders' to get items array
-                        if (Array.isArray(data.orders)) {
-                            console.log('[DEBUG] data.orders found, length:', data.orders.length);
-                            allRecentOrders = data.orders;
-                            updateRecentSalesTableLive(allRecentOrders);
-                        } else if (Array.isArray(data.recentOrders)) {
-                            console.log('[DEBUG] data.recentOrders found, length:', data.recentOrders.length);
-                            allRecentOrders = data.recentOrders;
-                            updateRecentSalesTableLive(allRecentOrders);
-                        } else {
-                            console.warn('[DEBUG] data.orders and data.recentOrders missing or not arrays:', data.orders, data.recentOrders);
-                        }
-                    } else {
-                        console.error('[DEBUG] Response not OK:', response.status, response.statusText);
-                    }
-                } catch (err) {
-                    console.error('[DEBUG] Error loading recent sales:', err);
-                }
-            }
-
-            // Receipt number search event listener for live recent sales
-            const receiptSearchInput = document.getElementById('receiptSearchInput');
-            if (receiptSearchInput) {
-                receiptSearchInput.addEventListener('input', function() {
-                    updateRecentSalesTable();
                 });
-            }
-
-            // Clear search button for live recent sales
-            const clearReceiptSearchBtn = document.getElementById('clearReceiptSearchBtn');
-            if (clearReceiptSearchBtn && receiptSearchInput) {
-                clearReceiptSearchBtn.addEventListener('click', function() {
-                    receiptSearchInput.value = '';
-                    updateRecentSalesTable();
+                
+                // Test if sections exist
+                const sections = ['dashboard', 'products', 'forecasting', 'staff'];
+                sections.forEach(sectionId => {
+                    const section = document.getElementById(sectionId);
+                    console.log(`📄 Section ${sectionId}:`, section ? 'Found' : 'NOT FOUND');
                 });
-            }
-
-            function updateRecentSalesTableLive(orders) {
-                // LIVE TAB ONLY: This function should be the ONLY updater for the live recent sales table
-                const tbody = document.getElementById('recentSalesTableBody');
-                if (!tbody) return;
-                tbody.innerHTML = orders.map(order => {
-                    // Restore rendering order row logic
-                    let itemsSummary = 'Order';
-                    let quantity = 0;
-                    if (order.items && order.items.length > 0) {
-                        itemsSummary = order.items.map(i => i.productName || i.name || '').join(', ');
-                        quantity = order.items.reduce((sum, i) => sum + (i.quantity || 1), 0);
-                    } else if (order.productName || order.name) {
-                        itemsSummary = order.productName || order.name;
-                        quantity = order.quantity || 1;
-                    }
-                    // Debug log for rendering
-                    console.log('🧑‍💼 Rendering order row:', { ...order, debugQuantity: quantity });
-                    // Receipt number logic
-                    let receiptNo = '-';
-                    if (order.id && typeof order.id === 'string' && order.id.length >= 24) {
-                        receiptNo = order.id.substring(16, 24);
-                    } else if (order.id) {
-                        receiptNo = order.id.toString();
-                    }
-                    // Date/time
-                    const dateStr = order.orderDate || order.createdAt || order.saleDate;
-                    const saleDate = new Date(dateStr);
-                    const timeString = saleDate.toLocaleString('en-US', {
-                        month: 'short',
-                        day: 'numeric',
-                        hour: '2-digit',
-                        minute: '2-digit'
-                    });
-                    // Staff name logic: always use order.staffName if present
-                    const staffName = (typeof order.staffName === 'string' && order.staffName.trim()) ? order.staffName : '-';
-                    // Customer
-                    const customerName = order.customerName || order.customerInfo?.name || (order.customerId?.name) || 'Customer';
-                    const status = order.status || 'completed';
-                    const totalAmount = order.total || order.totalAmount || 0;
-                    return `
-                        <tr>
-                            <td>${receiptNo}</td>
-                            <td>${timeString}</td>
-                            <td>${staffName}</td>
-                            <td>${customerName}</td>
-                            <td>${quantity} items - ${itemsSummary}</td>
-                            <td>₱${totalAmount.toLocaleString()}</td>
-                            <td class="status-${status}">${status.charAt(0).toUpperCase() + status.slice(1)}</td>
-                        </tr>
-                    `;
-                }).join('');
-                updateRecentSalesSummary(orders);
-            }
+                
+                // Test switchSection function
+                console.log('🧪 Testing switchSection function...');
                 try {
                     switchSection('dashboard');
                     console.log('✅ switchSection test successful');
@@ -12402,10 +12218,7 @@
             // Edit Modal Event Listeners
             const closeEditModalBtn = document.getElementById('closeEditModal');
             if (closeEditModalBtn) {
-                closeEditModalBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    document.getElementById('productEditModal').style.display = 'none';
-                });
+                closeEditModalBtn.addEventListener('click', closeEditModal);
             }
             
             const cancelEditProductBtn = document.getElementById('cancelEditProduct');
@@ -12418,10 +12231,7 @@
             const removeStockBtn = document.getElementById('removeStockBtn');
             
             if (addStockBtn) {
-                addStockBtn.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    addStock();
-                });
+                addStockBtn.addEventListener('click', addStock);
             }
             if (removeStockBtn) {
                 removeStockBtn.addEventListener('click', removeStock);
@@ -12729,6 +12539,7 @@
             if (closeStockManagementBtn) {
                 closeStockManagementBtn.addEventListener('click', closeStockManagementModal);
             }
+        });
 
         // Sales Detail Modal Functions
         // Global variable to store current sales detail data
@@ -13037,7 +12848,7 @@
             sales.forEach(sale => {
                 try {
                     const date = new Date(sale.saleDate || sale.createdAt).toLocaleString();
-                    const totalAmount = sale.totalAmount || sale.total || 0;
+                    const totalAmount = order.total || sale.total || 0;
                     const productName = sale.productName || (sale.items && sale.items[0]?.productName) || 'Unknown Product';
                     const quantity = sale.quantity || (sale.items && sale.items[0]?.quantity) || 1;
                     const unit = sale.unit || (sale.items && sale.items[0]?.unit) || 'sack';
@@ -13970,6 +13781,16 @@
             </div>
         </div>
     </div>
-
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
