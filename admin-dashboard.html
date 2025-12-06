@@ -10896,7 +10896,7 @@
                                 productSales.push({
                                     ...item,
                                     saleDate: order.createdAt || order.orderDate,
-                                    totalAmount: item.totalPrice || item.price || 0
+                                    total: item.totalPrice || item.price || 0
                                 });
                             }
                         });
