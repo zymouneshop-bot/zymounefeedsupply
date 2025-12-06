@@ -1,4 +1,4 @@
-﻿ <!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -6183,7 +6183,7 @@
                 }
                 
                 // Calculate summary metrics
-                const totalRevenue = salesData.reduce((sum, sale) => sum + (sale.total || 0), 0);
+                const totalRevenue = salesData.reduce((sum, sale) => sum + (order.total || 0), 0);
                 const totalSales = salesData.length;
                 const averageOrderValue = totalRevenue / totalSales;
                 const currentDate = new Date();
@@ -8050,7 +8050,7 @@
             const totalRevenue = document.getElementById('totalSalesRevenue');
             
             const totalTransactions = recentSalesData.length;
-            const totalRevenueAmount = recentSalesData.reduce((sum, sale) => sum + (sale.total || 0), 0);
+            const totalRevenueAmount = recentSalesData.reduce((sum, sale) => sum + (order.total || 0), 0);
             
             totalCount.textContent = totalTransactions;
             totalRevenue.textContent = totalRevenueAmount.toFixed(2);
@@ -11193,8 +11193,8 @@
             console.log('📊 Recent sales count:', recentSales.length);
             console.log('📊 Previous sales count:', previousSales.length);
             
-            const recentRevenue = recentSales.reduce((sum, sale) => sum + (sale.total || 0), 0);
-            const previousRevenue = previousSales.reduce((sum, sale) => sum + (sale.total || 0), 0);
+            const recentRevenue = recentSales.reduce((sum, sale) => sum + (order.total || 0), 0);
+            const previousRevenue = previousSales.reduce((sum, sale) => sum + (order.total || 0), 0);
             
             console.log('📊 Recent revenue:', recentRevenue);
             console.log('📊 Previous revenue:', previousRevenue);
@@ -11233,7 +11233,7 @@
             
             // Calculate based on sales frequency and value
             const recentSales = salesData.slice(-Math.min(10, Math.floor(salesCount * 0.1)));
-            const recentRevenue = recentSales.reduce((sum, sale) => sum + (sale.total || 0), 0);
+            const recentRevenue = recentSales.reduce((sum, sale) => sum + (order.total || 0), 0);
             const recentAvg = recentRevenue / recentSales.length;
             
             console.log('📊 Recent average sale:', recentAvg);
@@ -11277,7 +11277,7 @@
             }
             
             // Calculate overall metrics
-            const totalRevenue = salesData.reduce((sum, sale) => sum + (sale.total || 0), 0);
+            const totalRevenue = salesData.reduce((sum, sale) => sum + (order.total || 0), 0);
             const monthsDifference = getMonthsDifference(salesData);
             const monthlyRevenue = monthsDifference > 0 ? totalRevenue / monthsDifference : totalRevenue;
             
@@ -11658,7 +11658,7 @@
             
             const totalOrders = recentSales.length;
             // Handle both old format (totalAmount) and new format (total)
-            const totalRevenueAmount = recentSales.reduce((sum, sale) => sum + (sale.total || 0), 0);
+            const totalRevenueAmount = recentSales.reduce((sum, sale) => sum + (order.total || 0), 0);
             
             totalCount.textContent = totalOrders;
             totalRevenue.textContent = totalRevenueAmount.toFixed(2);
