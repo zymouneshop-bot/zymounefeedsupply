@@ -12822,10 +12822,8 @@
             
             switch (period) {
                 case 'today':
-                    startDate = new Date(now);
-                    startDate.setHours(0, 0, 0, 0);
-                    endDate = new Date(now);
-                    endDate.setHours(23, 59, 59, 999);
+                    startDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 0, 0, 0, 0));
+                    endDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 23, 59, 59, 999));
                     break;
                 case 'yesterday':
                     startDate = new Date(now);
