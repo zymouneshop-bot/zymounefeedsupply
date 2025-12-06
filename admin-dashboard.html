@@ -6183,7 +6183,7 @@
                 }
                 
                 // Calculate summary metrics
-                const totalRevenue = salesData.reduce((sum, sale) => sum + (sale.total || 0), 0);
+                const totalRevenue = salesData.reduce((sum, sale) => sum + (order.total || 0), 0);
                 const totalSales = salesData.length;
                 const averageOrderValue = totalRevenue / totalSales;
                 const currentDate = new Date();
@@ -7832,7 +7832,7 @@
                     productMap[productName].revenue += itemRevenue;
                 });
                 
-                totalRevenue += sale.total || sale.total || 0;
+                totalRevenue += order.total || order.total || 0;
             });
             
             console.log('📊 Breakdown calculations:', {
@@ -7992,10 +7992,10 @@
                         <tr class="${highlightClass}" style="${highlightStyle}">
                             <td>${sale.productName || 'Unknown Product'}${isNewest ? ' 🆕' : ''}</td>
                             <td>${sale.customerName || sale.customerInfo?.name || 'N/A'}</td>
-                            <td>${sale.quantity || 0}</td>
+                            <td>${order.items[0]?.quantity || 0}</td>
                             <td>${sale.unit || 'N/A'}</td>
-                            <td>₱${(sale.total || 0).toFixed(2)}</td>
-                    <td>${new Date(order.saleDate).toLocaleDateString()}</td>
+                            <td>₱${(order.total || 0).toFixed(2)}</td>
+                    <td>${new Date(order.orderDate).toLocaleDateString()}</td>
                 </tr>
                     `;
                 } catch (error) {
@@ -8050,7 +8050,7 @@
             const totalRevenue = document.getElementById('totalSalesRevenue');
             
             const totalTransactions = recentSalesData.length;
-            const totalRevenueAmount = recentSalesData.reduce((sum, sale) => sum + (sale.total || 0), 0);
+            const totalRevenueAmount = recentSalesData.reduce((sum, sale) => sum + (order.total || 0), 0);
             
             totalCount.textContent = totalTransactions;
             totalRevenue.textContent = totalRevenueAmount.toFixed(2);
@@ -10876,7 +10876,7 @@
             // Calculate monthly sales by iterating over order items
             const monthlySales = {};
             salesData.forEach(order => {
-                const date = new Date(order.createdAt || order.saleDate);
+                const date = new Date(order.createdAt || order.orderDate);
                 const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
                 if (!monthlySales[monthKey]) monthlySales[monthKey] = 0;
                 monthlySales[monthKey] += (order.total || 0);
@@ -10895,7 +10895,7 @@
                             if (productIdMatch || productNameMatch) {
                                 productSales.push({
                                     ...item,
-                                    saleDate: order.createdAt || order.saleDate,
+                                    saleDate: order.createdAt || order.orderDate,
                                     totalAmount: item.totalPrice || item.price || 0
                                 });
                             }
@@ -10925,14 +10925,14 @@
         function calculateMonthlySales(salesData) {
             const monthlySales = {};
             
-            salesData.forEach(sale => {
-                const date = new Date(order.saleDate);
+            salesData.forEach(order => {
+                const date = new Date(order.orderDate);
                 const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
                 
                 if (!monthlySales[monthKey]) {
                     monthlySales[monthKey] = 0;
                 }
-                monthlySales[monthKey] += (sale.total || 0);
+                monthlySales[monthKey] += (order.total || 0);
             });
             
             return monthlySales;
@@ -10945,16 +10945,16 @@
             const monthlyData = {};
             
             // Group sales by month
-            salesData.forEach(sale => {
-                const date = new Date(order.saleDate);
+            salesData.forEach(order => {
+                const date = new Date(order.orderDate);
                 const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
                 
                 if (!monthlyData[monthKey]) {
                     monthlyData[monthKey] = { quantity: 0, revenue: 0 };
                 }
                 
-                monthlyData[monthKey].quantity += (sale.quantity || 0);
-                monthlyData[monthKey].revenue += (sale.total || 0);
+                monthlyData[monthKey].quantity += (order.items[0]?.quantity || 0);
+                monthlyData[monthKey].revenue += (order.total || 0);
             });
             
             console.log(`📊 Monthly data for ${product.name}:`, monthlyData);
@@ -11095,14 +11095,14 @@
             
             // Group sales by month
             const monthlyRevenue = {};
-            salesData.forEach(sale => {
-                const date = new Date(order.saleDate);
+            salesData.forEach(order => {
+                const date = new Date(order.orderDate);
                 const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
                 
                 if (!monthlyRevenue[monthKey]) {
                     monthlyRevenue[monthKey] = 0;
                 }
-                monthlyRevenue[monthKey] += (sale.total || 0);
+                monthlyRevenue[monthKey] += (order.total || 0);
             });
             
             console.log('📊 Monthly revenue data:', monthlyRevenue);
@@ -11142,14 +11142,14 @@
             
             // Group sales by day
             const dailyRevenue = {};
-            salesData.forEach(sale => {
-                const date = new Date(order.saleDate);
+            salesData.forEach(order => {
+                const date = new Date(order.orderDate);
                 const dayKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
                 
                 if (!dailyRevenue[dayKey]) {
                     dailyRevenue[dayKey] = 0;
                 }
-                dailyRevenue[dayKey] += (sale.total || 0);
+                dailyRevenue[dayKey] += (order.total || 0);
             });
             
             const days = Object.keys(dailyRevenue).sort();
@@ -11193,8 +11193,8 @@
             console.log('📊 Recent sales count:', recentSales.length);
             console.log('📊 Previous sales count:', previousSales.length);
             
-            const recentRevenue = recentSales.reduce((sum, sale) => sum + (sale.total || 0), 0);
-            const previousRevenue = previousSales.reduce((sum, sale) => sum + (sale.total || 0), 0);
+            const recentRevenue = recentSales.reduce((sum, sale) => sum + (order.total || 0), 0);
+            const previousRevenue = previousSales.reduce((sum, sale) => sum + (order.total || 0), 0);
             
             console.log('📊 Recent revenue:', recentRevenue);
             console.log('📊 Previous revenue:', previousRevenue);
@@ -11233,7 +11233,7 @@
             
             // Calculate based on sales frequency and value
             const recentSales = salesData.slice(-Math.min(10, Math.floor(salesCount * 0.1)));
-            const recentRevenue = recentSales.reduce((sum, sale) => sum + (sale.total || 0), 0);
+            const recentRevenue = recentSales.reduce((sum, sale) => sum + (order.total || 0), 0);
             const recentAvg = recentRevenue / recentSales.length;
             
             console.log('📊 Recent average sale:', recentAvg);
@@ -11277,7 +11277,7 @@
             }
             
             // Calculate overall metrics
-            const totalRevenue = salesData.reduce((sum, sale) => sum + (sale.total || 0), 0);
+            const totalRevenue = salesData.reduce((sum, sale) => sum + (order.total || 0), 0);
             const monthsDifference = getMonthsDifference(salesData);
             const monthlyRevenue = monthsDifference > 0 ? totalRevenue / monthsDifference : totalRevenue;
             
@@ -11420,9 +11420,35 @@
                             ...sale,
                             id: sale._id || sale.id,
                             receiptNumber: sale.receiptNumber,
-                            totalAmount: sale.total,
+                            totalAmount: order.total,
                         }));
                         updateRecentSalesTable();
+                    }
+
+                    
+                    // Get today's data
+                    const { startDate: todayStart, endDate: todayEnd } = getDateRangeForPeriod('today');
+                    const todayParams = new URLSearchParams();
+                    todayParams.append('startDate', todayStart.toISOString());
+                    todayParams.append('endDate', todayEnd.toISOString());
+                    todayParams.append('_t', Date.now());
+                    const todayResponse = await fetch(`${API_BASE}/orders/summary/sales?${todayParams}`, {
+                        method: 'GET',
+                        headers: {
+                            'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                            'Cache-Control': 'no-cache',
+                            'Pragma': 'no-cache',
+                            'Expires': '0'
+                        }
+                    });
+                    if (todayResponse.ok) {
+                        const todayData = await todayResponse.json();
+                        const todaySummary = todayData.summary || {};
+                        document.getElementById('todaySales').textContent = `${(todaySummary.totalRevenue || 0).toFixed(2)}`;
+                        document.getElementById('todayOrders').textContent = `${todaySummary.totalOrders || 0} items`;
+                    } else {
+                        document.getElementById('todaySales').textContent = '0.00';
+                        document.getElementById('todayOrders').textContent = '0 items';
                     }
 
                     // Get yesterday's data
@@ -11563,7 +11589,7 @@
                         receiptNo = order.id.toString();
                     }
                     // Handle both orderDate, createdAt, and saleDate
-                    const dateStr = order.orderDate || sale.createdAt || order.saleDate;
+                    const dateStr = order.orderDate || sale.createdAt || order.orderDate;
                     const saleDate = new Date(dateStr);
                     const timeString = saleDate.toLocaleString('en-US', {
                         month: 'short',
@@ -11601,7 +11627,7 @@
                     const highlightClass = isGloballyNewest ? 'newest-sale' : '';
                     const highlightStyle = isGloballyNewest ? 'background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%); border-left: 4px solid #4CAF50; box-shadow: 0 2px 8px rgba(76, 175, 80, 0.1);' : '';
                     // Handle both total and totalAmount
-                    const totalAmount = sale.total || sale.total || 0;
+                    const totalAmount = order.total || order.total || 0;
                     return `
                         <tr class="${highlightClass}" style="${highlightStyle}">
                             <td>${receiptNo}</td>
@@ -11705,7 +11731,7 @@
         function getDaysDifference(salesData) {
             if (salesData.length === 0) return 1;
             
-            const dates = salesData.map(sale => new Date(order.saleDate));
+            const dates = salesData.map(sale => new Date(order.orderDate));
             const minDate = new Date(Math.min(...dates));
             const maxDate = new Date(Math.max(...dates));
             
@@ -11720,7 +11746,7 @@
                 // Sales data structure: each sale is a single product transaction
                 const productId = sale.productId || sale.productName;
                 const productName = sale.productName || 'Unknown Product';
-                const revenue = sale.total || 0;
+                const revenue = order.total || 0;
                 
                 if (!productRevenues[productId]) {
                     productRevenues[productId] = { name: productName, revenue: 0 };
@@ -11841,7 +11867,7 @@
         function getMonthsDifference(salesData) {
             if (salesData.length === 0) return 1;
             
-            const dates = salesData.map(sale => new Date(order.saleDate));
+            const dates = salesData.map(sale => new Date(order.orderDate));
             const minDate = new Date(Math.min(...dates));
             const maxDate = new Date(Math.max(...dates));
             
@@ -12004,16 +12030,16 @@
             
             // Group sales by date - handle different data structures
             const salesByDate = {};
-            salesData.forEach(sale => {
+            salesData.forEach(order => {
                 // Handle order database structure (has orderDate and total)
-                const saleDate = new Date(order.orderDate || sale.createdAt || order.saleDate);
+                const saleDate = new Date(order.orderDate || sale.createdAt || order.orderDate);
                 const dateKey = saleDate.toDateString();
                 
                 if (!salesByDate[dateKey]) {
                     salesByDate[dateKey] = 0;
                 }
                 // Handle different total amount field names
-                const totalAmount = sale.total || sale.total || 0;
+                const totalAmount = order.total || order.total || 0;
                 salesByDate[dateKey] += totalAmount;
             });
             
@@ -12833,7 +12859,7 @@
                         return sum + sale.items.reduce((itemSum, item) => itemSum + (item.quantity || 0), 0);
                     }
                     // Handle legacy structure
-                    return sum + (sale.quantity || 0);
+                    return sum + (order.items[0]?.quantity || 0);
                 }, 0);
             }
             
@@ -12976,10 +13002,10 @@
             
             sales.forEach(sale => {
                 try {
-                    const date = new Date(order.saleDate || sale.createdAt).toLocaleString();
-                    const totalAmount = sale.total || 0;
+                    const date = new Date(order.orderDate || sale.createdAt).toLocaleString();
+                    const totalAmount = order.total || 0;
                     const productName = sale.productName || (sale.items && sale.items[0]?.productName) || 'Unknown Product';
-                    const quantity = sale.quantity || (sale.items && sale.items[0]?.quantity) || 1;
+                    const quantity = order.items[0]?.quantity || (sale.items && sale.items[0]?.quantity) || 1;
                     const unit = sale.unit || (sale.items && sale.items[0]?.unit) || 'sack';
                     
                     html += `
@@ -13127,8 +13153,8 @@
                                 customerName,
                                 '-',
                                 1,
-                                `₱${Number(sale.totalPrice || 0).toFixed(2)}`,
-                                `₱${Number(sale.totalProfit || 0).toFixed(2)}`
+                                `₱${Number(order.totalPrice || 0).toFixed(2)}`,
+                                `₱${Number(order.totalProfit || 0).toFixed(2)}`
                             ]);
                         }
                     });
@@ -13218,7 +13244,7 @@
                                 csvContent += `${index === 0 ? saleDate : ''},${index === 0 ? customerName : ''},${item.name || 'Unknown'},${item.quantity || 0},₱${Number(item.price || 0).toFixed(2)},₱${(Number(item.price || 0) - Number(item.cost || 0)).toFixed(2)}\n`;
                             });
                         } else {
-                            csvContent += `${saleDate},${customerName},-,1,₱${Number(sale.totalPrice || 0).toFixed(2)},₱${Number(sale.totalProfit || 0).toFixed(2)}\n`;
+                            csvContent += `${saleDate},${customerName},-,1,₱${Number(order.totalPrice || 0).toFixed(2)},₱${Number(order.totalProfit || 0).toFixed(2)}\n`;
                         }
                     });
                 }
@@ -13916,6 +13942,11 @@
 
 </body>
 </html>
+
+
+
+
+
 
 
 
