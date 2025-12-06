@@ -297,10 +297,7 @@ const getOrdersByDateRange = async (req, res) => {
     }
     
     const orders = await Order.find({
-      orderDate: {
-        $gte: new Date(startDate),
-        $lte: new Date(endDate)
-      }
+      $or: [{orderDate: {$gte: new Date(startDate), $lte: new Date(endDate)}}, {createdAt: {$gte: new Date(startDate), $lte: new Date(endDate)}}]
     }).sort({ orderDate: -1 });
     
     res.json({
