@@ -1139,7 +1139,6 @@
     <div class="header">
         <div class="logo">
             <img src="https://feeds-store-api.onrender.com/uploads/zymoune-logo.png" alt="ZYMOUNE FEEDS SUPPLY Logo" class="header-logo" style="height: 50px; width: 50px; margin-right: 10px; border-radius: 50%; object-fit: cover;" onerror="console.log('Logo failed to load:', this.src); this.style.display='none';">
-
             <h1>ZYMOUNE Kiosk</h1>
         </div>
         <div class="staff-info">
@@ -1148,7 +1147,29 @@
                 <div id="staffName">Staff Member</div>
                 <div style="font-size: 0.8rem; color: #666;">Point of Sale</div>
             </div>
+            <button class="btn btn-secondary" onclick="openChangePasswordModal()">Change Password</button>
             <button class="btn btn-secondary" onclick="logout()">Logout</button>
+            <!-- Change Password Modal -->
+            <div id="changePasswordModal" class="modal" style="display:none; position:fixed; z-index:9999; left:0; top:0; width:100vw; height:100vh; background:rgba(0,0,0,0.3); align-items:center; justify-content:center;">
+                <div class="modal-content" style="background:#fff; padding:2rem; border-radius:10px; max-width:400px; margin:auto; position:relative;">
+                    <div class="modal-header" style="display:flex; justify-content:space-between; align-items:center;">
+                        <h2 style="margin:0;">Change Password</h2>
+                        <span class="close" onclick="closeChangePasswordModal()" style="cursor:pointer; font-size:2rem;">&times;</span>
+                    </div>
+                    <form id="changePasswordForm" onsubmit="submitChangePassword(event)">
+                        <div style="margin-bottom:1rem;">
+                            <label for="oldPassword">Current Password</label>
+                            <input type="password" id="oldPassword" name="oldPassword" required style="width:100%; padding:0.5rem; margin-top:0.25rem;">
+                        </div>
+                        <div style="margin-bottom:1rem;">
+                            <label for="newPassword">New Password</label>
+                            <input type="password" id="newPassword" name="newPassword" required minlength="6" style="width:100%; padding:0.5rem; margin-top:0.25rem;">
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width:100%;">Update Password</button>
+                    </form>
+                    <div id="changePasswordMessage" style="margin-top:1rem; color:#b94a48;"></div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -2127,7 +2148,10 @@
             // Keep search bar focused for scanner
             const qrInput = document.getElementById('qrInput');
             if (qrInput) {
-                qrInput.focus();
+                const changePassModal = document.getElementById('changePasswordModal');
+                if (!changePassModal || changePassModal.style.display === 'none') {
+                    qrInput.focus();
+                }
                 console.log('🔧 Search bar focused for scanner');
             }
             
@@ -2144,7 +2168,7 @@
                     return;
                 }
                 
-                // Don't refocus if:
+                // // // Don't refocus if:
                 // 1. User is typing in payment amount
                 // 2. Product modal is open
                 // 3. Payment section is open
@@ -2165,7 +2189,10 @@
                 
                 // Refocus search bar
                 if (qrInput && document.activeElement !== qrInput) {
-                    qrInput.focus();
+                    const changePassModal = document.getElementById('changePasswordModal');
+                    if (!changePassModal || changePassModal.style.display === 'none') {
+                        qrInput.focus();
+                    }
                     console.log('🔧 Search bar re-focused for scanner');
                 }
             }, 1000);
@@ -3204,7 +3231,7 @@
         function logout() {
             localStorage.removeItem('token');
             localStorage.removeItem('user');
-            window.location.href = './';
+            window.location.href = '/login';
         }
 
         
@@ -3487,40 +3514,13 @@
                         
                         try {
                             // Method 1: New window with immediate print
-                            const printWindow = window.open('', '_blank', 'width=1,height=1,left=-1000,top=-1000');
+                            var printWindow = window.open('', '_blank', 'width=1,height=1,left=-1000,top=-1000');
                             if (printWindow) {
-                                const printHtml = `<!DOCTYPE html>
-<html>
-<head>
-    <title>Receipt</title>
-    <style>
-        body { 
-            font-family: 'Courier New', monospace; 
-            font-size: 11px; 
-            line-height: 1.1; 
-            margin: 0; 
-            padding: 3mm; 
-            width: 57mm;
-        }
-        @media print {
-            body { margin: 0; padding: 3mm; }
-        }
-    </style>
-    <script>
-        window.onload = function() {
-            setTimeout(function() {
-                window.print();
-                setTimeout(function() {
-                    window.close();
-                }, 100);
-            }, 100);
-        };
-</head>
-<body>
-    ${receiptContent}
-</body>
-</html>`;
-                                
+                                var printHtml = '<!DOCTYPE html>' +
+                                    '<html><head><title>Receipt</title>' +
+                                    '<style>body { font-family: \'Courier New\', monospace; font-size: 11px; line-height: 1.1; margin: 0; padding: 3mm; width: 57mm; } @media print { body { margin: 0; padding: 3mm; } }</style>' +
+                                    '<script>window.onload = function() { setTimeout(function() { window.print(); setTimeout(function() { window.close(); }, 100); }, 100); };</' + 'script>' +
+                                    '</head><body>' + receiptContent + '</body></html>';
                                 printWindow.document.write(printHtml);
                                 printWindow.document.close();
                                 showNotification('Receipt sent to printer!', 'success');
@@ -3673,7 +3673,7 @@
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                        'Authorization': 'Bearer ' + localStorage.getItem('token')
                     },
                     body: JSON.stringify(requestData)
                 });
@@ -3693,7 +3693,8 @@
                         statusText: response.statusText,
                         error: error
                     });
-                    showNotification(`Failed to send e-receipt: ${error.error || error.message || 'Unknown error'}`, 'error');
+                    var errMsg = 'Failed to send e-receipt: ' + (error.error || error.message || 'Unknown error');
+                    showNotification(errMsg, 'error');
                 }
                 
             } catch (error) {
@@ -3706,7 +3707,7 @@
         // Update only the quantity input value for a specific cart item
         function updateCartQuantityDisplay(index, newQuantity) {
             const cartItems = document.getElementById('cartItems');
-            const quantityInput = cartItems.querySelector(`input[data-cart-index="${index}"]`);
+            var quantityInput = cartItems.querySelector('input[data-cart-index="' + index + '"]');
             if (quantityInput) {
                 quantityInput.value = newQuantity;
             }
@@ -3718,9 +3719,9 @@
             const tax = subtotal * 0.12;
             const total = subtotal + tax;
             
-            document.getElementById('subtotal').textContent = `₱${subtotal.toFixed(2)}`;
-            document.getElementById('tax').textContent = `₱${tax.toFixed(2)}`;
-            document.getElementById('total').textContent = `₱${total.toFixed(2)}`;
+            document.getElementById('subtotal').textContent = '\u20B1' + subtotal.toFixed(2);
+            document.getElementById('tax').textContent = '\u20B1' + tax.toFixed(2);
+            document.getElementById('total').textContent = '\u20B1' + total.toFixed(2);
         }
         
         // Handle real-time input changes for cart quantity (like payment section)
@@ -3750,17 +3751,17 @@
                     availableStock = Math.max(item.product.stockSacks || 0, item.product.stock || 0);
                 }
                 
-                console.log(`🔍 Cart quantity input validation (simple):`, {
+                console.log('Cart quantity input validation (simple):', {
                     productName: item.product.name,
                     unit: item.unit,
-                    newQuantity,
-                    availableStock
+                    newQuantity: newQuantity,
+                    availableStock: availableStock
                 });
                 
                 // Basic validation - don't allow values above stock or below 1
                 if (newQuantity > availableStock) {
                     // Don't update the cart, just show a brief notification
-                    showNotification(`Max available: ${availableStock}`, 'warning');
+                    showNotification('Max available: ' + availableStock, 'warning');
                     return;
                 }
                 
@@ -3786,6 +3787,57 @@
                 closeProductModal();
             }
         }
+    </script>
+    
+    <script>
+function openChangePasswordModal() {
+    document.getElementById('changePasswordModal').style.display = 'flex';
+    document.getElementById('changePasswordMessage').textContent = '';
+    document.getElementById('oldPassword').value = '';
+    document.getElementById('newPassword').value = '';
+    var qrInput = document.getElementById('qrInput');
+    if (qrInput) qrInput.blur();
+}
+function closeChangePasswordModal() {
+    document.getElementById('changePasswordModal').style.display = 'none';
+    var qrInput = document.getElementById('qrInput');
+    if (qrInput) setTimeout(function() {
+        var changePassModal = document.getElementById('changePasswordModal');
+        if (!changePassModal || changePassModal.style.display === 'none') {
+            qrInput.focus();
+        }
+    }, 100);
+}
+async function submitChangePassword(event) {
+    event.preventDefault();
+    var oldPassword = document.getElementById('oldPassword').value;
+    var newPassword = document.getElementById('newPassword').value;
+    var messageDiv = document.getElementById('changePasswordMessage');
+    messageDiv.style.color = '#b94a48';
+    messageDiv.innerHTML = '<span class="loading-spinner" style="display:inline-block;width:1.5em;height:1.5em;border:3px solid #ccc;border-top:3px solid #8b7355;border-radius:50%;animation:spin 1s linear infinite;vertical-align:middle;margin-right:0.5em;"></span>Updating password...';
+    try {
+        var response = await fetch(API_BASE + '/staff/change-password', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + localStorage.getItem('token')
+            },
+            body: JSON.stringify({ oldPassword: oldPassword, newPassword: newPassword })
+        });
+        var data = await response.json();
+        if (data.success) {
+            messageDiv.style.color = '#28a745';
+            messageDiv.textContent = 'Password changed successfully!';
+            setTimeout(closeChangePasswordModal, 1500);
+        } else {
+            messageDiv.style.color = '#b94a48';
+            messageDiv.textContent = data.error || 'Failed to change password.';
+        }
+    } catch (err) {
+        messageDiv.style.color = '#b94a48';
+        messageDiv.textContent = 'An error occurred. Please try again.';
+    }
+}
     </script>
 </body>
 </html>
