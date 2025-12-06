@@ -10894,6 +10894,7 @@
                             const productNameMatch = item.productName === product.name;
                             if (productIdMatch || productNameMatch) {
                                 productSales.push({
+                                    saleDate: order.createdAt || order.orderDate,
                                     quantity: item.quantity || 1,
                                     total: item.totalPrice || item.price || 0
                                 });
