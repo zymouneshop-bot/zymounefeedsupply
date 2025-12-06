@@ -11482,8 +11482,15 @@
                 if (response.ok) {
                     const data = await response.json();
                     const ordersArr = data.orders || [];
-                    const revenue = ordersArr.reduce((sum, order) => sum + (order.total || 0), 0);
-                    const items = ordersArr.length;
+                    // Get today's UTC start and end
+                    const { startDate, endDate } = getDateRangeForPeriod('today');
+                    // Filter orders where orderDate or createdAt is within today’s UTC range
+                    const todaysOrders = ordersArr.filter(order => {
+                        const date = order.orderDate ? new Date(order.orderDate) : (order.createdAt ? new Date(order.createdAt) : null);
+                        return date && date >= startDate && date <= endDate;
+                    });
+                    const revenue = todaysOrders.reduce((sum, order) => sum + (order.total || 0), 0);
+                    const items = todaysOrders.length;
                     document.getElementById('todaySales').textContent = `₱${revenue.toFixed(2)}`;
                     document.getElementById('todayOrders').textContent = `${items} items`;
                 } else {
