@@ -10663,7 +10663,8 @@
                 
                 if (salesResponse.ok) {
                     const salesData = await salesResponse.json();
-                    forecastData.salesHistory = salesData.orders || [];
+                    // Sync with modal: process orders to analytics format
+                    forecastData.salesHistory = processOrdersToAnalytics(salesData.orders || []);
                     console.log('📊 Sales data loaded:', forecastData.salesHistory.length, 'records');
                 }
                 
