@@ -6183,7 +6183,7 @@
                 }
                 
                 // Calculate summary metrics
-                const totalRevenue = salesData.reduce((sum, sale) => sum + (order.total || 0), 0);
+                const totalRevenue = salesData.reduce((sum, sale) => sum + (sale.total || 0), 0);
                 const totalSales = salesData.length;
                 const averageOrderValue = totalRevenue / totalSales;
                 const currentDate = new Date();
@@ -7832,7 +7832,7 @@
                     productMap[productName].revenue += itemRevenue;
                 });
                 
-                totalRevenue += order.total || order.total || 0;
+                totalRevenue += sale.total || sale.total || 0;
             });
             
             console.log('📊 Breakdown calculations:', {
@@ -7994,7 +7994,7 @@
                             <td>${sale.customerName || sale.customerInfo?.name || 'N/A'}</td>
                             <td>${sale.quantity || 0}</td>
                             <td>${sale.unit || 'N/A'}</td>
-                            <td>₱${(order.total || 0).toFixed(2)}</td>
+                            <td>₱${(sale.total || 0).toFixed(2)}</td>
                     <td>${new Date(sale.saleDate).toLocaleDateString()}</td>
                 </tr>
                     `;
@@ -8050,7 +8050,7 @@
             const totalRevenue = document.getElementById('totalSalesRevenue');
             
             const totalTransactions = recentSalesData.length;
-            const totalRevenueAmount = recentSalesData.reduce((sum, sale) => sum + (order.total || 0), 0);
+            const totalRevenueAmount = recentSalesData.reduce((sum, sale) => sum + (sale.total || 0), 0);
             
             totalCount.textContent = totalTransactions;
             totalRevenue.textContent = totalRevenueAmount.toFixed(2);
@@ -10879,7 +10879,7 @@
                 const date = new Date(order.createdAt || sale.orderDate || sale.saleDate);
                 const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
                 if (!monthlySales[monthKey]) monthlySales[monthKey] = 0;
-                monthlySales[monthKey] += (order.total || order.total || 0);
+                monthlySales[monthKey] += (sale.total || sale.total || 0);
             });
             // Generate forecasts for each product
             products.forEach(product => {
@@ -10932,7 +10932,7 @@
                 if (!monthlySales[monthKey]) {
                     monthlySales[monthKey] = 0;
                 }
-                monthlySales[monthKey] += (order.total || 0);
+                monthlySales[monthKey] += (sale.total || 0);
             });
             
             return monthlySales;
@@ -11102,7 +11102,7 @@
                 if (!monthlyRevenue[monthKey]) {
                     monthlyRevenue[monthKey] = 0;
                 }
-                monthlyRevenue[monthKey] += (order.total || 0);
+                monthlyRevenue[monthKey] += (sale.total || 0);
             });
             
             console.log('📊 Monthly revenue data:', monthlyRevenue);
@@ -11149,7 +11149,7 @@
                 if (!dailyRevenue[dayKey]) {
                     dailyRevenue[dayKey] = 0;
                 }
-                dailyRevenue[dayKey] += (order.total || 0);
+                dailyRevenue[dayKey] += (sale.total || 0);
             });
             
             const days = Object.keys(dailyRevenue).sort();
@@ -11193,8 +11193,8 @@
             console.log('📊 Recent sales count:', recentSales.length);
             console.log('📊 Previous sales count:', previousSales.length);
             
-            const recentRevenue = recentSales.reduce((sum, sale) => sum + (order.total || 0), 0);
-            const previousRevenue = previousSales.reduce((sum, sale) => sum + (order.total || 0), 0);
+            const recentRevenue = recentSales.reduce((sum, sale) => sum + (sale.total || 0), 0);
+            const previousRevenue = previousSales.reduce((sum, sale) => sum + (sale.total || 0), 0);
             
             console.log('📊 Recent revenue:', recentRevenue);
             console.log('📊 Previous revenue:', previousRevenue);
@@ -11233,7 +11233,7 @@
             
             // Calculate based on sales frequency and value
             const recentSales = salesData.slice(-Math.min(10, Math.floor(salesCount * 0.1)));
-            const recentRevenue = recentSales.reduce((sum, sale) => sum + (order.total || 0), 0);
+            const recentRevenue = recentSales.reduce((sum, sale) => sum + (sale.total || 0), 0);
             const recentAvg = recentRevenue / recentSales.length;
             
             console.log('📊 Recent average sale:', recentAvg);
@@ -11587,7 +11587,7 @@
                         staffName = order.staffId;
                     }
                     // Get customer info
-                    const customerName = order.customerName || sale.customerInfo?.name || (order.customerId?.name) || 'Customer';
+                    const customerName = sale.customerName || sale.customerInfo?.name || (order.customerId?.name) || 'Customer';
                     // Items summary
                     let itemsSummary = 'Order';
                     let quantity = 0;
@@ -11601,7 +11601,7 @@
                     const highlightClass = isGloballyNewest ? 'newest-sale' : '';
                     const highlightStyle = isGloballyNewest ? 'background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%); border-left: 4px solid #4CAF50; box-shadow: 0 2px 8px rgba(76, 175, 80, 0.1);' : '';
                     // Handle both total and totalAmount
-                    const totalAmount = order.total || order.total || 0;
+                    const totalAmount = sale.total || sale.total || 0;
                     return `
                         <tr class="${highlightClass}" style="${highlightStyle}">
                             <td>${receiptNo}</td>
@@ -11632,7 +11632,7 @@
             
             const totalOrders = recentSales.length;
             // Handle both old format (totalAmount) and new format (total)
-            const totalRevenueAmount = recentSales.reduce((sum, sale) => sum + (sale.total || order.total || 0), 0);
+            const totalRevenueAmount = recentSales.reduce((sum, sale) => sum + (sale.total || sale.total || 0), 0);
             
             totalCount.textContent = totalOrders;
             totalRevenue.textContent = totalRevenueAmount.toFixed(2);
@@ -11720,7 +11720,7 @@
                 // Sales data structure: each sale is a single product transaction
                 const productId = sale.productId || sale.productName;
                 const productName = sale.productName || 'Unknown Product';
-                const revenue = order.total || 0;
+                const revenue = sale.total || 0;
                 
                 if (!productRevenues[productId]) {
                     productRevenues[productId] = { name: productName, revenue: 0 };
@@ -12013,7 +12013,7 @@
                     salesByDate[dateKey] = 0;
                 }
                 // Handle different total amount field names
-                const totalAmount = sale.total || order.total || 0;
+                const totalAmount = sale.total || sale.total || 0;
                 salesByDate[dateKey] += totalAmount;
             });
             
@@ -13916,6 +13916,7 @@
 
 </body>
 </html>
+
 
 
 
