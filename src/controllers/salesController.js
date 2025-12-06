@@ -2,7 +2,6 @@ const SalesService = require('../services/salesService');
 const QRService = require('../services/qrService');
 const Product = require('../models/Product');
 const Sale = require('../models/Sale');
-const Sale = require('../models/Sale');
 
 
 const recordSale = async (req, res) => {
@@ -70,7 +69,6 @@ const getDailySales = async (req, res) => {
 
 const getAllSales = async (req, res) => {
   try {
-    const Sale = require('../models/Sale');
     const sales = await Sale.find({})
       .sort({ saleDate: -1 });
     
@@ -157,8 +155,6 @@ const getProductForQR = async (req, res) => {
   try {
     const { productId } = req.params;
     const Product = require('../models/Product');
-const Sale = require('../models/Sale');
-const Sale = require('../models/Sale');
     
     // Query the real database instead of using hardcoded sample products
     const product = await Product.findById(productId);
@@ -228,8 +224,6 @@ const getDirectSalesData = async (req, res) => {
     // Direct database queries
     const Order = require('../models/Order');
     const Product = require('../models/Product');
-const Sale = require('../models/Sale');
-const Sale = require('../models/Sale');
     
     // Get orders in date range with populated products in one query
     const orders = await Order.find({
@@ -401,7 +395,6 @@ const resetAllSales = async (req, res) => {
     console.log('🗑️ Resetting all sales and orders...');
     
     // Import models
-    const Sale = require('../models/Sale');
     const Order = require('../models/Order');
     
     // Count existing records before deletion
@@ -446,6 +439,7 @@ module.exports = {
   getDirectSalesData,
   resetAllSales
 };
+
 
 
 
