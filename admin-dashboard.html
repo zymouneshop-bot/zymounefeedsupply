@@ -10648,8 +10648,8 @@
                 
                 if (salesResponse.ok) {
                     const salesData = await salesResponse.json();
-                    // forecastData.salesHistory = salesData.orders || [];
-                    // console.log('📊 Sales data loaded:', forecastData.salesHistory.length, 'records');
+                    forecastData.salesHistory = salesData.orders || [];
+                    console.log('📊 Sales data loaded:', forecastData.salesHistory.length, 'records');
                 }
                 
                 // Load products data
