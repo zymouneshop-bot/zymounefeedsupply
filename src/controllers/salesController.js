@@ -1,6 +1,8 @@
 const SalesService = require('../services/salesService');
 const QRService = require('../services/qrService');
 const Product = require('../models/Product');
+const Sale = require('../models/Sale');
+const Sale = require('../models/Sale');
 
 
 const recordSale = async (req, res) => {
@@ -155,6 +157,8 @@ const getProductForQR = async (req, res) => {
   try {
     const { productId } = req.params;
     const Product = require('../models/Product');
+const Sale = require('../models/Sale');
+const Sale = require('../models/Sale');
     
     // Query the real database instead of using hardcoded sample products
     const product = await Product.findById(productId);
@@ -224,6 +228,8 @@ const getDirectSalesData = async (req, res) => {
     // Direct database queries
     const Order = require('../models/Order');
     const Product = require('../models/Product');
+const Sale = require('../models/Sale');
+const Sale = require('../models/Sale');
     
     // Get orders in date range with populated products in one query
     const orders = await Order.find({
@@ -440,6 +446,8 @@ module.exports = {
   getDirectSalesData,
   resetAllSales
 };
+
+
 
 
 
