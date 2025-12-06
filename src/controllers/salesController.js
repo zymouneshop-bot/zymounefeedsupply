@@ -411,6 +411,7 @@ const resetAllSales = async (req, res) => {
 module.exports = {
   recordSale,
   getDailySales,
+  getAllSales,
   getSalesAnalytics,
   generateProductQR,
   getProductForQR,

@@ -7802,7 +7802,7 @@
                     productMap[productName].revenue += itemRevenue;
                 });
                 
-                totalRevenue += order.total || order.totalAmount || 0;
+                totalRevenue += order.total || sale.totalAmount || 0;
             });
             
             console.log('📊 Breakdown calculations:', {
@@ -10838,10 +10838,10 @@
             // Calculate monthly sales by iterating over order items
             const monthlySales = {};
             salesData.forEach(order => {
-                const date = new Date(order.createdAt || order.orderDate || order.saleDate);
+                const date = new Date(order.createdAt || sale.orderDate || sale.saleDate);
                 const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
                 if (!monthlySales[monthKey]) monthlySales[monthKey] = 0;
-                monthlySales[monthKey] += (order.total || order.totalAmount || 0);
+                monthlySales[monthKey] += (order.total || sale.totalAmount || 0);
             });
             // Generate forecasts for each product
             products.forEach(product => {
@@ -10857,7 +10857,7 @@
                             if (productIdMatch || productNameMatch) {
                                 productSales.push({
                                     ...item,
-                                    saleDate: order.createdAt || order.orderDate || order.saleDate,
+                                    saleDate: order.createdAt || sale.orderDate || sale.saleDate,
                                     totalAmount: item.totalPrice || item.price || 0
                                 });
                             }
@@ -11366,7 +11366,7 @@
         async function updateDailySalesDisplay() {
             try {
                 // Fetch ALL sales directly for the Recent Sales table (no filter)
-                const allOrdersResponse = await fetch(`${API_BASE}/orders`, {
+                const allOrdersResponse = await fetch(`${API_BASE}/sales/all`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -11377,12 +11377,12 @@
                 });
                 if (allOrdersResponse.ok) {
                     const allOrdersData = await allOrdersResponse.json();
-                    if (Array.isArray(allOrdersData.orders)) {
-                        forecastData.salesHistory = allOrdersData.orders.map(order => ({
-                            ...order,
-                            id: order._id || order.id,
-                            receiptNumber: order.orderNumber || order.receiptNumber,
-                            totalAmount: order.total,
+                    if (Array.isArray(allOrdersData.sales)) {
+                        forecastData.salesHistory = allOrdersData.sales.map(sale => ({
+                            ...sale,
+                            id: sale._id || sale.id,
+                            receiptNumber: sale.receiptNumber || sale.receiptNumber,
+                            totalAmount: sale.totalAmount,
                         }));
                         updateRecentSalesTable();
                     }
@@ -11525,7 +11525,7 @@
                         receiptNo = order.id.toString();
                     }
                     // Handle both orderDate, createdAt, and saleDate
-                    const dateStr = order.orderDate || order.createdAt || order.saleDate;
+                    const dateStr = order.orderDate || sale.createdAt || sale.saleDate;
                     const saleDate = new Date(dateStr);
                     const timeString = saleDate.toLocaleString('en-US', {
                         month: 'short',
@@ -11549,7 +11549,7 @@
                         staffName = order.staffId;
                     }
                     // Get customer info
-                    const customerName = order.customerName || order.customerInfo?.name || (order.customerId?.name) || 'Customer';
+                    const customerName = order.customerName || sale.customerInfo?.name || (order.customerId?.name) || 'Customer';
                     // Items summary
                     let itemsSummary = 'Order';
                     let quantity = 0;
@@ -11563,7 +11563,7 @@
                     const highlightClass = isGloballyNewest ? 'newest-sale' : '';
                     const highlightStyle = isGloballyNewest ? 'background: linear-gradient(135deg, #e8f5e8 0%, #f0f8f0 100%); border-left: 4px solid #4CAF50; box-shadow: 0 2px 8px rgba(76, 175, 80, 0.1);' : '';
                     // Handle both total and totalAmount
-                    const totalAmount = order.total || order.totalAmount || 0;
+                    const totalAmount = order.total || sale.totalAmount || 0;
                     return `
                         <tr class="${highlightClass}" style="${highlightStyle}">
                             <td>${receiptNo}</td>
@@ -13783,4 +13783,12 @@
     </div>
 </body>
 </html>
+
+
+
+
+
+
+
+
 
