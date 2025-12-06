@@ -12356,27 +12356,6 @@
                     body: JSON.stringify({ newPassword })
                 });
                 
-                const result = await response.json();
-                
-                if (response.ok) {
-                    messageDiv.style.backgroundColor = '#d4edda';
-                    messageDiv.style.color = '#155724';
-                    messageDiv.textContent = 'Password updated successfully!';
-                    setTimeout(() => closeChangePasswordModal(), 2000);
-                    loadStaff();
-                } else {
-                    messageDiv.style.backgroundColor = '#f8d7da';
-                    messageDiv.style.color = '#721c24';
-                    messageDiv.textContent = result.error || 'Failed to update password';
-                }
-            } catch (error) {
-                console.error('Error changing password:', error);
-                messageDiv.style.display = 'block';
-                messageDiv.style.backgroundColor = '#f8d7da';
-                messageDiv.style.color = '#721c24';
-                messageDiv.textContent = 'Error: ' + error.message;
-            }
-        });
                 
                 const result = await response.json();
                 
@@ -13908,6 +13887,7 @@
     </div>
 </body>
 </html>
+
 
 
 
