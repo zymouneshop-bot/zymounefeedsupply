@@ -11464,14 +11464,13 @@
                     }
                 }
 
-                // Fetch and update summary stats for today, yesterday, week, and daily average
-                // Today's stats
+                // Fetch and update summary stats for today using direct orders fetch (like modal)
                 const { startDate, endDate } = getDateRangeForPeriod('today');
                 const params = new URLSearchParams();
                 params.append('startDate', startDate.toISOString());
                 params.append('endDate', endDate.toISOString());
                 params.append('_t', Date.now());
-                const response = await fetch(`${API_BASE}/orders/summary/sales?${params}`, {
+                const response = await fetch(`${API_BASE}/orders?${params}`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -11482,11 +11481,11 @@
                 });
                 if (response.ok) {
                     const data = await response.json();
-                    const summary = data.summary || {};
-                    const revenue = summary.totalRevenue || 0;
-                    const orders = summary.totalOrders || 0;
+                    const ordersArr = data.orders || [];
+                    const revenue = ordersArr.reduce((sum, order) => sum + (order.total || 0), 0);
+                    const items = ordersArr.length;
                     document.getElementById('todaySales').textContent = `₱${revenue.toFixed(2)}`;
-                    document.getElementById('todayOrders').textContent = `${orders} items`;
+                    document.getElementById('todayOrders').textContent = `${items} items`;
                 } else {
                     document.getElementById('todaySales').textContent = '₱0.00';
                     document.getElementById('todayOrders').textContent = '0 items';
