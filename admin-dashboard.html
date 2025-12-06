@@ -10652,7 +10652,7 @@
                 
                 console.log('📊 Loading forecasting data from:', oneYearAgo.toISOString(), 'to:', new Date().toISOString());
                 
-                const salesResponse = await fetch(`${API_BASE}/orders/date-range?${params}`, {
+                const salesResponse = await fetch(`${API_BASE}/orders?${params}`, {
                     method: 'GET',
                     headers: {
                         'Cache-Control': 'no-cache',
