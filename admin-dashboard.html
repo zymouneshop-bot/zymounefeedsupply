@@ -11485,13 +11485,19 @@
                     // Get today's UTC start and end
                     const { startDate, endDate } = getDateRangeForPeriod('today');
                     // Filter orders where orderDate or createdAt is within today’s UTC range
-                    const today = new Date();
+                    // Convert both today and order date to local timezone (Asia/Manila, UTC+8)
+                    const now = new Date();
+                    const localYear = now.getFullYear();
+                    const localMonth = now.getMonth();
+                    const localDate = now.getDate();
                     const todaysOrders = ordersArr.filter(order => {
                         const date = order.orderDate ? new Date(order.orderDate) : (order.createdAt ? new Date(order.createdAt) : null);
                         if (!date) return false;
-                        return date.getFullYear() === today.getFullYear() &&
-                               date.getMonth() === today.getMonth() &&
-                               date.getDate() === today.getDate();
+                        // Convert UTC date to local timezone
+                        const localOrderDate = new Date(date.getTime() + (8 * 60 * 60 * 1000)); // UTC+8
+                        return localOrderDate.getFullYear() === localYear &&
+                               localOrderDate.getMonth() === localMonth &&
+                               localOrderDate.getDate() === localDate;
                     });
                     const revenue = todaysOrders.reduce((sum, order) => sum + (order.total || 0), 0);
                     const items = todaysOrders.length;
