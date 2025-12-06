@@ -5615,7 +5615,33 @@
         </div>
     </div>
 
+        <!-- Change Password Modal -->
+    <div id="changePasswordModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="changePasswordTitle">Change Staff Password</h2>
+                <span class="close" id="closeChangePasswordModal">&times;</span>
+            </div>
+            <form id="changePasswordForm">
+                <input type="hidden" id="changePasswordStaffId" name="staffId">
+                <div class="form-group">
+                    <label for="changePasswordNewPassword">New Password *</label>
+                    <input type="password" id="changePasswordNewPassword" name="newPassword" required minlength="6" placeholder="Enter new password">
+                </div>
+                <div class="form-group">
+                    <label for="changePasswordConfirmPassword">Confirm Password *</label>
+                    <input type="password" id="changePasswordConfirmPassword" name="confirmPassword" required minlength="6" placeholder="Confirm new password">
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="cancelChangePasswordBtn">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Update Password</button>
+                </div>
+            </form>
+            <div id="changePasswordMessage" style="margin-top: 1rem; padding: 0.75rem; border-radius: 4px; display: none;"></div>
+        </div>
+    </div>
     <!-- QR Code Library -->
+
     <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
     
     <script>
@@ -10232,7 +10258,7 @@
                                 `<button class="btn btn-success btn-sm" onclick="activateStaff('${member._id}')">▶️ Activate</button>` :
                                 ''
                             }
-                            <button class="btn btn-secondary btn-sm" onclick="editStaff('${member._id}')">Edit</button>
+                            <button class="btn btn-secondary btn-sm" onclick="openChangePasswordModal(`${member._id}, `${member.firstName} `${member.lastName})"> Password</button><button class="btn btn-secondary btn-sm" onclick="editStaff(`${member._id})">Edit</button>
                             <button class="btn btn-danger btn-sm" onclick="deleteStaff('${member._id}')">Delete</button>
                         </div>
                     </td>
@@ -12284,7 +12310,84 @@
                 closeStaffModalBtn.addEventListener('click', closeStaffModal);
             }
             
-            const cancelStaffBtn = document.getElementById('cancelStaffBtn');
+            
+        // Change password functions
+        function openChangePasswordModal(staffId, staffName) {
+            document.getElementById('changePasswordStaffId').value = staffId;
+            document.getElementById('changePasswordTitle').textContent = 'Change Password - ' + staffName;
+            document.getElementById('changePasswordForm').reset();
+            document.getElementById('changePasswordMessage').style.display = 'none';
+            document.getElementById('changePasswordModal').style.display = 'block';
+        }
+        
+        function closeChangePasswordModal() {
+            document.getElementById('changePasswordModal').style.display = 'none';
+            document.getElementById('changePasswordForm').reset();
+            document.getElementById('changePasswordMessage').style.display = 'none';
+        }
+        
+        document.getElementById('changePasswordForm')?.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const staffId = document.getElementById('changePasswordStaffId').value;
+            const newPassword = document.getElementById('changePasswordNewPassword').value;
+            const confirmPassword = document.getElementById('changePasswordConfirmPassword').value;
+            const messageDiv = document.getElementById('changePasswordMessage');
+            
+            if (newPassword !== confirmPassword) {
+                messageDiv.style.display = 'block';
+                messageDiv.style.backgroundColor = '#f8d7da';
+                messageDiv.style.color = '#721c24';
+                messageDiv.textContent = 'Passwords do not match!';
+                return;
+            }
+            
+            try {
+                messageDiv.style.display = 'block';
+                messageDiv.style.backgroundColor = '#d1ecf1';
+                messageDiv.style.color = '#0c5460';
+                messageDiv.textContent = 'Updating password...';
+                
+                const response = await fetch(`+"`"+`${API_BASE}/staff/${staffId}/set-password`+"`"+`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `+"`"+`Bearer ${localStorage.getItem('token')}`+"`"+`
+                    },
+                    body: JSON.stringify({ newPassword })
+                });
+                
+                const result = await response.json();
+                
+                if (response.ok) {
+                    messageDiv.style.backgroundColor = '#d4edda';
+                    messageDiv.style.color = '#155724';
+                    messageDiv.textContent = 'Password updated successfully!';
+                    setTimeout(() => closeChangePasswordModal(), 2000);
+                    loadStaff();
+                } else {
+                    messageDiv.style.backgroundColor = '#f8d7da';
+                    messageDiv.style.color = '#721c24';
+                    messageDiv.textContent = result.error || 'Failed to update password';
+                }
+            } catch (error) {
+                console.error('Error changing password:', error);
+                messageDiv.style.display = 'block';
+                messageDiv.style.backgroundColor = '#f8d7da';
+                messageDiv.style.color = '#721c24';
+                messageDiv.textContent = 'Error: ' + error.message;
+            }
+        });
+                        // Change password modal handlers
+            const closeChangePasswordModalBtn = document.getElementById('closeChangePasswordModal');
+            if (closeChangePasswordModalBtn) {
+                closeChangePasswordModalBtn.addEventListener('click', closeChangePasswordModal);
+            }
+            
+            const cancelChangePasswordBtn = document.getElementById('cancelChangePasswordBtn');
+            if (cancelChangePasswordBtn) {
+                cancelChangePasswordBtn.addEventListener('click', closeChangePasswordModal);
+            }
+                        const cancelStaffBtn = document.getElementById('cancelStaffBtn');
             if (cancelStaffBtn) {
                 cancelStaffBtn.addEventListener('click', closeStaffModal);
             }
@@ -13783,6 +13886,10 @@
     </div>
 </body>
 </html>
+
+
+
+
 
 
 
