@@ -10258,7 +10258,7 @@
                                 `<button class="btn btn-success btn-sm" onclick="activateStaff('${member._id}')">▶️ Activate</button>` :
                                 ''
                             }
-                            <button class="btn btn-secondary btn-sm" onclick="openChangePasswordModal(`${member._id}, `${member.firstName} `${member.lastName})"> Password</button><button class="btn btn-secondary btn-sm" onclick="editStaff(`${member._id})">Edit</button>
+                            <button class="btn btn-secondary btn-sm" onclick="openChangePasswordModal('${member._id}', '${member.firstName} ${member.lastName}')"> Password</button><button class="btn btn-secondary btn-sm" onclick="editStaff('${member._id}')">Edit</button>
                             <button class="btn btn-danger btn-sm" onclick="deleteStaff('${member._id}')">Delete</button>
                         </div>
                     </td>
@@ -13886,6 +13886,8 @@
     </div>
 </body>
 </html>
+
+
 
 
 
