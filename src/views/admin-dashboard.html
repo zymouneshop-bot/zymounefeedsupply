@@ -11277,7 +11277,7 @@
             }
             
             // Calculate overall metrics
-            const totalRevenue = salesData.reduce((sum, sale) => sum + (order.total || 0), 0);
+            const totalRevenue = salesData.reduce((sum, sale) => sum + (sale.total || 0), 0);
             const monthsDifference = getMonthsDifference(salesData);
             const monthlyRevenue = monthsDifference > 0 ? totalRevenue / monthsDifference : totalRevenue;
             
@@ -11417,10 +11417,10 @@
                     const allOrdersData = await allOrdersResponse.json();
                     if (Array.isArray(allOrdersData.orders)) {
                         forecastData.salesHistory = allOrdersData.orders.map(sale => ({
-                            ...order,
-                            id: order._id || order.id,
-                            receiptNumber: sale.receiptNumber || sale.receiptNumber,
-                            totalAmount: order.total,
+                            ...sale,
+                            id: sale._id || sale.id,
+                            receiptNumber: sale.receiptNumber,
+                            totalAmount: sale.total,
                         }));
                         updateRecentSalesTable();
                     }
