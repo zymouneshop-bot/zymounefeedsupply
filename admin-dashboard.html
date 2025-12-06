@@ -3280,7 +3280,7 @@
         }
         
         .insight-card li:before {
-            content: "â€¢";
+            content: "•";
             color: #d2b48c;
             font-weight: bold;
             margin-right: 0.5rem;
@@ -4406,7 +4406,7 @@
 <body>
 <!-- TEST 2025-11-28: Deployment marker -->
     <div class="header">
-        <div class="logo">ðŸ”ðŸ· ZYMOUNE - Admin</div>
+        <div class="logo">🐔🐷 ZYMOUNE - Admin</div>
         <div class="user-info">
             <span id="userName">Welcome, Admin!</span>
             <button class="logout-btn" id="logoutBtn">Logout</button>
@@ -4423,33 +4423,33 @@
             <ul class="nav-menu">
                 <li class="nav-item">
                     <button class="nav-btn active" data-section="dashboard">
-                        <span class="nav-icon">ðŸ“Š</span>
+                        <span class="nav-icon">📊</span>
                         Dashboard
                     </button>
                 </li>
                 <li class="nav-item">
                     <button class="nav-btn" data-section="products">
-                        <span class="nav-icon">ðŸ“¦</span>
+                        <span class="nav-icon">📦</span>
                         Product Management
                     </button>
                 </li>
                 <!-- Sales Analytics button hidden
                 <li class="nav-item">
                     <button class="nav-btn" data-section="analytics">
-                        <span class="nav-icon">ðŸ“Š</span>
+                        <span class="nav-icon">📊</span>
                         Sales Analytics
                     </button>
                 </li>
                 -->
                 <li class="nav-item">
                     <button class="nav-btn" data-section="forecasting">
-                        <span class="nav-icon">ðŸ“Š</span>
+                        <span class="nav-icon">📊</span>
                         Sales Forecasting
                     </button>
                 </li>
                 <li class="nav-item">
                     <button class="nav-btn" data-section="staff">
-                        <span class="nav-icon">ðŸ‘¥</span>
+                        <span class="nav-icon">👥</span>
                         Staff Management
                     </button>
                 </li>
@@ -4470,17 +4470,17 @@
         <!-- Printer test tools hidden as requested -->
         <div class="printer-test-section" style="display: none; margin-bottom: 2rem; padding: 1.5rem; background: #f8f9fa; border-radius: 8px; border: 1px solid #dee2e6;">
             <div style="font-size: 16px; font-weight: bold; margin-bottom: 15px; color: #495057;">
-                ðŸ–¨ï¸ Thermal Printer Test Tools
+                🖨️ Thermal Printer Test Tools
             </div>
             <div style="display: flex; gap: 15px; flex-wrap: wrap;">
                 <button onclick="testPrint()" style="padding: 10px 15px; font-size: 14px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer;">
-                    ðŸ§ª Test Print
+                    🧪 Test Print
                 </button>
                 <button onclick="diagnosePrinter()" style="padding: 10px 15px; font-size: 14px; background: #17a2b8; color: white; border: none; border-radius: 5px; cursor: pointer;">
-                    ðŸ” Diagnose Printer
+                    🔍 Diagnose Printer
                 </button>
                 <button onclick="window.open('THERMAL_PRINTER_TROUBLESHOOTING.md', '_blank')" style="padding: 10px 15px; font-size: 14px; background: #6c757d; color: white; border: none; border-radius: 5px; cursor: pointer;">
-                    ðŸ“– Troubleshooting Guide
+                    📖 Troubleshooting Guide
                 </button>
             </div>
                 </div>
@@ -4488,9 +4488,9 @@
                 <!-- Sales Graph Section -->
                 <div class="sales-graph-section">
                     <div class="chart-header">
-                        <h3>ðŸ“ˆ Sales Performance</h3>
+                        <h3>📈 Sales Performance</h3>
                         <button class="btn btn-secondary" id="downloadChartBtn">
-                            <span>ðŸ“Š</span> Download Chart
+                            <span>📊</span> Download Chart
                         </button>
                     </div>
                     <div class="chart-container">
@@ -4510,21 +4510,21 @@
                 <!-- Enhanced Header -->
                 <div class="section-header">
                     <div class="header-content">
-                        <h1 class="section-title">ðŸ“¦ Product Management</h1>
+                        <h1 class="section-title">📦 Product Management</h1>
                         <p class="section-subtitle">Manage your inventory, track stock levels, and organize products</p>
                     </div>
                     <div class="header-actions">
                         <button class="btn btn-secondary" onclick="loadProducts()" title="Refresh Products">
-                            <span>ðŸ”„</span> Refresh
+                            <span>🔄</span> Refresh
                         </button>
                         <button class="btn btn-secondary" id="exportProductsBtn" style="display: none;">
-                            <span>ðŸ“Š</span> Export Data
+                            <span>📊</span> Export Data
                         </button>
                         <button class="btn btn-secondary" id="bulkCostUpdateBtn" style="display: none;">
-                            <span>ðŸ’°</span> Bulk Cost Update
+                            <span>💰</span> Bulk Cost Update
                         </button>
                         <button class="btn btn-primary" id="addProductBtn">
-                            <span>âž•</span> Add New Product
+                            <span>➕</span> Add New Product
                         </button>
                     </div>
                 </div>
@@ -4532,28 +4532,28 @@
                 <!-- Product Statistics Cards -->
                 <div class="product-stats-grid">
                     <div class="stat-card">
-                        <div class="stat-icon">ðŸ“¦</div>
+                        <div class="stat-icon">📦</div>
                         <div class="stat-content">
                             <h3>Total Products</h3>
                             <div class="stat-number" id="totalProductsCount">0</div>
                         </div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon">ðŸ·</div>
+                        <div class="stat-icon">🐷</div>
                         <div class="stat-content">
                             <h3>Pig Products</h3>
                             <div class="stat-number" id="pigProductsCount">0</div>
                         </div>
                     </div>
                     <div class="stat-card">
-                        <div class="stat-icon">ðŸ”</div>
+                        <div class="stat-icon">🐔</div>
                         <div class="stat-content">
                             <h3>Chicken Products</h3>
                             <div class="stat-number" id="chickenProductsCount">0</div>
                         </div>
                     </div>
                     <div class="stat-card clickable" id="lowStockCard" onclick="showLowStockModal()">
-                        <div class="stat-icon">âš ï¸</div>
+                        <div class="stat-icon">⚠️</div>
                         <div class="stat-content">
                             <h3>Low Stock</h3>
                             <div class="stat-number" id="lowStockCount">0</div>
@@ -4565,7 +4565,7 @@
                 <!-- Enhanced Filters Section -->
                 <div class="filters-section">
                     <div class="filters-header" style="display: none;">
-                        <h3>ðŸ” Filter & Search</h3>
+                        <h3>🔍 Filter & Search</h3>
                         <button class="btn btn-sm btn-secondary" id="clearFiltersBtn">Clear All</button>
                     </div>
                     
@@ -4575,12 +4575,12 @@
                             <div class="category-and-scanner-container">
                             <div class="category-buttons">
                                 <button class="category-btn active" data-category="">
-                                    <span class="btn-icon">ðŸ“¦</span>
+                                    <span class="btn-icon">📦</span>
                                     <span class="btn-text">All Products</span>
                                 </button>
                                 <div class="animal-category-group">
                                     <button class="category-btn" data-category="pig">
-                                        <span class="btn-icon">ðŸ·</span>
+                                        <span class="btn-icon">🐷</span>
                                         <span class="btn-text">PIG</span>
                                     </button>
                                     <div class="subcategory-buttons" id="pigSubcategories">
@@ -4588,16 +4588,16 @@
                                             All Types
                                         </button>
                                         <button class="subcategory-btn" data-subcategory="feeds">
-                                            ðŸ½ï¸ Feeds
+                                            🍽️ Feeds
                                         </button>
                                         <button class="subcategory-btn" data-subcategory="supplements">
-                                            ðŸ’Š Supplements
+                                            💊 Supplements
                                         </button>
                                     </div>
                                 </div>
                                 <div class="animal-category-group">
                                     <button class="category-btn" data-category="chicken">
-                                        <span class="btn-icon">ðŸ”</span>
+                                        <span class="btn-icon">🐔</span>
                                         <span class="btn-text">CHICKEN</span>
                                     </button>
                                     <div class="subcategory-buttons" id="chickenSubcategories">
@@ -4605,10 +4605,10 @@
                                             All Types
                                         </button>
                                         <button class="subcategory-btn" data-subcategory="feeds">
-                                            ðŸ½ï¸ Feeds
+                                            🍽️ Feeds
                                         </button>
                                         <button class="subcategory-btn" data-subcategory="supplements">
-                                            ðŸ’Š Supplements
+                                            💊 Supplements
                                         </button>
                                 </div>
                             </div>
@@ -4618,11 +4618,11 @@
                                 <div class="qr-scanner-inline">
                                     <div class="scanner-header">
                                         <div class="scanner-title-section">
-                                            <h4>ðŸ“± QR Scanner</h4>
+                                            <h4>📱 QR Scanner</h4>
                                         </div>
                                         <div class="scanner-input-group-horizontal">
                                             <input type="text" id="adminQrInput" placeholder="Scan QR code or enter product ID..." class="scanner-input">
-                                            <button class="btn btn-primary" onclick="scanProductForEdit()">ðŸ” Scan</button>
+                                            <button class="btn btn-primary" onclick="scanProductForEdit()">🔍 Scan</button>
                                         </div>
                                     </div>
                                     <div class="scanner-status" id="adminScannerStatus">Ready to scan</div>
@@ -4636,7 +4636,7 @@
                 <!-- Product Cards Section -->
                 <div class="cards-section">
                     <div class="cards-header">
-                        <h3>ðŸ“¦ Product Inventory</h3>
+                        <h3>📦 Product Inventory</h3>
                         <div class="cards-info">
                             <span id="cardsInfo">Showing 0 products</span>
                         </div>
@@ -4649,11 +4649,11 @@
                     
                     <!-- Empty State -->
                     <div class="empty-state" id="emptyState" style="display: none;">
-                        <div class="empty-icon">ðŸ“¦</div>
+                        <div class="empty-icon">📦</div>
                         <h3>No Products Found</h3>
                         <p>No products match your current filters. Try adjusting your search criteria.</p>
                         <button class="btn btn-primary" id="addFirstProductBtn">
-                            <span>âž•</span> Add Your First Product
+                            <span>➕</span> Add Your First Product
                         </button>
                     </div>
                 </div>
@@ -4664,9 +4664,9 @@
                 <div class="section-header">
                     <h1 class="section-title">Sales Analytics</h1>
                     <div class="time-period-selector">
-                        <button id="dayViewBtn" class="period-btn active" data-period="day">ðŸ“… DAY</button>
-                        <button id="monthViewBtn" class="period-btn" data-period="month">ðŸ“Š MONTH</button>
-                        <button id="yearViewBtn" class="period-btn" data-period="year">ðŸ“ˆ YEAR</button>
+                        <button id="dayViewBtn" class="period-btn active" data-period="day">📅 DAY</button>
+                        <button id="monthViewBtn" class="period-btn" data-period="month">📊 MONTH</button>
+                        <button id="yearViewBtn" class="period-btn" data-period="year">📈 YEAR</button>
                     </div>
                 </div>
                 
@@ -4677,7 +4677,7 @@
                     </div>
                     <div class="analytics-card">
                         <h3>Total Revenue</h3>
-                        <div class="analytics-number" id="totalRevenue">â‚±0.00</div>
+                        <div class="analytics-number" id="totalRevenue">₱0.00</div>
                     </div>
                     <div class="analytics-card">
                         <h3>Chicken Sales</h3>
@@ -4747,7 +4747,7 @@
                             <span style="font-weight: bold; color: #333;">Total Sales Summary:</span>
                             <div style="text-align: right;">
                                 <div style="font-size: 14px; color: #666;">Total Transactions: <span id="totalSalesCount">0</span></div>
-                                <div style="font-size: 16px; font-weight: bold; color: #2c5530;">Total Revenue: â‚±<span id="totalSalesRevenue">0.00</span></div>
+                                <div style="font-size: 16px; font-weight: bold; color: #2c5530;">Total Revenue: ₱<span id="totalSalesRevenue">0.00</span></div>
                             </div>
                         </div>
                     </div>
@@ -4757,22 +4757,22 @@
             <!-- Sales Forecasting Section -->
             <div id="forecasting" class="content-section">
                 <div class="section-header">
-                    <h1 class="section-title">ðŸ“Š Sales Forecasting</h1>
+                    <h1 class="section-title">📊 Sales Forecasting</h1>
                     <div class="header-actions">
                         <button class="btn btn-secondary" id="refreshForecastBtn" style="display: none;">
-                            <span>ðŸ”„</span> Refresh Forecast
+                            <span>🔄</span> Refresh Forecast
                         </button>
                         <button class="btn btn-primary" id="refreshDailySalesBtn" onclick="updateDailySalesDisplay()" style="display: none;">
-                            <span>ðŸ’°</span> Refresh Daily Sales
+                            <span>💰</span> Refresh Daily Sales
                         </button>
                         <button class="btn btn-warning" id="recalculateSalesBtn" onclick="recalculateSales()">
-                            <span>ðŸ”„</span> Recalculate Profits
+                            <span>🔄</span> Recalculate Profits
                         </button>
                         <button class="btn btn-primary" id="exportForecastBtn">
-                            <span>ðŸ“¥</span> Export Report
+                            <span>📥</span> Export Report
                         </button>
                         <button class="btn btn-danger" id="resetAllSalesBtn" onclick="resetAllSales()">
-                            <span>ðŸ—‘ï¸</span> Reset All Sales
+                            <span>🗑️</span> Reset All Sales
                         </button>
                     </div>
                 </div>
@@ -4780,19 +4780,19 @@
                 <!-- Forecasting Overview Cards -->
                 <div class="forecast-overview">
                     <div class="forecast-card">
-                        <div class="forecast-icon">ðŸ“ˆ</div>
+                        <div class="forecast-icon">📈</div>
                         <div class="forecast-content">
                             <h3>Next Month Forecast</h3>
-                            <div class="forecast-value" id="nextMonthForecast">â‚±0.00</div>
+                            <div class="forecast-value" id="nextMonthForecast">₱0.00</div>
                             <div class="forecast-change" id="nextMonthChange">+0%</div>
                         </div>
                     </div>
                     
                     <div class="forecast-card">
-                        <div class="forecast-icon">ðŸŽ¯</div>
+                        <div class="forecast-icon">🎯</div>
                         <div class="forecast-content">
                             <h3>Quarterly Target</h3>
-                            <div class="forecast-value" id="quarterlyTarget">â‚±0.00</div>
+                            <div class="forecast-value" id="quarterlyTarget">₱0.00</div>
                             <div class="forecast-progress">
                                 <div class="progress-bar">
                                     <div class="progress-fill" id="quarterlyProgress" style="width: 0%"></div>
@@ -4803,63 +4803,63 @@
                     </div>
                     
                     <div class="forecast-card">
-                        <div class="forecast-icon">ðŸ“Š</div>
+                        <div class="forecast-icon">📊</div>
                         <div class="forecast-content">
                             <h3>Growth Rate</h3>
                             <div class="forecast-value" id="growthRate">0%</div>
-                            <div class="forecast-trend" id="growthTrend">ðŸ“ˆ</div>
+                            <div class="forecast-trend" id="growthTrend">📈</div>
                         </div>
                     </div>
                     
                     <div class="forecast-card">
-                        <div class="forecast-icon">ðŸ†</div>
+                        <div class="forecast-icon">🏆</div>
                         <div class="forecast-content">
                             <h3>Top Product</h3>
                             <div class="forecast-value" id="topProduct">-</div>
-                            <div class="forecast-subtitle" id="topProductSales">â‚±0.00</div>
+                            <div class="forecast-subtitle" id="topProductSales">₱0.00</div>
                         </div>
                     </div>
                 </div>
                 
                 <!-- Daily Sales Overview -->
                 <div class="daily-sales-overview">
-                    <h3>ðŸ“… Sales Performance</h3>
+                    <h3>📅 Sales Performance</h3>
                     <div class="daily-stats">
                         <div class="daily-stat-card clickable-card" data-period="today" onclick="showSalesDetailModal('today')">
-                            <div class="stat-icon">ðŸ’°</div>
+                            <div class="stat-icon">💰</div>
                             <div class="stat-content">
                                 <h4>Today's Sales</h4>
-                                <div class="stat-value" id="todaySales">â‚±0.00</div>
+                                <div class="stat-value" id="todaySales">₱0.00</div>
                                 <div class="stat-subtitle" id="todayOrders">0 items</div>
                                 <div class="click-hint">Click for details</div>
                             </div>
                         </div>
                         
                         <div class="daily-stat-card clickable-card" data-period="yesterday" onclick="showSalesDetailModal('yesterday')">
-                            <div class="stat-icon">ðŸ“ˆ</div>
+                            <div class="stat-icon">📈</div>
                             <div class="stat-content">
                                 <h4>Yesterday</h4>
-                                <div class="stat-value" id="yesterdaySales">â‚±0.00</div>
+                                <div class="stat-value" id="yesterdaySales">₱0.00</div>
                                 <div class="stat-subtitle" id="yesterdayOrders">0 items</div>
                                 <div class="click-hint">Click for details</div>
                             </div>
                         </div>
                         
                         <div class="daily-stat-card clickable-card" data-period="week" onclick="showSalesDetailModal('week')">
-                            <div class="stat-icon">ðŸ“Š</div>
+                            <div class="stat-icon">📊</div>
                             <div class="stat-content">
                                 <h4>This Week</h4>
-                                <div class="stat-value" id="weekSales">â‚±0.00</div>
+                                <div class="stat-value" id="weekSales">₱0.00</div>
                                 <div class="stat-subtitle" id="weekOrders">0 items</div>
                                 <div class="click-hint">Click for details</div>
                             </div>
                         </div>
                         
                         <div class="daily-stat-card">
-                            <div class="stat-icon">ðŸŽ¯</div>
+                            <div class="stat-icon">🎯</div>
                             <div class="stat-content">
                                 <h4>Daily Average</h4>
-                                <div class="stat-value" id="dailyAverage">â‚±0.00</div>
+                                <div class="stat-value" id="dailyAverage">₱0.00</div>
                                 <div class="stat-subtitle" id="avgOrders">0 items/day</div>
                             </div>
                         </div>
@@ -4868,7 +4868,7 @@
                 
                 <!-- Recent Sales Table -->
                 <div class="recent-sales-section">
-                    <h3>ðŸ›’ Recent Sales</h3>
+                    <h3>🛒 Recent Sales</h3>
                     <div style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
                         <input type="text" id="receiptSearchInput" placeholder="Search by Receipt Number..." style="padding: 6px 12px; border: 1px solid #ccc; border-radius: 4px; width: 220px;">
                         <button id="clearReceiptSearchBtn" style="padding: 6px 12px; border: 1px solid #ccc; border-radius: 4px; background: #f5f5f5; cursor: pointer;">Clear</button>
@@ -4910,7 +4910,7 @@
                     <div class="recent-sales-summary" style="margin-top: 15px; padding: 15px; background: #f8f9fa; border-radius: 8px; border: 1px solid #e9ecef;">
                         <div style="display: flex; justify-content: space-between; align-items: center;">
                             <div style="display: flex; align-items: center; gap: 10px;">
-                                <span style="font-size: 1.5rem;">ðŸ“Š</span>
+                                <span style="font-size: 1.5rem;">📊</span>
                                 <span style="font-weight: bold; color: #333; font-size: 16px;">Recent Sales Summary:</span>
                             </div>
                             <div style="text-align: right;">
@@ -4918,7 +4918,7 @@
                                     Total Orders: <span id="recentSalesCount" style="font-weight: bold; color: #2c5530;">0</span>
                                 </div>
                                 <div style="font-size: 18px; font-weight: bold; color: #2c5530;">
-                                    Total Revenue: â‚±<span id="recentSalesTotal">0.00</span>
+                                    Total Revenue: ₱<span id="recentSalesTotal">0.00</span>
                                 </div>
                             </div>
                         </div>
@@ -4996,24 +4996,24 @@
                 
                 <!-- Forecasting Insights -->
                 <div class="forecast-insights">
-                    <h3>ðŸ“‹ Forecasting Insights</h3>
+                    <h3>📋 Forecasting Insights</h3>
                     <div class="insights-grid">
                         <div class="insight-card">
-                            <h4>ðŸŽ¯ Key Opportunities</h4>
+                            <h4>🎯 Key Opportunities</h4>
                             <ul id="opportunitiesList">
                                 <li>Loading opportunities...</li>
                             </ul>
                         </div>
                         
                         <div class="insight-card">
-                            <h4>âš ï¸ Risk Factors</h4>
+                            <h4>⚠️ Risk Factors</h4>
                             <ul id="risksList">
                                 <li>Loading risk factors...</li>
                             </ul>
                         </div>
                         
                         <div class="insight-card">
-                            <h4>ðŸ’¡ Recommendations</h4>
+                            <h4>💡 Recommendations</h4>
                             <ul id="recommendationsList">
                                 <li>Loading recommendations...</li>
                             </ul>
@@ -5028,10 +5028,10 @@
                     <h1 class="section-title">Staff Management</h1>
                     <div class="header-actions">
                         <button class="btn btn-danger" id="clearAllStaffBtn">
-                            <span>ðŸ—‘ï¸</span> Clear All Staff
+                            <span>🗑️</span> Clear All Staff
                         </button>
                         <button class="btn btn-primary" id="addStaffBtn">
-                            <span>âž•</span> Add New Staff
+                            <span>➕</span> Add New Staff
                         </button>
                     </div>
                 </div>
@@ -5082,7 +5082,7 @@
         <div class="modal-content enhanced-modal">
             <div class="modal-header">
                 <div class="modal-title-section">
-                    <h2 id="modalTitle">ðŸ“¦ Add New Product - CACHE TEST</h2>
+                    <h2 id="modalTitle">📦 Add New Product - CACHE TEST</h2>
                     <p class="modal-subtitle">Fill in the product details below</p>
                 </div>
                 <button class="close" id="closeModal">
@@ -5095,7 +5095,7 @@
                     <!-- Basic Information Section -->
                     <div class="form-section">
                         <div class="section-header">
-                            <h3>ðŸ“ Basic Information</h3>
+                            <h3>📝 Basic Information</h3>
                         </div>
                         <div class="form-group">
                             <label for="productName" class="form-label">
@@ -5115,7 +5115,7 @@
                     <!-- Product Image Section -->
                     <div class="form-section">
                         <div class="section-header">
-                            <h3>ðŸ–¼ï¸ Product Image</h3>
+                            <h3>🖼️ Product Image</h3>
                         </div>
                         <div class="form-group">
                             <label for="productImage" class="form-label">Product Image</label>
@@ -5123,7 +5123,7 @@
                                 <input type="file" id="productImage" name="image" class="image-upload-input" accept="image/*" onchange="handleImageUpload(event)">
                                 <div class="image-upload-area" onclick="document.getElementById('productImage').click()">
                                     <div class="image-upload-content">
-                                        <div class="image-upload-icon">ðŸ“·</div>
+                                        <div class="image-upload-icon">📷</div>
                                         <div class="image-upload-text">
                                             <div class="upload-title">Click to upload image</div>
                                             <div class="upload-subtitle">or drag and drop</div>
@@ -5133,7 +5133,7 @@
                                 </div>
                                 <div id="imagePreview" class="image-preview" style="display: none;">
                                     <img id="previewImg" src="" alt="Preview" class="preview-image">
-                                    <button type="button" class="remove-image-btn" onclick="removeImage()">âœ•</button>
+                                    <button type="button" class="remove-image-btn" onclick="removeImage()">✕</button>
                                 </div>
                             </div>
                             <div class="form-help">Upload a clear image of the product. Images are stored in the database for persistence.</div>
@@ -5143,7 +5143,7 @@
                     <!-- Category & Classification Section -->
                     <div class="form-section">
                         <div class="section-header">
-                            <h3>ðŸ·ï¸ Category & Classification</h3>
+                            <h3>🏷️ Category & Classification</h3>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
@@ -5152,8 +5152,8 @@
                                 </label>
                                 <select id="productAnimal" name="animal" class="form-select" required>
                                     <option value="">Select Animal Type</option>
-                                    <option value="chicken">ðŸ” Chicken</option>
-                                    <option value="pig">ðŸ· Pig</option>
+                                    <option value="chicken">🐔 Chicken</option>
+                                    <option value="pig">🐷 Pig</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -5162,8 +5162,8 @@
                                 </label>
                                 <select id="productCategory" name="category" class="form-select" required>
                                     <option value="">Select Category</option>
-                                    <option value="feeds">ðŸ½ï¸ Feeds</option>
-                                    <option value="supplements">ðŸ’Š Supplements</option>
+                                    <option value="feeds">🍽️ Feeds</option>
+                                    <option value="supplements">💊 Supplements</option>
                                 </select>
                             </div>
                         </div>
@@ -5172,24 +5172,24 @@
                     <!-- Pricing Section -->
                     <div class="form-section">
                         <div class="section-header">
-                            <h3>ðŸ’° Pricing Information</h3>
+                            <h3>💰 Pricing Information</h3>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="productPricePerSack" class="form-label">
-                                    Selling Price per Sack (â‚±) <span class="required">*</span>
+                                    Selling Price per Sack (₱) <span class="required">*</span>
                                 </label>
                                 <div class="input-group">
-                                    <span class="input-prefix">â‚±</span>
+                                    <span class="input-prefix">₱</span>
                                     <input type="number" id="productPricePerSack" name="pricePerSack" class="form-input" step="0.01" min="0" placeholder="0.00" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="productPricePerKilo" class="form-label">
-                                    Selling Price per Kilo (â‚±) <span class="required">*</span>
+                                    Selling Price per Kilo (₱) <span class="required">*</span>
                                 </label>
                                 <div class="input-group">
-                                    <span class="input-prefix">â‚±</span>
+                                    <span class="input-prefix">₱</span>
                                     <input type="number" id="productPricePerKilo" name="pricePerKilo" class="form-input" step="0.01" min="0" placeholder="0.00" required>
                                 </div>
                             </div>
@@ -5199,10 +5199,10 @@
                         <!-- Supplement Price Field (hidden by default) -->
                         <div class="form-group" id="supplementPriceGroup" style="display: none;">
                             <label for="productPrice" class="form-label">
-                                Selling Price (â‚±) <span class="required">*</span>
+                                Selling Price (₱) <span class="required">*</span>
                             </label>
                             <div class="input-group">
-                                <span class="input-prefix">â‚±</span>
+                                <span class="input-prefix">₱</span>
                                 <input type="number" id="productPrice" name="price" class="form-input" step="0.01" min="0" placeholder="0.00" required>
                             </div>
                         </div>
@@ -5210,10 +5210,10 @@
                         <!-- Supplement Cost Price Field (hidden by default) -->
                         <div class="form-group" id="supplementCostGroup" style="display: none;">
                             <label for="productCost" class="form-label">
-                                Cost Price (â‚±)
+                                Cost Price (₱)
                             </label>
                             <div class="input-group">
-                                <span class="input-prefix">â‚±</span>
+                                <span class="input-prefix">₱</span>
                                 <input type="number" id="productCost" name="cost" class="form-input" step="0.01" min="0" placeholder="0.00">
                             </div>
                             <div class="form-help">Enter the cost price you paid when buying this product</div>
@@ -5223,7 +5223,7 @@
                     <!-- Stock Information Section -->
                     <div class="form-section">
                         <div class="section-header">
-                            <h3>ðŸ“¦ Stock Information</h3>
+                            <h3>📦 Stock Information</h3>
                         </div>
                         <div class="form-row" id="feedStockFieldsRow">
                             <div class="form-group">
@@ -5237,7 +5237,7 @@
                             <!-- Cost Price Field -->
                             <div class="form-group">
                                 <label for="productCostPerSack" class="form-label">
-                                    Cost Price per Sack (â‚±)
+                                    Cost Price per Sack (₱)
                                 </label>
                                 <input type="number" id="productCostPerSack" name="costPerSack" class="form-input" step="0.01" min="0" placeholder="0.00">
                                 <div class="form-help">Enter the cost price you paid when buying this product</div>
@@ -5263,10 +5263,10 @@
             <div class="modal-footer">
                 <div class="modal-actions">
                     <button type="button" class="btn btn-secondary" id="cancelProduct">
-                        <span>âŒ</span> Cancel
+                        <span>❌</span> Cancel
                     </button>
                     <button type="submit" class="btn btn-primary" id="saveProduct" form="productForm">
-                        <span>ðŸ’¾</span> Save Product
+                        <span>💾</span> Save Product
                     </button>
                 </div>
             </div>
@@ -5278,7 +5278,7 @@
         <div class="modal-content enhanced-modal">
             <div class="modal-header">
                 <div class="modal-title-section">
-                    <h2 id="editModalTitle">âœï¸ Edit Product</h2>
+                    <h2 id="editModalTitle">✏️ Edit Product</h2>
                     <p class="modal-subtitle">Update product information and stock levels</p>
                 </div>
                 <button class="close" id="closeEditModal">
@@ -5291,18 +5291,18 @@
                     <!-- Product Overview -->
                     <div class="form-section">
                         <div class="section-header">
-                            <h3>ðŸ“‹ Product Overview</h3>
+                            <h3>📋 Product Overview</h3>
                         </div>
                         <div class="product-overview">
                             <div class="product-preview">
                                 <div class="product-image-preview" id="editProductImagePreview">
-                                    <div class="image-placeholder">ðŸ“¦</div>
+                                    <div class="image-placeholder">📦</div>
                                 </div>
                                 <div class="product-basic-info">
                                     <h4 id="editProductNameDisplay">Product Name</h4>
                                     <p id="editProductCategoryDisplay">Category</p>
                                     <div class="product-stock-status" id="editStockStatus">
-                                        <span class="stock-indicator">ðŸ“¦</span>
+                                        <span class="stock-indicator">📦</span>
                                         <span class="stock-text">In Stock</span>
                                     </div>
                                 </div>
@@ -5313,7 +5313,7 @@
                     <!-- Basic Information Section -->
                     <div class="form-section">
                         <div class="section-header">
-                            <h3>ðŸ“ Basic Information</h3>
+                            <h3>📝 Basic Information</h3>
                         </div>
                         <div class="form-group">
                             <label for="editProductName" class="form-label">
@@ -5331,7 +5331,7 @@
                     <!-- Category & Classification Section -->
                     <div class="form-section">
                         <div class="section-header">
-                            <h3>ðŸ·ï¸ Category & Classification</h3>
+                            <h3>🏷️ Category & Classification</h3>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
@@ -5340,8 +5340,8 @@
                                 </label>
                                 <select id="editProductAnimal" name="animal" class="form-select" required>
                                     <option value="">Select Animal Type</option>
-                                    <option value="chicken">ðŸ” Chicken</option>
-                                    <option value="pig">ðŸ· Pig</option>
+                                    <option value="chicken">🐔 Chicken</option>
+                                    <option value="pig">🐷 Pig</option>
                                 </select>
                             </div>
                             <div class="form-group">
@@ -5350,8 +5350,8 @@
                                 </label>
                                 <select id="editProductCategory" name="category" class="form-select" required>
                                     <option value="">Select Category</option>
-                                    <option value="feeds">ðŸ½ï¸ Feeds</option>
-                                    <option value="supplements">ðŸ’Š Supplements</option>
+                                    <option value="feeds">🍽️ Feeds</option>
+                                    <option value="supplements">💊 Supplements</option>
                                 </select>
                             </div>
                         </div>
@@ -5360,24 +5360,24 @@
                     <!-- Pricing Section -->
                     <div class="form-section">
                         <div class="section-header">
-                            <h3>ðŸ’° Pricing Information</h3>
+                            <h3>💰 Pricing Information</h3>
                         </div>
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="editProductPricePerSack" class="form-label">
-                                    Selling Price per Sack (â‚±) <span class="required">*</span>
+                                    Selling Price per Sack (₱) <span class="required">*</span>
                                 </label>
                                 <div class="input-group">
-                                    <span class="input-prefix">â‚±</span>
+                                    <span class="input-prefix">₱</span>
                                     <input type="number" id="editProductPricePerSack" name="pricePerSack" class="form-input" step="0.01" min="0" placeholder="0.00" required>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="editProductPricePerKilo" class="form-label">
-                                    Selling Price per Kilo (â‚±) <span class="required">*</span>
+                                    Selling Price per Kilo (₱) <span class="required">*</span>
                                 </label>
                                 <div class="input-group">
-                                    <span class="input-prefix">â‚±</span>
+                                    <span class="input-prefix">₱</span>
                                     <input type="number" id="editProductPricePerKilo" name="pricePerKilo" class="form-input" step="0.01" min="0" placeholder="0.00" required>
                                 </div>
                             </div>
@@ -5386,10 +5386,10 @@
                         <!-- Cost Price Field for Edit -->
                         <div class="form-group">
                             <label for="editProductCostPerSack" class="form-label">
-                                Cost Price per Sack (â‚±)
+                                Cost Price per Sack (₱)
                             </label>
                             <div class="input-group">
-                                <span class="input-prefix">â‚±</span>
+                                <span class="input-prefix">₱</span>
                                 <input type="number" id="editProductCostPerSack" name="costPerSack" class="form-input" step="0.01" min="0" placeholder="0.00">
                             </div>
                             <div class="form-help">Enter the cost price you paid when buying this product. Cost per kilo will be automatically calculated (1 sack = 25 kilos)</div>
@@ -5398,10 +5398,10 @@
                         <!-- Supplement Price Field (hidden by default) -->
                         <div class="form-group" id="editSupplementPriceGroup" style="display: none;">
                             <label for="editProductPrice" class="form-label">
-                                Selling Price (â‚±) <span class="required">*</span>
+                                Selling Price (₱) <span class="required">*</span>
                             </label>
                             <div class="input-group">
-                                <span class="input-prefix">â‚±</span>
+                                <span class="input-prefix">₱</span>
                                 <input type="number" id="editProductPrice" name="price" class="form-input" step="0.01" min="0" placeholder="0.00" required>
                             </div>
                         </div>
@@ -5409,10 +5409,10 @@
                         <!-- Supplement Cost Price Field (hidden by default) -->
                         <div class="form-group" id="editSupplementCostGroup" style="display: none;">
                             <label for="editProductCost" class="form-label">
-                                Cost Price (â‚±)
+                                Cost Price (₱)
                             </label>
                             <div class="input-group">
-                                <span class="input-prefix">â‚±</span>
+                                <span class="input-prefix">₱</span>
                                 <input type="number" id="editProductCost" name="cost" class="form-input" step="0.01" min="0" placeholder="0.00">
                             </div>
                             <div class="form-help">Enter the cost price you paid when buying this product</div>
@@ -5422,11 +5422,11 @@
                     <!-- Stock Management Section -->
                     <div class="form-section">
                         <div class="section-header">
-                            <h3>ðŸ“¦ Stock Management</h3>
+                            <h3>📦 Stock Management</h3>
                         </div>
                         <div class="stock-management">
                             <div class="current-stock">
-                                <h4>ðŸ“¦ Stock Management</h4>
+                                <h4>📦 Stock Management</h4>
                                 <div class="stock-display">
                                     <div class="stock-item">
                                         <span class="stock-amount" id="currentStockAmount">0</span>
@@ -5476,10 +5476,10 @@
                                     <label class="form-label">Stock Actions</label>
                                     <div class="stock-input-group">
                                         <button type="button" class="btn btn-success" id="addStockBtn">
-                                            <span>âž•</span> Add Stock
+                                            <span>➕</span> Add Stock
                                         </button>
                                         <button type="button" class="btn btn-warning" id="removeStockBtn">
-                                            <span>âž–</span> Remove Stock
+                                            <span>➖</span> Remove Stock
                                         </button>
                                     </div>
                                     <div class="form-help">Enter amounts in the stock fields above, then click Add or Remove</div>
@@ -5504,7 +5504,7 @@
                     <!-- Product Image Section -->
                     <div class="form-section">
                         <div class="section-header">
-                            <h3>ðŸ–¼ï¸ Product Image</h3>
+                            <h3>🖼️ Product Image</h3>
                         </div>
                         <div class="form-group">
                             <label class="form-label">Product Image</label>
@@ -5512,7 +5512,7 @@
                                 <input type="file" id="editProductImage" name="imageFile" accept="image/*" style="display: none;" onchange="handleEditImageUpload(event)">
                                 <div class="image-upload-area" onclick="document.getElementById('editProductImage').click()">
                                     <div class="upload-placeholder" id="editUploadPlaceholder">
-                                        <div class="upload-icon">ðŸ“·</div>
+                                        <div class="upload-icon">📷</div>
                                         <p class="upload-text">Click to change product image</p>
                                         <small class="upload-hint">Supports: JPG, PNG, GIF, WebP (Max 5MB)</small>
                                     </div>
@@ -5520,7 +5520,7 @@
                                 </div>
                                 <div class="image-actions" id="editImageActions" style="display: none;">
                                     <button type="button" class="btn btn-sm btn-secondary" onclick="clearEditImage()">
-                                        <span>ðŸ—‘ï¸</span> Remove Image
+                                        <span>🗑️</span> Remove Image
                                     </button>
                                 </div>
                             </div>
@@ -5532,10 +5532,10 @@
             <div class="modal-footer">
                 <div class="modal-actions">
                     <button type="button" class="btn btn-secondary" id="cancelEditProduct">
-                        <span>âŒ</span> Cancel
+                        <span>❌</span> Cancel
                     </button>
                     <button type="submit" class="btn btn-primary" id="saveEditProduct" form="productEditForm">
-                        <span>ðŸ’¾</span> Save Changes
+                        <span>💾</span> Save Changes
                     </button>
                 </div>
             </div>
@@ -5564,7 +5564,7 @@
                     <p class="qr-url" id="qrUrl">URL will appear here</p>
                 </div>
                 <div class="qr-actions">
-                    <button class="btn btn-primary" id="downloadQrBtn">ðŸ“¥ Download QR Code</button>
+                    <button class="btn btn-primary" id="downloadQrBtn">📥 Download QR Code</button>
                 </div>
             </div>
         </div>
@@ -5708,18 +5708,18 @@
             const badgeClass = totalStock <= 3 ? 'low-stock' : 'in-stock';
             const badgeText = totalStock <= 3 ? 'Low Stock' : 'In Stock';
             
-            const animalIcon = product.animal === 'chicken' ? 'ðŸ”' : 'ðŸ·';
-            const categoryIcon = product.category === 'feeds' ? 'ðŸ½ï¸' : 'ðŸ’Š';
+            const animalIcon = product.animal === 'chicken' ? '🐔' : '🐷';
+            const categoryIcon = product.category === 'feeds' ? '🍽️' : '💊';
             
             // Debug image URL
-            console.log('ðŸ–¼ï¸ Creating product card for:', product.name, 'Image URL:', product.imageUrl ? 'Present' : 'Missing');
+            console.log('🖼️ Creating product card for:', product.name, 'Image URL:', product.imageUrl ? 'Present' : 'Missing');
             
             return `
                 <div class="product-card" data-product-id="${product._id}" onclick="openEditModal('${product._id}')">
                     <div class="product-card-header">
                         <div class="product-image">
                             ${product.imageUrl ? 
-                                `<img src="${product.imageUrl.startsWith('data:') ? product.imageUrl : product.imageUrl + '?t=' + Date.now()}" alt="${product.name}" style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px; background: #f8f9fa;" onerror="console.log('âŒ Image failed to load for product:', '${product.name}', 'URL:', this.src); this.style.display='none'; this.nextElementSibling.style.display='flex';">
+                                `<img src="${product.imageUrl.startsWith('data:') ? product.imageUrl : product.imageUrl + '?t=' + Date.now()}" alt="${product.name}" style="width: 100%; height: 100%; object-fit: contain; border-radius: 8px; background: #f8f9fa;" onerror="console.log('❌ Image failed to load for product:', '${product.name}', 'URL:', this.src); this.style.display='none'; this.nextElementSibling.style.display='flex';">
                                  <div style="display: none; width: 100%; height: 100%; align-items: center; justify-content: center; background: #f0f0f0; border-radius: 8px; font-size: 2rem;">${animalIcon}</div>` :
                                 `<div style="width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: #f0f0f0; border-radius: 8px; font-size: 2rem;">${animalIcon}</div>`
                             }
@@ -5734,11 +5734,11 @@
                             <span>${product.animal.toUpperCase()} ${product.category.toUpperCase()}</span>
                         </div>
                         <div class="product-pricing">
-                            <div class="product-price">â‚±${product.pricePerSack || product.price}</div>
+                            <div class="product-price">₱${product.pricePerSack || product.price}</div>
                             <div class="product-price-unit">per ${product.unit || 'sack'}</div>
                         </div>
                         <div class="product-stock ${stockClass}">
-                            <span>ðŸ“¦</span>
+                            <span>📦</span>
                             <span>${stockText}</span>
                         </div>
                     </div>
@@ -5746,10 +5746,10 @@
                         <!-- <div class="product-id">ID: ${product.customId || product._id.slice(-8)}</div> -->
                         <div class="product-actions">
                             <button class="product-qr-btn" onclick="event.stopPropagation(); generateQRCode('${product._id}')">
-                                <span>ðŸ“±</span> QR
+                                <span>📱</span> QR
                             </button>
                             <button class="product-delete-btn" onclick="event.stopPropagation(); deleteProduct('${product._id}')">
-                                <span>ðŸ—‘ï¸</span>
+                                <span>🗑️</span>
                             </button>
                         </div>
                     </div>
@@ -5771,17 +5771,17 @@
 
         // Render Product Cards
         function renderProductCards() {
-            console.log('ðŸ“¦ renderProductCards function called');
+            console.log('📦 renderProductCards function called');
             const productsGrid = document.getElementById('productsGrid');
             const emptyState = document.getElementById('emptyState');
             
             if (!productsGrid) {
-                console.log('ðŸ“¦ productsGrid not found');
+                console.log('📦 productsGrid not found');
                 return;
             }
             
             const filteredProducts = getFilteredProducts();
-            console.log('ðŸ“¦ Filtered products count:', filteredProducts.length);
+            console.log('📦 Filtered products count:', filteredProducts.length);
             
             if (filteredProducts.length === 0) {
                 productsGrid.style.display = 'none';
@@ -5798,11 +5798,11 @@
             // Apply conditional scrolling based on product count
             if (filteredProducts.length > 8) {
                 productsGrid.classList.add('scrollable');
-                console.log('ðŸ“¦ Applied scrollable class for', filteredProducts.length, 'products');
-                console.log('ðŸ“¦ productsGrid classes:', productsGrid.className);
+                console.log('📦 Applied scrollable class for', filteredProducts.length, 'products');
+                console.log('📦 productsGrid classes:', productsGrid.className);
             } else {
                 productsGrid.classList.remove('scrollable');
-                console.log('ðŸ“¦ Removed scrollable class for', filteredProducts.length, 'products');
+                console.log('📦 Removed scrollable class for', filteredProducts.length, 'products');
             }
             
             // Update cards info
@@ -5885,7 +5885,7 @@
         // Export Products
         function exportProducts() {
             try {
-                console.log('ðŸ“Š Exporting detailed products report...');
+                console.log('📊 Exporting detailed products report...');
                 
                 // Get products data
                 const products = allProducts || [];
@@ -5940,13 +5940,13 @@
                 </head>
                 <body>
                     <div class="header">
-                        <h1>ðŸ“¦ ZYMOUNE FEEDS SUPPLY</h1>
+                        <h1>📦 ZYMOUNE FEEDS SUPPLY</h1>
                         <h2>Product Inventory Report</h2>
                         <p>Generated on: ${currentDate.toLocaleDateString()} at ${currentDate.toLocaleTimeString()}</p>
                     </div>
                     
                     <div class="section">
-                        <h3>ðŸ“Š Inventory Summary</h3>
+                        <h3>📊 Inventory Summary</h3>
                         <div class="summary-grid">
                             <div class="summary-card">
                                 <h4>Total Products</h4>
@@ -5966,23 +5966,23 @@
                             <div class="summary-card">
                                 <h4>Chicken Products</h4>
                                 <div class="value">${chickenProducts}</div>
-                                <div class="label">ðŸ” Chicken Feeds</div>
+                                <div class="label">🐔 Chicken Feeds</div>
                             </div>
                             <div class="summary-card">
                                 <h4>Pig Products</h4>
                                 <div class="value">${pigProducts}</div>
-                                <div class="label">ðŸ· Pig Feeds</div>
+                                <div class="label">🐷 Pig Feeds</div>
                             </div>
                             <div class="summary-card">
                                 <h4>Low Stock Alert</h4>
                                 <div class="value">${lowStockProducts.length}</div>
-                                <div class="label">Products â‰¤ 3 Stock</div>
+                                <div class="label">Products ≤ 3 Stock</div>
                             </div>
                         </div>
                     </div>
                     
                     <div class="section">
-                        <h3>âš ï¸ Low Stock Products (Require Immediate Attention)</h3>`;
+                        <h3>⚠️ Low Stock Products (Require Immediate Attention)</h3>`;
                 
                 if (lowStockProducts.length > 0) {
                     htmlContent += `
@@ -6008,25 +6008,25 @@
                         htmlContent += `
                             <tr class="${stockClass}">
                                 <td><strong>${product.name}</strong></td>
-                                <td>${product.animal === 'chicken' ? 'ðŸ”' : 'ðŸ·'} ${product.animal}</td>
+                                <td>${product.animal === 'chicken' ? '🐔' : '🐷'} ${product.animal}</td>
                                 <td>${product.category}</td>
                                 <td>${totalStock} (${product.stockSacks || 0} sacks, ${product.stockKilos || 0} kilos, ${product.stockHalfKilos || 0} half kilos)</td>
-                                <td>â‚±${(product.pricePerSack || 0).toLocaleString()}</td>
-                                <td>â‚±${(product.pricePerKilo || 0).toLocaleString()}</td>
+                                <td>₱${(product.pricePerSack || 0).toLocaleString()}</td>
+                                <td>₱${(product.pricePerKilo || 0).toLocaleString()}</td>
                                 <td><strong>${actionRequired}</strong></td>
                             </tr>`;
                     });
                     
                     htmlContent += `</tbody></table>`;
                 } else {
-                    htmlContent += `<p style="text-align: center; color: #28a745; font-weight: bold;">âœ… All products have adequate stock levels!</p>`;
+                    htmlContent += `<p style="text-align: center; color: #28a745; font-weight: bold;">✅ All products have adequate stock levels!</p>`;
                 }
                 
                 htmlContent += `
                     </div>
                     
                     <div class="section">
-                        <h3>ðŸ“‹ Complete Product Inventory</h3>`;
+                        <h3>📋 Complete Product Inventory</h3>`;
                 
                 // Group products by animal type
                 const chickenProductsList = products.filter(product => product.animal === 'chicken');
@@ -6035,7 +6035,7 @@
                 if (chickenProductsList.length > 0) {
                     htmlContent += `
                         <div class="category-section">
-                            <div class="category-header">ðŸ” Chicken Feed Products</div>
+                            <div class="category-header">🐔 Chicken Feed Products</div>
                             <table>
                                 <thead>
                                     <tr>
@@ -6062,8 +6062,8 @@
                                 <td>${product.stockSacks || 0}</td>
                                 <td>${product.stockKilos || 0}</td>
                                 <td><strong>${totalStock}</strong></td>
-                                <td>â‚±${(product.pricePerSack || 0).toLocaleString()}</td>
-                                <td>â‚±${(product.pricePerKilo || 0).toLocaleString()}</td>
+                                <td>₱${(product.pricePerSack || 0).toLocaleString()}</td>
+                                <td>₱${(product.pricePerKilo || 0).toLocaleString()}</td>
                                 <td>${product.description || 'No description'}</td>
                             </tr>`;
                     });
@@ -6074,7 +6074,7 @@
                 if (pigProductsList.length > 0) {
                     htmlContent += `
                         <div class="category-section">
-                            <div class="category-header">ðŸ· Pig Feed Products</div>
+                            <div class="category-header">🐷 Pig Feed Products</div>
                             <table>
                                 <thead>
                                     <tr>
@@ -6101,8 +6101,8 @@
                                 <td>${product.stockSacks || 0}</td>
                                 <td>${product.stockKilos || 0}</td>
                                 <td><strong>${totalStock}</strong></td>
-                                <td>â‚±${(product.pricePerSack || 0).toLocaleString()}</td>
-                                <td>â‚±${(product.pricePerKilo || 0).toLocaleString()}</td>
+                                <td>₱${(product.pricePerSack || 0).toLocaleString()}</td>
+                                <td>₱${(product.pricePerKilo || 0).toLocaleString()}</td>
                                 <td>${product.description || 'No description'}</td>
                             </tr>`;
                     });
@@ -6114,9 +6114,9 @@
                     </div>
                     
                     <div class="section">
-                        <h3>ðŸ“ˆ Inventory Analysis</h3>
+                        <h3>📈 Inventory Analysis</h3>
                         <div style="background: #e8f4fd; padding: 20px; border-radius: 8px; margin: 20px 0;">
-                            <h4>ðŸŽ¯ Key Insights</h4>
+                            <h4>🎯 Key Insights</h4>
                             <ul>
                                 <li><strong>Stock Distribution:</strong> ${totalStockSacks} sacks and ${totalStockKilos} kilos across ${totalProducts} products</li>
                                 <li><strong>Product Mix:</strong> ${chickenProducts} chicken products (${((chickenProducts/totalProducts)*100).toFixed(1)}%) and ${pigProducts} pig products (${((pigProducts/totalProducts)*100).toFixed(1)}%)</li>
@@ -6126,7 +6126,7 @@
                         </div>
                         
                         <div style="background: #fff3cd; padding: 20px; border-radius: 8px; margin: 20px 0;">
-                            <h4>âš ï¸ Recommendations</h4>
+                            <h4>⚠️ Recommendations</h4>
                             <ul>
                                 <li>Monitor low stock products closely and plan restocking</li>
                                 <li>Consider bulk purchasing for high-demand products</li>
@@ -6159,7 +6159,7 @@
                 document.body.removeChild(link);
                 
                 showNotification('Detailed inventory report exported successfully!', 'success');
-                console.log('ðŸ“Š Detailed inventory report exported successfully');
+                console.log('📊 Detailed inventory report exported successfully');
                 
             } catch (error) {
                 console.error('Error exporting products data:', error);
@@ -6170,7 +6170,7 @@
         // Export Forecast Report
         function exportForecastReport() {
             try {
-                console.log('ðŸ“Š Exporting detailed forecast report to Excel...');
+                console.log('📊 Exporting detailed forecast report to Excel...');
                 
                 // Get forecast data
                 const salesData = forecastData.salesHistory;
@@ -6271,7 +6271,7 @@
                 document.body.removeChild(link);
                 
                 showNotification('Forecast report exported to Excel successfully!', 'success');
-                console.log('ðŸ“Š Forecast report exported to Excel successfully');
+                console.log('📊 Forecast report exported to Excel successfully');
                 
             } catch (error) {
                 console.error('Error exporting forecast report:', error);
@@ -6378,7 +6378,7 @@
             document.getElementById('editProductNameDisplay').textContent = product.name || 'Product Name';
             const animal = product.animal || 'Unknown';
             const category = product.category || 'Unknown';
-            document.getElementById('editProductCategoryDisplay').textContent = `${animal} â€¢ ${category}`.toUpperCase();
+            document.getElementById('editProductCategoryDisplay').textContent = `${animal} • ${category}`.toUpperCase();
             
             // Update stock display
             const stockAmount = document.getElementById('currentStockAmount');
@@ -6393,7 +6393,7 @@
                 const isLowStock = currentStock <= 3;
                 stockStatus.className = `product-stock-status ${isLowStock ? 'stock-low' : 'stock-ok'}`;
                 stockStatus.innerHTML = `
-                    <span class="stock-indicator">${isLowStock ? 'âš ï¸' : 'ðŸ“¦'}</span>
+                    <span class="stock-indicator">${isLowStock ? '⚠️' : '📦'}</span>
                     <span class="stock-text">${isLowStock ? 'Low Stock' : 'In Stock'}</span>
                 `;
             }
@@ -6405,7 +6405,7 @@
                     const imageSrc = product.imageUrl.startsWith('data:') ? product.imageUrl : product.imageUrl + '?t=' + Date.now();
                     imagePreview.innerHTML = `<img src="${imageSrc}" alt="${product.name}">`;
                 } else {
-                    imagePreview.innerHTML = '<div class="image-placeholder">ðŸ“¦</div>';
+                    imagePreview.innerHTML = '<div class="image-placeholder">📦</div>';
                 }
             }
             
@@ -6618,7 +6618,7 @@
             if (stockStatus) {
                 stockStatus.className = `product-stock-status ${isLowStock ? 'stock-low' : 'stock-ok'}`;
                 stockStatus.innerHTML = `
-                    <span class="stock-indicator">${isLowStock ? 'âš ï¸' : 'ðŸ“¦'}</span>
+                    <span class="stock-indicator">${isLowStock ? '⚠️' : '📦'}</span>
                     <span class="stock-text">${isLowStock ? 'Low Stock' : 'In Stock'}</span>
                 `;
             }
@@ -6975,13 +6975,13 @@
                             ? `${API_URL}${product.imageUrl}`
                             : product.imageUrl
                     }));
-                    console.log('ðŸ“¦ Loaded products from database:', products.length);
+                    console.log('📦 Loaded products from database:', products.length);
                     
                     // Debug image URLs
                     products.forEach(product => {
-                        console.log('ðŸ–¼ï¸ Product:', product.name, 'Image URL:', product.imageUrl ? 'Present' : 'Missing');
+                        console.log('🖼️ Product:', product.name, 'Image URL:', product.imageUrl ? 'Present' : 'Missing');
                         if (product.imageUrl) {
-                            console.log('ðŸ–¼ï¸ Image URL length:', product.imageUrl.length, 'First 50 chars:', product.imageUrl.substring(0, 50));
+                            console.log('🖼️ Image URL length:', product.imageUrl.length, 'First 50 chars:', product.imageUrl.substring(0, 50));
                         }
                     });
                 } else {
@@ -7150,7 +7150,7 @@
             document.getElementById('chickenProductsCount').textContent = chickenProducts;
             document.getElementById('lowStockCount').textContent = lowStockItems;
 
-            console.log('ðŸ“Š Product stats updated:', {
+            console.log('📊 Product stats updated:', {
                 total: totalProducts,
                 pig: pigProducts,
                 chicken: chickenProducts,
@@ -7169,7 +7169,7 @@
             // Update modal content
             const lowStockList = document.getElementById('lowStockList');
             if (lowStockProducts.length === 0) {
-                lowStockList.innerHTML = '<div class="no-data">ðŸŽ‰ No products are low in stock!</div>';
+                lowStockList.innerHTML = '<div class="no-data">🎉 No products are low in stock!</div>';
             } else {
                 lowStockList.innerHTML = lowStockProducts.map(product => {
                     const isSupplement = product.category === 'supplements';
@@ -7198,7 +7198,7 @@
                         <div class="low-stock-item">
                             <div class="product-info">
                                 <h4>${product.name}</h4>
-                                <p class="product-category">${product.animal} â€¢ ${product.category}</p>
+                                <p class="product-category">${product.animal} • ${product.category}</p>
                                 <div class="stock-info">
                                     <span class="stock-label">Current Stock:</span>
                                     <span class="stock-value ${getStockLevel(product)}">${getTotalStock(product)}</span>
@@ -7207,7 +7207,7 @@
                             </div>
                             <div class="product-actions">
                                 <button class="btn btn-sm btn-primary" onclick="openStockManagementModal('${product.id}')">
-                                    ðŸ“ˆ Add Stock
+                                    📈 Add Stock
                                 </button>
                             </div>
                         </div>
@@ -7289,7 +7289,7 @@
             
             // Populate the stock management modal
             document.getElementById('stockProductName').textContent = product.name;
-            document.getElementById('stockProductCategory').textContent = `${product.animal} â€¢ ${product.category}`;
+            document.getElementById('stockProductCategory').textContent = `${product.animal} • ${product.category}`;
             document.getElementById('currentStockDisplay').textContent = getTotalStock(product);
             
             // Handle stock breakdown display based on product category
@@ -7573,7 +7573,7 @@
             productsRefreshInterval = setInterval(async () => {
                 const currentSection = document.querySelector('.nav-btn.active')?.getAttribute('data-section');
                 if (currentSection === 'products') {
-                    console.log('ðŸ”„ Auto-refreshing products...');
+                    console.log('🔄 Auto-refreshing products...');
                     await loadProducts();
                 }
             }, 30000); // Refresh every 30 seconds
@@ -7589,7 +7589,7 @@
         // Load analytics
         async function loadAnalytics(period = 'day') {
             try {
-                console.log('ðŸ“Š Loading analytics for period:', period);
+                console.log('📊 Loading analytics for period:', period);
                 
                 // Get authentication token
                 const token = localStorage.getItem('token');
@@ -7599,7 +7599,7 @@
                 }
                 
                 const { startDate, endDate } = getDateRangeForPeriod(period);
-                console.log('ðŸ“Š Date range:', { startDate, endDate });
+                console.log('📊 Date range:', { startDate, endDate });
                 
                 const params = new URLSearchParams();
                 params.append('startDate', startDate.toISOString());
@@ -7608,7 +7608,7 @@
                 // Add timestamp to prevent caching
                 params.append('_t', Date.now());
                 
-                console.log('ðŸ“Š Making request to date-range API:', `${API_BASE}/orders/date-range?${params}`);
+                console.log('📊 Making request to date-range API:', `${API_BASE}/orders/date-range?${params}`);
                 
                 const response = await fetch(`${API_BASE}/orders/date-range?${params}`, {
                     method: 'GET',
@@ -7620,10 +7620,10 @@
                     }
                 });
                 
-                console.log('ðŸ“Š Response status:', response.status);
+                console.log('📊 Response status:', response.status);
                 
                 const analytics = await response.json();
-                console.log('ðŸ“Š Raw analytics response:', analytics);
+                console.log('📊 Raw analytics response:', analytics);
                 
                 if (response.ok) {
                     updateAnalyticsDisplay(analytics, period);
@@ -7637,7 +7637,7 @@
         
         // Load all analytics periods in parallel for speed
         async function loadAllAnalyticsPeriods() {
-            console.log('âš¡ Loading all analytics periods in parallel...');
+            console.log('⚡ Loading all analytics periods in parallel...');
             
             const token = localStorage.getItem('token');
             if (!token) {
@@ -7655,7 +7655,7 @@
                     const cached = JSON.parse(cachedDay);
                     updateAnalyticsDisplay(cached, 'day');
                     showAnalyticsLoading(false);
-                    console.log('âš¡ Showing cached day data');
+                    console.log('⚡ Showing cached day data');
                 } catch (e) {
                     console.log('Cache parse error, continuing...');
                 }
@@ -7696,7 +7696,7 @@
             // This shows day view as soon as it arrives
             Promise.race(requests).then(result => {
                 if (result.ok) {
-                    console.log(`âš¡ First response arrived (${result.period}):`, result.data);
+                    console.log(`⚡ First response arrived (${result.period}):`, result.data);
                     updateAnalyticsDisplay(result.data, result.period);
                     // Cache the data
                     localStorage.setItem(`analytics_${result.period}_cache`, JSON.stringify(result.data));
@@ -7710,15 +7710,15 @@
             // Process results as they arrive and cache them
             results.forEach((result, index) => {
                 if (result.status === 'fulfilled' && result.value.ok) {
-                    console.log(`âœ… ${result.value.period} analytics loaded`);
+                    console.log(`✅ ${result.value.period} analytics loaded`);
                     localStorage.setItem(`analytics_${result.value.period}_cache`, JSON.stringify(result.value.data));
                 } else {
-                    console.error(`âŒ Failed to load analytics`);
+                    console.error(`❌ Failed to load analytics`);
                 }
             });
             
             showAnalyticsLoading(false);
-            console.log('âš¡ All analytics periods loaded');
+            console.log('⚡ All analytics periods loaded');
         }
         
         // Get date range based on period
@@ -7783,7 +7783,7 @@
         
         // Process raw orders data into analytics format
         function processOrdersToAnalytics(ordersData) {
-            console.log('ðŸ“Š Processing', ordersData.length, 'orders into analytics...');
+            console.log('📊 Processing', ordersData.length, 'orders into analytics...');
             
             if (!ordersData || ordersData.length === 0) {
                 return {
@@ -7835,7 +7835,7 @@
                 totalRevenue += order.total || order.total || 0;
             });
             
-            console.log('ðŸ“Š Breakdown calculations:', {
+            console.log('📊 Breakdown calculations:', {
                 salesByAnimal,
                 salesByCategory,
                 totalRevenue
@@ -7860,7 +7860,7 @@
         
         // Update analytics display
         function updateAnalyticsDisplay(analyticsOrOrders, period = 'day') {
-            console.log('ðŸ“Š Updating analytics display with data:', analyticsOrOrders);
+            console.log('📊 Updating analytics display with data:', analyticsOrOrders);
             
             // If we received raw orders data, process it first
             let analytics;
@@ -7873,14 +7873,14 @@
             }
             
             document.getElementById('totalSales').textContent = analytics.totalSales;
-            document.getElementById('totalRevenue').textContent = `â‚±${analytics.totalRevenue.toFixed(2)}`;
+            document.getElementById('totalRevenue').textContent = `₱${analytics.totalRevenue.toFixed(2)}`;
             
             // Update animal sales
             const chickenSales = analytics.salesByAnimal.chicken ? analytics.salesByAnimal.chicken.count : 0;
             const pigSales = analytics.salesByAnimal.pig ? analytics.salesByAnimal.pig.count : 0;
             
-            console.log('ðŸ” Chicken sales:', chickenSales);
-            console.log('ðŸ· Pig sales:', pigSales);
+            console.log('🐔 Chicken sales:', chickenSales);
+            console.log('🐷 Pig sales:', pigSales);
             
             document.getElementById('chickenSales').textContent = chickenSales;
             document.getElementById('pigSales').textContent = pigSales;
@@ -7905,11 +7905,11 @@
             chart.innerHTML = `
                 <div style="display: flex; flex-direction: column; gap: 1rem; width: 100%;">
                     <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background: #e3f2fd; border-radius: 5px;">
-                        <span>ðŸ” Chicken</span>
+                        <span>🐔 Chicken</span>
                         <strong>${chickenCount} sales</strong>
                     </div>
                     <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background: #f3e5f5; border-radius: 5px;">
-                        <span>ðŸ· Pig</span>
+                        <span>🐷 Pig</span>
                         <strong>${pigCount} sales</strong>
                     </div>
                 </div>
@@ -7925,11 +7925,11 @@
             chart.innerHTML = `
                 <div style="display: flex; flex-direction: column; gap: 1rem; width: 100%;">
                     <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background: #e8f5e8; border-radius: 5px;">
-                        <span>ðŸ½ï¸ Feeds</span>
+                        <span>🍽️ Feeds</span>
                         <strong>${feedsCount} sales</strong>
                     </div>
                     <div style="display: flex; justify-content: space-between; align-items: center; padding: 0.5rem; background: #fff3cd; border-radius: 5px;">
-                        <span>ðŸ’Š Supplements</span>
+                        <span>💊 Supplements</span>
                         <strong>${supplementsCount} sales</strong>
                     </div>
                 </div>
@@ -7949,8 +7949,8 @@
         
         // Update recent sales with pagination
         function updateRecentSales(recentSales) {
-            console.log('ðŸ“Š Updating analytics recent sales with', recentSales.length, 'sales');
-            console.log('ðŸ“Š Recent sales data:', recentSales);
+            console.log('📊 Updating analytics recent sales with', recentSales.length, 'sales');
+            console.log('📊 Recent sales data:', recentSales);
             
             // Store all sales data for pagination
             recentSalesData = recentSales || [];
@@ -7990,11 +7990,11 @@
                     
                     return `
                         <tr class="${highlightClass}" style="${highlightStyle}">
-                            <td>${null || 'Unknown Product'}${isNewest ? ' ðŸ†•' : ''}</td>
+                            <td>${null || 'Unknown Product'}${isNewest ? ' 🆕' : ''}</td>
                             <td>${order.customerName || sale.customerInfo?.name || 'N/A'}</td>
                             <td>${order.items[0]?.quantity || 0}</td>
                             <td>${null || 'N/A'}</td>
-                            <td>â‚±${(order.total || 0).toFixed(2)}</td>
+                            <td>₱${(order.total || 0).toFixed(2)}</td>
                     <td>${new Date(order.orderDate).toLocaleDateString()}</td>
                 </tr>
                     `;
@@ -8122,11 +8122,11 @@
                 // Apply conditional scrolling based on product count
                 if (filteredProducts.length > 8) {
                     productsGrid.classList.add('scrollable');
-                    console.log('ðŸ“¦ Applied scrollable class for', filteredProducts.length, 'products');
-                    console.log('ðŸ“¦ productsGrid classes:', productsGrid.className);
+                    console.log('📦 Applied scrollable class for', filteredProducts.length, 'products');
+                    console.log('📦 productsGrid classes:', productsGrid.className);
                 } else {
                     productsGrid.classList.remove('scrollable');
-                    console.log('ðŸ“¦ Removed scrollable class for', filteredProducts.length, 'products');
+                    console.log('📦 Removed scrollable class for', filteredProducts.length, 'products');
                 }
             }
             
@@ -8198,9 +8198,9 @@
                 costPerSackElement.style.display = 'block';
                 costPerSackElement.style.visibility = 'visible';
                 costPerSackElement.style.opacity = '1';
-                console.log('âœ… Cost price field shown manually');
+                console.log('✅ Cost price field shown manually');
             } else {
-                console.log('âŒ Cost price field not found');
+                console.log('❌ Cost price field not found');
                 // Try alternative selectors
                 const modal = document.getElementById('productModal');
                 if (modal) {
@@ -8210,7 +8210,7 @@
                             group.style.display = 'block';
                             group.style.visibility = 'visible';
                             group.style.opacity = '1';
-                            console.log('âœ… Found and showed cost price field at index', index);
+                            console.log('✅ Found and showed cost price field at index', index);
                         }
                     });
                 }
@@ -8290,7 +8290,7 @@
                 const calculatedHalfKilosGroup = document.querySelector('#calculatedStockHalfKilos')?.closest('.form-group') || 
                                                  document.querySelector('#editCalculatedStockHalfKilos')?.closest('.form-group');
                 
-                console.log('ðŸ” Hiding supplement fields:', {
+                console.log('🔍 Hiding supplement fields:', {
                     netWeightGroup: !!netWeightGroup,
                     costPerSackField: !!costPerSackField,
                     calculatedKilosGroup: !!calculatedKilosGroup,
@@ -8335,49 +8335,49 @@
                 console.log('Showing feeds fields for category:', category);
                 if (pricePerSackGroup) {
                     pricePerSackGroup.style.display = 'block';
-                    console.log('âœ… Showing pricePerSackGroup');
+                    console.log('✅ Showing pricePerSackGroup');
                 }
                 if (pricePerKiloGroup) {
                     pricePerKiloGroup.style.display = 'block';
-                    console.log('âœ… Showing pricePerKiloGroup');
+                    console.log('✅ Showing pricePerKiloGroup');
                 }
                 if (costPerSackGroup) {
                     costPerSackGroup.style.display = 'block';
                     costPerSackGroup.style.visibility = 'visible';
                     costPerSackGroup.style.opacity = '1';
-                    console.log('âœ… Showing costPerSackGroup');
+                    console.log('✅ Showing costPerSackGroup');
                 } else {
-                    console.log('âŒ costPerSackGroup not found in JavaScript');
+                    console.log('❌ costPerSackGroup not found in JavaScript');
                     // Try to find it again
                     const costPerSackElement = document.getElementById('costPerSackGroup');
                     if (costPerSackElement) {
                         costPerSackElement.style.display = 'block';
                         costPerSackElement.style.visibility = 'visible';
                         costPerSackElement.style.opacity = '1';
-                        console.log('âœ… Found and showed costPerSackGroup via direct ID lookup');
+                        console.log('✅ Found and showed costPerSackGroup via direct ID lookup');
                     }
                 }
                 if (costPerSackNewGroup) {
                     costPerSackNewGroup.style.display = 'block';
-                    console.log('âœ… Showing costPerSackNewGroup');
+                    console.log('✅ Showing costPerSackNewGroup');
                 }
                 
                 // Show feed stock fields row (Stock Sacks + Cost Price Per Sack)
                 if (feedStockFieldsRow) {
                     feedStockFieldsRow.style.display = 'flex';
-                    console.log('âœ… Showing feedStockFieldsRow');
+                    console.log('✅ Showing feedStockFieldsRow');
                 }
                 
                 // Show feed cost price row
                 if (feedCostPriceRow) {
                     feedCostPriceRow.style.display = 'flex';
-                    console.log('âœ… Showing feedCostPriceRow');
+                    console.log('✅ Showing feedCostPriceRow');
                 }
                 
                 // Show calculated stock row
                 if (calculatedStockRow) {
                     calculatedStockRow.style.display = 'flex';
-                    console.log('âœ… Showing calculatedStockRow');
+                    console.log('✅ Showing calculatedStockRow');
                 }
                 
                 // Show feed-specific fields for feeds
@@ -8671,9 +8671,9 @@
                     costPerSackElement.style.display = 'block';
                     costPerSackElement.style.visibility = 'visible';
                     costPerSackElement.style.opacity = '1';
-                    console.log('âœ… Force showing costPerSackGroup in fallback');
+                    console.log('✅ Force showing costPerSackGroup in fallback');
                 } else {
-                    console.log('âŒ costPerSackGroup still not found in fallback');
+                    console.log('❌ costPerSackGroup still not found in fallback');
                 }
             }, 500);
             
@@ -8684,16 +8684,16 @@
                     costPerSackElement.style.display = 'block';
                     costPerSackElement.style.visibility = 'visible';
                     costPerSackElement.style.opacity = '1';
-                    console.log('âœ… Force showing costPerSackGroup in extended fallback');
+                    console.log('✅ Force showing costPerSackGroup in extended fallback');
                 } else {
-                    console.log('âŒ costPerSackGroup still not found in extended fallback');
+                    console.log('❌ costPerSackGroup still not found in extended fallback');
                     // Try to find it by searching the entire modal
                     const modal = document.getElementById('productModal');
                     if (modal) {
                         const allFormGroups = modal.querySelectorAll('.form-group');
-                        console.log('ðŸ” Found form groups in modal:', allFormGroups.length);
+                        console.log('🔍 Found form groups in modal:', allFormGroups.length);
                         allFormGroups.forEach((group, index) => {
-                            console.log(`ðŸ” Form group ${index}:`, {
+                            console.log(`🔍 Form group ${index}:`, {
                                 id: group.id,
                                 className: group.className,
                                 hasCostPriceLabel: !!group.querySelector('label[for="productCostPerSack"]'),
@@ -8703,7 +8703,7 @@
                                 group.style.display = 'block';
                                 group.style.visibility = 'visible';
                                 group.style.opacity = '1';
-                                console.log('âœ… Found costPerSackGroup in modal search at index', index);
+                                console.log('✅ Found costPerSackGroup in modal search at index', index);
                             }
                         });
                         
@@ -8715,7 +8715,7 @@
                                 parentGroup.style.display = 'block';
                                 parentGroup.style.visibility = 'visible';
                                 parentGroup.style.opacity = '1';
-                                console.log('âœ… Found cost price field by label search');
+                                console.log('✅ Found cost price field by label search');
                             }
                         }
                     }
@@ -8826,7 +8826,7 @@
                 productData.cost = parseFloat(formData.get('cost')) || 0;
                 // Get stock from the supplement field (name="stock") and store in stockSacks
                 const supplementStock = parseInt(formData.get('stock')) || 0;
-                console.log('ðŸ” Supplement stock processing:', {
+                console.log('🔍 Supplement stock processing:', {
                     rawStock: formData.get('stock'),
                     parsedStock: supplementStock,
                     category: category
@@ -8911,11 +8911,11 @@
                 const imageBase64 = await getImageAsBase64();
                 if (imageBase64) {
                     productData.imageUrl = imageBase64;
-                    console.log('ðŸ–¼ï¸ Image uploaded and converted to base64');
-                    console.log('ðŸ–¼ï¸ Base64 length:', imageBase64.length);
-                    console.log('ðŸ–¼ï¸ Base64 first 50 chars:', imageBase64.substring(0, 50));
+                    console.log('🖼️ Image uploaded and converted to base64');
+                    console.log('🖼️ Base64 length:', imageBase64.length);
+                    console.log('🖼️ Base64 first 50 chars:', imageBase64.substring(0, 50));
                 } else {
-                    console.log('ðŸ–¼ï¸ No image uploaded');
+                    console.log('🖼️ No image uploaded');
                 }
             } catch (error) {
                 console.error('Error processing image:', error);
@@ -8960,14 +8960,14 @@
                 console.log('API response ok:', response.ok);
                 
                 const result = await response.json();
-                console.log('ðŸ–¼ï¸ API response:', result);
+                console.log('🖼️ API response:', result);
                 
                 if (result.success) {
-                    console.log('ðŸ–¼ï¸ Product created/updated successfully');
+                    console.log('🖼️ Product created/updated successfully');
                     if (result.product && result.product.imageUrl) {
-                        console.log('ðŸ–¼ï¸ Product has imageUrl:', result.product.imageUrl.substring(0, 50));
+                        console.log('🖼️ Product has imageUrl:', result.product.imageUrl.substring(0, 50));
                     } else {
-                        console.log('ðŸ–¼ï¸ Product does not have imageUrl in response');
+                        console.log('🖼️ Product does not have imageUrl in response');
                     }
                     showNotification(result.message, 'success');
                     await loadProducts(); // Reload products from database
@@ -9057,7 +9057,7 @@
                 <!-- Basic Information Section -->
                 <div class="form-section">
                     <div class="section-header">
-                        <h3>ðŸ“ Basic Information</h3>
+                        <h3>📝 Basic Information</h3>
                     </div>
                 <div class="form-group">
                         <label for="productName" class="form-label">
@@ -9077,7 +9077,7 @@
                 <!-- Product Image Section -->
                 <div class="form-section">
                     <div class="section-header">
-                        <h3>ðŸ–¼ï¸ Product Image</h3>
+                        <h3>🖼️ Product Image</h3>
                     </div>
                 <div class="form-group">
                         <label for="productImage" class="form-label">Product Image</label>
@@ -9085,7 +9085,7 @@
                             <input type="file" id="productImage" name="image" class="image-upload-input" accept="image/*" onchange="handleImageUpload(event)">
                             <div class="image-upload-area" onclick="document.getElementById('productImage').click()">
                                 <div class="image-upload-content">
-                                    <div class="image-upload-icon">ðŸ“·</div>
+                                    <div class="image-upload-icon">📷</div>
                                     <div class="image-upload-text">
                                         <div class="upload-title">Click to upload image</div>
                                         <div class="upload-subtitle">or drag and drop</div>
@@ -9095,7 +9095,7 @@
                             </div>
                             <div id="imagePreview" class="image-preview" style="display: none;">
                                 <img id="previewImg" src="" alt="Preview" class="preview-image">
-                                <button type="button" class="remove-image-btn" onclick="removeImage()">âœ•</button>
+                                <button type="button" class="remove-image-btn" onclick="removeImage()">✕</button>
                             </div>
                         </div>
                         <div class="form-help">Upload a clear image of the product. Images are stored in the database for persistence.</div>
@@ -9105,7 +9105,7 @@
                 <!-- Category & Classification Section -->
                 <div class="form-section">
                     <div class="section-header">
-                        <h3>ðŸ·ï¸ Category & Classification</h3>
+                        <h3>🏷️ Category & Classification</h3>
                     </div>
                     <div class="form-row">
                         <div class="form-group">
@@ -9114,8 +9114,8 @@
                             </label>
                             <select id="productAnimal" name="animal" class="form-select" required>
                                 <option value="">Select Animal Type</option>
-                        <option value="chicken">ðŸ” Chicken</option>
-                        <option value="pig">ðŸ· Pig</option>
+                        <option value="chicken">🐔 Chicken</option>
+                        <option value="pig">🐷 Pig</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -9124,8 +9124,8 @@
                             </label>
                             <select id="productCategory" name="category" class="form-select" required>
                         <option value="">Select Category</option>
-                        <option value="feeds">ðŸ½ï¸ Feeds</option>
-                        <option value="supplements">ðŸ’Š Supplements</option>
+                        <option value="feeds">🍽️ Feeds</option>
+                        <option value="supplements">💊 Supplements</option>
                     </select>
                         </div>
                     </div>
@@ -9134,24 +9134,24 @@
                 <!-- Pricing Section -->
                 <div class="form-section">
                     <div class="section-header">
-                        <h3>ðŸ’° Pricing Information</h3>
+                        <h3>💰 Pricing Information</h3>
                     </div>
                 <div class="form-row">
                     <div class="form-group">
                             <label for="productPricePerSack" class="form-label">
-                                Selling Price per Sack (â‚±) <span class="required">*</span>
+                                Selling Price per Sack (₱) <span class="required">*</span>
                             </label>
                             <div class="input-group">
-                                <span class="input-prefix">â‚±</span>
+                                <span class="input-prefix">₱</span>
                                 <input type="number" id="productPricePerSack" name="pricePerSack" class="form-input" step="0.01" min="0" placeholder="0.00" required>
                     </div>
                         </div>
                     <div class="form-group">
                             <label for="productPricePerKilo" class="form-label">
-                                Selling Price per Kilo (â‚±) <span class="required">*</span>
+                                Selling Price per Kilo (₱) <span class="required">*</span>
                             </label>
                             <div class="input-group">
-                                <span class="input-prefix">â‚±</span>
+                                <span class="input-prefix">₱</span>
                                 <input type="number" id="productPricePerKilo" name="pricePerKilo" class="form-input" step="0.01" min="0" placeholder="0.00" required>
                             </div>
                     </div>
@@ -9160,10 +9160,10 @@
                 <!-- Supplement Price Field (hidden by default) -->
                 <div class="form-group" id="supplementPriceGroup" style="display: none;">
                         <label for="productPrice" class="form-label">
-                            Selling Price (â‚±) <span class="required">*</span>
+                            Selling Price (₱) <span class="required">*</span>
                         </label>
                         <div class="input-group">
-                            <span class="input-prefix">â‚±</span>
+                            <span class="input-prefix">₱</span>
                             <input type="number" id="productPrice" name="price" class="form-input" step="0.01" min="0" placeholder="0.00" required>
                         </div>
                 </div>
@@ -9171,10 +9171,10 @@
                     <!-- Supplement Cost Price Field (hidden by default) -->
                     <div class="form-group" id="supplementCostGroup" style="display: none;">
                         <label for="productCost" class="form-label">
-                            Cost Price (â‚±)
+                            Cost Price (₱)
                         </label>
                         <div class="input-group">
-                            <span class="input-prefix">â‚±</span>
+                            <span class="input-prefix">₱</span>
                             <input type="number" id="productCost" name="cost" class="form-input" step="0.01" min="0" placeholder="0.00">
                         </div>
                     </div>
@@ -9183,7 +9183,7 @@
                 <!-- Stock Information Section -->
                 <div class="form-section">
                     <div class="section-header">
-                        <h3>ðŸ“¦ Stock Information</h3>
+                        <h3>📦 Stock Information</h3>
                     </div>
         
         <!-- Feed Stock Fields Row (Stock Sacks + Net Weight) -->
@@ -9208,10 +9208,10 @@
         <div class="form-row" id="feedCostPriceRow">
             <div class="form-group">
                             <label for="productCostPerSack" class="form-label">
-                                Cost Price per Sack (â‚±)
+                                Cost Price per Sack (₱)
                             </label>
                             <div class="input-group">
-                                <span class="input-prefix">â‚±</span>
+                                <span class="input-prefix">₱</span>
                                 <input type="number" id="productCostPerSack" name="costPerSack" class="form-input" step="0.01" min="0" placeholder="0.00">
                             </div>
                             <div class="form-help">Enter the cost price you paid when buying this product</div>
@@ -9370,16 +9370,16 @@
             let icon = '';
             switch(type) {
                 case 'success':
-                    icon = 'âœ…';
+                    icon = '✅';
                     break;
                 case 'error':
-                    icon = 'âŒ';
+                    icon = '❌';
                     break;
                 case 'warning':
-                    icon = 'âš ï¸';
+                    icon = '⚠️';
                     break;
                 default:
-                    icon = 'â„¹ï¸';
+                    icon = 'ℹ️';
             }
             
             notification.innerHTML = `
@@ -9476,7 +9476,7 @@
                     // Update modal content
                     document.getElementById('qrProductName').textContent = product.name;
                     document.getElementById('qrProductDetails').textContent = 
-                        `${product.category === 'chicken' ? 'Chicken Feeds' : 'Pig Feeds'} â€¢ Sack: â‚±${(product.pricePerSack || product.price || 0).toFixed(2)} â€¢ Kilo: â‚±${(product.pricePerKilo || product.price || 0).toFixed(2)}`;
+                        `${product.category === 'chicken' ? 'Chicken Feeds' : 'Pig Feeds'} • Sack: ₱${(product.pricePerSack || product.price || 0).toFixed(2)} • Kilo: ₱${(product.pricePerKilo || product.price || 0).toFixed(2)}`;
                     
                     // Display QR code image
                     const qrCodeImg = document.getElementById('qrCodeImage');
@@ -9505,8 +9505,8 @@
         // Enhanced Print Receipt Function
         async function printReceipt(saleData) {
             try {
-                console.log('ðŸ–¨ï¸ Starting receipt print process...');
-                console.log('ðŸ“„ Sale data:', saleData);
+                console.log('🖨️ Starting receipt print process...');
+                console.log('📄 Sale data:', saleData);
                 
                 // Create receipt content for 57mm thermal printer
                 const receiptContent = `
@@ -9546,13 +9546,13 @@
                             <strong>Quantity:</strong> ${saleData.quantity} ${saleData.unit}
                         </div>
                         <div style="margin-bottom: 5px; color: black; font-size: 10px;">
-                            <strong>Unit Price:</strong> â‚±${saleData.unitPrice.toFixed(2)}
+                            <strong>Unit Price:</strong> ₱${saleData.unitPrice.toFixed(2)}
                         </div>
                         
                         <div style="border-top: 1px dashed #000; padding-top: 5px; margin: 10px 0;"></div>
                         
                         <div style="text-align: right; font-size: 12px; font-weight: bold; margin: 10px 0; color: black;">
-                            TOTAL: â‚±${saleData.total.toFixed(2)}
+                            TOTAL: ₱${saleData.total.toFixed(2)}
                         </div>
                         
                         <div style="border-top: 1px dashed #000; padding-top: 5px; margin: 10px 0;"></div>
@@ -9656,26 +9656,26 @@
                             }
                         }, 3000);
                         
-                        console.log('âœ… Print dialog triggered successfully');
+                        console.log('✅ Print dialog triggered successfully');
                         showNotification('Receipt sent to printer!', 'success');
                         
                     } catch (printError) {
-                        console.error('âŒ Error triggering print:', printError);
+                        console.error('❌ Error triggering print:', printError);
                         showNotification('Print dialog failed. The receipt window is open - please press Ctrl+P to print manually.', 'error');
                     }
                 }, 1000); // Increased timeout
                 
-                console.log('âœ… Receipt print window opened');
+                console.log('✅ Receipt print window opened');
                 
             } catch (error) {
-                console.error('âŒ Critical error in printReceipt:', error);
+                console.error('❌ Critical error in printReceipt:', error);
                 showNotification(`Receipt printing failed: ${error.message}`, 'error');
             }
         }
         
         // Test Print Function (for debugging)
         function testPrint() {
-            console.log('ðŸ§ª Testing print functionality...');
+            console.log('🧪 Testing print functionality...');
             
             const testData = {
                 productName: 'Test Chicken Feed',
@@ -9689,13 +9689,13 @@
                 timestamp: new Date()
             };
             
-            console.log('ðŸ“„ Test data created:', testData);
+            console.log('📄 Test data created:', testData);
             printReceipt(testData);
         }
         
         // Printer Diagnostics Function
         function diagnosePrinter() {
-            console.log('ðŸ” Running printer diagnostics...');
+            console.log('🔍 Running printer diagnostics...');
             
             // Check browser support
             const browserInfo = {
@@ -9706,26 +9706,26 @@
                 onLine: navigator.onLine
             };
             
-            console.log('ðŸŒ Browser Info:', browserInfo);
+            console.log('🌐 Browser Info:', browserInfo);
             
             // Test popup blocking
             try {
                 const testWindow = window.open('', '_blank', 'width=100,height=100');
                 if (testWindow) {
-                    console.log('âœ… Popup blocking: OK');
+                    console.log('✅ Popup blocking: OK');
                     testWindow.close();
                 } else {
-                    console.log('âŒ Popup blocking: BLOCKED');
+                    console.log('❌ Popup blocking: BLOCKED');
                 }
             } catch (e) {
-                console.log('âŒ Popup blocking: ERROR -', e.message);
+                console.log('❌ Popup blocking: ERROR -', e.message);
             }
             
             // Test print function availability
             if (typeof window.print === 'function') {
-                console.log('âœ… Print function: Available');
+                console.log('✅ Print function: Available');
             } else {
-                console.log('âŒ Print function: Not available');
+                console.log('❌ Print function: Not available');
             }
             
             showNotification('Printer diagnostics completed. Check console for results.', 'info');
@@ -9752,7 +9752,7 @@
             // Small delay to ensure modals are closed
             setTimeout(() => {
                 // Update the existing product modal to show purchase form
-                document.getElementById('modalTitle').textContent = `ðŸ›’ Purchase ${product.name}`;
+                document.getElementById('modalTitle').textContent = `🛒 Purchase ${product.name}`;
             
             // Create purchase form content
             const purchaseFormHTML = `
@@ -9761,10 +9761,10 @@
                         <h3>${product.name}</h3>
                         <p class="product-description">${product.description}</p>
                         <div class="product-meta">
-                            <span class="product-category">${product.category === 'chicken' ? 'ðŸ” Chicken' : 'ðŸ· Pig'} - ${product.category}</span>
+                            <span class="product-category">${product.category === 'chicken' ? '🐔 Chicken' : '🐷 Pig'} - ${product.category}</span>
                             <div class="product-pricing">
-                                <span class="price-option">Sack: â‚±${(product.pricePerSack || product.price || 0).toFixed(2)}</span>
-                                <span class="price-option">Kilo: â‚±${(product.pricePerKilo || product.price || 0).toFixed(2)}</span>
+                                <span class="price-option">Sack: ₱${(product.pricePerSack || product.price || 0).toFixed(2)}</span>
+                                <span class="price-option">Kilo: ₱${(product.pricePerKilo || product.price || 0).toFixed(2)}</span>
                             </div>
                             <div class="product-stock">
                                 <span class="stock-option">Sacks: ${product.stockSacks || product.stock || 0}</span>
@@ -9777,13 +9777,13 @@
                         <h4>Choose Purchase Option:</h4>
                         <div class="option-buttons">
                             <button class="purchase-option-btn" data-unit="sack" data-price="${product.pricePerSack || product.price || 0}">
-                                ðŸ›ï¸ Buy by Sack - â‚±${(product.pricePerSack || product.price || 0).toFixed(2)}
+                                🛍️ Buy by Sack - ₱${(product.pricePerSack || product.price || 0).toFixed(2)}
                             </button>
                             <button class="purchase-option-btn" data-unit="kilo" data-price="${product.pricePerKilo || product.price || 0}">
-                                âš–ï¸ Buy by Kilo - â‚±${(product.pricePerKilo || product.price || 0).toFixed(2)}
+                                ⚖️ Buy by Kilo - ₱${(product.pricePerKilo || product.price || 0).toFixed(2)}
                             </button>
                             <button class="purchase-option-btn" data-unit="half-kilo" data-price="${((product.pricePerKilo || product.price || 0) / 2).toFixed(2)}">
-                                âš–ï¸ Buy Half Kilo - â‚±${((product.pricePerKilo || product.price || 0) / 2).toFixed(2)}
+                                ⚖️ Buy Half Kilo - ₱${((product.pricePerKilo || product.price || 0) / 2).toFixed(2)}
                             </button>
                         </div>
                     </div>
@@ -9791,7 +9791,7 @@
                     <div class="quantity-section" id="purchaseQuantitySection" style="display: none;">
                         <h4>Quantity:</h4>
                         <input type="number" id="purchaseQuantity" class="quantity-input" min="1" value="1">
-                        <div class="total-price" id="purchaseTotal">Total: â‚±0.00</div>
+                        <div class="total-price" id="purchaseTotal">Total: ₱0.00</div>
                     </div>
                     
                     <div class="customer-info" id="purchaseCustomerInfo" style="display: none;">
@@ -9812,7 +9812,7 @@
                     
                     <div class="purchase-actions" id="purchaseActions" style="display: none;">
                         <button class="btn btn-primary" id="confirmPurchaseBtn">
-                            âœ… Confirm Purchase
+                            ✅ Confirm Purchase
                         </button>
                         <button class="btn btn-secondary" id="cancelPurchaseBtn">
                             Cancel
@@ -9895,7 +9895,7 @@
             function updatePurchaseTotal() {
                 const quantity = parseInt(quantityInput.value) || 0;
                 const total = quantity * unitPrice;
-                document.getElementById('purchaseTotal').textContent = `Total: â‚±${total.toFixed(2)}`;
+                document.getElementById('purchaseTotal').textContent = `Total: ₱${total.toFixed(2)}`;
             }
             
             // Confirm purchase button
@@ -10211,8 +10211,8 @@
                 if (response.ok) {
                     const result = await response.json();
                     staff = result.staff || [];
-                    console.log('ðŸ‘¥ Loaded staff from database:', staff.length);
-                    console.log('ðŸ‘¥ Staff data:', staff);
+                    console.log('👥 Loaded staff from database:', staff.length);
+                    console.log('👥 Staff data:', staff);
                     displayStaff();
                     updateStaffStats();
                 } else {
@@ -10265,9 +10265,9 @@
                                 ''
                             }
                             ${member.status === 'active' ? 
-                                `<button class="btn btn-warning btn-sm" onclick="pauseStaff('${member._id}')">â¸ï¸ Pause</button>` : 
+                                `<button class="btn btn-warning btn-sm" onclick="pauseStaff('${member._id}')">⏸️ Pause</button>` : 
                                 member.status === 'paused' ? 
-                                `<button class="btn btn-success btn-sm" onclick="activateStaff('${member._id}')">â–¶ï¸ Activate</button>` :
+                                `<button class="btn btn-success btn-sm" onclick="activateStaff('${member._id}')">▶️ Activate</button>` :
                                 ''
                             }
                             <button class="btn btn-secondary btn-sm" onclick="openChangePasswordModal('${member._id}', '${member.firstName} ${member.lastName}')"> Password</button><button class="btn btn-secondary btn-sm" onclick="editStaff('${member._id}')">Edit</button>
@@ -10285,12 +10285,12 @@
             const pendingStaff = staff.filter(member => member.status === 'pending').length;
             const pausedStaff = staff.filter(member => member.status === 'paused').length;
             
-            console.log('ðŸ“Š Staff stats calculation:');
-            console.log('ðŸ“Š Total staff:', totalStaff);
-            console.log('ðŸ“Š Active staff:', activeStaff);
-            console.log('ðŸ“Š Pending staff:', pendingStaff);
-            console.log('ðŸ“Š Paused staff:', pausedStaff);
-            console.log('ðŸ“Š Staff statuses:', staff.map(s => ({ name: s.firstName + ' ' + s.lastName, status: s.status })));
+            console.log('📊 Staff stats calculation:');
+            console.log('📊 Total staff:', totalStaff);
+            console.log('📊 Active staff:', activeStaff);
+            console.log('📊 Pending staff:', pendingStaff);
+            console.log('📊 Paused staff:', pausedStaff);
+            console.log('📊 Staff statuses:', staff.map(s => ({ name: s.firstName + ' ' + s.lastName, status: s.status })));
             
             document.getElementById('totalStaff').textContent = totalStaff;
             document.getElementById('activeStaff').textContent = activeStaff;
@@ -10324,7 +10324,7 @@
                     
                     // Show temporary password for testing (remove in production)
                     if (result.temporaryPassword) {
-                        console.log('ðŸ”‘ Temporary password for testing:', result.temporaryPassword);
+                        console.log('🔑 Temporary password for testing:', result.temporaryPassword);
                     }
                 } else {
                     // Show specific error message
@@ -10464,7 +10464,7 @@
                     
                     // Show temporary password for testing (remove in production)
                     if (result.temporaryPassword) {
-                        console.log('ðŸ”‘ New temporary password for testing:', result.temporaryPassword);
+                        console.log('🔑 New temporary password for testing:', result.temporaryPassword);
                     }
                 } else {
                     showNotification(result.error || 'Failed to resend invitation', 'error');
@@ -10624,7 +10624,7 @@
         // Load forecasting data
         async function loadForecasting() {
             try {
-                console.log('ðŸ“Š Loading forecasting data...');
+                console.log('📊 Loading forecasting data...');
                 
                 // Load sales data - get all historical data for forecasting
                 const oneYearAgo = new Date();
@@ -10635,7 +10635,7 @@
                 params.append('endDate', new Date().toISOString());
                 params.append('_t', Date.now());
                 
-                console.log('ðŸ“Š Loading forecasting data from:', oneYearAgo.toISOString(), 'to:', new Date().toISOString());
+                console.log('📊 Loading forecasting data from:', oneYearAgo.toISOString(), 'to:', new Date().toISOString());
                 
                 const salesResponse = await fetch(`${API_BASE}/orders/date-range?${params}`, {
                     method: 'GET',
@@ -10649,7 +10649,7 @@
                 if (salesResponse.ok) {
                     const salesData = await salesResponse.json();
                     forecastData.salesHistory = salesData.orders || [];
-                    console.log('ðŸ“Š Sales data loaded:', forecastData.salesHistory.length, 'records');
+                    console.log('📊 Sales data loaded:', forecastData.salesHistory.length, 'records');
                 }
                 
                 // Load products data
@@ -10662,7 +10662,7 @@
                 if (productsResponse.ok) {
                     const productsData = await productsResponse.json();
                     forecastData.products = productsData.products || [];
-                    console.log('ðŸ“Š Products data loaded:', forecastData.products.length, 'products');
+                    console.log('📊 Products data loaded:', forecastData.products.length, 'products');
                 }
                 
                 // Generate forecasts
@@ -10683,7 +10683,7 @@
         
         // Set up real-time forecasting updates
         function setupRealTimeForecasting() {
-            console.log('ðŸ”„ Setting up real-time forecasting updates...');
+            console.log('🔄 Setting up real-time forecasting updates...');
             
             // Method 1: Polling for new sales every 30 seconds
             setInterval(async () => {
@@ -10693,14 +10693,14 @@
             // Method 2: Listen for storage events (when new sales are added)
             window.addEventListener('storage', (event) => {
                 if (event.key === 'newSaleAdded' && event.newValue) {
-                    console.log('ðŸ”„ New sale detected via storage event');
+                    console.log('🔄 New sale detected via storage event');
                     refreshForecastingData();
                 }
             });
             
             // Method 3: Listen for custom events
             window.addEventListener('newSaleProcessed', () => {
-                console.log('ðŸ”„ New sale processed event received');
+                console.log('🔄 New sale processed event received');
                 refreshForecastingData();
             });
             
@@ -10709,13 +10709,13 @@
             setInterval(async () => {
                 const currentSalesCount = await getCurrentSalesCount();
                 if (currentSalesCount > lastSalesCount) {
-                    console.log('ðŸ”„ New sales detected, updating forecasts...');
+                    console.log('🔄 New sales detected, updating forecasts...');
                     lastSalesCount = currentSalesCount;
                     await refreshForecastingData();
                 }
             }, 10000); // Check every 10 seconds
             
-            console.log('âœ… Real-time forecasting monitoring active');
+            console.log('✅ Real-time forecasting monitoring active');
         }
         
         // Check for new sales
@@ -10748,12 +10748,12 @@
                     const currentSalesCount = forecastData.salesHistory.length;
                     
                     if (newSalesCount > currentSalesCount) {
-                        console.log('ðŸ”„ New sales detected! Updating forecasts...');
+                        console.log('🔄 New sales detected! Updating forecasts...');
                         await refreshForecastingData();
                     }
                 }
             } catch (error) {
-                console.log('ðŸ“Š Sales check error (ignored):', error);
+                console.log('📊 Sales check error (ignored):', error);
             }
         }
         
@@ -10786,7 +10786,7 @@
                     return (salesData.sales || []).length;
                 }
             } catch (error) {
-                console.log('ðŸ“Š Sales count check error (ignored):', error);
+                console.log('📊 Sales count check error (ignored):', error);
             }
             return forecastData.salesHistory.length;
         }
@@ -10794,7 +10794,7 @@
         // Refresh forecasting data when new sales are detected
         async function refreshForecastingData() {
             try {
-                console.log('ðŸ”„ Refreshing forecasting data...');
+                console.log('🔄 Refreshing forecasting data...');
                 
                 // Reload sales data - get all historical data for forecasting
                 const oneYearAgo = new Date();
@@ -10823,7 +10823,7 @@
                     const oldSalesCount = forecastData.salesHistory.length;
                     // forecastData.salesHistory = salesData.sales || [];
                     if (newSalesCount > oldSalesCount) {
-                        console.log(`ðŸ“Š New sales detected: ${newSalesCount - oldSalesCount} new orders`);
+                        console.log(`📊 New sales detected: ${newSalesCount - oldSalesCount} new orders`);
                         // Regenerate forecasts with new data
                         generateForecasts();
                         await updateForecastDisplay();
@@ -10853,7 +10853,7 @@
                 font-weight: 600;
                 animation: slideInRight 0.3s ease-out;
             `;
-            notification.innerHTML = 'ðŸ“Š Forecasts updated with new sales data';
+            notification.innerHTML = '📊 Forecasts updated with new sales data';
             
             document.body.appendChild(notification);
             
@@ -10869,7 +10869,7 @@
             const products = forecastData.products;
             
             if (salesData.length === 0) {
-                console.log('ðŸ“Š No sales data available for forecasting');
+                console.log('📊 No sales data available for forecasting');
                 return;
             }
             // Only use order-level objects for salesHistory (do not flatten to sale items)
@@ -10894,9 +10894,9 @@
                             const productNameMatch = item.productName === product.name;
                             if (productIdMatch || productNameMatch) {
                                 productSales.push({
+                                    ...item,
                                     saleDate: order.createdAt || order.orderDate,
-                                    quantity: item.quantity || 1,
-                                    total: item.totalPrice || item.price || 0
+                                    totalAmount: item.totalPrice || item.price || 0
                                 });
                             }
                         });
@@ -10918,7 +10918,7 @@
                     };
                 }
             });
-            console.log('ðŸ“Š Forecasts generated for', Object.keys(forecastData.forecasts).length, 'products');
+            console.log('📊 Forecasts generated for', Object.keys(forecastData.forecasts).length, 'products');
         }
         
         // Calculate monthly sales
@@ -10940,7 +10940,7 @@
         
         // Calculate product forecast
         function calculateProductForecast(salesData, product) {
-            console.log(`ðŸ“Š Calculating forecast for ${product.name} with ${salesData.length} sales`);
+            console.log(`📊 Calculating forecast for ${product.name} with ${salesData.length} sales`);
             
             const monthlyData = {};
             
@@ -10957,15 +10957,15 @@
                 monthlyData[monthKey].revenue += (order.total || 0);
             });
             
-            console.log(`ðŸ“Š Monthly data for ${product.name}:`, monthlyData);
+            console.log(`📊 Monthly data for ${product.name}:`, monthlyData);
             
             // Calculate trend
             const months = Object.keys(monthlyData).sort();
             const quantities = months.map(month => monthlyData[month].quantity);
             const revenues = months.map(month => monthlyData[month].revenue);
             
-            console.log(`ðŸ“Š Quantities for ${product.name}:`, quantities);
-            console.log(`ðŸ“Š Revenues for ${product.name}:`, revenues);
+            console.log(`📊 Quantities for ${product.name}:`, quantities);
+            console.log(`📊 Revenues for ${product.name}:`, revenues);
             
             // Handle cases with limited data
             if (quantities.length === 0) {
@@ -10985,7 +10985,7 @@
             const trend = calculateTrend(quantities);
             const revenueTrend = calculateTrend(revenues);
             
-            console.log(`ðŸ“Š Trend for ${product.name}:`, trend, 'Revenue trend:', revenueTrend);
+            console.log(`📊 Trend for ${product.name}:`, trend, 'Revenue trend:', revenueTrend);
             
             // Forecast next month - use average if trend is unreliable
             let nextMonthForecast;
@@ -11086,10 +11086,10 @@
         
         // Calculate actual growth rate based on sales data
         function calculateActualGrowthRate(salesData) {
-            console.log('ðŸ“Š Calculating growth rate with', salesData.length, 'sales');
+            console.log('📊 Calculating growth rate with', salesData.length, 'sales');
             
             if (!salesData || salesData.length < 2) {
-                console.log('ðŸ“Š Not enough sales data for growth calculation');
+                console.log('📊 Not enough sales data for growth calculation');
                 return 0;
             }
             
@@ -11105,14 +11105,14 @@
                 monthlyRevenue[monthKey] += (order.total || 0);
             });
             
-            console.log('ðŸ“Š Monthly revenue data:', monthlyRevenue);
+            console.log('📊 Monthly revenue data:', monthlyRevenue);
             
             // Sort months and get revenue data
             const months = Object.keys(monthlyRevenue).sort();
-            console.log('ðŸ“Š Available months:', months);
+            console.log('📊 Available months:', months);
             
             if (months.length < 2) {
-                console.log('ðŸ“Š Only one month of data, using trend-based calculation');
+                console.log('📊 Only one month of data, using trend-based calculation');
                 // If only one month, calculate based on daily trend within that month
                 return calculateDailyTrendGrowthRate(salesData);
             }
@@ -11122,15 +11122,15 @@
             const currentMonthRevenue = monthlyRevenue[recentMonths[1]] || 0;
             const previousMonthRevenue = monthlyRevenue[recentMonths[0]] || 0;
             
-            console.log('ðŸ“Š Current month revenue:', currentMonthRevenue);
-            console.log('ðŸ“Š Previous month revenue:', previousMonthRevenue);
+            console.log('📊 Current month revenue:', currentMonthRevenue);
+            console.log('📊 Previous month revenue:', previousMonthRevenue);
             
             if (previousMonthRevenue === 0) {
                 return currentMonthRevenue > 0 ? 100 : 0;
             }
             
             const growthRate = ((currentMonthRevenue - previousMonthRevenue) / previousMonthRevenue) * 100;
-            console.log('ðŸ“Š Calculated growth rate:', growthRate);
+            console.log('📊 Calculated growth rate:', growthRate);
             return isNaN(growthRate) ? 0 : growthRate;
         }
         
@@ -11170,13 +11170,13 @@
             }
             
             const growthRate = ((secondHalfRevenue - firstHalfRevenue) / firstHalfRevenue) * 100;
-            console.log('ðŸ“Š Daily trend growth rate:', growthRate);
+            console.log('📊 Daily trend growth rate:', growthRate);
             return isNaN(growthRate) ? 0 : growthRate;
         }
         
         // Fallback growth rate calculation for limited data
         function calculateFallbackGrowthRate(salesData) {
-            console.log('ðŸ“Š Using fallback growth calculation with', salesData.length, 'sales');
+            console.log('📊 Using fallback growth calculation with', salesData.length, 'sales');
             
             if (salesData.length < 2) {
                 return 0;
@@ -11190,28 +11190,28 @@
             const recentSales = sortedSales.slice(-quarterPoint);
             const previousSales = sortedSales.slice(-quarterPoint * 2, -quarterPoint);
             
-            console.log('ðŸ“Š Recent sales count:', recentSales.length);
-            console.log('ðŸ“Š Previous sales count:', previousSales.length);
+            console.log('📊 Recent sales count:', recentSales.length);
+            console.log('📊 Previous sales count:', previousSales.length);
             
             const recentRevenue = recentSales.reduce((sum, sale) => sum + (order.total || 0), 0);
             const previousRevenue = previousSales.reduce((sum, sale) => sum + (order.total || 0), 0);
             
-            console.log('ðŸ“Š Recent revenue:', recentRevenue);
-            console.log('ðŸ“Š Previous revenue:', previousRevenue);
+            console.log('📊 Recent revenue:', recentRevenue);
+            console.log('📊 Previous revenue:', previousRevenue);
             
             // If we don't have enough data for comparison, use a positive growth assumption
             if (previousRevenue === 0 || recentSales.length < 2) {
-                console.log('ðŸ“Š Insufficient data for comparison, using positive growth assumption');
+                console.log('📊 Insufficient data for comparison, using positive growth assumption');
                 return 15; // Assume 15% growth for new businesses
             }
             
             const growthRate = ((recentRevenue - previousRevenue) / previousRevenue) * 100;
-            console.log('ðŸ“Š Fallback growth rate:', growthRate);
+            console.log('📊 Fallback growth rate:', growthRate);
             
             // If growth is very negative, it might be due to data distribution issues
             // Use a more conservative approach
             if (growthRate < -30) {
-                console.log('ðŸ“Š Very negative growth detected, using conservative positive growth');
+                console.log('📊 Very negative growth detected, using conservative positive growth');
                 return 10; // Assume 10% growth instead of negative
             }
             
@@ -11221,56 +11221,56 @@
         
         // Business-aware growth rate calculation for high-revenue businesses
         function calculateBusinessAwareGrowthRate(salesData, totalRevenue) {
-            console.log('ðŸ“Š Calculating business-aware growth rate for high-revenue business');
-            console.log('ðŸ“Š Total revenue:', totalRevenue);
+            console.log('📊 Calculating business-aware growth rate for high-revenue business');
+            console.log('📊 Total revenue:', totalRevenue);
             
             // For businesses with high revenue, use a more optimistic approach
             const salesCount = salesData.length;
             const avgSaleValue = totalRevenue / salesCount;
             
-            console.log('ðŸ“Š Sales count:', salesCount);
-            console.log('ðŸ“Š Average sale value:', avgSaleValue);
+            console.log('📊 Sales count:', salesCount);
+            console.log('📊 Average sale value:', avgSaleValue);
             
             // Calculate based on sales frequency and value
             const recentSales = salesData.slice(-Math.min(10, Math.floor(salesCount * 0.1)));
             const recentRevenue = recentSales.reduce((sum, sale) => sum + (order.total || 0), 0);
             const recentAvg = recentRevenue / recentSales.length;
             
-            console.log('ðŸ“Š Recent average sale:', recentAvg);
-            console.log('ðŸ“Š Overall average sale:', avgSaleValue);
+            console.log('📊 Recent average sale:', recentAvg);
+            console.log('📊 Overall average sale:', avgSaleValue);
             
             // If recent sales are performing well, assume positive growth
             if (recentAvg >= avgSaleValue * 0.8) { // Recent sales are at least 80% of average
-                console.log('ðŸ“Š Recent sales performing well, assuming positive growth');
+                console.log('📊 Recent sales performing well, assuming positive growth');
                 return 15; // Assume 15% growth for healthy businesses
             }
             
             // If we have high revenue but declining recent sales, use conservative growth
             if (totalRevenue > 2000000) { // Over 2M in sales
-                console.log('ðŸ“Š High-revenue business, using conservative positive growth');
+                console.log('📊 High-revenue business, using conservative positive growth');
                 return 8; // Conservative 8% growth
             }
             
             // Default positive growth for established businesses
-            console.log('ðŸ“Š Using default positive growth for established business');
+            console.log('📊 Using default positive growth for established business');
             return 12; // 12% growth assumption
         }
         
         // Update forecast display
         async function updateForecastDisplay() {
-            console.log('ðŸ“Š Updating forecast display...');
+            console.log('📊 Updating forecast display...');
             const salesData = forecastData.salesHistory;
             const products = forecastData.products;
             
-            console.log('ðŸ“Š Sales data length:', salesData.length);
-            console.log('ðŸ“Š Products length:', products.length);
-            console.log('ðŸ“Š Raw sales data sample:', salesData.slice(0, 3));
+            console.log('📊 Sales data length:', salesData.length);
+            console.log('📊 Products length:', products.length);
+            console.log('📊 Raw sales data sample:', salesData.slice(0, 3));
             
             if (salesData.length === 0) {
-                console.log('âš ï¸ No sales data to display - showing placeholders');
+                console.log('⚠️ No sales data to display - showing placeholders');
                 // Set default values for UI
-                document.getElementById('nextMonthForecast').textContent = `â‚±0.00`;
-                document.getElementById('quarterlyTarget').textContent = `â‚±0.00`;
+                document.getElementById('nextMonthForecast').textContent = `₱0.00`;
+                document.getElementById('quarterlyTarget').textContent = `₱0.00`;
                 document.getElementById('growthRate').textContent = `0%`;
                 document.getElementById('topProduct').textContent = `-`;
                 return;
@@ -11281,7 +11281,7 @@
             const monthsDifference = getMonthsDifference(salesData);
             const monthlyRevenue = monthsDifference > 0 ? totalRevenue / monthsDifference : totalRevenue;
             
-            console.log('ðŸ“Š Forecast calculations:', {
+            console.log('📊 Forecast calculations:', {
                 totalRevenue,
                 monthsDifference,
                 monthlyRevenue,
@@ -11293,13 +11293,13 @@
             
             // If growth rate is still 0, use a more sophisticated calculation
             if (actualGrowthRate === 0 && salesData.length > 0) {
-                console.log('ðŸ“Š Using fallback growth calculation...');
+                console.log('📊 Using fallback growth calculation...');
                 actualGrowthRate = calculateFallbackGrowthRate(salesData);
             }
             
             // If we still have a very negative growth rate, apply business logic
             if (actualGrowthRate < -20 && totalRevenue > 1000000) { // If you have over 1M in sales
-                console.log('ðŸ“Š High revenue business with negative growth - applying business logic');
+                console.log('📊 High revenue business with negative growth - applying business logic');
                 actualGrowthRate = calculateBusinessAwareGrowthRate(salesData, totalRevenue);
             }
             
@@ -11312,7 +11312,7 @@
             const safeQuarterlyTarget = isNaN(monthlyRevenue * 3) ? 0 : monthlyRevenue * 3;
             const safeQuarterlyProgress = isNaN((totalRevenue / (monthlyRevenue * 3)) * 100) ? 0 : Math.min(100, (totalRevenue / (monthlyRevenue * 3)) * 100);
             
-            console.log('ðŸ“Š Safe values for display:', {
+            console.log('📊 Safe values for display:', {
                 safeNextMonthForecast: safeNextMonthForecast.toFixed(2),
                 safeGrowthRate: safeGrowthRate.toFixed(1),
                 safeQuarterlyTarget: safeQuarterlyTarget.toFixed(2),
@@ -11326,10 +11326,10 @@
             const topProductElement = document.getElementById('topProduct');
             
             if (nextMonthElement) {
-                nextMonthElement.textContent = `â‚±${safeNextMonthForecast.toFixed(2)}`;
+                nextMonthElement.textContent = `₱${safeNextMonthForecast.toFixed(2)}`;
             }
             if (quarterlyElement) {
-                quarterlyElement.textContent = `â‚±${safeQuarterlyTarget.toFixed(2)}`;
+                quarterlyElement.textContent = `₱${safeQuarterlyTarget.toFixed(2)}`;
             }
             if (growthElement) {
                 growthElement.textContent = `${safeGrowthRate.toFixed(1)}%`;
@@ -11354,7 +11354,7 @@
             // Update growth trend emoji
             const growthTrend = document.getElementById('growthTrend');
             if (growthTrend) {
-                growthTrend.textContent = safeGrowthRate >= 0 ? 'ðŸ“ˆ' : 'ðŸ“‰';
+                growthTrend.textContent = safeGrowthRate >= 0 ? '📈' : '📉';
             }
             
             // Top product
@@ -11365,7 +11365,7 @@
                 }
                 const topProductSales = document.getElementById('topProductSales');
                 if (topProductSales) {
-                    topProductSales.textContent = `â‚±${topProduct.revenue.toFixed(2)}`;
+                    topProductSales.textContent = `₱${topProduct.revenue.toFixed(2)}`;
                 }
             }
             
@@ -11397,7 +11397,7 @@
             // Update insights
             updateForecastInsights();
             
-            console.log('ðŸ“Š Forecast display update complete');
+            console.log('📊 Forecast display update complete');
         }
         
         // Update daily sales display - use same logic as analytics
@@ -11420,7 +11420,7 @@
                             ...sale,
                             id: sale._id || sale.id,
                             receiptNumber: sale.receiptNumber,
-                            total: order.total,
+                            totalAmount: order.total,
                         }));
                         updateRecentSalesTable();
                     }
@@ -11469,10 +11469,10 @@
                     if (yesterdayResponse.ok) {
                         const yesterdayData = await yesterdayResponse.json();
                         const yesterdaySummary = yesterdayData.summary || {};
-                        document.getElementById('yesterdaySales').textContent = `â‚±${(yesterdaySummary.totalRevenue || 0).toFixed(2)}`;
+                        document.getElementById('yesterdaySales').textContent = `₱${(yesterdaySummary.totalRevenue || 0).toFixed(2)}`;
                         document.getElementById('yesterdayOrders').textContent = `${yesterdaySummary.totalOrders || 0} orders`;
                     } else {
-                        document.getElementById('yesterdaySales').textContent = 'â‚±0.00';
+                        document.getElementById('yesterdaySales').textContent = '₱0.00';
                         document.getElementById('yesterdayOrders').textContent = '0 orders';
                     }
 
@@ -11496,40 +11496,40 @@
                         const weekSummary = weekData.summary || {};
                         const weekRevenue = weekSummary.totalRevenue || 0;
                         const weekOrders = weekSummary.totalOrders || 0;
-                        document.getElementById('weekSales').textContent = `â‚±${weekRevenue.toFixed(2)}`;
+                        document.getElementById('weekSales').textContent = `₱${weekRevenue.toFixed(2)}`;
                         document.getElementById('weekOrders').textContent = `${weekOrders} orders`;
                         // Calculate daily average for the week
                         const dailyAverage = weekRevenue / 7;
                         const avgOrders = weekOrders / 7;
-                        document.getElementById('dailyAverage').textContent = `â‚±${dailyAverage.toFixed(2)}`;
+                        document.getElementById('dailyAverage').textContent = `₱${dailyAverage.toFixed(2)}`;
                         document.getElementById('avgOrders').textContent = `${avgOrders.toFixed(1)} orders/day`;
                     } else {
-                        document.getElementById('weekSales').textContent = 'â‚±0.00';
+                        document.getElementById('weekSales').textContent = '₱0.00';
                         document.getElementById('weekOrders').textContent = '0 orders';
-                        document.getElementById('dailyAverage').textContent = 'â‚±0.00';
+                        document.getElementById('dailyAverage').textContent = '₱0.00';
                         document.getElementById('avgOrders').textContent = '0 orders/day';
                     }
                 } else {
                     // Fallback to zero values if API call fails
-                    document.getElementById('todaySales').textContent = 'â‚±0.00';
+                    document.getElementById('todaySales').textContent = '₱0.00';
                     document.getElementById('todayOrders').textContent = '0 orders';
-                    document.getElementById('yesterdaySales').textContent = 'â‚±0.00';
+                    document.getElementById('yesterdaySales').textContent = '₱0.00';
                     document.getElementById('yesterdayOrders').textContent = '0 orders';
-                    document.getElementById('weekSales').textContent = 'â‚±0.00';
+                    document.getElementById('weekSales').textContent = '₱0.00';
                     document.getElementById('weekOrders').textContent = '0 orders';
-                    document.getElementById('dailyAverage').textContent = 'â‚±0.00';
+                    document.getElementById('dailyAverage').textContent = '₱0.00';
                     document.getElementById('avgOrders').textContent = '0 orders/day';
                 }
             } catch (error) {
                 console.error('Error updating daily sales display:', error);
                 // Set all daily stats to zero on error
-                document.getElementById('todaySales').textContent = 'â‚±0.00';
+                document.getElementById('todaySales').textContent = '₱0.00';
                 document.getElementById('todayOrders').textContent = '0 orders';
-                document.getElementById('yesterdaySales').textContent = 'â‚±0.00';
+                document.getElementById('yesterdaySales').textContent = '₱0.00';
                 document.getElementById('yesterdayOrders').textContent = '0 orders';
-                document.getElementById('weekSales').textContent = 'â‚±0.00';
+                document.getElementById('weekSales').textContent = '₱0.00';
                 document.getElementById('weekOrders').textContent = '0 orders';
-                document.getElementById('dailyAverage').textContent = 'â‚±0.00';
+                document.getElementById('dailyAverage').textContent = '₱0.00';
                 document.getElementById('avgOrders').textContent = '0 orders/day';
             }
         }
@@ -11539,7 +11539,7 @@
             // Use order-level objects for recent sales
             const salesData = forecastData.salesHistory;
             const tbody = document.getElementById('recentSalesTableBody');
-            console.log('ðŸ“Š Updating recent sales table with', salesData.length, 'orders');
+            console.log('📊 Updating recent sales table with', salesData.length, 'orders');
             // Store all sales data
             forecastingSalesData = salesData || [];
             // Sort all orders by date (orderDate, createdAt, or saleDate)
@@ -11573,14 +11573,14 @@
                 paginationControls.style.display = 'flex';
             }
             if (forecastingSalesData.length === 0) {
-                console.log('ðŸ“Š No sales data for recent sales table');
+                console.log('📊 No sales data for recent sales table');
                 tbody.innerHTML = '<tr><td colspan="5" style="text-align: center; color: #a09080;">No recent sales data</td></tr>';
                 return;
             }
             tbody.innerHTML = filteredOrders.map((order, index) => {
                 try {
                     // Debug: log the order object to inspect staffName
-                    console.log('ðŸ§‘â€ðŸ’¼ Rendering order row:', order);
+                    console.log('🧑‍💼 Rendering order row:', order);
                     // Display only the 17th to 24th characters of the id as the receipt number
                     let receiptNo = '-';
                     if (order.id && typeof order.id === 'string' && order.id.length >= 24) {
@@ -11631,11 +11631,11 @@
                     return `
                         <tr class="${highlightClass}" style="${highlightStyle}">
                             <td>${receiptNo}</td>
-                            <td>${timeString}${isGloballyNewest ? ' ðŸ†•' : ''}</td>
+                            <td>${timeString}${isGloballyNewest ? ' 🆕' : ''}</td>
                             <td>${staffName}</td>
                             <td>${customerName}</td>
                             <td>${quantity} items - ${itemsSummary}</td>
-                            <td>â‚±${totalAmount.toLocaleString()}</td>
+                            <td>₱${totalAmount.toLocaleString()}</td>
                             <td class="status-${status}">${status.charAt(0).toUpperCase() + status.slice(1)}</td>
                         </tr>
                     `;
@@ -11652,7 +11652,7 @@
             const totalRevenue = document.getElementById('recentSalesTotal');
             
             if (!totalCount || !totalRevenue) {
-                console.log('ðŸ“Š Recent sales summary elements not found');
+                console.log('📊 Recent sales summary elements not found');
                 return;
             }
             
@@ -11663,7 +11663,7 @@
             totalCount.textContent = totalOrders;
             totalRevenue.textContent = totalRevenueAmount.toFixed(2);
             
-            console.log('ðŸ“Š Updated recent sales summary:', { totalOrders, totalRevenueAmount });
+            console.log('📊 Updated recent sales summary:', { totalOrders, totalRevenueAmount });
         }
         
         // Update forecasting pagination controls
@@ -11762,28 +11762,28 @@
         
         // Update forecast table
         function updateForecastTable() {
-            console.log('ðŸ“Š Updating forecast table...');
+            console.log('📊 Updating forecast table...');
             const tbody = document.getElementById('forecastTableBody');
             const products = forecastData.products;
             
             if (!tbody) {
-                console.error('ðŸ“Š forecastTableBody element not found');
+                console.error('📊 forecastTableBody element not found');
                 return;
             }
             
             if (!products || products.length === 0) {
-                console.log('ðŸ“Š No products available for forecast table');
+                console.log('📊 No products available for forecast table');
                 tbody.innerHTML = '<tr><td colspan="6">No products available</td></tr>';
                 return;
             }
             
-            console.log('ðŸ“Š Products for forecast table:', products.length);
-            console.log('ðŸ“Š Forecasts available:', Object.keys(forecastData.forecasts).length);
+            console.log('📊 Products for forecast table:', products.length);
+            console.log('📊 Forecasts available:', Object.keys(forecastData.forecasts).length);
             
             const tableRows = products.map(product => {
                 const forecast = forecastData.forecasts[product._id];
                 if (!forecast) {
-                    console.log(`ðŸ“Š No forecast for product: ${product.name}`);
+                    console.log(`📊 No forecast for product: ${product.name}`);
                     return '';
                 }
                 
@@ -11800,8 +11800,8 @@
                 return `
                     <tr>
                         <td>${product.name}</td>
-                        <td>â‚±${forecast.currentRevenue.toLocaleString()}</td>
-                        <td>â‚±${forecast.nextMonthForecast.toLocaleString()}</td>
+                        <td>₱${forecast.currentRevenue.toLocaleString()}</td>
+                        <td>₱${forecast.nextMonthForecast.toLocaleString()}</td>
                         <td>${growthPercent}%</td>
                         <td>${confidence}%</td>
                         <td>${recommendation}</td>
@@ -11810,12 +11810,12 @@
             }).join('');
             
             tbody.innerHTML = tableRows;
-            console.log('ðŸ“Š Forecast table updated with', products.length, 'products');
+            console.log('📊 Forecast table updated with', products.length, 'products');
         }
         
         // Update forecast insights
         function updateForecastInsights() {
-            console.log('ðŸ“Š Updating forecast insights...');
+            console.log('📊 Updating forecast insights...');
             
             const opportunities = [
                 'Chicken feed products showing strong growth potential',
@@ -11843,23 +11843,23 @@
             
             if (opportunitiesList) {
                 opportunitiesList.innerHTML = opportunities.map(opp => `<li>${opp}</li>`).join('');
-                console.log('ðŸ“Š Updated opportunities list');
+                console.log('📊 Updated opportunities list');
             } else {
-                console.error('ðŸ“Š opportunitiesList element not found');
+                console.error('📊 opportunitiesList element not found');
             }
             
             if (risksList) {
                 risksList.innerHTML = risks.map(risk => `<li>${risk}</li>`).join('');
-                console.log('ðŸ“Š Updated risks list');
+                console.log('📊 Updated risks list');
             } else {
-                console.error('ðŸ“Š risksList element not found');
+                console.error('📊 risksList element not found');
             }
             
             if (recommendationsList) {
                 recommendationsList.innerHTML = recommendations.map(rec => `<li>${rec}</li>`).join('');
-                console.log('ðŸ“Š Updated recommendations list');
+                console.log('📊 Updated recommendations list');
             } else {
-                console.error('ðŸ“Š recommendationsList element not found');
+                console.error('📊 recommendationsList element not found');
             }
         }
         
@@ -11878,7 +11878,7 @@
         // Sales Chart Functions
         async function loadSalesChart() {
             try {
-                console.log('ðŸ“Š Loading sales chart data...');
+                console.log('📊 Loading sales chart data...');
                 
                 // Calculate date range based on current period
                 const endDate = new Date();
@@ -11904,7 +11904,7 @@
                 
                 if (response.ok) {
                     const data = await response.json();
-                    console.log('ðŸ“Š Sales chart data loaded:', data);
+                    console.log('📊 Sales chart data loaded:', data);
                     createSalesChart(data.orders || []);
                 } else {
                     console.error('Failed to load sales chart data');
@@ -11933,7 +11933,7 @@
                 data: {
                     labels: chartData.labels,
                     datasets: [{
-                        label: 'Daily Sales (â‚±)',
+                        label: 'Daily Sales (₱)',
                         data: chartData.values,
                         borderColor: '#8b7355',
                         backgroundColor: 'rgba(139, 115, 85, 0.1)',
@@ -11970,7 +11970,7 @@
                             borderWidth: 1,
                             callbacks: {
                                 label: function(context) {
-                                    return `Sales: â‚±${context.parsed.y.toLocaleString()}`;
+                                    return `Sales: ₱${context.parsed.y.toLocaleString()}`;
                                 }
                             }
                         }
@@ -11998,7 +11998,7 @@
                                     size: 12
                                 },
                                 callback: function(value) {
-                                    return 'â‚±' + value.toLocaleString();
+                                    return '₱' + value.toLocaleString();
                                 }
                             }
                         }
@@ -12012,7 +12012,7 @@
         }
         
         function processSalesDataForChart(salesData) {
-            console.log('ðŸ“Š Processing sales data for chart:', salesData);
+            console.log('📊 Processing sales data for chart:', salesData);
             const days = currentChartPeriod;
             const labels = [];
             const values = [];
@@ -12054,7 +12054,7 @@
                 }
             }
             
-            console.log('ðŸ“Š Final chart data:', { labels, values });
+            console.log('📊 Final chart data:', { labels, values });
             return { labels, values };
         }
         
@@ -12133,14 +12133,14 @@
         
         // Initialize dashboard
         document.addEventListener('DOMContentLoaded', () => {
-            console.log('ðŸš€ Dashboard initializing...');
+            console.log('🚀 Dashboard initializing...');
             
             // Initialize admin QR scanner
             initAdminScanner();
             
             // Test if buttons are clickable
             setTimeout(() => {
-                console.log('ðŸ” Testing button functionality...');
+                console.log('🔍 Testing button functionality...');
                 const testButtons = document.querySelectorAll('button, .btn, .nav-btn');
                 console.log('Found buttons:', testButtons.length);
                 testButtons.forEach((btn, index) => {
@@ -12153,16 +12153,16 @@
                 const sections = ['dashboard', 'products', 'forecasting', 'staff'];
                 sections.forEach(sectionId => {
                     const section = document.getElementById(sectionId);
-                    console.log(`ðŸ“„ Section ${sectionId}:`, section ? 'Found' : 'NOT FOUND');
+                    console.log(`📄 Section ${sectionId}:`, section ? 'Found' : 'NOT FOUND');
                 });
                 
                 // Test switchSection function
-                console.log('ðŸ§ª Testing switchSection function...');
+                console.log('🧪 Testing switchSection function...');
                 try {
                     switchSection('dashboard');
-                    console.log('âœ… switchSection test successful');
+                    console.log('✅ switchSection test successful');
                 } catch (error) {
-                    console.error('âŒ switchSection test failed:', error);
+                    console.error('❌ switchSection test failed:', error);
                 }
             }, 1000);
             
@@ -12171,7 +12171,7 @@
                 loadForecasting();
                 loadSalesChart();
             } catch (error) {
-                console.error('âŒ Error during initialization:', error);
+                console.error('❌ Error during initialization:', error);
             }
             
             // Add logout button event listener
@@ -12185,15 +12185,15 @@
             
             // Add navigation button event listeners
             const navButtons = document.querySelectorAll('.nav-btn');
-            console.log('ðŸ§­ Found navigation buttons:', navButtons.length);
+            console.log('🧭 Found navigation buttons:', navButtons.length);
             
             navButtons.forEach((btn, index) => {
-                console.log(`ðŸ§­ Button ${index}:`, btn.textContent.trim(), 'data-section:', btn.getAttribute('data-section'));
+                console.log(`🧭 Button ${index}:`, btn.textContent.trim(), 'data-section:', btn.getAttribute('data-section'));
                 
                 btn.addEventListener('click', (e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    console.log('ðŸ§­ Navigation button clicked:', btn.textContent.trim());
+                    console.log('🧭 Navigation button clicked:', btn.textContent.trim());
                     const sectionId = btn.getAttribute('data-section');
                     const buttonId = btn.getAttribute('id');
                     
@@ -12232,10 +12232,10 @@
             
             // Add event listeners for dynamically created buttons
             document.addEventListener('click', (e) => {
-                console.log('ðŸ–±ï¸ Click detected on:', e.target);
+                console.log('🖱️ Click detected on:', e.target);
                 // Download chart button
                 if (e.target.id === 'downloadChartBtn' || e.target.closest('#downloadChartBtn')) {
-                    console.log('ðŸ“Š Download chart button clicked');
+                    console.log('📊 Download chart button clicked');
                     downloadChart();
                 }
                 
@@ -12459,8 +12459,8 @@
                         role: formData.get('role')
                     };
                     
-                    console.log('ðŸ“ Form data being sent:', staffData);
-                    console.log('ðŸ“ Form validation - firstName:', staffData.firstName, 'lastName:', staffData.lastName, 'email:', staffData.email, 'role:', staffData.role);
+                    console.log('📝 Form data being sent:', staffData);
+                    console.log('📝 Form validation - firstName:', staffData.firstName, 'lastName:', staffData.lastName, 'email:', staffData.email, 'role:', staffData.role);
                     
                     // Validate required fields
                     if (!staffData.firstName || !staffData.lastName || !staffData.email) {
@@ -12702,16 +12702,16 @@
         let currentSalesPeriod = null;
 
         function showSalesDetailModal(period) {
-            console.log('ðŸ“Š Opening sales detail modal for period:', period);
+            console.log('📊 Opening sales detail modal for period:', period);
             
             const modal = document.getElementById('salesDetailModal');
             const modalTitle = document.getElementById('modalTitle');
             
             // Set modal title based on period
             const titles = {
-                'today': 'ðŸ“… Today\'s Sales Details',
-                'yesterday': 'ðŸ“ˆ Yesterday\'s Sales Details', 
-                'week': 'ðŸ“Š This Week\'s Sales Details'
+                'today': '📅 Today\'s Sales Details',
+                'yesterday': '📈 Yesterday\'s Sales Details', 
+                'week': '📊 This Week\'s Sales Details'
             };
             
             modalTitle.textContent = titles[period] || 'Sales Details';
@@ -12725,14 +12725,14 @@
         }
 
         function closeSalesDetailModal() {
-            console.log('ðŸ“Š Closing sales detail modal');
+            console.log('📊 Closing sales detail modal');
             const modal = document.getElementById('salesDetailModal');
             modal.style.display = 'none';
         }
 
         async function loadSalesDetailData(period) {
             try {
-                console.log('ðŸ“Š Loading sales detail data for period:', period);
+                console.log('📊 Loading sales detail data for period:', period);
                 
                 // Calculate date range based on period
                 const { startDate, endDate } = getDateRangeForPeriod(period);
@@ -12745,8 +12745,8 @@
                 // Add timestamp to prevent caching
                 params.append('_t', Date.now());
                 const apiUrl = `${API_BASE}/orders/date-range?${params}`;
-                console.log('ðŸ“Š Making API call to:', apiUrl);
-                console.log('ðŸ“Š Date range:', { startDate: startDate.toISOString(), endDate: endDate.toISOString() });
+                console.log('📊 Making API call to:', apiUrl);
+                console.log('📊 Date range:', { startDate: startDate.toISOString(), endDate: endDate.toISOString() });
                 
                 const response = await fetch(apiUrl, {
                     method: 'GET',
@@ -12757,16 +12757,16 @@
                     }
                 });
                 
-                console.log('ðŸ“Š API response status:', response.status);
-                console.log('ðŸ“Š API response headers:', response.headers);
+                console.log('📊 API response status:', response.status);
+                console.log('📊 API response headers:', response.headers);
                 
                 if (response.ok) {
                     const data = await response.json();
-                    console.log('ðŸ“Š Raw API response:', data);
+                    console.log('📊 Raw API response:', data);
                     
                     // Process the orders data into analytics format
                     const analytics = processOrdersToAnalytics(data.orders || []);
-                    console.log('ðŸ“Š Processed analytics data:', analytics);
+                    console.log('📊 Processed analytics data:', analytics);
                     
                     updateSalesDetailModal(analytics, period);
                 } else {
@@ -12816,7 +12816,7 @@
         }
 
         function updateSalesDetailModal(data, period) {
-            console.log('ðŸ“Š Updating sales detail modal with data:', data);
+            console.log('📊 Updating sales detail modal with data:', data);
             
             // Store the data for export
             currentSalesDetailData = data;
@@ -12830,7 +12830,7 @@
             // Direct database API provides accurate counts - no correction needed
             
             // DEBUG: Log the actual values being used
-            console.log('ðŸ”§ Modal: Raw analytics data:', {
+            console.log('🔧 Modal: Raw analytics data:', {
                 revenue: correctedRevenue,
                 cost: correctedCost,
                 profit: correctedProfit,
@@ -12839,7 +12839,7 @@
             
             // Direct database API now provides accurate data - no correction needed
             
-            console.log('ðŸ”§ Modal: Using values:', {
+            console.log('🔧 Modal: Using values:', {
                 revenue: correctedRevenue,
                 cost: correctedCost,
                 profit: correctedProfit,
@@ -12847,7 +12847,7 @@
             });
             
             // Update summary cards
-            document.getElementById('modalTotalRevenue').textContent = `â‚±${(correctedRevenue || 0).toFixed(2)}`;
+            document.getElementById('modalTotalRevenue').textContent = `₱${(correctedRevenue || 0).toFixed(2)}`;
                     // Removed Total Orders field
             
             // Calculate total items sold - handle different data structures
@@ -12872,10 +12872,10 @@
             
             // Calculate average order value
             const averageOrder = (correctedSales || 0) > 0 ? (correctedRevenue || 0) / (correctedSales || 0) : 0;
-            document.getElementById('modalAverageOrder').textContent = `â‚±${(averageOrder || 0).toFixed(2)}`;
+            document.getElementById('modalAverageOrder').textContent = `₱${(averageOrder || 0).toFixed(2)}`;
             
             // Update profit information
-            document.getElementById('modalTotalProfit').textContent = `â‚±${(correctedProfit || 0).toFixed(2)}`;
+            document.getElementById('modalTotalProfit').textContent = `₱${(correctedProfit || 0).toFixed(2)}`;
             
             // Calculate profit margin
             const profitMargin = (correctedRevenue || 0) > 0 ? ((correctedProfit || 0) / (correctedRevenue || 0)) * 100 : 0;
@@ -12914,7 +12914,7 @@
                     html += `
                         <div class="breakdown-item">
                             <div class="breakdown-label">${animal.charAt(0).toUpperCase() + animal.slice(1)}</div>
-                            <div class="breakdown-value">â‚±${revenue.toFixed(2)} (${count} items)</div>
+                            <div class="breakdown-value">₱${revenue.toFixed(2)} (${count} items)</div>
                             <div class="breakdown-percentage">${percentage}%</div>
                         </div>
                     `;
@@ -12945,7 +12945,7 @@
                     html += `
                         <div class="breakdown-item">
                             <div class="breakdown-label">${category.charAt(0).toUpperCase() + category.slice(1)}</div>
-                            <div class="breakdown-value">â‚±${revenue.toFixed(2)} (${count} items)</div>
+                            <div class="breakdown-value">₱${revenue.toFixed(2)} (${count} items)</div>
                             <div class="breakdown-percentage">${percentage}%</div>
                         </div>
                     `;
@@ -12962,7 +12962,7 @@
             
             let html = '';
             if (!topProducts || !Array.isArray(topProducts)) {
-                console.log('ðŸ“Š No top products data');
+                console.log('📊 No top products data');
                 tbody.innerHTML = '<tr><td colspan="4">No product data available</td></tr>';
                 return;
             }
@@ -12978,7 +12978,7 @@
                         <tr>
                             <td>${product.name || 'Unknown Product'}</td>
                             <td>${quantity}</td>
-                            <td>â‚±${revenue.toFixed(2)}</td>
+                            <td>₱${revenue.toFixed(2)}</td>
                             <td>${percentage}%</td>
                         </tr>
                     `;
@@ -12995,7 +12995,7 @@
             
             let html = '';
             if (!sales || !Array.isArray(sales)) {
-                console.log('ðŸ“Š No sales data for recent transactions table');
+                console.log('📊 No sales data for recent transactions table');
                 tbody.innerHTML = '<tr><td colspan="5">No recent transactions</td></tr>';
                 return;
             }
@@ -13014,7 +13014,7 @@
                             <td>${order.customerName || 'Customer'}</td>
                             <td>${productName}</td>
                             <td>${quantity} ${unit}</td>
-                            <td>â‚±${Number(totalAmount).toFixed(2)}</td>
+                            <td>₱${Number(totalAmount).toFixed(2)}</td>
                         </tr>
                     `;
                 } catch (error) {
@@ -13025,7 +13025,7 @@
         }
 
         function exportSalesDetails() {
-            console.log('ðŸ“Š Exporting sales details to Excel...');
+            console.log('📊 Exporting sales details to Excel...');
             
             if (!currentSalesDetailData) {
                 showNotification('No sales data available to export', 'error');
@@ -13034,7 +13034,7 @@
             
             // Check if XLSX library is loaded
             if (typeof XLSX === 'undefined') {
-                console.warn('âš ï¸ XLSX library not loaded, using fallback method');
+                console.warn('⚠️ XLSX library not loaded, using fallback method');
                 exportSalesDetailsAsCSV();
                 return;
             }
@@ -13051,9 +13051,9 @@
                     ['Sales Report - ' + (period === 'today' ? 'Today' : period === 'yesterday' ? 'Yesterday' : 'This Week')],
                     [],
                     ['SUMMARY'],
-                    ['Total Revenue', `â‚±${data.totalRevenue.toFixed(2)}`],
-                    ['Total Cost', `â‚±${(data.totalCost || 0).toFixed(2)}`],
-                    ['Total Profit', `â‚±${(data.totalProfit || 0).toFixed(2)}`],
+                    ['Total Revenue', `₱${data.totalRevenue.toFixed(2)}`],
+                    ['Total Cost', `₱${(data.totalCost || 0).toFixed(2)}`],
+                    ['Total Profit', `₱${(data.totalProfit || 0).toFixed(2)}`],
                     ['Profit Margin', `${((data.totalProfit || 0) / data.totalRevenue * 100).toFixed(1)}%`],
                     ['Total Sales', data.totalSales],
                     [],
@@ -13065,7 +13065,7 @@
                     Object.entries(data.salesByAnimal).forEach(([animal, stats]) => {
                         summaryData.push([
                             animal.charAt(0).toUpperCase() + animal.slice(1),
-                            `â‚±${Number(stats.revenue || 0).toFixed(2)}`,
+                            `₱${Number(stats.revenue || 0).toFixed(2)}`,
                             `${Number(stats.count || 0)} items`
                         ]);
                     });
@@ -13079,7 +13079,7 @@
                     Object.entries(data.salesByCategory).forEach(([category, stats]) => {
                         summaryData.push([
                             category.charAt(0).toUpperCase() + category.slice(1),
-                            `â‚±${Number(stats.revenue || 0).toFixed(2)}`,
+                            `₱${Number(stats.revenue || 0).toFixed(2)}`,
                             `${Number(stats.count || 0)} items`
                         ]);
                     });
@@ -13103,7 +13103,7 @@
                         topProductsData.push([
                             product.name || 'Unknown',
                             product.quantity || 0,
-                            `â‚±${Number(product.revenue || 0).toFixed(2)}`,
+                            `₱${Number(product.revenue || 0).toFixed(2)}`,
                             `${percentage}%`
                         ]);
                     });
@@ -13133,8 +13133,8 @@
                                         customerName,
                                         item.name || 'Unknown Product',
                                         item.quantity || 0,
-                                        `â‚±${Number(item.price || 0).toFixed(2)}`,
-                                        `â‚±${(Number(item.price || 0) - Number(item.cost || 0)).toFixed(2)}`
+                                        `₱${Number(item.price || 0).toFixed(2)}`,
+                                        `₱${(Number(item.price || 0) - Number(item.cost || 0)).toFixed(2)}`
                                     ]);
                                 } else {
                                     transactionsData.push([
@@ -13142,8 +13142,8 @@
                                         '',
                                         item.name || 'Unknown Product',
                                         item.quantity || 0,
-                                        `â‚±${Number(item.price || 0).toFixed(2)}`,
-                                        `â‚±${(Number(item.price || 0) - Number(item.cost || 0)).toFixed(2)}`
+                                        `₱${Number(item.price || 0).toFixed(2)}`,
+                                        `₱${(Number(item.price || 0) - Number(item.cost || 0)).toFixed(2)}`
                                     ]);
                                 }
                             });
@@ -13153,8 +13153,8 @@
                                 customerName,
                                 '-',
                                 1,
-                                `â‚±${Number(order.totalPrice || 0).toFixed(2)}`,
-                                `â‚±${Number(order.totalProfit || 0).toFixed(2)}`
+                                `₱${Number(order.totalPrice || 0).toFixed(2)}`,
+                                `₱${Number(order.totalProfit || 0).toFixed(2)}`
                             ]);
                         }
                     });
@@ -13171,7 +13171,7 @@
                 // Write the file
                 XLSX.writeFile(workbook, filename);
                 showNotification('Sales report exported to Excel successfully!', 'success');
-                console.log('âœ… Sales report exported successfully');
+                console.log('✅ Sales report exported successfully');
                 
             } catch (error) {
                 console.error('Error exporting sales details:', error);
@@ -13180,7 +13180,7 @@
         }
 
         function exportSalesDetailsAsCSV() {
-            console.log('ðŸ“Š Exporting sales details as CSV (fallback)...');
+            console.log('📊 Exporting sales details as CSV (fallback)...');
             
             try {
                 const data = currentSalesDetailData;
@@ -13193,9 +13193,9 @@
                 
                 // Add summary
                 csvContent += 'SUMMARY\n';
-                csvContent += `Total Revenue,â‚±${data.totalRevenue.toFixed(2)}\n`;
-                csvContent += `Total Cost,â‚±${(data.totalCost || 0).toFixed(2)}\n`;
-                csvContent += `Total Profit,â‚±${(data.totalProfit || 0).toFixed(2)}\n`;
+                csvContent += `Total Revenue,₱${data.totalRevenue.toFixed(2)}\n`;
+                csvContent += `Total Cost,₱${(data.totalCost || 0).toFixed(2)}\n`;
+                csvContent += `Total Profit,₱${(data.totalProfit || 0).toFixed(2)}\n`;
                 csvContent += `Profit Margin,${((data.totalProfit || 0) / data.totalRevenue * 100).toFixed(1)}%\n`;
                 csvContent += `Total Sales,${data.totalSales}\n\n`;
                 
@@ -13204,7 +13204,7 @@
                 csvContent += 'Animal,Revenue,Items\n';
                 if (data.salesByAnimal) {
                     Object.entries(data.salesByAnimal).forEach(([animal, stats]) => {
-                        csvContent += `${animal},â‚±${Number(stats.revenue || 0).toFixed(2)},${Number(stats.count || 0)}\n`;
+                        csvContent += `${animal},₱${Number(stats.revenue || 0).toFixed(2)},${Number(stats.count || 0)}\n`;
                     });
                 }
                 csvContent += '\n';
@@ -13214,7 +13214,7 @@
                 csvContent += 'Category,Revenue,Items\n';
                 if (data.salesByCategory) {
                     Object.entries(data.salesByCategory).forEach(([category, stats]) => {
-                        csvContent += `${category},â‚±${Number(stats.revenue || 0).toFixed(2)},${Number(stats.count || 0)}\n`;
+                        csvContent += `${category},₱${Number(stats.revenue || 0).toFixed(2)},${Number(stats.count || 0)}\n`;
                     });
                 }
                 csvContent += '\n';
@@ -13226,7 +13226,7 @@
                     data.topProducts.forEach(product => {
                         const percentage = data.totalRevenue > 0 ? 
                             ((Number(product.revenue || 0) / data.totalRevenue) * 100).toFixed(1) : 0;
-                        csvContent += `${product.name || 'Unknown'},${product.quantity || 0},â‚±${Number(product.revenue || 0).toFixed(2)},${percentage}%\n`;
+                        csvContent += `${product.name || 'Unknown'},${product.quantity || 0},₱${Number(product.revenue || 0).toFixed(2)},${percentage}%\n`;
                     });
                 }
                 csvContent += '\n';
@@ -13241,10 +13241,10 @@
                         
                         if (order.items && Array.isArray(order.items)) {
                             order.items.forEach((item, index) => {
-                                csvContent += `${index === 0 ? saleDate : ''},${index === 0 ? customerName : ''},${item.name || 'Unknown'},${item.quantity || 0},â‚±${Number(item.price || 0).toFixed(2)},â‚±${(Number(item.price || 0) - Number(item.cost || 0)).toFixed(2)}\n`;
+                                csvContent += `${index === 0 ? saleDate : ''},${index === 0 ? customerName : ''},${item.name || 'Unknown'},${item.quantity || 0},₱${Number(item.price || 0).toFixed(2)},₱${(Number(item.price || 0) - Number(item.cost || 0)).toFixed(2)}\n`;
                             });
                         } else {
-                            csvContent += `${saleDate},${customerName},-,1,â‚±${Number(order.totalPrice || 0).toFixed(2)},â‚±${Number(order.totalProfit || 0).toFixed(2)}\n`;
+                            csvContent += `${saleDate},${customerName},-,1,₱${Number(order.totalPrice || 0).toFixed(2)},₱${Number(order.totalProfit || 0).toFixed(2)}\n`;
                         }
                     });
                 }
@@ -13260,7 +13260,7 @@
                 document.body.removeChild(link);
                 
                 showNotification('Sales report exported as CSV successfully!', 'success');
-                console.log('âœ… Sales report exported as CSV');
+                console.log('✅ Sales report exported as CSV');
                 
             } catch (error) {
                 console.error('Error exporting sales details as CSV:', error);
@@ -13273,7 +13273,7 @@
             const qrInput = document.getElementById('adminQrInput');
             if (!qrInput) return;
             
-            console.log('ðŸ”§ Initializing admin QR scanner...');
+            console.log('🔧 Initializing admin QR scanner...');
             
             // Keep scanner input focused
             qrInput.focus();
@@ -13322,7 +13322,7 @@
             const qrInput = document.getElementById('adminQrInput');
             const productId = qrInput.value.trim();
             
-            console.log('ðŸ”§ Admin scanner input:', productId);
+            console.log('🔧 Admin scanner input:', productId);
             
             if (!productId) {
                 updateAdminScannerStatus('error', 'Please scan or enter a product ID');
@@ -13336,7 +13336,7 @@
             const product = products.find(p => p.id == productId || p._id == productId);
             
             if (product) {
-                console.log('âœ… Product found:', product.name);
+                console.log('✅ Product found:', product.name);
                 updateAdminScannerStatus('ready', 'Product found! Opening edit modal...');
                 
                 // Clear input
@@ -13348,7 +13348,7 @@
                 // Show success notification
                 showNotification(`Opening ${product.name} for editing`, 'success');
             } else {
-                console.log('âŒ Product not found');
+                console.log('❌ Product not found');
                 updateAdminScannerStatus('error', 'Product not found');
                 showNotification('Product not found. Please check the QR code.', 'error');
                 
@@ -13406,9 +13406,9 @@
                         <input type="checkbox" id="product-${product._id}" value="${product._id}" class="product-checkbox">
                         <div class="product-checkbox-info">
                             <div class="product-checkbox-name">${product.name}</div>
-                            <div class="product-checkbox-details">${product.animal} â€¢ ${product.category} â€¢ ${product.type}</div>
+                            <div class="product-checkbox-details">${product.animal} • ${product.category} • ${product.type}</div>
                         </div>
-                        <div class="product-checkbox-cost">Current: â‚±${(product.costPerSack || 0).toFixed(2)}</div>
+                        <div class="product-checkbox-cost">Current: ₱${(product.costPerSack || 0).toFixed(2)}</div>
                     `;
                     productsList.appendChild(productItem);
                 });
@@ -13527,7 +13527,7 @@
         // Test function to check products and their cost prices
         async function testProductsAndCosts() {
             try {
-                console.log('ðŸ” Testing products and their cost prices...');
+                console.log('🔍 Testing products and their cost prices...');
                 
                 const response = await fetch(`${API_BASE}/products`, {
                     headers: {
@@ -13538,19 +13538,19 @@
                 if (response.ok) {
                     const data = await response.json();
                     const products = data.products || data;
-                    console.log('ðŸ“¦ Total products found:', products.length);
+                    console.log('📦 Total products found:', products.length);
                     
                     const productsWithCost = products.filter(p => p.costPerSack > 0);
-                    console.log('ðŸ’° Products with cost prices:', productsWithCost.length);
+                    console.log('💰 Products with cost prices:', productsWithCost.length);
                     
                     if (productsWithCost.length > 0) {
-                        console.log('ðŸ’° Products with cost prices:', productsWithCost.map(p => ({
+                        console.log('💰 Products with cost prices:', productsWithCost.map(p => ({
                             name: p.name,
                             costPerSack: p.costPerSack
                         })));
                     } else {
-                        console.log('âš ï¸ NO PRODUCTS HAVE COST PRICES SET!');
-                        console.log('ðŸ“¦ All products:', products.map(p => ({
+                        console.log('⚠️ NO PRODUCTS HAVE COST PRICES SET!');
+                        console.log('📦 All products:', products.map(p => ({
                             name: p.name,
                             costPerSack: p.costPerSack,
                             cost: p.cost
@@ -13657,7 +13657,7 @@
                         max-width: 500px;
                         text-align: center;
                     ">
-                        <div style="font-size: 4rem; margin-bottom: 20px;">âš ï¸</div>
+                        <div style="font-size: 4rem; margin-bottom: 20px;">⚠️</div>
                         <h2 style="color: #d32f2f; margin-bottom: 15px;">Reset All Sales</h2>
                         <p style="color: #666; margin-bottom: 25px; line-height: 1.5;">
                             This action will <strong>permanently delete</strong> all orders and sales data.<br>
@@ -13714,7 +13714,7 @@
     <div id="lowStockModal" class="modal" style="display: none;">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>âš ï¸ Low Stock Products</h2>
+                <h2>⚠️ Low Stock Products</h2>
                 <span class="close" id="closeLowStockModal">&times;</span>
             </div>
             <div class="modal-body">
@@ -13732,7 +13732,7 @@
     <div id="stockManagementModal" class="modal" style="display: none;">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>ðŸ“ˆ Stock Management</h2>
+                <h2>📈 Stock Management</h2>
                 <span class="close" id="closeStockManagementModal">&times;</span>
             </div>
             <div class="modal-body">
@@ -13780,7 +13780,7 @@
     <div id="bulkCostUpdateModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
-                <h2>ðŸ’° Bulk Cost Price Update</h2>
+                <h2>💰 Bulk Cost Price Update</h2>
                 <span class="close" onclick="closeBulkCostUpdateModal()">&times;</span>
             </div>
             <div class="modal-body">
@@ -13792,10 +13792,10 @@
                 <form id="bulkCostUpdateForm">
                     <div class="form-group">
                         <label for="bulkCostPerSack" class="form-label">
-                            New Cost Price per Sack (â‚±) <span class="required">*</span>
+                            New Cost Price per Sack (₱) <span class="required">*</span>
                         </label>
                         <div class="input-group">
-                            <span class="input-prefix">â‚±</span>
+                            <span class="input-prefix">₱</span>
                             <input type="number" id="bulkCostPerSack" name="costPerSack" class="form-input" step="0.01" min="0" placeholder="0.00" required>
                         </div>
                         <div class="form-help">This will update the cost price for all selected products</div>
@@ -13836,35 +13836,35 @@
                 <div class="sales-summary">
                     <div class="summary-cards">
                         <div class="summary-card">
-                            <div class="summary-icon">ðŸ’°</div>
+                            <div class="summary-icon">💰</div>
                             <div class="summary-content">
                                 <h4>Total Revenue</h4>
-                                <div class="summary-value" id="modalTotalRevenue">â‚±0.00</div>
+                                <div class="summary-value" id="modalTotalRevenue">₱0.00</div>
                             </div>
                         </div>
                         <div class="summary-card">
-                            <div class="summary-icon">ðŸ›’</div>
+                            <div class="summary-icon">🛒</div>
                             <div class="summary-content">
                                 <h4>Items Sold</h4>
                                 <div class="summary-value" id="modalTotalItems">0</div>
                             </div>
                         </div>
                         <div class="summary-card">
-                            <div class="summary-icon">ðŸ“Š</div>
+                            <div class="summary-icon">📊</div>
                             <div class="summary-content">
                                 <h4>Average Order</h4>
-                                <div class="summary-value" id="modalAverageOrder">â‚±0.00</div>
+                                <div class="summary-value" id="modalAverageOrder">₱0.00</div>
                             </div>
                         </div>
                         <div class="summary-card">
-                            <div class="summary-icon">ðŸ’°</div>
+                            <div class="summary-icon">💰</div>
                             <div class="summary-content">
                                 <h4>Total Profit</h4>
-                                <div class="summary-value" id="modalTotalProfit">â‚±0.00</div>
+                                <div class="summary-value" id="modalTotalProfit">₱0.00</div>
                             </div>
                         </div>
                         <div class="summary-card">
-                            <div class="summary-icon">ðŸ“ˆ</div>
+                            <div class="summary-icon">📈</div>
                             <div class="summary-content">
                                 <h4>Profit Margin</h4>
                                 <div class="summary-value" id="modalProfitMargin">0%</div>
@@ -13942,7 +13942,6 @@
 
 </body>
 </html>
-
 
 
 
