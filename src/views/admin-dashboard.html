@@ -7995,7 +7995,7 @@
                             <td>${sale.quantity || 0}</td>
                             <td>${sale.unit || 'N/A'}</td>
                             <td>₱${(sale.total || 0).toFixed(2)}</td>
-                    <td>${new Date(sale.saleDate).toLocaleDateString()}</td>
+                    <td>${new Date(order.saleDate).toLocaleDateString()}</td>
                 </tr>
                     `;
                 } catch (error) {
@@ -10876,10 +10876,10 @@
             // Calculate monthly sales by iterating over order items
             const monthlySales = {};
             salesData.forEach(order => {
-                const date = new Date(order.createdAt || sale.orderDate || sale.saleDate);
+                const date = new Date(order.createdAt || order.saleDate);
                 const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
                 if (!monthlySales[monthKey]) monthlySales[monthKey] = 0;
-                monthlySales[monthKey] += (sale.total || sale.total || 0);
+                monthlySales[monthKey] += (order.total || 0);
             });
             // Generate forecasts for each product
             products.forEach(product => {
@@ -10895,7 +10895,7 @@
                             if (productIdMatch || productNameMatch) {
                                 productSales.push({
                                     ...item,
-                                    saleDate: order.createdAt || sale.orderDate || sale.saleDate,
+                                    saleDate: order.createdAt || order.saleDate,
                                     totalAmount: item.totalPrice || item.price || 0
                                 });
                             }
@@ -10926,7 +10926,7 @@
             const monthlySales = {};
             
             salesData.forEach(sale => {
-                const date = new Date(sale.saleDate);
+                const date = new Date(order.saleDate);
                 const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
                 
                 if (!monthlySales[monthKey]) {
@@ -10946,7 +10946,7 @@
             
             // Group sales by month
             salesData.forEach(sale => {
-                const date = new Date(sale.saleDate);
+                const date = new Date(order.saleDate);
                 const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
                 
                 if (!monthlyData[monthKey]) {
@@ -11096,7 +11096,7 @@
             // Group sales by month
             const monthlyRevenue = {};
             salesData.forEach(sale => {
-                const date = new Date(sale.saleDate);
+                const date = new Date(order.saleDate);
                 const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
                 
                 if (!monthlyRevenue[monthKey]) {
@@ -11143,7 +11143,7 @@
             // Group sales by day
             const dailyRevenue = {};
             salesData.forEach(sale => {
-                const date = new Date(sale.saleDate);
+                const date = new Date(order.saleDate);
                 const dayKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`;
                 
                 if (!dailyRevenue[dayKey]) {
@@ -11563,7 +11563,7 @@
                         receiptNo = order.id.toString();
                     }
                     // Handle both orderDate, createdAt, and saleDate
-                    const dateStr = order.orderDate || sale.createdAt || sale.saleDate;
+                    const dateStr = order.orderDate || sale.createdAt || order.saleDate;
                     const saleDate = new Date(dateStr);
                     const timeString = saleDate.toLocaleString('en-US', {
                         month: 'short',
@@ -11632,7 +11632,7 @@
             
             const totalOrders = recentSales.length;
             // Handle both old format (totalAmount) and new format (total)
-            const totalRevenueAmount = recentSales.reduce((sum, sale) => sum + (sale.total || sale.total || 0), 0);
+            const totalRevenueAmount = recentSales.reduce((sum, sale) => sum + (order.total || 0), 0);
             
             totalCount.textContent = totalOrders;
             totalRevenue.textContent = totalRevenueAmount.toFixed(2);
@@ -11705,7 +11705,7 @@
         function getDaysDifference(salesData) {
             if (salesData.length === 0) return 1;
             
-            const dates = salesData.map(sale => new Date(sale.saleDate));
+            const dates = salesData.map(sale => new Date(order.saleDate));
             const minDate = new Date(Math.min(...dates));
             const maxDate = new Date(Math.max(...dates));
             
@@ -11841,7 +11841,7 @@
         function getMonthsDifference(salesData) {
             if (salesData.length === 0) return 1;
             
-            const dates = salesData.map(sale => new Date(sale.saleDate));
+            const dates = salesData.map(sale => new Date(order.saleDate));
             const minDate = new Date(Math.min(...dates));
             const maxDate = new Date(Math.max(...dates));
             
@@ -12006,7 +12006,7 @@
             const salesByDate = {};
             salesData.forEach(sale => {
                 // Handle order database structure (has orderDate and total)
-                const saleDate = new Date(sale.orderDate || sale.createdAt || sale.saleDate);
+                const saleDate = new Date(order.orderDate || sale.createdAt || order.saleDate);
                 const dateKey = saleDate.toDateString();
                 
                 if (!salesByDate[dateKey]) {
@@ -12976,7 +12976,7 @@
             
             sales.forEach(sale => {
                 try {
-                    const date = new Date(sale.saleDate || sale.createdAt).toLocaleString();
+                    const date = new Date(order.saleDate || sale.createdAt).toLocaleString();
                     const totalAmount = sale.total || 0;
                     const productName = sale.productName || (sale.items && sale.items[0]?.productName) || 'Unknown Product';
                     const quantity = sale.quantity || (sale.items && sale.items[0]?.quantity) || 1;
@@ -13916,6 +13916,9 @@
 
 </body>
 </html>
+
+
+
 
 
 
