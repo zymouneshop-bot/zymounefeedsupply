@@ -6140,7 +6140,11 @@
                         <p>This report was generated automatically by the ZYMOUNE FEEDS SUPPLY Inventory Management System.</p>
                         <p>For questions or additional analysis, please contact the management team.</p>
                     </div>
-                </body>
+                
+    
+    // ====== END GLOBAL SCOPE FUNCTIONS ======
+
+</body>
                 </html>`;
                 
                 // Create and download file
@@ -9627,7 +9631,11 @@
                         </head>
                         <body>
                             ${receiptContent}
-                        </body>
+                        
+    
+    // ====== END GLOBAL SCOPE FUNCTIONS ======
+
+</body>
                     </html>
                 `);
                 printWindow.document.close();
@@ -10175,7 +10183,11 @@
                         <p>${document.getElementById('qrProductDetails').textContent}</p>
                         <img src="${canvas.toDataURL()}" alt="QR Code">
                         <p><small>Generated on ${new Date().toLocaleString()}</small></p>
-                    </body>
+                    
+    
+    // ====== END GLOBAL SCOPE FUNCTIONS ======
+
+</body>
                 </html>
             `);
             printWindow.document.close();
@@ -12064,6 +12076,35 @@
             }
         }
         
+        // ====== GLOBAL SCOPE FUNCTIONS ======
+        
+        // Change password modal functions
+        function openChangePasswordModal(staffId, staffName) {
+            const modal = document.getElementById('changePasswordModal');
+            const titleEl = document.getElementById('changePasswordTitle');
+            const staffIdEl = document.getElementById('changePasswordStaffId');
+            const msgEl = document.getElementById('changePasswordMessage');
+            const formEl = document.getElementById('changePasswordForm');
+            
+            if (staffIdEl) staffIdEl.value = staffId;
+            if (titleEl) titleEl.textContent = 'Change Password for ' + staffName;
+            if (formEl) formEl.reset();
+            if (msgEl) msgEl.style.display = 'none';
+            if (modal) modal.style.display = 'block';
+        }
+        
+        function closeChangePasswordModal() {
+            const modal = document.getElementById('changePasswordModal');
+            const formEl = document.getElementById('changePasswordForm');
+            const msgEl = document.getElementById('changePasswordMessage');
+            
+            if (modal) modal.style.display = 'none';
+            if (formEl) formEl.reset();
+            if (msgEl) msgEl.style.display = 'none';
+        }
+        
+        // ====== END GLOBAL SCOPE FUNCTIONS ======
+        
         // Initialize dashboard
         document.addEventListener('DOMContentLoaded', () => {
             console.log('🚀 Dashboard initializing...');
@@ -12310,22 +12351,6 @@
                 closeStaffModalBtn.addEventListener('click', closeStaffModal);
             }
             
-            
-        // Change password functions
-        function openChangePasswordModal(staffId, staffName) {
-            document.getElementById('changePasswordStaffId').value = staffId;
-            document.getElementById('changePasswordTitle').textContent = 'Change Password - ' + staffName;
-            document.getElementById('changePasswordForm').reset();
-            document.getElementById('changePasswordMessage').style.display = 'none';
-            document.getElementById('changePasswordModal').style.display = 'block';
-        }
-        
-        function closeChangePasswordModal() {
-            document.getElementById('changePasswordModal').style.display = 'none';
-            document.getElementById('changePasswordForm').reset();
-            document.getElementById('changePasswordMessage').style.display = 'none';
-        }
-        
         document.getElementById('changePasswordForm')?.addEventListener('submit', async (e) => {
             e.preventDefault();
             const staffId = document.getElementById('changePasswordStaffId').value;
@@ -13885,8 +13910,15 @@
             </div>
         </div>
     </div>
+
+    
+    // ====== END GLOBAL SCOPE FUNCTIONS ======
+
 </body>
 </html>
+
+
+
 
 
 
