@@ -10954,7 +10954,7 @@
                 }
                 
                 monthlyData[monthKey].quantity += (sale.quantity || 0);
-                monthlyData[monthKey].revenue += (order.total || 0);
+                monthlyData[monthKey].revenue += (sale.total || 0);
             });
             
             console.log(`📊 Monthly data for ${product.name}:`, monthlyData);
