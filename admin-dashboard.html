@@ -12977,7 +12977,7 @@
             sales.forEach(sale => {
                 try {
                     const date = new Date(sale.saleDate || sale.createdAt).toLocaleString();
-                    const totalAmount = order.total || sale.total || 0;
+                    const totalAmount = sale.total || 0;
                     const productName = sale.productName || (sale.items && sale.items[0]?.productName) || 'Unknown Product';
                     const quantity = sale.quantity || (sale.items && sale.items[0]?.quantity) || 1;
                     const unit = sale.unit || (sale.items && sale.items[0]?.unit) || 'sack';
