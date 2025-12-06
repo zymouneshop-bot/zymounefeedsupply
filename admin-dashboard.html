@@ -7990,10 +7990,10 @@
                     
                     return `
                         <tr class="${highlightClass}" style="${highlightStyle}">
-                            <td>${sale.productName || 'Unknown Product'}${isNewest ? ' 🆕' : ''}</td>
-                            <td>${sale.customerName || sale.customerInfo?.name || 'N/A'}</td>
+                            <td>${null || 'Unknown Product'}${isNewest ? ' 🆕' : ''}</td>
+                            <td>${order.customerName || sale.customerInfo?.name || 'N/A'}</td>
                             <td>${order.items[0]?.quantity || 0}</td>
-                            <td>${sale.unit || 'N/A'}</td>
+                            <td>${null || 'N/A'}</td>
                             <td>₱${(order.total || 0).toFixed(2)}</td>
                     <td>${new Date(order.orderDate).toLocaleDateString()}</td>
                 </tr>
@@ -11613,7 +11613,7 @@
                         staffName = order.staffId;
                     }
                     // Get customer info
-                    const customerName = sale.customerName || sale.customerInfo?.name || (order.customerId?.name) || 'Customer';
+                    const customerName = order.customerName || sale.customerInfo?.name || (order.customerId?.name) || 'Customer';
                     // Items summary
                     let itemsSummary = 'Order';
                     let quantity = 0;
@@ -11744,8 +11744,8 @@
             
             forecastData.salesHistory.forEach(sale => {
                 // Sales data structure: each sale is a single product transaction
-                const productId = sale.productId || sale.productName;
-                const productName = sale.productName || 'Unknown Product';
+                const productId = sale.productId || null;
+                const productName = null || 'Unknown Product';
                 const revenue = order.total || 0;
                 
                 if (!productRevenues[productId]) {
@@ -12855,8 +12855,8 @@
             if (data.sales && Array.isArray(data.sales)) {
                 totalItems = data.sales.reduce((sum, sale) => {
                     // Handle direct database API structure
-                    if (sale.items && Array.isArray(sale.items)) {
-                        return sum + sale.items.reduce((itemSum, item) => itemSum + (item.quantity || 0), 0);
+                    if (order.items && Array.isArray(order.items)) {
+                        return sum + order.items.reduce((itemSum, item) => itemSum + (item.quantity || 0), 0);
                     }
                     // Handle legacy structure
                     return sum + (order.items[0]?.quantity || 0);
@@ -13000,18 +13000,18 @@
                 return;
             }
             
-            sales.forEach(sale => {
+            sales.forEach(order => {
                 try {
-                    const date = new Date(order.orderDate || sale.createdAt).toLocaleString();
+                    const date = new Date(order.orderDate || order.createdAt).toLocaleString();
                     const totalAmount = order.total || 0;
-                    const productName = sale.productName || (sale.items && sale.items[0]?.productName) || 'Unknown Product';
-                    const quantity = order.items[0]?.quantity || (sale.items && sale.items[0]?.quantity) || 1;
-                    const unit = sale.unit || (sale.items && sale.items[0]?.unit) || 'sack';
+                    const productName = order.productName || (order.items && order.items[0]?.productName) || 'Unknown Product';
+                    const quantity = order.items[0]?.quantity || (order.items && order.items[0]?.quantity) || 1;
+                    const unit = order.unit || (order.items && order.items[0]?.unit) || 'sack';
                     
                     html += `
                         <tr>
                             <td>${date}</td>
-                            <td>${sale.customerName || 'Customer'}</td>
+                            <td>${order.customerName || 'Customer'}</td>
                             <td>${productName}</td>
                             <td>${quantity} ${unit}</td>
                             <td>₱${Number(totalAmount).toFixed(2)}</td>
@@ -13121,12 +13121,12 @@
                 ];
                 
                 if (data.sales && Array.isArray(data.sales)) {
-                    data.sales.forEach(sale => {
-                        const saleDate = new Date(sale.createdAt).toLocaleString();
-                        const customerName = sale.customerName || 'Walk-in Customer';
+                    data.sales.forEach(order => {
+                        const saleDate = new Date(order.createdAt).toLocaleString();
+                        const customerName = order.customerName || 'Walk-in Customer';
                         
-                        if (sale.items && Array.isArray(sale.items)) {
-                            sale.items.forEach((item, index) => {
+                        if (order.items && Array.isArray(order.items)) {
+                            order.items.forEach((item, index) => {
                                 if (index === 0) {
                                     transactionsData.push([
                                         saleDate,
@@ -13235,12 +13235,12 @@
                 csvContent += 'RECENT TRANSACTIONS\n';
                 csvContent += 'Date/Time,Customer,Product,Quantity,Total,Profit\n';
                 if (data.sales && Array.isArray(data.sales)) {
-                    data.sales.forEach(sale => {
-                        const saleDate = new Date(sale.createdAt).toLocaleString();
-                        const customerName = sale.customerName || 'Walk-in';
+                    data.sales.forEach(order => {
+                        const saleDate = new Date(order.createdAt).toLocaleString();
+                        const customerName = order.customerName || 'Walk-in';
                         
-                        if (sale.items && Array.isArray(sale.items)) {
-                            sale.items.forEach((item, index) => {
+                        if (order.items && Array.isArray(order.items)) {
+                            order.items.forEach((item, index) => {
                                 csvContent += `${index === 0 ? saleDate : ''},${index === 0 ? customerName : ''},${item.name || 'Unknown'},${item.quantity || 0},₱${Number(item.price || 0).toFixed(2)},₱${(Number(item.price || 0) - Number(item.cost || 0)).toFixed(2)}\n`;
                             });
                         } else {
@@ -13942,6 +13942,12 @@
 
 </body>
 </html>
+
+
+
+
+
+
 
 
 
