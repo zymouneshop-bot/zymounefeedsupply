@@ -66,6 +66,27 @@ const getDailySales = async (req, res) => {
 };
 
 
+const getAllSales = async (req, res) => {
+  try {
+    const Sale = require('../models/Sale');
+    const sales = await Sale.find({})
+      .sort({ saleDate: -1 });
+    
+    res.json({
+      success: true,
+      sales
+    });
+  } catch (error) {
+    console.error('Error fetching all sales:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch sales',
+      details: error.message
+    });
+  }
+};
+
+
 const getSalesAnalytics = async (req, res) => {
   try {
     const { startDate, endDate } = req.query;
@@ -419,4 +440,6 @@ module.exports = {
   getDirectSalesData,
   resetAllSales
 };
+
+
 
