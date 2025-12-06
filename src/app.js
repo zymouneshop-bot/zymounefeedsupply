@@ -286,28 +286,28 @@ const salesRoutes = require('./routes/sales');
 
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'login.html'));
+  res.sendFile(path.join(__dirname, '..', 'login.html'));
 });
 
 app.get('/login', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'login.html'));
+  res.sendFile(path.join(__dirname, '..', 'login.html'));
 });
 
 app.get('/dashboard/customer', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'customer-dashboard.html'));
+  res.sendFile(path.join(__dirname, '..', 'customer-dashboard.html'));
 });
 
 app.get('/dashboard/admin', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'admin-dashboard.html'));
+  res.sendFile(path.join(__dirname, '..', 'admin-dashboard.html'));
 });
 
 app.get('/dashboard/staff', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'staff-dashboard.html'));
+  res.sendFile(path.join(__dirname, '..', 'staff-dashboard.html'));
 });
 
 
 app.get('/qr-scanner', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'qr-scanner.html'));
+  res.sendFile(path.join(__dirname, '..', 'qr-scanner.html'));
 });
 
 
@@ -1336,4 +1336,6 @@ app.listen(PORT, async () => {
 });
 
 module.exports = app;
+
+
 
