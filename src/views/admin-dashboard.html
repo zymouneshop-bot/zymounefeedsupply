@@ -11410,8 +11410,13 @@
         // Update daily sales display - use same logic as analytics
         async function updateDailySalesDisplay() {
             try {
-                // Fetch ALL sales directly for the Recent Sales table (no filter)
-                const allOrdersResponse = await fetch(`${API_BASE}/orders`, {
+                // Get today's data
+                const { startDate: todayStart, endDate: todayEnd } = getDateRangeForPeriod('today');
+                const todayParams = new URLSearchParams();
+                todayParams.append('startDate', todayStart.toISOString());
+                todayParams.append('endDate', todayEnd.toISOString());
+                todayParams.append('_t', Date.now());
+                const todayResponse = await fetch(`${API_BASE}/orders/summary/sales?${todayParams}`, {
                     method: 'GET',
                     headers: {
                         'Authorization': `Bearer ${localStorage.getItem('token')}`,
@@ -11420,82 +11425,69 @@
                         'Expires': '0'
                     }
                 });
-                if (allOrdersResponse.ok) {
-                    const allOrdersData = await allOrdersResponse.json();
-                    if (Array.isArray(allOrdersData.orders)) {
-                        forecastData.salesHistory = allOrdersData.orders.map(order => ({
-                            ...order,
-                            id: order._id || order.id,
-                            receiptNumber: order.orderNumber || order.receiptNumber,
-                            totalAmount: order.total,
-                        }));
-                        updateRecentSalesTable();
-                    }
-
-                    // Get yesterday's data
-                    const { startDate: yesterdayStart, endDate: yesterdayEnd } = getDateRangeForPeriod('yesterday');
-                    const yesterdayParams = new URLSearchParams();
-                    yesterdayParams.append('startDate', yesterdayStart.toISOString());
-                    yesterdayParams.append('endDate', yesterdayEnd.toISOString());
-                    yesterdayParams.append('_t', Date.now());
-                    const yesterdayResponse = await fetch(`${API_BASE}/orders/summary/sales?${yesterdayParams}`, {
-                        method: 'GET',
-                        headers: {
-                            'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                            'Cache-Control': 'no-cache',
-                            'Pragma': 'no-cache',
-                            'Expires': '0'
-                        }
-                    });
-                    if (yesterdayResponse.ok) {
-                        const yesterdayData = await yesterdayResponse.json();
-                        const yesterdaySummary = yesterdayData.summary || {};
-                        document.getElementById('yesterdaySales').textContent = `₱${(yesterdaySummary.totalRevenue || 0).toFixed(2)}`;
-                        document.getElementById('yesterdayOrders').textContent = `${yesterdaySummary.totalOrders || 0} orders`;
-                    } else {
-                        document.getElementById('yesterdaySales').textContent = '₱0.00';
-                        document.getElementById('yesterdayOrders').textContent = '0 orders';
-                    }
-
-                    // Get this week's data
-                    const { startDate: weekStart, endDate: weekEnd } = getDateRangeForPeriod('week');
-                    const weekParams = new URLSearchParams();
-                    weekParams.append('startDate', weekStart.toISOString());
-                    weekParams.append('endDate', weekEnd.toISOString());
-                    weekParams.append('_t', Date.now());
-                    const weekResponse = await fetch(`${API_BASE}/orders/summary/sales?${weekParams}`, {
-                        method: 'GET',
-                        headers: {
-                            'Authorization': `Bearer ${localStorage.getItem('token')}`,
-                            'Cache-Control': 'no-cache',
-                            'Pragma': 'no-cache',
-                            'Expires': '0'
-                        }
-                    });
-                    if (weekResponse.ok) {
-                        const weekData = await weekResponse.json();
-                        const weekSummary = weekData.summary || {};
-                        const weekRevenue = weekSummary.totalRevenue || 0;
-                        const weekOrders = weekSummary.totalOrders || 0;
-                        document.getElementById('weekSales').textContent = `₱${weekRevenue.toFixed(2)}`;
-                        document.getElementById('weekOrders').textContent = `${weekOrders} orders`;
-                        // Calculate daily average for the week
-                        const dailyAverage = weekRevenue / 7;
-                        const avgOrders = weekOrders / 7;
-                        document.getElementById('dailyAverage').textContent = `₱${dailyAverage.toFixed(2)}`;
-                        document.getElementById('avgOrders').textContent = `${avgOrders.toFixed(1)} orders/day`;
-                    } else {
-                        document.getElementById('weekSales').textContent = '₱0.00';
-                        document.getElementById('weekOrders').textContent = '0 orders';
-                        document.getElementById('dailyAverage').textContent = '₱0.00';
-                        document.getElementById('avgOrders').textContent = '0 orders/day';
-                    }
+                if (todayResponse.ok) {
+                    const todayData = await todayResponse.json();
+                    const todaySummary = todayData.summary || {};
+                    document.getElementById('todaySales').textContent = `₱${(todaySummary.totalRevenue || 0).toFixed(2)}`;
+                    document.getElementById('todayOrders').textContent = `${todaySummary.totalOrders || 0} items`;
                 } else {
-                    // Fallback to zero values if API call fails
                     document.getElementById('todaySales').textContent = '₱0.00';
-                    document.getElementById('todayOrders').textContent = '0 orders';
+                    document.getElementById('todayOrders').textContent = '0 items';
+                }
+
+                // Get yesterday's data
+                const { startDate: yesterdayStart, endDate: yesterdayEnd } = getDateRangeForPeriod('yesterday');
+                const yesterdayParams = new URLSearchParams();
+                yesterdayParams.append('startDate', yesterdayStart.toISOString());
+                yesterdayParams.append('endDate', yesterdayEnd.toISOString());
+                yesterdayParams.append('_t', Date.now());
+                const yesterdayResponse = await fetch(`${API_BASE}/orders/summary/sales?${yesterdayParams}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Cache-Control': 'no-cache',
+                        'Pragma': 'no-cache',
+                        'Expires': '0'
+                    }
+                });
+                if (yesterdayResponse.ok) {
+                    const yesterdayData = await yesterdayResponse.json();
+                    const yesterdaySummary = yesterdayData.summary || {};
+                    document.getElementById('yesterdaySales').textContent = `₱${(yesterdaySummary.totalRevenue || 0).toFixed(2)}`;
+                    document.getElementById('yesterdayOrders').textContent = `${yesterdaySummary.totalOrders || 0} orders`;
+                } else {
                     document.getElementById('yesterdaySales').textContent = '₱0.00';
                     document.getElementById('yesterdayOrders').textContent = '0 orders';
+                }
+
+                // Get this week's data
+                const { startDate: weekStart, endDate: weekEnd } = getDateRangeForPeriod('week');
+                const weekParams = new URLSearchParams();
+                weekParams.append('startDate', weekStart.toISOString());
+                weekParams.append('endDate', weekEnd.toISOString());
+                weekParams.append('_t', Date.now());
+                const weekResponse = await fetch(`${API_BASE}/orders/summary/sales?${weekParams}`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`,
+                        'Cache-Control': 'no-cache',
+                        'Pragma': 'no-cache',
+                        'Expires': '0'
+                    }
+                });
+                if (weekResponse.ok) {
+                    const weekData = await weekResponse.json();
+                    const weekSummary = weekData.summary || {};
+                    const weekRevenue = weekSummary.totalRevenue || 0;
+                    const weekOrders = weekSummary.totalOrders || 0;
+                    document.getElementById('weekSales').textContent = `₱${weekRevenue.toFixed(2)}`;
+                    document.getElementById('weekOrders').textContent = `${weekOrders} orders`;
+                    // Calculate daily average for the week
+                    const dailyAverage = weekRevenue / 7;
+                    const avgOrders = weekOrders / 7;
+                    document.getElementById('dailyAverage').textContent = `₱${dailyAverage.toFixed(2)}`;
+                    document.getElementById('avgOrders').textContent = `${avgOrders.toFixed(1)} orders/day`;
+                } else {
                     document.getElementById('weekSales').textContent = '₱0.00';
                     document.getElementById('weekOrders').textContent = '0 orders';
                     document.getElementById('dailyAverage').textContent = '₱0.00';
@@ -11505,7 +11497,7 @@
                 console.error('Error updating daily sales display:', error);
                 // Set all daily stats to zero on error
                 document.getElementById('todaySales').textContent = '₱0.00';
-                document.getElementById('todayOrders').textContent = '0 orders';
+                document.getElementById('todayOrders').textContent = '0 items';
                 document.getElementById('yesterdaySales').textContent = '₱0.00';
                 document.getElementById('yesterdayOrders').textContent = '0 orders';
                 document.getElementById('weekSales').textContent = '₱0.00';
