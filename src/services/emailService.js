@@ -119,45 +119,47 @@ class EmailService {
 
   
   async sendPasswordReset(email, resetToken) {
+    // Use Render URL if available, fallback to localhost
+    const baseUrl = process.env.RENDER_EXTERNAL_URL || process.env.BASE_URL || 'http://localhost:4000';
     const msg = {
       to: email,
       from: process.env.EMAIL_FROM || 'zymouneshop@gmail.com',
       subject: 'ZYMOUNE - Password Reset Request',
       html: `
-        <!DOCTYPE html>
-        <html>
-        <head>
-            <style>
-                body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
-                .container { max-width: 600px; margin: 0 auto; padding: 20px; }
-                .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; text-align: center; border-radius: 10px 10px 0 0; }
-                .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }
-                .button { display: inline-block; background: #2196f3; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; margin: 20px 0; }
-                .footer { text-align: center; margin-top: 30px; color: #666; font-size: 14px; }
-            </style>
-        </head>
-        <body>
-            <div class="container">
-                <div class="header">
-                    <h1>🔐 Password Reset Request</h1>
-                </div>
-                <div class="content">
-                    <h2>Password Reset Request</h2>
-                    <p>You requested a password reset for your ZYMOUNE account.</p>
-                    <p>Click the button below to reset your password:</p>
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <style>
+          body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+          .container { max-width: 600px; margin: 0 auto; padding: 20px; }
+          .header { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 20px; text-align: center; border-radius: 10px 10px 0 0; }
+          .content { background: #f9f9f9; padding: 30px; border-radius: 0 0 10px 10px; }
+          .button { display: inline-block; background: #2196f3; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px; margin: 20px 0; }
+          .footer { text-align: center; margin-top: 30px; color: #666; font-size: 14px; }
+        </style>
+      </head>
+      <body>
+        <div class="container">
+          <div class="header">
+            <h1>🔐 Password Reset Request</h1>
+          </div>
+          <div class="content">
+            <h2>Password Reset Request</h2>
+            <p>You requested a password reset for your ZYMOUNE account.</p>
+            <p>Click the button below to reset your password:</p>
                     
-                    <div style="text-align: center;">
-                        <a href="${process.env.BASE_URL || 'http://localhost:4000'}/reset-password?token=${resetToken}" style="background-color: #dc3545; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; display: inline-block;">Reset Password</a>
-                    </div>
-                    
-                    <p><strong>Note:</strong> This link will expire in 1 hour for security reasons.</p>
-                </div>
-                <div class="footer">
-                    <p>If you didn't request this reset, please ignore this email.</p>
-                </div>
+            <div style="text-align: center;">
+              <a href="${baseUrl}/reset-password?token=${resetToken}" style="background-color: #dc3545; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; display: inline-block;">Reset Password</a>
             </div>
-        </body>
-        </html>
+                    
+            <p><strong>Note:</strong> This link will expire in 1 hour for security reasons.</p>
+          </div>
+          <div class="footer">
+            <p>If you didn't request this reset, please ignore this email.</p>
+          </div>
+        </div>
+      </body>
+      </html>
       `
     };
 
