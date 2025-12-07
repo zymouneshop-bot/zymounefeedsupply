@@ -11345,6 +11345,7 @@
                 const searchInput = document.getElementById('receiptSearchInput');
                 const page1DuplicateBtn = document.getElementById('page1DuplicateBtn');
                 const clearBtn = document.getElementById('clearReceiptSearchBtn');
+                // Ensure the duplicate Page 1 button event handler is always attached after DOM is loaded
                 if (page1DuplicateBtn) {
                     page1DuplicateBtn.onclick = function() {
                         goToForecastingPage(1);
