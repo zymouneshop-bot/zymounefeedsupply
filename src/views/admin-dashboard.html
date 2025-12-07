@@ -11509,8 +11509,8 @@
             filteredOrders = filteredOrders.slice(startIndex, endIndex);
             // Update pagination display
             updateForecastingPagination();
-            // Update total sales summary with ALL orders
-            updateRecentSalesSummary(forecastingSalesData);
+            // Update total sales summary with filtered orders
+            updateRecentSalesSummary(filteredOrders);
             // Show pagination controls
             const paginationControls = document.querySelector('.forecasting-pagination-controls');
             if (paginationControls) {
