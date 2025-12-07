@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const staffController = require('../controllers/staffController');
 const { authenticateToken, requireAdmin } = require('../middleware/auth');
-const { changeStaffPassword, adminSetStaffPassword, forgotPassword } = require('../controllers/staffController');
+const { changeStaffPassword, adminSetStaffPassword } = require('../controllers/staffController');
 // Forgot password (send reset email)
 router.post('/forgot-password', staffController.forgotPassword);
 

@@ -1,5 +1,5 @@
 // Forgot Password Handler
-exports.forgotPassword = async (req, res) => {
+const forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
     if (!email) return res.status(400).json({ success: false, error: 'Email is required.' });
@@ -22,6 +22,8 @@ exports.forgotPassword = async (req, res) => {
     res.status(500).json({ success: false, error: 'Server error.' });
   }
 };
+
+module.exports.forgotPassword = forgotPassword;
 // Admin: Set new password for any staff by ID
 const adminSetStaffPassword = async (req, res) => {
   try {
