@@ -7773,32 +7773,34 @@
                     sales: []
                 };
             }
-            
+
             const salesByAnimal = { chicken: { count: 0, revenue: 0 }, pig: { count: 0, revenue: 0 } };
             const salesByCategory = { feeds: { count: 0, revenue: 0 }, supplements: { count: 0, revenue: 0 } };
             const productMap = {};
             let totalRevenue = 0;
-            
+            let totalCost = 0;
+
             ordersData.forEach(order => {
                 if (!order.items) return;
-                
+
                 order.items.forEach(item => {
                     const itemRevenue = (item.price || 0) * (item.quantity || 1);
-                    
+                    const itemCost = (item.cost || 0) * (item.quantity || 1);
+
                     // Count and revenue by animal type
                     const animalType = item.animalType?.toLowerCase() || 'chicken';
                     if (salesByAnimal[animalType]) {
                         salesByAnimal[animalType].count += item.quantity || 1;
                         salesByAnimal[animalType].revenue += itemRevenue;
                     }
-                    
+
                     // Count and revenue by category
                     const category = item.category?.toLowerCase() || 'feeds';
                     if (salesByCategory[category]) {
                         salesByCategory[category].count += item.quantity || 1;
                         salesByCategory[category].revenue += itemRevenue;
                     }
-                    
+
                     // Track top products
                     const productName = item.name || item.productName || 'Unknown';
                     if (!productMap[productName]) {
@@ -7806,27 +7808,31 @@
                     }
                     productMap[productName].quantity += item.quantity || 1;
                     productMap[productName].revenue += itemRevenue;
+
+                    // Sum up cost
+                    totalCost += itemCost;
                 });
-                
+
                 totalRevenue += order.total || order.totalAmount || 0;
             });
-            
+
             console.log('📊 Breakdown calculations:', {
                 salesByAnimal,
                 salesByCategory,
-                totalRevenue
+                totalRevenue,
+                totalCost
             });
-            
+
             // Convert product map to sorted array
             const topProducts = Object.values(productMap)
                 .sort((a, b) => b.quantity - a.quantity)
                 .slice(0, 10);
-            
+
             return {
                 totalSales: ordersData.length,
                 totalRevenue: totalRevenue,
-                totalCost: 0,
-                totalProfit: totalRevenue,
+                totalCost: totalCost,
+                totalProfit: totalRevenue - totalCost,
                 salesByAnimal,
                 salesByCategory,
                 topProducts,
