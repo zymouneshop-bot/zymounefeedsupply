@@ -1,6 +1,3 @@
-app.get('/reset-password', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'reset-password.html'));
-});
 const mongoose = require('mongoose');
 const Order = require('./models/Order');
 // Log total number of sales (orders) in the database on server start
