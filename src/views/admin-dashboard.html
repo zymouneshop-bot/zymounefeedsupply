@@ -11351,6 +11351,13 @@
                         goToForecastingPage(1);
                     };
                 }
+                // Attach search input event handler for instant table update
+                if (searchInput) {
+                    searchInput.addEventListener('input', function() {
+                        currentForecastingPage = 1;
+                        updateRecentSalesTable();
+                    });
+                }
                 if (searchInput) {
                     searchInput.addEventListener('input', (e) => {
                         if (e.inputType === 'insertReplacementText' || e.inputType === 'insertText' || e.inputType === undefined) {
