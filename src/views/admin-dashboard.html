@@ -4813,11 +4813,14 @@
                     
                     <div class="forecast-card">
                         <div class="forecast-icon">🏆</div>
-                        <div id="topProductSection">
-                            <div class="forecast-content">
-                                <h3>Top Product</h3>
-                                <div class="forecast-value" id="topProduct">-</div>
-                                <div class="forecast-subtitle" id="topProductSales">₱0.00</div>
+                        <div id="topProductCard">
+                            <div class="forecast-icon">🏆</div>
+                            <div id="topProductSection">
+                                <div class="forecast-content">
+                                    <h3>Top Product</h3>
+                                    <div class="forecast-value" id="topProduct">-</div>
+                                    <div class="forecast-subtitle" id="topProductSales">₱0.00</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -11349,7 +11352,7 @@
             
             // Top product
             const topProduct = getTopProduct();
-            const topProductSection = document.getElementById('topProductSection');
+            const topProductCard = document.getElementById('topProductCard');
             if (topProduct && topProduct.name !== 'Unknown Product' && topProduct.revenue > 0) {
                 if (topProductElement) {
                     topProductElement.textContent = topProduct.name;
@@ -11358,9 +11361,9 @@
                 if (topProductSales) {
                     topProductSales.textContent = `₱${topProduct.revenue.toFixed(2)}`;
                 }
-                if (topProductSection) topProductSection.style.display = '';
+                if (topProductCard) topProductCard.style.display = '';
             } else {
-                if (topProductSection) topProductSection.style.display = 'none';
+                if (topProductCard) topProductCard.style.display = 'none';
             }
             
             // Update daily sales data
