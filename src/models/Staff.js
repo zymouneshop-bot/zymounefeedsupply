@@ -2,6 +2,14 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 
 const staffSchema = new mongoose.Schema({
+    resetPasswordToken: {
+      type: String,
+      default: null
+    },
+    resetPasswordExpires: {
+      type: Date,
+      default: null
+    },
   firstName: {
     type: String,
     required: [true, 'First name is required'],
