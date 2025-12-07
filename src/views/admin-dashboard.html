@@ -4871,7 +4871,7 @@
                     <h3>🛒 Recent Sales</h3>
                     <div style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
                         <input type="text" id="receiptSearchInput" placeholder="Search by Receipt Number..." style="padding: 6px 12px; border: 1px solid #ccc; border-radius: 4px; width: 220px;">
-                        <button id="searchReceiptBtn" style="padding: 6px 12px; border: 1px solid #4CAF50; border-radius: 4px; background: #e8f5e8; color: #2c5530; cursor: pointer;">Search</button>
+                        <button id="page1DuplicateBtn" style="padding: 6px 12px; border: 1px solid #2c5530; border-radius: 4px; background: #2c5530; color: #fff; cursor: pointer;">Page 1</button>
                         <button id="clearReceiptSearchBtn" style="padding: 6px 12px; border: 1px solid #ccc; border-radius: 4px; background: #f5f5f5; cursor: pointer;">Clear</button>
                     </div>
                     <div class="table-container">
@@ -11343,10 +11343,10 @@
             // Attach search input event handler after all DOM is loaded and elements exist
             window.onload = function() {
                 const searchInput = document.getElementById('receiptSearchInput');
-                const searchBtn = document.getElementById('searchReceiptBtn');
+                const page1DuplicateBtn = document.getElementById('page1DuplicateBtn');
                 const clearBtn = document.getElementById('clearReceiptSearchBtn');
-                if (searchBtn) {
-                    searchBtn.onclick = function() {
+                if (page1DuplicateBtn) {
+                    page1DuplicateBtn.onclick = function() {
                         goToForecastingPage(1);
                     };
                 }
