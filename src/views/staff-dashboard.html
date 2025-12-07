@@ -1697,13 +1697,12 @@
 
         
         function setupEventListeners() {
-            
             document.getElementById('qrInput').addEventListener('keypress', function(e) {
+                if (window.pauseQrInputFocus) return;
                 if (e.key === 'Enter') {
                     scanProduct();
                 }
             });
-            
             // Enhanced scanner support for SM8070 and other barcode scanners
             setupScannerSupport();
         }
@@ -1713,25 +1712,21 @@
             const qrInput = document.getElementById('qrInput');
             let scanBuffer = '';
             let scanTimeout = null;
-            
             console.log('🔧 Setting up SM8070 scanner support...');
             console.log('🔧 Input element found:', !!qrInput);
-            
             // Listen for scanner input in the input field
             qrInput.addEventListener('input', function(e) {
+                if (window.pauseQrInputFocus) return;
                 const value = e.target.value;
                 console.log('🔧 Input event triggered, value:', value);
-                
                 // Clear any existing timeout
                 if (scanTimeout) {
                     clearTimeout(scanTimeout);
                 }
-                
                 // If the input is growing rapidly (typical of scanner input)
                 if (value.length > scanBuffer.length + 1) {
                     scanBuffer = value;
                     console.log('🔧 Rapid input detected, buffer:', scanBuffer);
-                    
                     // Set a timeout to process the scan after scanner finishes
                     scanTimeout = setTimeout(() => {
                         if (scanBuffer.trim()) {
@@ -1744,9 +1739,9 @@
                     scanBuffer = value;
                 }
             });
-            
             // Listen for Enter key (scanners often send Enter after data)
             qrInput.addEventListener('keypress', function(e) {
+                if (window.pauseQrInputFocus) return;
                 if (e.key === 'Enter') {
                     console.log('🔧 Enter key pressed, value:', qrInput.value);
                     const value = qrInput.value.trim();
@@ -1760,23 +1755,21 @@
         
         // Process scanner input (works for both manual entry and scanner input)
         function processScannerInput(input) {
+            if (window.pauseQrInputFocus) return;
             const qrCode = input.trim();
             console.log('🔧 Processing scanner input:', qrCode);
             console.log('🔧 Input length:', qrCode.length);
-            
             // Check if scanner is paused
             const scannerStatus = document.getElementById('scannerStatus');
             if (scannerStatus && scannerStatus.textContent.includes('Paused')) {
                 console.log('🔧 Scanner is paused - ignoring input');
                 return;
             }
-            
             if (!qrCode) {
                 console.log('🔧 Empty input, showing error');
                 showNotification('Please scan or enter a product code', 'error');
                 return;
             }
-            
             console.log('🔧 Auto-triggering scan for scanner input');
             // Auto-trigger scan for scanner input
             scanProduct();
@@ -2200,27 +2193,24 @@
         function initSM8070Scanner() {
             console.log('🔧 Initializing SM8070 scanner support...');
             console.log('🔧 Search bar will be always focused for scanner');
-            
             // Keep search bar focused for scanner
             const qrInput = document.getElementById('qrInput');
             if (qrInput) {
                 qrInput.focus();
                 console.log('🔧 Search bar focused for scanner');
             }
-            
             // Keep search bar focused periodically (only when not paused)
             setInterval(() => {
+                if (window.pauseQrInputFocus) return;
                 const activeElement = document.activeElement;
                 const paymentSection = document.getElementById('paymentSection');
                 const productModal = document.getElementById('productModal');
                 const scannerStatus = document.getElementById('scannerStatus');
-                
                 // Don't refocus if scanner is paused
                 if (scannerStatus && scannerStatus.textContent.includes('Paused')) {
                     console.log('🔧 Skipping refocus - scanner is paused');
                     return;
                 }
-                
                 // Don't refocus if:
                 // 1. User is typing in payment amount
                 // 2. Product modal is open
@@ -2229,24 +2219,20 @@
                     console.log('🔧 Skipping refocus - user typing payment amount');
                     return;
                 }
-                
                 if (productModal && productModal.style.display === 'block') {
                     console.log('🔧 Skipping refocus - product modal is open');
                     return;
                 }
-                
                 if (paymentSection && paymentSection.style.display !== 'none') {
                     console.log('🔧 Skipping refocus - payment section is open');
                     return;
                 }
-                
                 // Refocus search bar
                 if (qrInput && document.activeElement !== qrInput) {
                     qrInput.focus();
                     console.log('🔧 Search bar re-focused for scanner');
                 }
             }, 1000);
-            
             // Update scanner status to show focused scanning is ready
             updateScannerStatus('ready');
         }
