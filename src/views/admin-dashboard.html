@@ -4870,6 +4870,7 @@
                 <div class="recent-sales-section">
                     <h3>🛒 Recent Sales</h3>
                     <div style="margin-bottom: 10px; display: flex; align-items: center; gap: 10px;">
+                                                <div id="searchDebugMsg" style="color: #d9534f; font-size: 0.95em; margin-right: 10px;"></div>
                         <input type="text" id="receiptSearchInput" placeholder="Search by Receipt Number..." style="padding: 6px 12px; border: 1px solid #ccc; border-radius: 4px; width: 220px;">
                         <button id="page1DuplicateBtn" style="padding: 6px 12px; border: 1px solid #2c5530; border-radius: 4px; background: #2c5530; color: #fff; cursor: pointer;">Page 1</button>
                         <button id="clearReceiptSearchBtn" style="padding: 6px 12px; border: 1px solid #ccc; border-radius: 4px; background: #f5f5f5; cursor: pointer;">Clear</button>
@@ -11352,7 +11353,11 @@
                         };
                     }
                     if (searchInput && !searchInput._handlerAttached) {
+                                                const debugMsg = document.getElementById('searchDebugMsg');
+                                                if (debugMsg) debugMsg.textContent = '[DEBUG] Handler attached';
                         searchInput.addEventListener('input', function(e) {
+                                                        const debugMsg = document.getElementById('searchDebugMsg');
+                                                        if (debugMsg) debugMsg.textContent = `[DEBUG] Input event: ${searchInput.value}`;
                             console.log('[DEBUG] Search input event fired:', e.type, 'value:', searchInput.value);
                             currentForecastingPage = 1;
                             updateRecentSalesTable();
