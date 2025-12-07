@@ -11346,10 +11346,9 @@
                 const searchBtn = document.getElementById('searchReceiptBtn');
                 const clearBtn = document.getElementById('clearReceiptSearchBtn');
                 if (searchBtn) {
-                    searchBtn.addEventListener('click', () => {
-                        // Ensure the input value is read and table updates
+                    searchBtn.onclick = function() {
                         goToForecastingPage(1);
-                    });
+                    };
                 }
                 if (searchInput) {
                     searchInput.addEventListener('input', (e) => {
