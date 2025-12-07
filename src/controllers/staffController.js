@@ -662,5 +662,6 @@ module.exports = {
   pauseStaff,
   activateStaff,
   changeStaffPassword,
-  adminSetStaffPassword
+  adminSetStaffPassword,
+  forgotPassword
 };
