@@ -11342,37 +11342,50 @@
 
             // Attach search input event handler after all DOM is loaded and elements exist
             window.onload = function() {
-                const searchInput = document.getElementById('receiptSearchInput');
-                const page1DuplicateBtn = document.getElementById('page1DuplicateBtn');
-                const clearBtn = document.getElementById('clearReceiptSearchBtn');
-                // Ensure the duplicate Page 1 button event handler is always attached after DOM is loaded
-                if (page1DuplicateBtn) {
-                    page1DuplicateBtn.onclick = function() {
-                        goToForecastingPage(1);
-                    };
-                }
-                // Attach search input event handler for instant table update
-                if (searchInput) {
-                    searchInput.addEventListener('input', function(e) {
-                        console.log('[DEBUG] Search input event:', e.type, 'value:', searchInput.value);
-                        currentForecastingPage = 1;
-                        updateRecentSalesTable();
-                    });
-                    // Optionally, allow Enter to reset page
-                    searchInput.addEventListener('keydown', (e) => {
-                        if (e.key === 'Enter') {
-                            console.log('[DEBUG] Enter key pressed in search input');
+                function attachSearchInputHandler() {
+                    const searchInput = document.getElementById('receiptSearchInput');
+                    const page1DuplicateBtn = document.getElementById('page1DuplicateBtn');
+                    const clearBtn = document.getElementById('clearReceiptSearchBtn');
+                    if (page1DuplicateBtn) {
+                        page1DuplicateBtn.onclick = function() {
+                            goToForecastingPage(1);
+                        };
+                    }
+                    if (searchInput) {
+                        // Remove previous listeners if any
+                        searchInput.oninput = null;
+                        searchInput.onkeydown = null;
+                        searchInput.addEventListener('input', function(e) {
+                            console.log('[DEBUG] Search input event fired:', e.type, 'value:', searchInput.value);
                             currentForecastingPage = 1;
                             updateRecentSalesTable();
-                        }
-                    });
+                        });
+                        searchInput.addEventListener('keydown', (e) => {
+                            if (e.key === 'Enter') {
+                                console.log('[DEBUG] Enter key pressed in search input');
+                                currentForecastingPage = 1;
+                                updateRecentSalesTable();
+                            }
+                        });
+                        console.log('[DEBUG] Search input event handlers attached');
+                    } else {
+                        console.log('[DEBUG] Search input not found for handler attachment');
+                    }
+                    if (clearBtn) {
+                        clearBtn.onclick = () => {
+                            if (searchInput) searchInput.value = '';
+                            goToForecastingPage(1);
+                        };
+                    }
                 }
-                if (clearBtn) {
-                    clearBtn.addEventListener('click', () => {
-                        if (searchInput) searchInput.value = '';
-                        goToForecastingPage(1);
-                    });
-                }
+                // Attach on load
+                attachSearchInputHandler();
+                // Also attach after switching to forecasting section (if using navigation)
+                document.addEventListener('sectionSwitched', function(e) {
+                    if (e.detail && e.detail.section === 'forecasting') {
+                        setTimeout(attachSearchInputHandler, 100); // Wait for DOM update
+                    }
+                });
             };
             
             // Update forecast table
