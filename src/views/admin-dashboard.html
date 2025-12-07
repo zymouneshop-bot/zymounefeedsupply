@@ -11337,7 +11337,9 @@
             // Update recent sales table
             updateRecentSalesTable();
             // Attach search bar event listeners (only once)
-            document.addEventListener('DOMContentLoaded', function() {
+
+            // Attach search input event handler after all DOM is loaded and elements exist
+            setTimeout(() => {
                 const searchInput = document.getElementById('receiptSearchInput');
                 const clearBtn = document.getElementById('clearReceiptSearchBtn');
                 if (searchInput) {
@@ -11352,7 +11354,7 @@
                         updateRecentSalesTable();
                     });
                 }
-            });
+            }, 0);
             
             // Update forecast table
             updateForecastTable();
