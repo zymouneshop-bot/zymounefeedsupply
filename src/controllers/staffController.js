@@ -12,11 +12,15 @@ const forgotPassword = async (req, res) => {
     staff.resetPasswordExpires = Date.now() + 1000 * 60 * 30; // 30 min expiry
     await staff.save();
 
-    // Send email (replace with real email logic)
-    // await EmailService.sendResetPasswordEmail(email, resetToken);
-    console.log(`Password reset token for ${email}: ${resetToken}`);
-
-    res.json({ success: true, message: 'Reset link sent (check email)', token: resetToken });
+    // Send real password reset email
+    const EmailServiceClass = require('../services/emailService');
+    const emailService = new EmailServiceClass();
+    const emailResult = await emailService.sendPasswordReset(email, resetToken);
+    if (emailResult.success) {
+      res.json({ success: true, message: 'Reset link sent (check email)' });
+    } else {
+      res.status(500).json({ success: false, error: 'Failed to send reset email', details: emailResult.error });
+    }
   } catch (err) {
     console.error('Forgot password error:', err);
     res.status(500).json({ success: false, error: 'Server error.' });
