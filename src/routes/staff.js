@@ -1,10 +1,10 @@
-// Reset password via token
-router.post('/reset-password', staffController.resetPassword);
 const express = require('express');
 const router = express.Router();
 const staffController = require('../controllers/staffController');
 const { authenticateToken, requireAdmin } = require('../middleware/auth');
 const { changeStaffPassword, adminSetStaffPassword } = require('../controllers/staffController');
+// Reset password via token
+router.post('/reset-password', staffController.resetPassword);
 // Forgot password (send reset email)
 router.post('/forgot-password', staffController.forgotPassword);
 
