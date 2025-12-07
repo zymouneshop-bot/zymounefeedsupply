@@ -11347,7 +11347,8 @@
             
             // Top product
             const topProduct = getTopProduct();
-            if (topProduct) {
+            const topProductSection = document.getElementById('topProductSection');
+            if (topProduct && topProduct.name !== 'Unknown Product' && topProduct.revenue > 0) {
                 if (topProductElement) {
                     topProductElement.textContent = topProduct.name;
                 }
@@ -11355,6 +11356,9 @@
                 if (topProductSales) {
                     topProductSales.textContent = `₱${topProduct.revenue.toFixed(2)}`;
                 }
+                if (topProductSection) topProductSection.style.display = '';
+            } else {
+                if (topProductSection) topProductSection.style.display = 'none';
             }
             
             // Update daily sales data
