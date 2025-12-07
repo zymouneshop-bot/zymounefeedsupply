@@ -7780,12 +7780,39 @@
             let totalRevenue = 0;
             let totalCost = 0;
 
+            // Build a product lookup map for cost joining
+            const productLookup = {};
+            if (forecastData.products && Array.isArray(forecastData.products)) {
+                forecastData.products.forEach(product => {
+                    productLookup[product._id] = product;
+                    if (product.name) productLookup[product.name] = product;
+                });
+            }
+
             ordersData.forEach(order => {
                 if (!order.items) return;
 
                 order.items.forEach(item => {
                     const itemRevenue = (item.price || 0) * (item.quantity || 1);
-                    const itemCost = (item.cost || 0) * (item.quantity || 1);
+                    let itemCost = item.cost;
+                    // If item.cost is missing, join from product
+                    let product = null;
+                    if (item.productId && productLookup[item.productId]) {
+                        product = productLookup[item.productId];
+                    } else if (item.productName && productLookup[item.productName]) {
+                        product = productLookup[item.productName];
+                    }
+                    if (itemCost === undefined || itemCost === null) {
+                        if (product) {
+                            if (product.category === 'feeds' && product.costPerSack !== undefined) {
+                                itemCost = product.costPerSack;
+                            } else if (product.category === 'supplements' && product.cost !== undefined) {
+                                itemCost = product.cost;
+                            }
+                        }
+                        if (itemCost === undefined || itemCost === null) itemCost = 0;
+                    }
+                    itemCost = itemCost * (item.quantity || 1);
 
                     // Count and revenue by animal type
                     const animalType = item.animalType?.toLowerCase() || 'chicken';
