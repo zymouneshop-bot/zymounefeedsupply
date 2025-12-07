@@ -825,6 +825,9 @@
                     </div>
                 </div>
                 <button type="submit" class="btn">Login as Staff</button>
+                            <div style="text-align:right; margin-top:-1rem; margin-bottom:1.5rem;">
+                                <a href="#" id="forgotPasswordLink" style="color:#667eea; font-size:0.98rem; text-decoration:underline; cursor:pointer;">Forgot Password?</a>
+                            </div>
             </form>
         </div>
         
@@ -880,5 +883,86 @@
         }
     </script>
     <script src="./js/login.js"></script>
+</body>
+
+<!-- Forgot Password Modal -->
+<div id="forgotPasswordModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header" style="background: linear-gradient(135deg, #8b7355 0%, #bc9a6a 100%); color: white;">
+            <h2>Forgot Password</h2>
+            <span class="close" id="closeForgotPasswordModal">&times;</span>
+        </div>
+        <div class="modal-body">
+            <form id="forgotPasswordForm">
+                <div class="form-group">
+                    <label for="forgotEmail">Enter your staff email address</label>
+                    <input type="email" id="forgotEmail" name="email" required>
+                </div>
+                <div class="modal-actions">
+                    <button type="submit" class="btn">Send Reset Link</button>
+                    <button type="button" class="btn btn-secondary" id="cancelForgotPassword">Cancel</button>
+                </div>
+            </form>
+            <div class="modal-error" id="forgotPasswordError" style="display:none;"></div>
+            <div class="modal-loading" id="forgotPasswordLoading" style="display:none;"><div class="spinner"></div>Processing...</div>
+            <div class="success" id="forgotPasswordSuccess" style="display:none;"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Forgot Password Modal Logic
+document.addEventListener('DOMContentLoaded', function() {
+    const forgotPasswordLink = document.getElementById('forgotPasswordLink');
+    const forgotPasswordModal = document.getElementById('forgotPasswordModal');
+    const closeForgotPasswordModal = document.getElementById('closeForgotPasswordModal');
+    const cancelForgotPassword = document.getElementById('cancelForgotPassword');
+    const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+    const forgotPasswordError = document.getElementById('forgotPasswordError');
+    const forgotPasswordLoading = document.getElementById('forgotPasswordLoading');
+    const forgotPasswordSuccess = document.getElementById('forgotPasswordSuccess');
+
+    forgotPasswordLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        forgotPasswordModal.style.display = 'block';
+        forgotPasswordError.style.display = 'none';
+        forgotPasswordSuccess.style.display = 'none';
+        forgotPasswordForm.reset();
+    });
+    closeForgotPasswordModal.addEventListener('click', function() {
+        forgotPasswordModal.style.display = 'none';
+    });
+    cancelForgotPassword.addEventListener('click', function() {
+        forgotPasswordModal.style.display = 'none';
+    });
+    forgotPasswordForm.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        forgotPasswordError.style.display = 'none';
+        forgotPasswordSuccess.style.display = 'none';
+        forgotPasswordLoading.style.display = 'block';
+        const email = document.getElementById('forgotEmail').value;
+        try {
+            const response = await fetch(`${API_BASE}/staff/forgot-password`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ email })
+            });
+            const result = await response.json();
+            forgotPasswordLoading.style.display = 'none';
+            if (result.success) {
+                forgotPasswordSuccess.textContent = 'A password reset link has been sent to your email.';
+                forgotPasswordSuccess.style.display = 'block';
+            } else {
+                forgotPasswordError.textContent = result.error || 'Failed to send reset link.';
+                forgotPasswordError.style.display = 'block';
+            }
+        } catch (err) {
+            forgotPasswordLoading.style.display = 'none';
+            forgotPasswordError.textContent = 'Error sending reset link.';
+            forgotPasswordError.style.display = 'block';
+        }
+    });
+});
+</script>
 </body>
 </html>
