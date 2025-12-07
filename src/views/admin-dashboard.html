@@ -11485,19 +11485,11 @@
             const sortedAllOrders = [...forecastingSalesData]
                 .sort((a, b) => new Date(b.orderDate || b.createdAt || b.saleDate) - new Date(a.orderDate || a.createdAt || a.saleDate));
             const globallyNewestSaleDate = sortedAllOrders[0]?.orderDate || sortedAllOrders[0]?.createdAt || sortedAllOrders[0]?.saleDate;
-            // Pagination
-            totalForecastingPages = Math.max(1, Math.ceil(sortedAllOrders.length / forecastingItemsPerPage));
-            if (currentForecastingPage > totalForecastingPages) {
-                currentForecastingPage = 1;
-            }
-            const startIndex = (currentForecastingPage - 1) * forecastingItemsPerPage;
-            const endIndex = startIndex + forecastingItemsPerPage;
-            let currentPageOrders = sortedAllOrders.slice(startIndex, endIndex);
             // Search by receipt number (id)
             const receiptSearchValue = (document.getElementById('receiptSearchInput')?.value || '').trim();
-            let filteredOrders = currentPageOrders;
+            let filteredOrders = sortedAllOrders;
             if (receiptSearchValue) {
-                filteredOrders = currentPageOrders.filter(order => {
+                filteredOrders = sortedAllOrders.filter(order => {
                     let receiptNo = '-';
                     if (order.id && typeof order.id === 'string' && order.id.length >= 24) {
                         receiptNo = order.id.substring(16, 24);
@@ -11507,6 +11499,14 @@
                     return receiptNo.includes(receiptSearchValue);
                 });
             }
+            // Pagination (after filtering)
+            totalForecastingPages = Math.max(1, Math.ceil(filteredOrders.length / forecastingItemsPerPage));
+            if (currentForecastingPage > totalForecastingPages) {
+                currentForecastingPage = 1;
+            }
+            const startIndex = (currentForecastingPage - 1) * forecastingItemsPerPage;
+            const endIndex = startIndex + forecastingItemsPerPage;
+            filteredOrders = filteredOrders.slice(startIndex, endIndex);
             // Update pagination display
             updateForecastingPagination();
             // Update total sales summary with ALL orders
