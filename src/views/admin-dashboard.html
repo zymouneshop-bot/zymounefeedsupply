@@ -11351,10 +11351,7 @@
                             goToForecastingPage(1);
                         };
                     }
-                    if (searchInput) {
-                        // Remove previous listeners if any
-                        searchInput.oninput = null;
-                        searchInput.onkeydown = null;
+                    if (searchInput && !searchInput._handlerAttached) {
                         searchInput.addEventListener('input', function(e) {
                             console.log('[DEBUG] Search input event fired:', e.type, 'value:', searchInput.value);
                             currentForecastingPage = 1;
@@ -11367,8 +11364,9 @@
                                 updateRecentSalesTable();
                             }
                         });
+                        searchInput._handlerAttached = true;
                         console.log('[DEBUG] Search input event handlers attached');
-                    } else {
+                    } else if (!searchInput) {
                         console.log('[DEBUG] Search input not found for handler attachment');
                     }
                     if (clearBtn) {
@@ -11378,8 +11376,20 @@
                         };
                     }
                 }
+
                 // Attach on load
                 attachSearchInputHandler();
+
+                // MutationObserver to re-attach handler if input is replaced
+                const observer = new MutationObserver((mutationsList, observer) => {
+                    for (const mutation of mutationsList) {
+                        if (mutation.type === 'childList' || mutation.type === 'subtree') {
+                            attachSearchInputHandler();
+                        }
+                    }
+                });
+                observer.observe(document.body, { childList: true, subtree: true });
+
                 // Also attach after switching to forecasting section (if using navigation)
                 document.addEventListener('sectionSwitched', function(e) {
                     if (e.detail && e.detail.section === 'forecasting') {
