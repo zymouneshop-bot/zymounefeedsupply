@@ -11357,17 +11357,11 @@
                         currentForecastingPage = 1;
                         updateRecentSalesTable();
                     });
-                }
-                if (searchInput) {
-                    searchInput.addEventListener('input', (e) => {
-                        if (e.inputType === 'insertReplacementText' || e.inputType === 'insertText' || e.inputType === undefined) {
-                            // Optionally, you can auto-search on Enter key
-                            // But now, only the button triggers reload
-                        }
-                    });
+                    // Optionally, allow Enter to reset page
                     searchInput.addEventListener('keydown', (e) => {
                         if (e.key === 'Enter') {
-                            goToForecastingPage(1);
+                            currentForecastingPage = 1;
+                            updateRecentSalesTable();
                         }
                     });
                 }
