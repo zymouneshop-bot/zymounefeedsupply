@@ -11487,7 +11487,7 @@
             const globallyNewestSaleDate = sortedAllOrders[0]?.orderDate || sortedAllOrders[0]?.createdAt || sortedAllOrders[0]?.saleDate;
             // Search by receipt number (id)
             const receiptSearchValue = (document.getElementById('receiptSearchInput')?.value || '').trim();
-            let filteredOrders = sortedAllOrders;
+            let filteredOrders;
             if (receiptSearchValue) {
                 filteredOrders = sortedAllOrders.filter(order => {
                     let receiptNo = '-';
@@ -11498,6 +11498,8 @@
                     }
                     return receiptNo.includes(receiptSearchValue);
                 });
+            } else {
+                filteredOrders = sortedAllOrders;
             }
             // Pagination (after filtering)
             totalForecastingPages = Math.max(1, Math.ceil(filteredOrders.length / forecastingItemsPerPage));
