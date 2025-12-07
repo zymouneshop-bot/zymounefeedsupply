@@ -36,11 +36,13 @@ const forgotPassword = async (req, res) => {
     const staff = await Staff.findOne({ email });
     if (!staff) return res.status(404).json({ success: false, error: 'No staff found with that email.' });
 
+
     // Generate a simple reset token (for demo; use crypto in production)
     const resetToken = Math.random().toString(36).substr(2, 8);
     staff.resetPasswordToken = resetToken;
     staff.resetPasswordExpires = Date.now() + 1000 * 60 * 30; // 30 min expiry
     await staff.save();
+    console.log('🔗 ForgotPassword: Generated reset token:', resetToken, 'for', staff.email, 'expires at', new Date(staff.resetPasswordExpires).toISOString());
 
     // Send real password reset email
     const EmailServiceClass = require('../services/emailService');
