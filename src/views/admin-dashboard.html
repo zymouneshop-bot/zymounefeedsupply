@@ -11522,6 +11522,20 @@
         
         // Update recent sales table with pagination
         function updateRecentSalesTable() {
+                                    // Attach search input event handler after table and input are rendered
+                                    setTimeout(() => {
+                                        const searchInput = document.getElementById('receiptSearchInput');
+                                        const debugMsg = document.getElementById('searchDebugMsg');
+                                        if (searchInput && !searchInput._handlerAttached) {
+                                            searchInput.addEventListener('input', function(e) {
+                                                if (debugMsg) debugMsg.textContent = `[DEBUG] Input event: ${searchInput.value}`;
+                                                currentForecastingPage = 1;
+                                                updateRecentSalesTable();
+                                            });
+                                            searchInput._handlerAttached = true;
+                                            if (debugMsg) debugMsg.textContent = '[DEBUG] Handler attached after table render';
+                                        }
+                                    }, 50);
                         console.log('[DEBUG] updateRecentSalesTable called. Search value:', (document.getElementById('receiptSearchInput')?.value || '').trim());
             // Use order-level objects for recent sales
             const salesData = forecastData.salesHistory;
