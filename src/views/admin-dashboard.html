@@ -11337,24 +11337,22 @@
             // Update recent sales table
             updateRecentSalesTable();
             // Attach search bar event listeners (only once)
-            setTimeout(() => {
+            document.addEventListener('DOMContentLoaded', function() {
                 const searchInput = document.getElementById('receiptSearchInput');
                 const clearBtn = document.getElementById('clearReceiptSearchBtn');
-                if (searchInput && !searchInput.dataset.listenerAttached) {
+                if (searchInput) {
                     searchInput.addEventListener('input', () => {
                         currentForecastingPage = 1;
                         updateRecentSalesTable();
                     });
-                    searchInput.dataset.listenerAttached = 'true';
                 }
-                if (clearBtn && !clearBtn.dataset.listenerAttached) {
+                if (clearBtn) {
                     clearBtn.addEventListener('click', () => {
-                        searchInput.value = '';
+                        if (searchInput) searchInput.value = '';
                         updateRecentSalesTable();
                     });
-                    clearBtn.dataset.listenerAttached = 'true';
                 }
-            }, 0);
+            });
             
             // Update forecast table
             updateForecastTable();
