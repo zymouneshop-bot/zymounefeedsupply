@@ -1149,9 +1149,35 @@
                 <div style="font-size: 0.8rem; color: #666;">Point of Sale</div>
             </div>
             <button class="btn btn-secondary" onclick="logout()">Logout</button>
+            <button class="btn btn-secondary" id="changePasswordBtn" style="margin-left: 1rem;">Change Password</button>
         </div>
     </div>
 
+    <!-- Change Password Modal -->
+    <div id="changePasswordModal" class="product-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Change Password</h2>
+                <span class="close" id="closeChangePasswordModal">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="changePasswordForm">
+                    <div class="form-group">
+                        <label for="oldPassword">Current Password</label>
+                        <input type="password" id="oldPassword" name="oldPassword" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="newPassword">New Password</label>
+                        <input type="password" id="newPassword" name="newPassword" required>
+                    </div>
+                    <div class="modal-actions">
+                        <button type="submit" class="btn btn-primary">Change Password</button>
+                        <button type="button" class="btn btn-secondary" id="cancelChangePassword">Cancel</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
     <div class="main-container">
         <div class="left-panel">
             <div class="section-title">
@@ -1353,6 +1379,49 @@
 
 
     <script>
+            // Change Password Modal Logic
+            document.addEventListener('DOMContentLoaded', function() {
+                const changePasswordBtn = document.getElementById('changePasswordBtn');
+                const changePasswordModal = document.getElementById('changePasswordModal');
+                const closeChangePasswordModal = document.getElementById('closeChangePasswordModal');
+                const cancelChangePassword = document.getElementById('cancelChangePassword');
+                const changePasswordForm = document.getElementById('changePasswordForm');
+
+                changePasswordBtn.addEventListener('click', () => {
+                    changePasswordModal.style.display = 'block';
+                });
+                closeChangePasswordModal.addEventListener('click', () => {
+                    changePasswordModal.style.display = 'none';
+                });
+                cancelChangePassword.addEventListener('click', () => {
+                    changePasswordModal.style.display = 'none';
+                });
+
+                changePasswordForm.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    const oldPassword = document.getElementById('oldPassword').value;
+                    const newPassword = document.getElementById('newPassword').value;
+                    try {
+                        const response = await fetch(`${API_BASE}/staff/change-password`, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${localStorage.getItem('token')}`
+                            },
+                            body: JSON.stringify({ oldPassword, newPassword })
+                        });
+                        const result = await response.json();
+                        if (result.success) {
+                            showNotification('Password changed successfully!', 'success');
+                            changePasswordModal.style.display = 'none';
+                        } else {
+                            showNotification(result.error || 'Failed to change password.', 'error');
+                        }
+                    } catch (err) {
+                        showNotification('Error changing password.', 'error');
+                    }
+                });
+            });
         // Detect environment and set API URL
         const API_URL = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
             ? 'http://localhost:4000' 
