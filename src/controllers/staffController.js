@@ -1,3 +1,27 @@
+// Forgot Password Handler
+exports.forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) return res.status(400).json({ success: false, error: 'Email is required.' });
+    const staff = await Staff.findOne({ email });
+    if (!staff) return res.status(404).json({ success: false, error: 'No staff found with that email.' });
+
+    // Generate a simple reset token (for demo; use crypto in production)
+    const resetToken = Math.random().toString(36).substr(2, 8);
+    staff.resetPasswordToken = resetToken;
+    staff.resetPasswordExpires = Date.now() + 1000 * 60 * 30; // 30 min expiry
+    await staff.save();
+
+    // Send email (replace with real email logic)
+    // await EmailService.sendResetPasswordEmail(email, resetToken);
+    console.log(`Password reset token for ${email}: ${resetToken}`);
+
+    res.json({ success: true, message: 'Reset link sent (check email)', token: resetToken });
+  } catch (err) {
+    console.error('Forgot password error:', err);
+    res.status(500).json({ success: false, error: 'Server error.' });
+  }
+};
 // Admin: Set new password for any staff by ID
 const adminSetStaffPassword = async (req, res) => {
   try {
