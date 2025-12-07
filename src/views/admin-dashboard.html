@@ -1,3 +1,33 @@
+        // Open Change Password Modal for Staff (Admin)
+        function openChangePasswordModal(staffId, staffName, staffEmail) {
+            // Show a modal for admin to set a new password for the staff
+            // If you already have a modal, show and populate it; otherwise, use prompt for now
+            const newPassword = prompt(`Set a new password for ${staffName} (${staffEmail}):`);
+            if (!newPassword) return;
+            if (newPassword.length < 6) {
+                alert('Password must be at least 6 characters.');
+                return;
+            }
+            fetch(`${API_BASE}/staff/${staffId}/set-password`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify({ newPassword })
+            })
+            .then(res => res.json())
+            .then(result => {
+                if (result.success) {
+                    showNotification('Password updated successfully!', 'success');
+                } else {
+                    showNotification(result.error || 'Failed to update password.', 'error');
+                }
+            })
+            .catch(() => {
+                showNotification('Error updating password.', 'error');
+            });
+        }
  <!DOCTYPE html>
 <html lang="en">
 <head>
