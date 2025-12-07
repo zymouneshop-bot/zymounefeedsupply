@@ -4812,14 +4812,16 @@
                     </div>
                     
                     <div class="forecast-card">
-                        <div class="forecast-icon">🏆</div>
-                        <div id="topProductCard">
+                        <div id="topProductContainer">
                             <div class="forecast-icon">🏆</div>
-                            <div id="topProductSection">
-                                <div class="forecast-content">
-                                    <h3>Top Product</h3>
-                                    <div class="forecast-value" id="topProduct">-</div>
-                                    <div class="forecast-subtitle" id="topProductSales">₱0.00</div>
+                            <div id="topProductCard">
+                                <div class="forecast-icon">🏆</div>
+                                <div id="topProductSection">
+                                    <div class="forecast-content">
+                                        <h3>Top Product</h3>
+                                        <div class="forecast-value" id="topProduct">-</div>
+                                        <div class="forecast-subtitle" id="topProductSales">₱0.00</div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -11386,6 +11388,7 @@
             // Top product
             const topProduct = getTopProduct();
             const topProductCard = document.getElementById('topProductCard');
+            const topProductContainer = document.getElementById('topProductContainer');
             if (topProduct && topProduct.name !== 'Unknown Product' && topProduct.revenue > 0) {
                 if (topProductElement) {
                     topProductElement.textContent = topProduct.name;
@@ -11394,9 +11397,9 @@
                 if (topProductSales) {
                     topProductSales.textContent = `₱${topProduct.revenue.toFixed(2)}`;
                 }
-                if (topProductCard) topProductCard.style.display = '';
+                if (topProductContainer) topProductContainer.style.display = '';
             } else {
-                if (topProductCard) topProductCard.style.display = 'none';
+                if (topProductContainer) topProductContainer.style.display = 'none';
             }
             
             // Update daily sales data
