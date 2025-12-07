@@ -151,10 +151,6 @@ app.use(helmet({
     directives: {
       defaultSrc: ["'self'"],
       scriptSrc: ["'self'", "'unsafe-inline'", "https:"],
-// Serve reset-password page (must be after app is initialized)
-app.get('/reset-password', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views', 'reset-password.html'));
-});
       scriptSrcAttr: ["'unsafe-inline'"],
       styleSrc: ["'self'", "'unsafe-inline'"],
       imgSrc: ["'self'", "data:", "https:"],
@@ -178,6 +174,11 @@ app.use(cors({
 
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
+
+// Serve reset-password page (must be after app is initialized)
+app.get('/reset-password', (req, res) => {
+  res.sendFile(path.join(__dirname, 'views', 'reset-password.html'));
+});
 app.use(express.static(path.join(__dirname, 'public')));
 
 // Serve images with explicit CORS headers
