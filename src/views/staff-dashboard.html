@@ -1387,18 +1387,18 @@
                 const cancelChangePassword = document.getElementById('cancelChangePassword');
                 const changePasswordForm = document.getElementById('changePasswordForm');
 
-                let pauseQrInputFocus = false;
+                window.pauseQrInputFocus = false;
                 changePasswordBtn.addEventListener('click', () => {
                     changePasswordModal.style.display = 'block';
-                    pauseQrInputFocus = true;
+                    window.pauseQrInputFocus = true;
                 });
                 closeChangePasswordModal.addEventListener('click', () => {
                     changePasswordModal.style.display = 'none';
-                    pauseQrInputFocus = false;
+                    window.pauseQrInputFocus = false;
                 });
                 cancelChangePassword.addEventListener('click', () => {
                     changePasswordModal.style.display = 'none';
-                    pauseQrInputFocus = false;
+                    window.pauseQrInputFocus = false;
                 });
 
                 changePasswordForm.addEventListener('submit', async (e) => {
@@ -2208,7 +2208,7 @@
                 const scannerStatus = document.getElementById('scannerStatus');
                 // Don't refocus if scanner is paused
                 if (scannerStatus && scannerStatus.textContent.includes('Paused')) {
-                    console.log('🔧 Skipping refocus - scanner is paused');
+                    // console.log('🔧 Skipping refocus - scanner is paused');
                     return;
                 }
                 // Don't refocus if:
@@ -2216,21 +2216,21 @@
                 // 2. Product modal is open
                 // 3. Payment section is open
                 if (activeElement && activeElement.id === 'customerPayment') {
-                    console.log('🔧 Skipping refocus - user typing payment amount');
+                    // console.log('🔧 Skipping refocus - user typing payment amount');
                     return;
                 }
                 if (productModal && productModal.style.display === 'block') {
-                    console.log('🔧 Skipping refocus - product modal is open');
+                    // console.log('🔧 Skipping refocus - product modal is open');
                     return;
                 }
                 if (paymentSection && paymentSection.style.display !== 'none') {
-                    console.log('🔧 Skipping refocus - payment section is open');
+                    // console.log('🔧 Skipping refocus - payment section is open');
                     return;
                 }
                 // Refocus search bar
                 if (qrInput && document.activeElement !== qrInput) {
                     qrInput.focus();
-                    console.log('🔧 Search bar re-focused for scanner');
+                    // console.log('🔧 Search bar re-focused for scanner');
                 }
             }, 1000);
             // Update scanner status to show focused scanning is ready
