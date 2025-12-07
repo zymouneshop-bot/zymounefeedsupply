@@ -1,3 +1,5 @@
+// Reset password via token
+router.post('/reset-password', staffController.resetPassword);
 const express = require('express');
 const router = express.Router();
 const staffController = require('../controllers/staffController');

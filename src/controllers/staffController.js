@@ -1,3 +1,30 @@
+// Reset Password via Token
+const resetPassword = async (req, res) => {
+  try {
+    const { token, newPassword } = req.body;
+    if (!token || !newPassword) {
+      return res.status(400).json({ success: false, error: 'Token and new password are required.' });
+    }
+    const staff = await Staff.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } });
+    if (!staff) {
+      return res.status(400).json({ success: false, error: 'Invalid or expired reset token.' });
+    }
+    staff.password = newPassword;
+    staff.resetPasswordToken = undefined;
+    staff.resetPasswordExpires = undefined;
+    await staff.save();
+    // Also update User collection if a user with this email exists
+    const user = await User.findOne({ email: staff.email });
+    if (user) {
+      user.password = newPassword;
+      await user.save();
+    }
+    res.json({ success: true, message: 'Password has been reset.' });
+  } catch (err) {
+    console.error('Reset password error:', err);
+    res.status(500).json({ success: false, error: 'Server error.' });
+  }
+};
 // Forgot Password Handler
 const forgotPassword = async (req, res) => {
   try {
@@ -667,5 +694,6 @@ module.exports = {
   activateStaff,
   changeStaffPassword,
   adminSetStaffPassword,
-  forgotPassword
+  forgotPassword,
+  resetPassword
 };
