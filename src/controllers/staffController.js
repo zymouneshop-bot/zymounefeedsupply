@@ -2,11 +2,14 @@
 const resetPassword = async (req, res) => {
   try {
     const { token, newPassword } = req.body;
+    console.log('🔑 Received reset token:', token);
     if (!token || !newPassword) {
       return res.status(400).json({ success: false, error: 'Token and new password are required.' });
     }
     const staff = await Staff.findOne({ resetPasswordToken: token, resetPasswordExpires: { $gt: Date.now() } });
+    console.log('🔍 Staff found for token:', staff ? staff.email : null);
     if (!staff) {
+      console.log('❌ No staff found or token expired for:', token);
       return res.status(400).json({ success: false, error: 'Invalid or expired reset token.' });
     }
     staff.password = newPassword;
