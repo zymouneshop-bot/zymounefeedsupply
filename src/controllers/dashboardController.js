@@ -44,6 +44,7 @@ const getCustomerDashboard = async (req, res) => {
 
 
 const getAdminDashboard = async (req, res) => {
+    console.log('🚩 getAdminDashboard called for user:', req.user && req.user.email);
   try {
     const userId = req.user._id;
     
