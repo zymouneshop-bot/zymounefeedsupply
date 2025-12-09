@@ -9,7 +9,9 @@ const {
   getProduct,
   createProduct,
   updateProduct,
-  bulkCostUpdate
+  bulkCostUpdate,
+  getLowStockRecipientEmail,
+  updateLowStockRecipientEmail
 } = require('../controllers/dashboardController');
 
 // Configure multer for file uploads
@@ -59,6 +61,9 @@ const upload = multer({
 });
 
 const router = express.Router();
+// Low stock recipient email endpoints
+router.get('/low-stock-recipient-email', authenticateToken, requireAdmin, getLowStockRecipientEmail);
+router.post('/low-stock-recipient-email', authenticateToken, requireAdmin, updateLowStockRecipientEmail);
 
 
 router.get('/customer', authenticateToken, requireCustomer, getCustomerDashboard);

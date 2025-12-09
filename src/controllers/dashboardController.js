@@ -48,25 +48,39 @@ const getAdminDashboard = async (req, res) => {
     const userId = req.user._id;
     
     // Fetch user and all dashboard data in parallel
-    const [user, dashboardStats, recentProducts, lowStockProducts] = await Promise.all([
+    const [user, dashboardStats, recentProducts, allProducts] = await Promise.all([
       User.findById(userId).select('-password'),
       getDashboardStats(),
       Product.find({ isActive: true })
         .sort({ createdAt: -1 })
         .limit(5)
         .lean(),
-      Product.find({ 
-        stockSacks: { $lt: 10 }, 
-        isActive: true 
-      }).lean()
+      Product.find({ isActive: true }).lean()
     ]);
-    
+
+    // Low stock logic (15% threshold)
+    const lowStockProducts = allProducts.filter(p => {
+      const maxStock = Math.max(p.maxStock || p.stockSacks || p.stock || 0, p.stockSacks || p.stock || 0);
+      const lowStockThreshold = Math.ceil(maxStock * 0.15);
+      return (p.stockSacks || p.stock || 0) <= lowStockThreshold;
+    });
+
+    // Real-time email notification if any product is low in stock
+    if (lowStockProducts.length > 0) {
+      const { lowStockRecipientEmail } = require('../config/notification');
+      const EmailService = require('../services/emailService');
+      const emailService = new EmailService();
+      const subject = 'Low Stock Alert';
+      const html = `<h2>Low Stock Alert</h2><p>The following products are low in stock:</p><ul>${lowStockProducts.map(p => `<li>${p.name} - ${p.stockSacks || p.stock || 0} left</li>`).join('')}</ul>`;
+      emailService.sendEmail({ to: lowStockRecipientEmail, subject, html });
+    }
+
     res.json({
       user,
       stats: {
         totalCustomers: dashboardStats.totalCustomers,
         totalProducts: dashboardStats.totalProducts,
-        lowStockCount: dashboardStats.lowStockCount,
+        lowStockCount: lowStockProducts.length,
         productsByCategory: dashboardStats.productsByCategory
       },
       recentProducts,
@@ -88,6 +102,23 @@ const getAdminDashboard = async (req, res) => {
 };
 
 // Helper function using aggregation pipeline for better performance
+// In-memory storage for recipient email (replace with DB for persistence)
+let lowStockRecipientEmail = require('../config/notification').lowStockRecipientEmail;
+
+// Get current low stock recipient email
+const getLowStockRecipientEmail = (req, res) => {
+  res.json({ email: lowStockRecipientEmail });
+};
+
+// Update low stock recipient email
+const updateLowStockRecipientEmail = (req, res) => {
+  const { email } = req.body;
+  if (!email || !email.includes('@')) {
+    return res.status(400).json({ error: 'Invalid email address' });
+  }
+  lowStockRecipientEmail = email;
+  res.json({ success: true, email });
+};
 async function getDashboardStats() {
   try {
     const result = await Product.aggregate([

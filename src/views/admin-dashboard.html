@@ -7236,6 +7236,44 @@ function openChangePasswordModal(staffId, staffName, staffEmail) {
                 }).join('');
             }
             
+            // Load current recipient email
+            fetch(`${API_BASE}/dashboard/low-stock-recipient-email`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                }
+            })
+            .then(res => res.json())
+            .then(data => {
+                document.getElementById('lowStockRecipientEmail').value = data.email || '';
+            });
+
+            // Attach submit handler for email update
+            const emailForm = document.getElementById('lowStockEmailForm');
+            emailForm.onsubmit = function(e) {
+                e.preventDefault();
+                const email = document.getElementById('lowStockRecipientEmail').value;
+                fetch(`${API_BASE}/dashboard/low-stock-recipient-email`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({ email })
+                })
+                .then(res => res.json())
+                .then(result => {
+                    if (result.success) {
+                        showNotification('Recipient email updated!', 'success');
+                    } else {
+                        showNotification(result.error || 'Failed to update email.', 'error');
+                    }
+                })
+                .catch(() => {
+                    showNotification('Error updating email.', 'error');
+                });
+            };
+
             modal.style.display = 'block';
         }
 
@@ -13742,6 +13780,11 @@ function openChangePasswordModal(staffId, staffName, staffEmail) {
                 <div class="low-stock-instructions">
                     <p><strong>CLICK TO ADD STOCK</strong> - Click the "Add Stock" button below to update stock levels for each product.</p>
                 </div>
+                <form id="lowStockEmailForm" style="margin-bottom:1rem;">
+                    <label for="lowStockRecipientEmail"><strong>Recipient Email for Low Stock Alerts:</strong></label>
+                    <input type="email" id="lowStockRecipientEmail" name="lowStockRecipientEmail" style="width:100%;margin-top:0.5rem;margin-bottom:0.5rem;" required>
+                    <button type="submit" class="btn btn-sm btn-success" style="margin-top:0.5rem;">Update Email</button>
+                </form>
                 <div id="lowStockList">
                     <div class="loading">Loading low stock products...</div>
                 </div>
