@@ -1,5 +1,7 @@
 const User = require('../models/User');
+
 const Product = require('../models/Product');
+const { getLowStockRecipientEmailDB, setLowStockRecipientEmailDB } = require('../services/notificationSettingsService');
 
 
 const getCustomerDashboard = async (req, res) => {
@@ -69,7 +71,7 @@ const getAdminDashboard = async (req, res) => {
     // Real-time email notification if any product is low in stock
     if (lowStockProducts.length > 0) {
       try {
-        const { lowStockRecipientEmail } = require('../config/notification');
+        const lowStockRecipientEmail = await getLowStockRecipientEmailDB();
         const EmailService = require('../services/emailService');
         const emailService = new EmailService();
         const subject = 'Low Stock Alert';
@@ -116,22 +118,28 @@ const getAdminDashboard = async (req, res) => {
 };
 
 // Helper function using aggregation pipeline for better performance
-// In-memory storage for recipient email (replace with DB for persistence)
-let lowStockRecipientEmail = require('../config/notification').lowStockRecipientEmail;
-
 // Get current low stock recipient email
-const getLowStockRecipientEmail = (req, res) => {
-  res.json({ email: lowStockRecipientEmail });
+const getLowStockRecipientEmail = async (req, res) => {
+  try {
+    const email = await getLowStockRecipientEmailDB();
+    res.json({ email });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to get recipient email', details: error.message });
+  }
 };
 
 // Update low stock recipient email
-const updateLowStockRecipientEmail = (req, res) => {
+const updateLowStockRecipientEmail = async (req, res) => {
   const { email } = req.body;
   if (!email || !email.includes('@')) {
     return res.status(400).json({ error: 'Invalid email address' });
   }
-  lowStockRecipientEmail = email;
-  res.json({ success: true, email });
+  try {
+    const updatedEmail = await setLowStockRecipientEmailDB(email);
+    res.json({ success: true, email: updatedEmail });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to update recipient email', details: error.message });
+  }
 };
 async function getDashboardStats() {
   try {

@@ -214,7 +214,8 @@ const createOrder = async (req, res) => {
       // Send low stock email if threshold met
       if (lowStock) {
         try {
-          const { lowStockRecipientEmail } = require('../config/notification');
+          const { getLowStockRecipientEmailDB } = require('../services/notificationSettingsService');
+          const lowStockRecipientEmail = await getLowStockRecipientEmailDB();
           const EmailService = require('../services/emailService');
           const emailService = new EmailService();
           const subject = 'Low Stock Alert';
