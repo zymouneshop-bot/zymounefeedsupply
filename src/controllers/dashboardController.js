@@ -290,14 +290,49 @@ const updateProduct = async (req, res) => {
       },
       { new: true, runValidators: true }
     );
-    
+
     if (!product) {
       return res.status(404).json({
         error: 'Product not found',
         details: 'The product you are trying to update does not exist'
       });
     }
-    
+
+    // Low stock check and email notification
+    let lowStock = false;
+    let stockValue = 0;
+    let threshold = 0;
+    if (product.category === 'feeds') {
+      stockValue = product.stockSacks || 0;
+      threshold = Math.ceil((product.maxStock || product.stockSacks || 0) * 0.15);
+      if (stockValue <= threshold) lowStock = true;
+    } else {
+      stockValue = Math.max(product.stockSacks || 0, product.stock || 0);
+      threshold = Math.ceil((product.maxStock || stockValue) * 0.15);
+      if (stockValue <= threshold) lowStock = true;
+    }
+    if (lowStock) {
+      try {
+        const { lowStockRecipientEmail } = require('../config/notification');
+        const EmailService = require('../services/emailService');
+        const emailService = new EmailService();
+        const subject = 'Low Stock Alert';
+        const html = `<h2>Low Stock Alert</h2><p>Product <b>${product.name}</b> is low in stock: <b>${stockValue}</b> left.</p>`;
+        console.log('📧 Attempting to send low stock email...');
+        console.log('📧 To:', lowStockRecipientEmail);
+        console.log('📧 Subject:', subject);
+        console.log('📧 HTML:', html);
+        const emailResult = await emailService.sendEmail({ to: lowStockRecipientEmail, subject, html });
+        if (!emailResult.success) {
+          console.error('❌ Failed to send low stock email:', emailResult.error);
+        } else {
+          console.log('✅ Low stock email sent successfully');
+        }
+      } catch (err) {
+        console.error('❌ Error sending low stock email:', err);
+      }
+    }
+
     // Auto-recalculate existing sales if cost price was updated
     if (updateData.costPerSack !== undefined && updateData.costPerSack > 0) {
       console.log('🔄 Cost price updated, recalculating existing sales for product:', id);
@@ -313,7 +348,7 @@ const updateProduct = async (req, res) => {
     } else {
       console.log('ℹ️ No cost price update detected or cost price is 0');
     }
-    
+
     res.json({
       success: true,
       message: 'Product updated successfully',

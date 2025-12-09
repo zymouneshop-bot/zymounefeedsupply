@@ -129,14 +129,16 @@ const createOrder = async (req, res) => {
     for (const item of items) {
       const productToUpdate = await Product.findById(item.productId);
       if (!productToUpdate) continue;
-      
+      let lowStock = false;
+      let productName = productToUpdate.name;
+      let stockValue = 0;
+      let threshold = 0;
       if (productToUpdate.category === 'feeds') {
         // For feeds, reduce all stock types proportionally using net weight
         const netWeight = productToUpdate.netWeightPerSack || 25; // Default to 25kg if not set
         let sackReduction = 0;
         let kiloReduction = 0;
         let halfKiloReduction = 0;
-        
         if (item.unit === 'sack') {
           sackReduction = item.quantity;
           kiloReduction = item.quantity * netWeight;
@@ -150,20 +152,13 @@ const createOrder = async (req, res) => {
           kiloReduction = item.quantity / 2;
           halfKiloReduction = item.quantity;
         }
-        
-        // Update all stock types proportionally with validation
-        // Check if there's enough stock before reducing
         if (productToUpdate.stockSacks < sackReduction || productToUpdate.stockKilos < kiloReduction || productToUpdate.stockHalfKilos < halfKiloReduction) {
           console.log(`❌ Insufficient stock for ${item.productName}`);
           throw new Error(`Insufficient stock for ${item.productName}`);
         }
-        
-        // Calculate new stock values
         const newStockSacks = Math.max(0, productToUpdate.stockSacks - sackReduction);
         const newStockKilos = Math.max(0, productToUpdate.stockKilos - kiloReduction);
         const newStockHalfKilos = Math.max(0, productToUpdate.stockHalfKilos - halfKiloReduction);
-        
-        // Update with rounded values to prevent floating-point errors
         await Product.findByIdAndUpdate(
           item.productId,
           { 
@@ -172,7 +167,9 @@ const createOrder = async (req, res) => {
             stockHalfKilos: Math.round(newStockHalfKilos * 100) / 100
           }
         );
-        
+        stockValue = newStockSacks;
+        threshold = Math.ceil((productToUpdate.maxStock || productToUpdate.stockSacks || 0) * 0.15);
+        if (stockValue <= threshold) lowStock = true;
         console.log(`📦 Stock reduced for ${item.productName}:`, {
           unit: item.unit,
           quantity: item.quantity,
@@ -183,24 +180,18 @@ const createOrder = async (req, res) => {
         });
       } else {
         // For supplements, reduce the field that has the higher value
-        // or reduce both proportionally if both have stock
         const product = await Product.findById(item.productId);
         const currentStockSacks = product.stockSacks || 0;
         const currentStock = product.stock || 0;
         const totalStock = Math.max(currentStockSacks, currentStock);
-        
         let newStockSacks = currentStockSacks;
         let newStock = currentStock;
-        
         if (totalStock > 0) {
-          // Calculate proportional reduction
           const stockSacksRatio = currentStockSacks / totalStock;
           const stockRatio = currentStock / totalStock;
-          
           newStockSacks = Math.max(0, currentStockSacks - (item.quantity * stockSacksRatio));
           newStock = Math.max(0, currentStock - (item.quantity * stockRatio));
         }
-        
         await Product.findByIdAndUpdate(
           item.productId,
           { 
@@ -208,7 +199,9 @@ const createOrder = async (req, res) => {
             stock: Math.round(newStock * 100) / 100
           }
         );
-        
+        stockValue = Math.max(newStockSacks, newStock);
+        threshold = Math.ceil((product.maxStock || totalStock) * 0.15);
+        if (stockValue <= threshold) lowStock = true;
         console.log(`📦 Stock reduced for supplement ${item.productName}:`, {
           unit: item.unit,
           quantity: item.quantity,
@@ -217,6 +210,28 @@ const createOrder = async (req, res) => {
           newStockSacks: newStockSacks,
           newStock: newStock
         });
+      }
+      // Send low stock email if threshold met
+      if (lowStock) {
+        try {
+          const { lowStockRecipientEmail } = require('../config/notification');
+          const EmailService = require('../services/emailService');
+          const emailService = new EmailService();
+          const subject = 'Low Stock Alert';
+          const html = `<h2>Low Stock Alert</h2><p>Product <b>${productName}</b> is low in stock: <b>${stockValue}</b> left.</p>`;
+          console.log('📧 Attempting to send low stock email...');
+          console.log('📧 To:', lowStockRecipientEmail);
+          console.log('📧 Subject:', subject);
+          console.log('📧 HTML:', html);
+          const emailResult = await emailService.sendEmail({ to: lowStockRecipientEmail, subject, html });
+          if (!emailResult.success) {
+            console.error('❌ Failed to send low stock email:', emailResult.error);
+          } else {
+            console.log('✅ Low stock email sent successfully');
+          }
+        } catch (err) {
+          console.error('❌ Error sending low stock email:', err);
+        }
       }
     }
     
