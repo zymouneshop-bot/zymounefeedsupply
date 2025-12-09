@@ -9602,6 +9602,7 @@ function openChangePasswordModal(staffId, staffName, staffEmail) {
                 console.log('📄 Sale data:', saleData);
                 
                 // Create receipt content for 57mm thermal printer
+                const storeAddress = 'Sitio Paraiso Brgy San Andres Candelaria Quezon';
                 const receiptContent = `
                     <div id="receipt" style="
                         width: 57mm;
@@ -9615,8 +9616,11 @@ function openChangePasswordModal(staffId, staffName, staffEmail) {
                         <div style="text-align: center; font-weight: bold; font-size: 14px; margin-bottom: 10px; color: black;">
                             ZYMOUNE FEEDS SUPPLY
                         </div>
-                        <div style="text-align: center; font-size: 10px; margin-bottom: 15px; color: black;">
+                        <div style="text-align: center; font-size: 10px; margin-bottom: 5px; color: black;">
                             Premium Chicken & Pig Feeds & Supplements
+                        </div>
+                        <div style="text-align: center; font-size: 10px; margin-bottom: 10px; color: black; font-weight: bold;">
+                            Address: ${storeAddress}
                         </div>
                         <div style="border-top: 1px dashed #000; padding-top: 5px; margin-bottom: 10px;"></div>
                         
