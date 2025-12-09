@@ -765,6 +765,9 @@
             gap: 0.75rem;
             margin-top: 1rem;
         }
+        .products-grid .product-card:first-child {
+            display: none !important;
+        }
 
         /* Scrollbar styling for products grid */
         .products-grid::-webkit-scrollbar {
@@ -3337,6 +3340,7 @@
                 console.log('🖨️ Starting direct receipt printing for order:', orderData);
                 
                 // Create receipt content for 57mm thermal printer
+                const storeAddress = 'Sitio Paraiso Brgy San Andres Candelaria Quezon';
                 const receiptContent = `
                     <div id="receipt" style="
                         width: 57mm;
@@ -3358,8 +3362,11 @@
                         <div style="text-align: center; font-weight: bold; font-size: 24px; margin-bottom: 10px; color: black;">
                             ZYMOUNE FEEDS SUPPLY
                         </div>
-                        <div style="text-align: center; font-size: 11px; margin-bottom: 10px; color: black;">
+                        <div style="text-align: center; font-size: 11px; margin-bottom: 5px; color: black;">
                             Premium Chicken & Pig Feeds & Supplements
+                        </div>
+                        <div style="text-align: center; font-size: 11px; margin-bottom: 10px; color: black; font-weight: bold;">
+                            Address: ${storeAddress}
                         </div>
                         <div style="border-top: 1px dashed #000; padding-top: 5px; margin-bottom: 10px;"></div>
                         
