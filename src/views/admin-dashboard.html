@@ -5721,6 +5721,7 @@ function openChangePasswordModal(staffId, staffName, staffEmail) {
             const maxStock = Math.max(product.maxStock || product.stockSacks || product.stock || 0, totalStock);
             const lowStockThreshold = Math.ceil(maxStock * 0.15);
             const isLowStock = totalStock <= lowStockThreshold;
+            const stockClass = isLowStock ? 'stock-low' : 'stock-ok';
             // Determine the appropriate unit for display
             const displayUnit = product.category === 'supplements' ? 'units' : (product.unit || 'sack');
             const stockText = isLowStock ? 
