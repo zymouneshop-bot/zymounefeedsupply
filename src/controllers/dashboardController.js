@@ -509,5 +509,7 @@ module.exports = {
   getProduct,
   createProduct,
   updateProduct,
-  bulkCostUpdate
+  bulkCostUpdate,
+  getLowStockRecipientEmail,
+  updateLowStockRecipientEmail
 };
