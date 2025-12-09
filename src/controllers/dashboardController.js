@@ -67,12 +67,21 @@ const getAdminDashboard = async (req, res) => {
 
     // Real-time email notification if any product is low in stock
     if (lowStockProducts.length > 0) {
-      const { lowStockRecipientEmail } = require('../config/notification');
-      const EmailService = require('../services/emailService');
-      const emailService = new EmailService();
-      const subject = 'Low Stock Alert';
-      const html = `<h2>Low Stock Alert</h2><p>The following products are low in stock:</p><ul>${lowStockProducts.map(p => `<li>${p.name} - ${p.stockSacks || p.stock || 0} left</li>`).join('')}</ul>`;
-      emailService.sendEmail({ to: lowStockRecipientEmail, subject, html });
+      try {
+        const { lowStockRecipientEmail } = require('../config/notification');
+        const EmailService = require('../services/emailService');
+        const emailService = new EmailService();
+        const subject = 'Low Stock Alert';
+        const html = `<h2>Low Stock Alert</h2><p>The following products are low in stock:</p><ul>${lowStockProducts.map(p => `<li>${p.name} - ${p.stockSacks || p.stock || 0} left</li>`).join('')}</ul>`;
+        const emailResult = await emailService.sendEmail({ to: lowStockRecipientEmail, subject, html });
+        if (!emailResult.success) {
+          console.error('❌ Failed to send low stock email:', emailResult.error);
+        } else {
+          console.log('✅ Low stock email sent successfully');
+        }
+      } catch (err) {
+        console.error('❌ Error sending low stock email:', err);
+      }
     }
 
     res.json({
