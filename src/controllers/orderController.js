@@ -412,12 +412,14 @@ const sendReceipt = async (req, res) => {
       });
     }
     
-    // Create email content
+    // Create email content with store address
+    const storeAddress = 'Sitio Paraiso Brgy San Andres Candelaria Quezon';
     const emailContent = `
       <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
         <div style="text-align: center; margin-bottom: 30px;">
           <h1 style="color: #8b7355; margin: 0;">ZYMOUNE FEEDS SUPPLY</h1>
           <p style="color: #666; margin: 5px 0;">Premium Chicken & Pig Feeds & Supplements</p>
+          <p style="color: #444; margin: 5px 0; font-weight: bold;">Address: ${storeAddress}</p>
         </div>
         
         <div style="border: 2px solid #d2b48c; border-radius: 10px; padding: 20px; background: #f9f9f9;">
@@ -467,6 +469,7 @@ const sendReceipt = async (req, res) => {
           <div style="text-align: center; margin-top: 30px; padding-top: 20px; border-top: 1px solid #d2b48c;">
             <p style="color: #666; margin: 0;">Thank you for your business!</p>
             <p style="color: #666; margin: 5px 0;">Please keep this receipt for your records</p>
+            <p style="color: #444; margin: 5px 0; font-weight: bold;">Address: ${storeAddress}</p>
           </div>
         </div>
       </div>
