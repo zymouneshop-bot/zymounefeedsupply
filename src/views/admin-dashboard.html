@@ -7245,8 +7245,9 @@ function openChangePasswordModal(staffId, staffName, staffEmail) {
             
             const lowStockProducts = products.filter(p => {
                 const totalStock = getTotalStock(p);
-                const isLowStock = totalStock <= 3;
-                
+                const maxStock = Math.max(p.maxStock || p.stockSacks || p.stock || 0, totalStock);
+                const lowStockThreshold = Math.ceil(maxStock * 0.15);
+                const isLowStock = totalStock <= lowStockThreshold;
                 // Debug logging
                 if (isLowStock) {
                     console.log('Low stock product found:', {
@@ -7254,10 +7255,10 @@ function openChangePasswordModal(staffId, staffName, staffEmail) {
                         stockSacks: p.stockSacks,
                         stockKilos: p.stockKilos,
                         stock: p.stock,
-                        totalStock: totalStock
+                        totalStock: totalStock,
+                        threshold: lowStockThreshold
                     });
                 }
-                
                 return isLowStock;
             });
             
