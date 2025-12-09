@@ -73,6 +73,10 @@ const getAdminDashboard = async (req, res) => {
         const emailService = new EmailService();
         const subject = 'Low Stock Alert';
         const html = `<h2>Low Stock Alert</h2><p>The following products are low in stock:</p><ul>${lowStockProducts.map(p => `<li>${p.name} - ${p.stockSacks || p.stock || 0} left</li>`).join('')}</ul>`;
+        console.log('📧 Attempting to send low stock email...');
+        console.log('📧 To:', lowStockRecipientEmail);
+        console.log('📧 Subject:', subject);
+        console.log('📧 HTML:', html);
         const emailResult = await emailService.sendEmail({ to: lowStockRecipientEmail, subject, html });
         if (!emailResult.success) {
           console.error('❌ Failed to send low stock email:', emailResult.error);
