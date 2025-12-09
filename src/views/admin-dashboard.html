@@ -5718,15 +5718,17 @@ function openChangePasswordModal(staffId, staffName, staffEmail) {
         function createProductCard(product) {
             // Calculate total stock using the same logic as getTotalStock
             const totalStock = getTotalStock(product);
-            const stockClass = totalStock <= 3 ? 'stock-low' : 'stock-ok';
+            const maxStock = Math.max(product.maxStock || product.stockSacks || product.stock || 0, totalStock);
+            const lowStockThreshold = Math.ceil(maxStock * 0.15);
+            const isLowStock = totalStock <= lowStockThreshold;
             // Determine the appropriate unit for display
             const displayUnit = product.category === 'supplements' ? 'units' : (product.unit || 'sack');
-            const stockText = totalStock <= 3 ? 
+            const stockText = isLowStock ? 
                 `Low Stock: ${totalStock} ${displayUnit}` :
                 `In Stock: ${totalStock} ${displayUnit}`;
             
-            const badgeClass = totalStock <= 3 ? 'low-stock' : 'in-stock';
-            const badgeText = totalStock <= 3 ? 'Low Stock' : 'In Stock';
+            const badgeClass = isLowStock ? 'low-stock' : 'in-stock';
+            const badgeText = isLowStock ? 'Low Stock' : 'In Stock';
             
             const animalIcon = product.animal === 'chicken' ? '🐔' : '🐷';
             const categoryIcon = product.category === 'feeds' ? '🍽️' : '💊';
@@ -7154,10 +7156,12 @@ function openChangePasswordModal(staffId, staffName, staffEmail) {
             const pigProducts = products.filter(p => p.animal === 'pig').length;
             const chickenProducts = products.filter(p => p.animal === 'chicken').length;
             
-            // Calculate low stock items (assuming low stock is <= 3)
+            // Calculate low stock items (using 15% threshold)
             const lowStockItems = products.filter(p => {
                 const totalStock = getTotalStock(p);
-                return totalStock <= 3;
+                const maxStock = Math.max(p.maxStock || p.stockSacks || p.stock || 0, totalStock);
+                const lowStockThreshold = Math.ceil(maxStock * 0.15);
+                return totalStock <= lowStockThreshold;
             }).length;
 
             // Update the display
