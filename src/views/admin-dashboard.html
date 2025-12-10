@@ -351,14 +351,18 @@ function openChangePasswordModal(staffId, staffName, staffEmail) {
         }
         
         .product-card {
-                    /* Hide the first product card in the grid (forecasting/products) */
-                    .product-card:first-of-type {
-                        display: none !important;
-                    }
+            /* Hide the first product card in the grid (forecasting/products) */
+            .product-card:first-of-type {
+                display: none !important;
+            }
             border: 1px solid #e1e5e9;
             border-radius: 10px;
-            overflow: hidden;
+            overflow: visible;
             transition: transform 0.3s, box-shadow 0.3s;
+            min-height: 340px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
         }
         
         .product-card:hover {
@@ -492,7 +496,8 @@ function openChangePasswordModal(staffId, staffName, staffEmail) {
         
         .dashboard-layout {
             display: flex;
-            height: calc(100vh - 80px);
+            min-height: 100vh;
+            height: auto;
         }
         
         .sidebar {
@@ -564,7 +569,7 @@ function openChangePasswordModal(staffId, staffName, staffEmail) {
             flex: 1;
             padding: 2rem;
             background: #f5f5dc;
-            overflow-y: auto;
+            overflow-y: visible;
         }
         
         .content-section {
