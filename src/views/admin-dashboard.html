@@ -1673,7 +1673,8 @@ function openChangePasswordModal(staffId, staffName, staffEmail) {
             }
             
             .products-grid.scrollable {
-                max-height: 60vh;
+                max-height: none;
+                overflow-y: visible;
             }
 
             .product-preview {
@@ -1706,17 +1707,18 @@ function openChangePasswordModal(staffId, staffName, staffEmail) {
                 padding: 0.75rem;
             }
 
-            .product-name {
-                font-size: 0.875rem;
+            .product-card {
+                background: white;
+                border-radius: 16px;
+                padding: 0;
+                box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+                border: 1px solid #e9ecef;
+                transition: all 0.3s ease;
+                cursor: pointer;
+                overflow: visible;
+                position: relative;
+                min-height: 0;
             }
-
-            .product-price {
-                font-size: 1rem;
-            }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
             .section-header {
                 flex-direction: column;
                 gap: 1rem;
