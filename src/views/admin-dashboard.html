@@ -496,8 +496,7 @@ function openChangePasswordModal(staffId, staffName, staffEmail) {
         
         .dashboard-layout {
             display: flex;
-            min-height: 100vh;
-            height: auto;
+            height: calc(100vh - 80px);
         }
         
         .sidebar {
@@ -569,7 +568,7 @@ function openChangePasswordModal(staffId, staffName, staffEmail) {
             flex: 1;
             padding: 2rem;
             background: #f5f5dc;
-            overflow-y: visible;
+            overflow-y: auto;
         }
         
         .content-section {
