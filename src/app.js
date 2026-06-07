@@ -154,7 +154,8 @@ app.use(helmet({
       scriptSrcAttr: ["'unsafe-inline'"],
       styleSrc: ["'self'", "'unsafe-inline'"],
       imgSrc: ["'self'", "data:", "https:"],
-      connectSrc: ["'self'", "http://localhost:4000", "https://localhost:4000", "https://*.ngrok.io", "https://*.ngrok-free.app", "https://cdn.jsdelivr.net"],
+      connectSrc: ["'self'", "http://localhost:4000", "https://localhost:4000", "https://*.ngrok.io", "https://*.ngrok-free.app", "https://cdn.jsdelivr.net", "https://*.onrender.com"],
+
       fontSrc: ["'self'"],
       objectSrc: ["'none'"],
       mediaSrc: ["'self'"],
