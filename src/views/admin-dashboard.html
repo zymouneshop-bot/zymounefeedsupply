@@ -13524,7 +13524,8 @@ function openChangePasswordModal(staffId, staffName, staffEmail) {
         }
 
         // Handle bulk cost update form submission
-        document.getElementById('bulkCostUpdateForm').addEventListener('submit', async (e) => {
+        const bulkCostUpdateForm = document.getElementById('bulkCostUpdateForm');
+        if (bulkCostUpdateForm) bulkCostUpdateForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             
             const formData = new FormData(e.target);
