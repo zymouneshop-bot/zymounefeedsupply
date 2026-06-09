@@ -2250,24 +2250,20 @@
 
         
         function closeProductModal() {
-            document.getElementById('productModal').style.display = 'none';
-            currentProduct = null;
-            
-            
-            document.getElementById('modalQuantity').value = 1;
-            
-            
-            document.querySelectorAll('.unit-btn').forEach(btn => {
-                btn.classList.remove('selected');
-            });
-            
-            // Refocus search bar when modal closes
-            setTimeout(() => {
-                document.getElementById('qrInput').focus();
-                updateScannerStatus('ready');
-                console.log('🔧 Modal closed - search bar re-focused');
-            }, 100);
-        }
+    const productModal = document.getElementById('productModal');
+    if (productModal) productModal.style.display = 'none';
+    currentProduct = null;
+    
+    const modalQuantity = document.getElementById('modalQuantity');
+    if (modalQuantity) modalQuantity.value = 1;
+    
+    document.querySelectorAll('.unit-btn').forEach(btn => {
+        btn.classList.remove('selected');
+    });
+    
+    // Refocus search bar when modal closes
+    setTimeout(() => {
+
         
 
         
